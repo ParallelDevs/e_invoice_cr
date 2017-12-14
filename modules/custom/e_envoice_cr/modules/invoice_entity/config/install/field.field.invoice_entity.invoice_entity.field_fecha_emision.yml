@@ -1,0 +1,24 @@
+uuid: a4650b47-68b2-490b-9070-3d9e25ba4c14
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_fecha_emision
+  module:
+    - datetime
+    - invoice_entity
+id: invoice_entity.invoice_entity.field_fecha_emision
+field_name: field_fecha_emision
+entity_type: invoice_entity
+bundle: invoice_entity
+label: 'Fecha Emisión'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

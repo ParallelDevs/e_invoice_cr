@@ -1,0 +1,21 @@
+uuid: 3d785a6a-7ab6-4078-93be-0647d64f4e59
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_medio_de_pago
+  module:
+    - invoice_entity
+    - options
+id: invoice_entity.invoice_entity.field_medio_de_pago
+field_name: field_medio_de_pago
+entity_type: invoice_entity
+bundle: invoice_entity
+label: 'Medio de pago'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

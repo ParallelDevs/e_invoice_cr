@@ -1,0 +1,20 @@
+uuid: 41cc72a2-c6ae-426e-9ad0-0a6a6085f6ed
+langcode: en
+status: true
+dependencies:
+  module:
+    - customer_entity
+    - invoice_entity
+id: invoice_entity.field_cliente
+field_name: field_cliente
+entity_type: invoice_entity
+type: entity_reference
+settings:
+  target_type: customer_entity
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

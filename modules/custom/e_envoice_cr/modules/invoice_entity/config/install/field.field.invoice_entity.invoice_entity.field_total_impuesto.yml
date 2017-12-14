@@ -1,0 +1,24 @@
+uuid: 3c97469d-5b26-46c9-b404-aa00ab8408c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_total_impuesto
+  module:
+    - invoice_entity
+id: invoice_entity.invoice_entity.field_total_impuesto
+field_name: field_total_impuesto
+entity_type: invoice_entity
+bundle: invoice_entity
+label: 'Total Impuesto'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

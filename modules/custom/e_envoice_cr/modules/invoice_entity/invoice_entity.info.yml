@@ -1,0 +1,7 @@
+name: e-invoice invoice entity
+type: module
+description: This module provides the invoice entity for e-invoice.
+core: 8.x
+package: other
+dependencies:
+  - e_invoice_cr

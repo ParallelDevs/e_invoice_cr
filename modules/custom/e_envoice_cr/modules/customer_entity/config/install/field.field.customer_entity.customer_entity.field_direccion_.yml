@@ -1,0 +1,21 @@
+uuid: 263534d5-115a-4068-aa80-f482de875d0f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.customer_entity.field_direccion_
+  module:
+    - addressfield_cr
+    - customer_entity
+id: customer_entity.customer_entity.field_direccion_
+field_name: field_direccion_
+entity_type: customer_entity
+bundle: customer_entity
+label: 'Dirección '
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: address_cr

@@ -1,0 +1,23 @@
+uuid: e5059131-935b-4df0-86a5-09381b9d94a1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.customer_entity.field_tipo_de_identificacion
+  module:
+    - customer_entity
+    - options
+_core:
+  default_config_hash: 9RIPoEe7YGX6FJRRDRYdESOtDSvuem5MGsLLCBAVwFA
+id: customer_entity.customer_entity.field_tipo_de_identificacion
+field_name: field_tipo_de_identificacion
+entity_type: customer_entity
+bundle: customer_entity
+label: 'Tipo de Identificación'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

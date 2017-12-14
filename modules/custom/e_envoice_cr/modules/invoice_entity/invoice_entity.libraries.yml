@@ -1,0 +1,20 @@
+invoice-rows:
+  version: 1.x
+  css:
+    theme:
+      css/invoice-rows.css: {}
+  js:
+    js/invoice-rows.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+
+invoice-rows-js:
+  version: 1.x
+  js:
+    js/invoice-rows.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal

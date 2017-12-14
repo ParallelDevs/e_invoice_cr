@@ -1,0 +1,176 @@
+uuid: 0892acc7-e36b-40a2-92c5-b40ddf3b0d5e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.invoice_entity.invoice_entity.field_clave_numerica
+    - field.field.invoice_entity.invoice_entity.field_cliente
+    - field.field.invoice_entity.invoice_entity.field_condicion_venta
+    - field.field.invoice_entity.invoice_entity.field_consecutivo
+    - field.field.invoice_entity.invoice_entity.field_fecha_emision
+    - field.field.invoice_entity.invoice_entity.field_filas
+    - field.field.invoice_entity.invoice_entity.field_medio_de_pago
+    - field.field.invoice_entity.invoice_entity.field_plazo_credito
+    - field.field.invoice_entity.invoice_entity.field_total_impuesto
+    - field.field.invoice_entity.invoice_entity.field_total_ventaneta
+    - field.field.invoice_entity.invoice_entity.field_totalcomprobante
+  module:
+    - datetime
+    - field_group
+    - invoice_entity
+    - paragraphs
+third_party_settings:
+  field_group:
+    group_encabezado:
+      children:
+        - field_clave_numerica
+        - field_consecutivo
+        - field_fecha_emision
+        - field_cliente
+        - user_id
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: invoice-head
+        description: ''
+        required_fields: true
+      label: Encabezado
+    group_pago:
+      children:
+        - field_medio_de_pago
+        - field_condicion_venta
+        - field_plazo_credito
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: invoice-payment
+        description: ''
+        required_fields: true
+      label: Pago
+    group_cuerpo:
+      children:
+        - field_filas
+      parent_name: ''
+      weight: 20
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: invoice-body
+        description: ''
+        required_fields: true
+      label: Cuerpo
+    group_resumen:
+      children:
+        - field_total_ventaneta
+        - field_total_impuesto
+        - field_totalcomprobante
+      parent_name: ''
+      weight: 20
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: invoice-footer
+        description: ''
+        required_fields: true
+      label: Resumen
+id: invoice_entity.invoice_entity.default
+targetEntityType: invoice_entity
+bundle: invoice_entity
+mode: default
+content:
+  field_clave_numerica:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_cliente:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_condicion_venta:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_consecutivo:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_fecha_emision:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_filas:
+    type: entity_reference_paragraphs
+    weight: 26
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+  field_medio_de_pago:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_plazo_credito:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_total_impuesto:
+    weight: 28
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_total_ventaneta:
+    weight: 27
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_totalcomprobante:
+    weight: 29
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+hidden:
+  name: true

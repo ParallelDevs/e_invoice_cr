@@ -1,0 +1,20 @@
+uuid: a2dfe4d8-07da-4733-9b5b-11aa696e41aa
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_entity
+id: invoice_entity.field_total_impuesto
+field_name: field_total_impuesto
+entity_type: invoice_entity
+type: decimal
+settings:
+  precision: 32
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

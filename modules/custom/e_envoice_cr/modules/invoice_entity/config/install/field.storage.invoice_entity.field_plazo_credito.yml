@@ -1,0 +1,21 @@
+uuid: 2df8093c-2afa-463d-8756-58a2783ac25d
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_entity
+id: invoice_entity.field_plazo_credito
+field_name: field_plazo_credito
+entity_type: invoice_entity
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

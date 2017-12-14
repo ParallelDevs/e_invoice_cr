@@ -1,0 +1,35 @@
+uuid: 1a17fb26-ab44-442c-baad-b7b9d72547d5
+langcode: en
+status: true
+dependencies:
+  module:
+    - customer_entity
+    - options
+_core:
+  default_config_hash: aHBeYSSQWhNEsFHDQViElVhzCUKN6DX0zX0As27bBEg
+id: customer_entity.field_tipo_de_identificacion
+field_name: field_tipo_de_identificacion
+entity_type: customer_entity
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '01'
+      label: 'Cédula Física'
+    -
+      value: '02'
+      label: 'Cédula Jurídica'
+    -
+      value: '03'
+      label: DIMEX
+    -
+      value: '04'
+      label: NITE
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
