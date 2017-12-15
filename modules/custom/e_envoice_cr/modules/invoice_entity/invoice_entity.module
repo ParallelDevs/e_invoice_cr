@@ -2,6 +2,7 @@
 
 use Drupal\e_invoice_cr\Authentication;
 use Drupal\e_invoice_cr\XMLGenerator;
+use Drupal\e_invoice_cr\Signature;
 
 /**
  * Implements Hook_form_alter()
@@ -148,6 +149,13 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
 
     ////////////////// Sign document ////////////////////
 
+    $signature = new Signature();
+    $response = $signature->signDocument();
+
+    if (array_search("Error", $response) || array_search("error", $response)) {
+      $message = 'Error firmando el documento xml, la factura no se podrá enviar.';
+      drupal_set_message(t($message), 'error');
+    }
 
   }
 
