@@ -47,6 +47,7 @@ class invoiceSettingsForm extends ConfigFormBase {
     $address = $settings->get('address');
     $currency = $settings->get('currency');
     $p12_cert= $settings->get('p12_cert');
+    $cert_password = $settings->get('cert_password');
 
     $form['environment'] = [
       '#type' => 'select',
@@ -173,7 +174,7 @@ class invoiceSettingsForm extends ConfigFormBase {
     $form['cert_fieldset']['cert_password'] = [
       '#type' => 'password',
       '#title' => 'Contraseña del certificado:',
-      '#default_value' => $password,
+      '#default_value' => $cert_password,
       '#required' => TRUE,
     ];
 
@@ -200,6 +201,7 @@ class invoiceSettingsForm extends ConfigFormBase {
       ->set('address', $form_state->getValue('address'))
       ->set('currency', $form_state->getValue('currency'))
       ->set('p12_cert', $form_state->getValue('p12_cert'))
+      ->set('cert_password', $form_state->getValue('cert_password'))
       ->save();
     $fid = $form_state->getValue('p12_cert');
     $file_object = file_load($fid[0], $reset = FALSE);
