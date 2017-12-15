@@ -433,10 +433,13 @@ abstract class WidgetBase extends PluginSettingsBase implements WidgetInterface 
             $delta_element = $element[$original_delta];
           }
           foreach ($delta_violations as $violation) {
-            // @todo: Pass $violation->arrayPropertyPath as property path.
-            $error_element = $this->errorElement($delta_element, $violation, $form, $form_state);
-            if ($error_element !== FALSE) {
-              $form_state->setError($error_element, $violation->getMessage());
+            $property_name = $this->fieldDefinition->getFieldStorageDefinition()->getMainPropertyName();
+            if (isset($delta_element[$property_name])) {
+              // @todo: Pass $violation->arrayPropertyPath as property path.
+              $error_element = $this->errorElement($delta_element, $violation, $form, $form_state);
+              if ($error_element !== FALSE) {
+                $form_state->setError($error_element, $violation->getMessage());
+              }
             }
           }
         }

@@ -61,7 +61,9 @@ function invoice_entity_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
 /**
  * Custom submit action
  */
-function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  ////////////////// Authentication ////////////////////
+
   try {
     // get authentication token for the API
     $authentication = new Authentication();
@@ -75,6 +77,8 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
     $message = 'Error obteniendo el token de autenticación, la factura no se podrá enviar.';
     drupal_set_message(t($message), 'error');
   } else {
+    ////////////////// Get all xml data ////////////////////
+
     // get the invoice data
     $key = $form_state->getValue('field_clave_numerica')[0]['value'];
     $consecutive = $form_state->getValue('field_consecutivo')[0]['value'];
@@ -119,7 +123,7 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
       ],
       'phone' => [
           'code' => substr($settings->get('phone'), 0, 3),
-          'number' => substr($settings->get('phone'), 4 ),
+          'number' => substr($settings->get('phone'), 3 ),
         ],
       'fax' => [
           'code' => '',
@@ -128,10 +132,23 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
       'email' => $settings->get('email'),
     ];
 
-    //generate the XML file with the invoice data
-    //$xml_generator = new XMLGenerator();
+    ////////////////// Create XML document ////////////////////
 
-    //$xml = $xml_generator->generateInvoiceXML($general, $client, $emitter,$rows);
+    // get base url
+    global $base_url;
+    //generate the XML file with the invoice data
+    $xml_generator = new XMLGenerator();
+    // get the xml doc built
+    $xml = $xml_generator->generateInvoiceXML($general, $client, $emitter,$rows);
+    $xml->saveXML();
+    // create dir
+    $path = "public://xml/";
+    file_prepare_directory($path, FILE_CREATE_DIRECTORY);
+    $result = $xml->save('public://xml/document.xml', LIBXML_NOEMPTYTAG);
+
+    ////////////////// Sign document ////////////////////
+
+
   }
 
 

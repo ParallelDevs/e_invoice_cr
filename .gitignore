@@ -1,5 +1,5 @@
 # Ignore configuration files that may contain sensitive information.
-local.settings.php
+settings.local.php
 local.drushrc.php
 local.aliases.drushrc.php
 local.services.yml
@@ -13,20 +13,20 @@ project.local.yml
 docroot/core
 
 # Ignore paths that contain user-generated content.
-docroot/sites/*/files
-docroot/sites/*/files-private
-docroot/sites/*/private
+sites/*/files
+sites/*/files-private
+sites/*/private
 
 # Ignore contrib modules. These should be created during build process.
-docroot/modules/contrib
-docroot/themes/contrib
-docroot/profiles/contrib
-docroot/libraries
+modules/contrib
+themes/contrib
+profiles/contrib
+libraries
 drush/contrib
 
 # Ignore custom theme node_modules folders
-docroot/themes/custom/*/node_modules
-docroot/npm-debug.log
+themes/custom/*/node_modules
+npm-debug.log
 *node_modules*
 
 # Ignore build artifacts

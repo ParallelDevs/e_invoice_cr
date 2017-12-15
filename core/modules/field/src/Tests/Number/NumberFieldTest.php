@@ -3,6 +3,8 @@
 namespace Drupal\field\Tests\Number;
 
 use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\node\Entity\Node;
 use Drupal\simpletest\WebTestBase;
@@ -487,6 +489,43 @@ class NumberFieldTest extends WebTestBase {
 
     $integer_formatted = number_format($random_integer, 0, '', $thousand_separator);
     $this->assertRaw($integer_formatted, 'Random integer formatted');
+  }
+
+  /**
+   * Tests required number field in combination with AJAX requests.
+   */
+  function testRequiredNumberFieldAndAjax() {
+
+    // Create a required number field.
+    $field_name = 'required_number';
+    $storage = FieldStorageConfig::create(array(
+      'field_name' => $field_name,
+      'entity_type' => 'entity_test',
+      'type' => 'integer',
+    ));
+    $storage->save();
+
+    FieldConfig::create(array(
+      'field_name' => $field_name,
+      'entity_type' => 'entity_test',
+      'bundle' => 'entity_test',
+      'required' => TRUE,
+    ))->save();
+
+    EntityFormDisplay::load('entity_test.entity_test.default')
+      ->setComponent($field_name, array(
+        'type' => 'number',
+      ))
+      ->save();
+
+    // Set test text field cardinality to unlimited.
+    FieldStorageConfig::load('entity_test.field_test_text')
+      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
+      ->save();
+
+    $this->drupalGet('entity_test/add');
+    $this->drupalPostAjaxForm(NULL, array(), 'field_test_text_add_more');
+    $this->assertResponse(200);
   }
 
   /**
