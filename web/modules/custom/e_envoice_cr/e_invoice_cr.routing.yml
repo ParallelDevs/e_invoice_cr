@@ -1,0 +1,24 @@
+e_invoice_cr.content:
+  path: '/e_invoice_cr'
+  defaults:
+    _controller: '\Drupal\e_invoice_cr\Controller\SignatureController::signDocument'
+    _title: 'Hello World'
+  requirements:
+    _permission: 'access content'
+
+e_invoice_cr.content:
+  path: '/e_invoice_cr_sign'
+  defaults:
+    _controller: '\Drupal\e_invoice_cr\Controller\SignatureController::signDocument'
+    _title: 'Signature'
+  requirements:
+    _permission: 'access content'
+
+e_invoice_cr.settings:
+  path: '/admin/structure/e_invoice_cr/settings'
+  defaults:
+    _form: '\Drupal\e_invoice_cr\Form\invoiceSettingsForm'
+    _title: 'e-invoice CR'
+  requirements:
+    _permission: 'administer site configuration'
+

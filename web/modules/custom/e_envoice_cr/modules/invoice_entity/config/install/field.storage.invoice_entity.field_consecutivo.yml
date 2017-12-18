@@ -1,0 +1,21 @@
+uuid: e9bd705c-6365-487e-bc83-4741eec258fd
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_entity
+id: invoice_entity.field_consecutivo
+field_name: field_consecutivo
+entity_type: invoice_entity
+type: string
+settings:
+  max_length: 20
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

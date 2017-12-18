@@ -1,0 +1,26 @@
+uuid: 4e8f7ead-a8da-4a95-8370-44c919ef2cb3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_cliente
+  module:
+    - invoice_entity
+id: invoice_entity.invoice_entity.field_cliente
+field_name: field_cliente
+entity_type: invoice_entity
+bundle: invoice_entity
+label: Cliente
+description: 'Selecione el cliente al cual le va facturar.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:customer_entity'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

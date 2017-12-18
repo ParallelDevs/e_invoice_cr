@@ -1,0 +1,22 @@
+uuid: 62b65e9c-d44c-45bd-bc85-d7ea282f8446
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.customer_entity.field_correo_electronico
+  module:
+    - customer_entity
+_core:
+  default_config_hash: GLlBq7M78Bcntx2CAebWnJjn4o5cTeKbg0-RZ-10wPo
+id: customer_entity.customer_entity.field_correo_electronico
+field_name: field_correo_electronico
+entity_type: customer_entity
+bundle: customer_entity
+label: 'Correo Electrónico'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

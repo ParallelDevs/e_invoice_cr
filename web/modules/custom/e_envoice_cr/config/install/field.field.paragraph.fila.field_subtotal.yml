@@ -1,0 +1,23 @@
+uuid: 93b68a72-9b41-4b0b-9708-52d778c4204e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_subtotal
+    - paragraphs.paragraphs_type.fila
+id: paragraph.fila.field_subtotal
+field_name: field_subtotal
+entity_type: paragraph
+bundle: fila
+label: SubTotal
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

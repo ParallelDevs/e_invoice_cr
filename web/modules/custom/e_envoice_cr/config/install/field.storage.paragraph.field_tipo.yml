@@ -1,0 +1,27 @@
+uuid: 770f6eaf-e355-453e-875e-22f71919c35a
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_tipo
+field_name: field_tipo
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '01'
+      label: Producto
+    -
+      value: '02'
+      label: Servicio
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
