@@ -1,7 +1,0 @@
-name: e-invoice customer entity
-type: module
-description: This module provides the customer entity for e-invoice.
-core: 8.x
-package: other
-dependencies:
-  - e_invoice_cr
