@@ -14,7 +14,7 @@ class Signature implements SignatureInterface {
     // locate where is the jar
     $res = chdir( "modules/custom/e_envoice_cr/jar" );
     if ($res) {
-      $base_path = $_SERVER['DOCUMENT_ROOT'] . '/sites/default/files/';
+      $base_path = DRUPAL_ROOT . '/sites/default/files/';
       // check the directory
       $signed_path = $base_path . 'xml_signed/';
       if (file_prepare_directory($signed_path, FILE_CREATE_DIRECTORY)) {
