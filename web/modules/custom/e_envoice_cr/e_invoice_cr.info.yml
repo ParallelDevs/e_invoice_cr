@@ -1,4 +1,4 @@
-name: e-invoice CR
+name: Factura CR
 type: module
 description: This module provides an invoice system according to the costa rican regulations.
 core: 8.x
