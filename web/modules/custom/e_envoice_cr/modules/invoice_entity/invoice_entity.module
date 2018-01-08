@@ -152,8 +152,8 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
     $signature = new Signature();
     $response = $signature->signDocument();
 
-    if (array_search("Error", $response) || array_search("error", $response)) {
-      $message = 'Error firmando el documento xml, la factura no se podrá enviar.';
+    if (strpos($response,"Error") !== false || strpos($response, "Failed") !== false) {
+      $message = 'Se generaron errores al momento de firmar la factura. La firma podría estar incorrecta.';
       drupal_set_message(t($message), 'error');
     }
 
