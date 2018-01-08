@@ -14,6 +14,14 @@ interface CommunicationInterface {
    * @return boolean
    *   The token.
    */
-  public function sentDocument();
+  public function sentDocument($doc = NULL, $type = NULL, $token = NULL);
+
+  /**
+   * Send documents.
+   *
+   * @return boolean
+   *   The token.
+   */
+  public function validateDocument();
 
 }

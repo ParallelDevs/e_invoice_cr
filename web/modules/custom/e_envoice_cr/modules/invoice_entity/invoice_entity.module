@@ -3,6 +3,7 @@
 use Drupal\e_invoice_cr\Authentication;
 use Drupal\e_invoice_cr\XMLGenerator;
 use Drupal\e_invoice_cr\Signature;
+use Drupal\e_invoice_cr\Communication;
 
 /**
  * Implements Hook_form_alter()
@@ -156,6 +157,22 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
       $message = 'Se generaron errores al momento de firmar la factura. La firma podría estar incorrecta.';
       drupal_set_message(t($message), 'error');
     }
+
+    ////////////////// Send document to API ////////////////////
+    $body_data = [
+      'key' => $key,
+      'date' => $date,
+      'e_type' => $settings->get('id_type'),
+      'e_number' => $settings->get('id'),
+      'c_type' => $client->get('field_tipo_de_identificacion')->value,
+      'c_number' => $client->get('field_intensificacion')->value,
+    ];
+    $communication = new Communication();
+    // get the document
+    $doc_uri = DRUPAL_ROOT . '/sites/default/files/xml_signed/xades_epes_segned.xml';
+    $document = file_get_contents($doc_uri);
+    $response = $communication->sentDocument($document, $body_data, $token);
+
 
   }
 
