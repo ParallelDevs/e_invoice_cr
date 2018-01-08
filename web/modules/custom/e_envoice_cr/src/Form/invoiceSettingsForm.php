@@ -205,7 +205,9 @@ class invoiceSettingsForm extends ConfigFormBase {
       ->save();
     $fid = $form_state->getValue('p12_cert');
     $file_object = file_load($fid[0], $reset = FALSE);
-      file_move($file_object, $destination = '../../certs/', $replace = FILE_EXISTS_RENAME);
+    // make copies and change the file names
+    file_copy($file_object, 'public://certs/cert.pfx', FILE_EXISTS_REPLACE);
+    file_copy($file_object, 'public://certs/cert.p12', FILE_EXISTS_REPLACE);
     parent::submitForm($form, $form_state);
   }
 }
