@@ -1,0 +1,6 @@
+e_envoice_cr.admin:
+  title: 'Factura CR'
+  description: 'Factura CR configuraciones'
+  parent: system.admin_config
+  route_name: e_invoice_cr.settings
+  weight: 100

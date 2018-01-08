@@ -18,7 +18,7 @@ e_invoice_cr.settings:
   path: '/admin/structure/e_invoice_cr/settings'
   defaults:
     _form: '\Drupal\e_invoice_cr\Form\invoiceSettingsForm'
-    _title: 'e-invoice CR'
+    _title: 'Factura CR'
   requirements:
     _permission: 'administer site configuration'
 
