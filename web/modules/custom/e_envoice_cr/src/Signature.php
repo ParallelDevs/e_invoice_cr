@@ -31,9 +31,13 @@ class Signature implements SignatureInterface {
         // send the response
         return $response;
       } else {
+        $message = 'Error. No se pudo crear el directorio xml_signed.';
+        drupal_set_message(t($message), 'error');
         return false;
       }
     } else {
+      $message = 'Error. No se puedo ejecutar chdir correctamente.';
+      drupal_set_message(t($message), 'error');
       return false;
     }
   }
