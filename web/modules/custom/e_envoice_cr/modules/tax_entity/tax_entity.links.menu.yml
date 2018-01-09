@@ -1,0 +1,14 @@
+
+# Tax entity menu items definition
+entity.tax_entity.collection:
+  title: 'Tax entity list'
+  route_name: entity.tax_entity.collection
+  description: 'List Tax entity entities'
+  parent: system.admin_structure
+  weight: 100
+
+tax_entity.admin.structure.settings:
+  title: Tax entity settings
+  description: 'Configure Tax entity entities'
+  route_name: tax_entity.settings
+  parent: system.admin_structure
