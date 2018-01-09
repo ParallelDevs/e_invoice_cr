@@ -8,3 +8,4 @@ dependencies:
   - field_group
   - addressfield_cr
   - paragraphs
+  - entity_print

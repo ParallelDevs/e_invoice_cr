@@ -77,6 +77,8 @@ third_party_settings:
         description: ''
         required_fields: true
       label: Resumen
+_core:
+  default_config_hash: kBOPY6uATCGG1MvICxdCmmfyUOqBOT0fgHJBQ0rZPjE
 id: invoice_entity.invoice_entity.default
 targetEntityType: invoice_entity
 bundle: invoice_entity
