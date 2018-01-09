@@ -1,0 +1,41 @@
+uuid: c4107042-18ef-40c2-949c-7469936297ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.tax_entity.tax_entity.field_tax_percentage
+  module:
+    - tax_entity
+    - user
+id: tax_entity.tax_entity.default
+targetEntityType: tax_entity
+bundle: tax_entity
+mode: default
+content:
+  field_tax_percentage:
+    weight: 1
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  name:
+    label: above
+    type: string
+    weight: -4
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

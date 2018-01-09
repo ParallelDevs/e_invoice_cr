@@ -1,0 +1,30 @@
+add tax entity entities:
+  title: 'Create new Tax entity entities'
+
+administer tax entity entities:
+  title: 'Administer Tax entity entities'
+  description: 'Allow to access the administration form to configure Tax entity entities.'
+  restrict access: true
+
+delete tax entity entities:
+  title: 'Delete Tax entity entities'
+
+edit tax entity entities:
+  title: 'Edit Tax entity entities'
+
+view published tax entity entities:
+  title: 'View published Tax entity entities'
+
+view unpublished tax entity entities:
+  title: 'View unpublished Tax entity entities'
+
+view all tax entity revisions:
+  title: 'View all Tax entity revisions'
+
+revert all tax entity revisions:
+  title: 'Revert all Tax entity revisions'
+  description: 'Role requires permission <em>view Tax entity revisions</em> and <em>edit rights</em> for tax entity entities in question or <em>administer tax entity entities</em>.'
+
+delete all tax entity revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Tax entity revisions</em> and <em>delete rights</em> for tax entity entities in question or <em>administer tax entity entities</em>.'
