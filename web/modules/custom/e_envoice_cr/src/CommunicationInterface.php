@@ -11,16 +11,16 @@ interface CommunicationInterface {
   /**
    * Send documents.
    *
-   * @return boolean
-   *   The token.
+   * @return object
+   *   The response object.
    */
   public function sentDocument($doc = NULL, $type = NULL, $token = NULL);
 
   /**
-   * Send documents.
+   * Consult a document status.
    *
-   * @return boolean
-   *   The token.
+   * @return string
+   *   The status.
    */
   public function validateDocument();
 
