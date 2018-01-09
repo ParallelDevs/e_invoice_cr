@@ -18,7 +18,7 @@ class XMLGenerator {
     $total_services = 0;
     $total_items = 0;
 
-    // build the xml code
+    // Build the xml code.
     $xml_doc = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
     $xml_doc .= '<FacturaElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">' . "\n";
     $xml_doc .= '<Clave>' . $general_data['key'] . '</Clave>' . "\n";
@@ -77,13 +77,13 @@ class XMLGenerator {
     $xml_doc .= '<PlazoCredito>' . $general_data['p_credit'] . '</PlazoCredito>' . "\n";
     $xml_doc .= '<MedioPago>' . $general_data['pay_type'] . '</MedioPago>' . "\n";
     $xml_doc .= '<DetalleServicio>' . "\n";
-    // print the rows in here
+    // Print the rows in here.
     foreach ($rows as $index => $item) {
       if (is_numeric ($index)) {
         $count = $index + 1;
         $values = $item['subform'];
         $tax = (float)($values['field_subtotal'][0]['value']) * (float)('0.' . $values['field_descuento'][0]['value']);
-        // continue building the xml
+        // Continue building the xml.
         $xml_doc .= '<LineaDetalle>' . "\n";
         $xml_doc .= '<NumeroLinea>' . $count . '</NumeroLinea>' . "\n";
         $xml_doc .= '<Codigo>' . "\n";
@@ -91,26 +91,26 @@ class XMLGenerator {
         $xml_doc .= '<Codigo>' . $values['field_codigo'][0]['value'] . '</Codigo>' . "\n";
         $xml_doc .= '</Codigo>' . "\n";
         $xml_doc .= '<Cantidad>' . $values['field_cantidad'][0]['value'] . '</Cantidad>' . "\n";
-        $xml_doc .= '<UnidadMedida></UnidadMedida>' . "\n"; // no supported at the moment (*)
+        $xml_doc .= '<UnidadMedida></UnidadMedida>' . "\n"; // No supported at the moment (*).
         $xml_doc .= '<UnidadMedidaComercial></UnidadMedidaComercial>' . "\n";
         $xml_doc .= '<Detalle>' . $values['field_detalle'][0]['value'] . '</Detalle>' . "\n";
         $xml_doc .= '<PrecioUnitario>' . $values['field_preciounitario'][0]['value'] . '</PrecioUnitario>' . "\n";
         $xml_doc .= '<MontoTotal>' . $values['field_montototal'][0]['value'] . '</MontoTotal>' . "\n";
-        $xml_doc .= '<MontoDescuento>0</MontoDescuento>' . "\n";// no supported at the moment (*)
-        $xml_doc .= '<NaturalezaDescuento></NaturalezaDescuento>' . "\n";// no supported at the moment (*)
+        $xml_doc .= '<MontoDescuento>0</MontoDescuento>' . "\n"; // No supported at the moment (*).
+        $xml_doc .= '<NaturalezaDescuento></NaturalezaDescuento>' . "\n"; // No supported at the moment (*).
         $xml_doc .= '<SubTotal>' . $values['field_subtotal'][0]['value'] . '</SubTotal>' . "\n";
         $xml_doc .= '<Impuesto>' . "\n";
-        $xml_doc .= '<Codigo>01</Codigo>' . "\n";// no supported at the moment (*)
+        $xml_doc .= '<Codigo>01</Codigo>' . "\n"; // No supported at the moment (*).
         $xml_doc .= '<Tarifa>' . $values['field_descuento'][0]['value'] . '</Tarifa>' . "\n";
         $xml_doc .= '<Monto>' . $tax . '</Monto>' . "\n";
-        $xml_doc .= '<Exoneracion>' . "\n";// no supported at the moment (*)
-        $xml_doc .= '<TipoDocumento>04</TipoDocumento>' . "\n";// no supported at the moment (*)
-        $xml_doc .= '<NumeroDocumento>XXYZ</NumeroDocumento>' . "\n";// no supported at the moment (*)
-        $xml_doc .= '<NombreInstitucion>Los Patos S.A.</NombreInstitucion>' . "\n";// no supported at the moment (*)
-        $xml_doc .= '<FechaEmision>2001-12-17T09:30:47Z</FechaEmision>' . "\n";// no supported at the moment (*)
-        $xml_doc .= '<MontoImpuesto>0</MontoImpuesto>' . "\n";// no supported at the moment (*)
-        $xml_doc .= '<PorcentajeCompra>0</PorcentajeCompra>' . "\n";// no supported at the moment (*)
-        $xml_doc .= '</Exoneracion>' . "\n";// no supported at the moment (*)
+        $xml_doc .= '<Exoneracion>' . "\n"; // No supported at the moment (*).
+        $xml_doc .= '<TipoDocumento>04</TipoDocumento>' . "\n"; // No supported at the moment (*).
+        $xml_doc .= '<NumeroDocumento>XXYZ</NumeroDocumento>' . "\n"; // No supported at the moment (*).
+        $xml_doc .= '<NombreInstitucion>Los Patos S.A.</NombreInstitucion>' . "\n"; // No supported at the moment (*).
+        $xml_doc .= '<FechaEmision>2001-12-17T09:30:47Z</FechaEmision>' . "\n"; // No supported at the moment (*).
+        $xml_doc .= '<MontoImpuesto>0</MontoImpuesto>' . "\n"; // No supported at the moment (*).
+        $xml_doc .= '<PorcentajeCompra>0</PorcentajeCompra>' . "\n"; // No supported at the moment (*).
+        $xml_doc .= '</Exoneracion>' . "\n"; // No supported at the moment (*).
         $xml_doc .= '</Impuesto>' . "\n";
         $xml_doc .= '<MontoTotalLinea>' . $values['field_monto_total_linea'][0]['value'] . '</MontoTotalLinea>' . "\n";
         $xml_doc .= '</LineaDetalle>' . "\n";
@@ -121,21 +121,21 @@ class XMLGenerator {
     $xml_doc .= '</DetalleServicio>' . "\n";
     $xml_doc .= '<ResumenFactura>' . "\n";
     $xml_doc .= '<CodigoMoneda>' . $currency . '</CodigoMoneda>' . "\n";
-    $xml_doc .= '<TipoCambio>0</TipoCambio>' . "\n"; // no supported at the moment (*)
+    $xml_doc .= '<TipoCambio>0</TipoCambio>' . "\n"; // No supported at the moment (*).
     $xml_doc .= '<TotalServGravados>' . $total_services . '</TotalServGravados>' . "\n";
-    $xml_doc .= '<TotalServExentos>0</TotalServExentos>' . "\n"; // no supported at the moment (*)
+    $xml_doc .= '<TotalServExentos>0</TotalServExentos>' . "\n"; // No supported at the moment (*).
     $xml_doc .= '<TotalMercanciasGravadas>' . $total_items . '</TotalMercanciasGravadas>' . "\n";
-    $xml_doc .= '<TotalMercanciasExentas>0</TotalMercanciasExentas>' . "\n"; // no supported at the moment (*)
+    $xml_doc .= '<TotalMercanciasExentas>0</TotalMercanciasExentas>' . "\n"; // No supported at the moment (*).
     $xml_doc .= '<TotalGravado>' . $total_items . '</TotalGravado>' . "\n";
-    $xml_doc .= '<TotalExento>0</TotalExento>' . "\n"; // no supported at the moment (*)
+    $xml_doc .= '<TotalExento>0</TotalExento>' . "\n"; // No supported at the moment (*).
     $xml_doc .= '<TotalVenta>' . $general_data['t_sale'] . '</TotalVenta>' . "\n";
-    $xml_doc .= '<TotalDescuentos>0</TotalDescuentos>' . "\n"; // no supported at the moment (*)
+    $xml_doc .= '<TotalDescuentos>0</TotalDescuentos>' . "\n"; // No supported at the moment (*).
     $xml_doc .= '<TotalVentaNeta>' . $general_data['t_sale'] . '</TotalVentaNeta>' . "\n";
     $xml_doc .= '<TotalImpuesto>' . $general_data['t_tax'] . '</TotalImpuesto>' . "\n";
     $xml_doc .= '<TotalComprobante>' . $general_data['t_invoice'] . '</TotalComprobante>' . "\n";
     $xml_doc .= '</ResumenFactura>' . "\n";
     $xml_doc .= '<InformacionReferencia>' . "\n";
-    $xml_doc .= '<TipoDoc>01</TipoDoc>' . "\n"; // 01 because it's an invoice
+    $xml_doc .= '<TipoDoc>01</TipoDoc>' . "\n"; // 01 because it's an invoice.
     $xml_doc .= '<Numero>' . $general_data['key'] . '</Numero>' . "\n";
     $xml_doc .= '<FechaEmision>' . $general_data['date'] . '</FechaEmision>' . "\n";
     $xml_doc .= '<Codigo>02</Codigo>' . "\n";
@@ -150,7 +150,7 @@ class XMLGenerator {
     $xml_doc .= '</Otros>' . "\n";
     $xml_doc .= '</FacturaElectronica>' . "\n";
 
-    // create the xml document
+    // Create the xml document.
     $doc = new DOMDocument();
     $doc->loadXML($xml_doc);
     return $doc;

@@ -11,32 +11,32 @@ class Signature implements SignatureInterface {
    * {@inheritdoc}
    */
   public function signDocument() {
-    // locate where is the jar
+    // Locate where is the jar.
     $res = chdir( "modules/custom/e_envoice_cr/jar" );
     if ($res) {
       $base_path = DRUPAL_ROOT . '/sites/default/files/';
-      // check the directory
+      // Check the directory.
       $signed_path = $base_path . 'xml_signed/';
       if (file_prepare_directory($signed_path, FILE_CREATE_DIRECTORY)) {
-        // define the paths
+        // Define the paths.
         $cert_path = $base_path . "certs/";
         $settings = \Drupal::config('e_invoice_cr.settings');
         $pass = $settings->get('cert_password');
         $doc_path = $base_path . "xml/";
         $signed_path = $base_path . "xml_signed/";
-        // build the java command
+        // Build the java command.
         $command = 'java -jar java-xades4j-signer.jar ' . $cert_path . ' "'. $pass . '" ' . $doc_path . ' ' . $signed_path . ' 2>&1';
-        // execute the command
+        // Execute the command.
         exec($command, $response);
-        // send the response
+        // Send the response.
         return $response;
       } else {
-        $message = 'Error. No se pudo crear el directorio xml_signed.';
+        $message = 'Error. The xml_signed directory could not be created.';
         drupal_set_message(t($message), 'error');
         return false;
       }
     } else {
-      $message = 'Error. No se puedo ejecutar chdir correctamente.';
+      $message = 'Error. There were problems running the chdir command.';
       drupal_set_message(t($message), 'error');
       return false;
     }

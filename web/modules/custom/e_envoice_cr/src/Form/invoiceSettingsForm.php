@@ -30,8 +30,8 @@ class invoiceSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $base_url = $host = \Drupal::request()->getHost();
-    $options_env = ["1" => "Produccion", "2" => "Sandbox"];
-    $options_id_type = ["01" => "Cédula Física", "02" => "Cédula Jurídica", "03" => "DIMEX", "04" => "NITE"];
+    $options_env = ["1" => "Production", "2" => "Sandbox"];
+    $options_id_type = ["01" => "Physical person id", "02" => "Company id", "03" => "DIMEX", "04" => "NITE"];
     $settings = \Drupal::config('e_invoice_cr.settings');
     // get default values
     $environment = $settings->get('environment');
@@ -51,109 +51,109 @@ class invoiceSettingsForm extends ConfigFormBase {
 
     $form['environment'] = [
       '#type' => 'select',
-      '#title' => t('Seleccione el ambiente.'),
+      '#title' => $this->t('Select the environment.'),
       '#default_value' => $environment,
       '#required' => TRUE,
       '#options' => $options_env,
-      '#description' => t('Selecione "Producción" para poner el module en modo de producción o "Sandbox" para modo de pruebas.'),
+      '#description' => $this->t('Select "Production" to set the production mode or "Sandbox" to set the tests mode.'),
       '#validated' => TRUE,
     ];
 
     $form['auth_fieldset'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Información de login para el API.'),
-      '#description' => t('Este module realiza en login an el API de hacienda por medio de un Auth 2.0 token. Puede ir a la pagina de hacienda para obtener esta información.'),
+      '#title' => $this->t('API login information.'),
+      '#description' => t('This module does the API login through the Oauth 2.0 token.'),
     ];
 
     $form['auth_fieldset']['username'] = [
       '#type' => 'textfield',
-      '#title' => 'Nombre de usuario:',
+      '#title' => $this->t('Username:'),
       '#default_value' => $username,
       '#required' => TRUE,
     ];
 
     $form['auth_fieldset']['password'] = [
       '#type' => 'password',
-      '#title' => 'Contraseña:',
+      '#title' => $this->t('Password:'),
       '#default_value' => $password,
       '#required' => TRUE,
     ];
 
     $form['taxpayer_fieldset'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Información de la entidad contribuyente.'),
+      '#title' => $this->t('Taxpayer information.'),
     ];
 
     $form['taxpayer_fieldset']['id_type'] = [
       '#type' => 'select',
-      '#title' => t('Tipo de identificación.'),
+      '#title' => $this->t('Id type.'),
       '#default_value' => $id_type,
       '#required' => TRUE,
       '#options' => $options_id_type,
-      '#description' => t('Seleccione el tipo de identificación del contribuyente.'),
+      '#description' => $this->t('Select the taxpayer\'s id type.'),
       '#validated' => TRUE,
     ];
     $form['taxpayer_fieldset']['id'] = [
       '#type' => 'textfield',
-      '#title' => 'Numero identificación:',
+      '#title' => $this->t('Id number:'),
       '#default_value' => $id,
-      '#description' => t('El numero de identificación del contribuyente debe tener una extensión de 12 caracteres, agregue ceros al principio si es necesario.'),
+      '#description' => $this->t('The id number must have 12 characters, add zeros at the start if it\'s necessary.'),
       '#required' => TRUE,
       '#size' => 12,
     ];
     $form['taxpayer_fieldset']['name'] = [
       '#type' => 'textfield',
-      '#title' => 'Nombre del contribuyente:',
+      '#title' => $this->t('Name:'),
       '#default_value' => $name,
       '#required' => TRUE,
     ];
     $form['taxpayer_fieldset']['commercial_name'] = [
       '#type' => 'textfield',
-      '#title' => 'Nombre comercial del contribuyente:',
+      '#title' => $this->t('Tradename:'),
       '#default_value' => $commercial_name,
       '#required' => TRUE,
     ];
     $form['taxpayer_fieldset']['phone'] = [
       '#type' => 'tel',
-      '#title' => 'Numero telefónico:',
+      '#title' => $this->t('Phone number:'),
       '#default_value' => $phone,
       '#required' => TRUE,
     ];
     $form['taxpayer_fieldset']['email'] = [
       '#type' => 'email',
-      '#title' => 'Correo electrónico:',
+      '#title' => $this->t('Email:'),
       '#default_value' => $email,
       '#required' => TRUE,
     ];
     $form['taxpayer_fieldset']['address_fieldset'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Ubicación.'),
+      '#title' => $this->t('Location.'),
     ];
     $form['taxpayer_fieldset']['address_fieldset']['postal_code'] = [
       '#type' => 'textfield',
-      '#title' => 'Código Postal:',
+      '#title' => $this->t('Zip code:'),
       '#default_value' => $postal_code,
       '#required' => TRUE,
     ];
     $form['taxpayer_fieldset']['address_fieldset']['address'] = [
       '#type' => 'textfield',
-      '#title' => 'Otras Señas:',
+      '#title' => $this->t('Others:'),
       '#default_value' => $address,
       '#required' => FALSE,
     ];
     $form['taxpayer_fieldset']['currency'] = [
       '#type' => 'select',
-      '#title' => t('Moneda por defecto.'),
+      '#title' => $this->t('Default currency.'),
       '#default_value' => $currency,
       '#required' => TRUE,
-      '#options' => ['crc' => 'Colones', 'usd' => 'Dólares (Estadounidense)'],
-      '#description' => t('Selecione la moneda por defecto para usar en este modulo.'),
+      '#options' => ['crc' => 'Colones', 'usd' => 'Dolar (USA)'],
+      '#description' => $this->t('Select the default currency to use on this module.'),
       '#validated' => TRUE,
     ];
 
     $form['cert_fieldset'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Información del certificado.'),
+      '#title' => $this->t('Certificate information.'),
     ];
 
     $validators = array(
@@ -162,9 +162,9 @@ class invoiceSettingsForm extends ConfigFormBase {
     $path = \Drupal::moduleHandler()->getModule('e_invoice_cr')->getPath();
     $form['cert_fieldset']['p12_cert'] = array(
       '#type' => 'managed_file',
-      '#name' => 'Certificado de autenticidad p12.',
-      '#title' => t('Certificado de autenticidad p12.'),
-      '#description' => t('Cargue el certificado de autenticidad p12 para la creación de la firma digital, en la pagina de hacienda puede generar tanto el de pruebas como el de producción.'),
+      '#name' => 'Certificate p12.',
+      '#title' => $this->t('Certificate p12.'),
+      '#description' => $this->t('Load the authentication certificate p12 to create the signature.'),
       '#default_value' => $p12_cert,
       '#upload_validators' => $validators,
       '#upload_location' => 'public://certs/',
@@ -173,7 +173,7 @@ class invoiceSettingsForm extends ConfigFormBase {
 
     $form['cert_fieldset']['cert_password'] = [
       '#type' => 'password',
-      '#title' => 'Contraseña del certificado:',
+      '#title' => $this->t('Password:'),
       '#default_value' => $cert_password,
       '#required' => TRUE,
     ];
