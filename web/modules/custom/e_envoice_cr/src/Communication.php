@@ -11,9 +11,12 @@ class Communication implements CommunicationInterface {
    * {@inheritdoc}
    */
   public function sentDocument($doc = NULL, $body = NULL, $token = NULL) {
+    // get the config info
     $settings = \Drupal::config('e_invoice_cr.settings');
     $environment = $settings->get('environment');
+    // start the client
     $client = \Drupal::httpClient();
+    // build the body info
     $body = [
       'clave' => $body['key'],
       'fecha' => $body['date'],
@@ -27,7 +30,7 @@ class Communication implements CommunicationInterface {
       ],
       'comprobanteXml' => base64_encode($doc),
     ];
-
+    // set the headers and body data
     $options = [
       'headers' => [
         'Authorization' => 'Bearer ' . $token,
@@ -41,8 +44,8 @@ class Communication implements CommunicationInterface {
     } else {
       $url = 'https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion';
     }
+    // do the request
     $request = $client->request('POST', $url, $options);
-
     return $request;
   }
 

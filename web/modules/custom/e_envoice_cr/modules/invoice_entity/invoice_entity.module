@@ -170,13 +170,45 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
     $communication = new Communication();
     // get the document
     $doc_uri = DRUPAL_ROOT . '/sites/default/files/xml_signed/xades_epes_segned.xml';
+    // get the xml content
     $document = file_get_contents($doc_uri);
+    // sent the document
     $response = $communication->sentDocument($document, $body_data, $token);
-
-
+    // show a error message
+    if ($response->getStatusCode() != 202 && $response->getStatusCode() != 200) {
+      // reduce the consecutive
+      invoice_entity_reduce_consecutive();
+      $message = 'Error. Se generaron problemas al enviar documento electrónico.';
+      drupal_set_message(t($message), 'error');
+    } else {
+      // show a success message
+      $message = 'El documento electrónico fue enviado al Ministerio de Hacienda para su validación.';
+      drupal_set_message(t($message), 'status');
+    }
   }
 
+}
 
+/**
+ * Reduce in 1 the consecutive
+ */
+function invoice_entity_reduce_consecutive() {
+  $invoice_number = invoice_entity_get_variable('invoice_number');
+  $secure_code = invoice_entity_get_variable('secure_code');
+  $consecutive_number = invoice_entity_get_variable('consecutive_number');
+  if (!is_null($consecutive_number) && $consecutive_number > 1) {
+    $consecutive_number = (int)$consecutive_number - 1;
+    $invoice_number = (int)$invoice_number - 1;
+    $secure_code = (int)$secure_code - 1;
+    // validate size
+    $consecutive_number = invoice_entity_set_size((string)$consecutive_number, 20);
+    $invoice_number = invoice_entity_set_size((string)$invoice_number, 10);
+    $secure_code = invoice_entity_set_size((string)$secure_code, 8);
+    // save the values
+    invoice_entity_set_variable('consecutive_number', $consecutive_number);
+    invoice_entity_set_variable('invoice_number', $invoice_number);
+    invoice_entity_set_variable('secure_code', $secure_code);
+  }
 }
 
 /**
