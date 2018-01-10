@@ -4,6 +4,7 @@ use Drupal\e_invoice_cr\Authentication;
 use Drupal\e_invoice_cr\XMLGenerator;
 use Drupal\e_invoice_cr\Signature;
 use Drupal\e_invoice_cr\Communication;
+use Drupal\invoice_email\InvoiceEmailEvent;
 
 /**
  * Implements Hook_form_alter().
@@ -187,7 +188,13 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
       drupal_set_message(t($message), 'status');
     }
   }
-
+  // load the Symfony event dispatcher object through services
+  $dispatcher = \Drupal::service('event_dispatcher');
+  // creating our event class object.
+  $event = new InvoiceEmailEvent($form_state->getValue('name'));
+  // dispatching the event through the ‘dispatch’  method,
+  // passing event name and event object ‘$event’ as parameters.
+  $dispatcher->dispatch(InvoiceEmailEvent::SUBMIT, $event);
 }
 
 /**
