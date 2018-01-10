@@ -1,0 +1,9 @@
+invoice_entity.validate:
+  path: 'admin/structure/e-invoice-cr/validation/{key}/{id}'
+  defaults:
+    _controller: '\Drupal\invoice_entity\Controller\InvoiceEntityController::validateInvoice'
+    _title: 'Validation Request'
+  requirements:
+    _permission: 'access content'
+
+

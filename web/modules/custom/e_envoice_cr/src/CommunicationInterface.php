@@ -22,6 +22,6 @@ interface CommunicationInterface {
    * @return string
    *   The status.
    */
-  public function validateDocument($key = NULL, $token = NULL);
+  public function validateDocument($key = NULL);
 
 }

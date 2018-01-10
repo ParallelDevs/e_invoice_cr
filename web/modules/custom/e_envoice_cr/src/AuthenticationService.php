@@ -5,10 +5,10 @@ namespace Drupal\e_invoice_cr;
 /**
  * .
  */
-class Authentication implements AuthenticationInterface {
+class AuthenticationService {
 
   /**
-   * {@inheritdoc}
+   * It gets the connection token.
    */
   public function getLoginToken() {
     $settings = \Drupal::config('e_invoice_cr.settings');

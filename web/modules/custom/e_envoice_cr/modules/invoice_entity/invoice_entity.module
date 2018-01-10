@@ -68,8 +68,7 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
 
   try {
     // Get authentication token for the API.
-    $authentication = new Authentication();
-    $token = $authentication->getLoginToken();
+    $token = \Drupal::service('e_invoice_cr.authentication')->getLoginToken();
   } catch (Exception $e) {
     $message = 'Error getting the authentication token.';
     drupal_set_message(t($message), 'error');
@@ -317,5 +316,22 @@ function invoice_entity_set_size($variable, $size) {
     $variable = '0' . (string)$variable;
   }
   return $variable;
+}
+
+/**
+ * Implements Hook_entity_operation().
+ */
+function invoice_entity_entity_operation(\Drupal\Core\Entity\EntityInterface $entity) {
+  $type = $entity->getEntityType();
+  if ($type->id() === "invoice_entity") {
+    $key = $entity->get('field_clave_numerica')->value;
+    $operations = array();
+    $operations['validate'] = array(
+      'title' => t('Validate'),
+      'url' => \Drupal\Core\Url::fromRoute("invoice_entity.validate", ["key" => $key, "id" => $entity->id()]),
+      'weight' => 0,
+    );
+    return $operations;
+  }
 }
 

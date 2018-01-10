@@ -52,7 +52,10 @@ class Communication implements CommunicationInterface {
   /**
    * {@inheritdoc}
    */
-  public function validateDocument($key = NULL, $token = NULL) {
+  public function validateDocument($key = NULL) {
+    // Get authentication token for the API.
+    $token = \Drupal::service('e_invoice_cr.authentication')->getLoginToken();
+
     // Get the config info.
     $settings = \Drupal::config('e_invoice_cr.settings');
     $environment = $settings->get('environment');
@@ -72,6 +75,16 @@ class Communication implements CommunicationInterface {
       ],
     ];
     // Do the request.
-    $request = $client->request('GET', $url, $options);
+    $request = $client->get($url, $options);
+    $body_responce = \GuzzleHttp\json_decode($request->getBody()->getContents());
+    $result = [];
+    foreach ($body_responce as $index => $item) {
+      if ($index === "respuesta-xml") {
+       $item = simplexml_load_string(base64_decode($item));
+      }
+      $result[] = $item;
+    }
+
+    return $result;
   }
 }
