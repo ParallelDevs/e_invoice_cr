@@ -3,21 +3,34 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.fila.field_add_discount
     - field.field.paragraph.fila.field_cantidad
     - field.field.paragraph.fila.field_codigo
     - field.field.paragraph.fila.field_descuento
     - field.field.paragraph.fila.field_detalle
+    - field.field.paragraph.fila.field_discount_percentage
+    - field.field.paragraph.fila.field_discount_reason
     - field.field.paragraph.fila.field_monto_total_linea
     - field.field.paragraph.fila.field_montototal
     - field.field.paragraph.fila.field_preciounitario
+    - field.field.paragraph.fila.field_row_discount
     - field.field.paragraph.fila.field_subtotal
     - field.field.paragraph.fila.field_tipo
     - paragraphs.paragraphs_type.fila
+_core:
+  default_config_hash: UD2HpCQTI9mbPtw2cOm7P-P2l0X0PGZcGFl77PMFMkU
 id: paragraph.fila.default
 targetEntityType: paragraph
 bundle: fila
 mode: default
 content:
+  field_add_discount:
+    type: boolean_checkbox
+    weight: 5
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_cantidad:
     weight: 2
     settings:
@@ -34,7 +47,7 @@ content:
     type: string_textfield
     region: content
   field_descuento:
-    weight: 6
+    weight: 11
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -48,15 +61,30 @@ content:
     third_party_settings: {  }
     type: string_textarea
     region: content
+  field_discount_percentage:
+    type: number
+    weight: 6
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_discount_reason:
+    type: string_textarea
+    weight: 7
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_monto_total_linea:
-    weight: 8
+    weight: 12
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
   field_montototal:
-    weight: 5
+    weight: 8
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -69,8 +97,15 @@ content:
     third_party_settings: {  }
     type: number
     region: content
+  field_row_discount:
+    type: number
+    weight: 9
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   field_subtotal:
-    weight: 7
+    weight: 10
     settings:
       placeholder: ''
     third_party_settings: {  }
