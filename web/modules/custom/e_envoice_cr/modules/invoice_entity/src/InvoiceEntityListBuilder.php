@@ -19,7 +19,7 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
    */
   public function buildHeader() {
     $header['id'] = $this->t('Invoice ID');
-    $header['name'] = $this->t('Name');
+    $header['status'] = $this->t('Status');
     return $header + parent::buildHeader();
   }
 
@@ -28,12 +28,21 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
    */
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\invoice_entity\Entity\InvoiceEntity */
+    $state = $entity->get('moderation_state')->value;
+    $state_label = "";
+    switch ($state) {
+      case "draft":
+        $state_label = t("In validation");
+        break;
+      case "published":
+        $state_label = t("Accepted");
+        break;
+      case "rejected":
+        $state_label = t("Rejected");
+        break;
+    }
     $row['id'] = $entity->id();
-    $row['name'] = Link::createFromRoute(
-      $entity->label(),
-      'entity.invoice_entity.edit_form',
-      ['invoice_entity' => $entity->id()]
-    );
+    $row['status'] = $state_label;
     return $row + parent::buildRow($entity);
   }
 

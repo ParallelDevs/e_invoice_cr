@@ -52,7 +52,26 @@ class Communication implements CommunicationInterface {
   /**
    * {@inheritdoc}
    */
-  public function validateDocument() {
-
+  public function validateDocument($key = NULL, $token = NULL) {
+    // Get the config info.
+    $settings = \Drupal::config('e_invoice_cr.settings');
+    $environment = $settings->get('environment');
+    // Start the client.
+    $client = \Drupal::httpClient();
+    // Validate environment.
+    if ($environment === "1") {
+      $url = 'https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/' . $key;
+    } else {
+      $url = 'https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/' . $key;
+    }
+    // Set the headers data.
+    $options = [
+      'headers' => [
+        'Authorization' => 'Bearer ' . $token,
+        'Content-type' => 'application/json',
+      ],
+    ];
+    // Do the request.
+    $request = $client->request('GET', $url, $options);
   }
 }

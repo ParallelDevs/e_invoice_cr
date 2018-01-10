@@ -25,6 +25,7 @@
         "drupal/core": "~8.4",
         "drupal/field_group": "^1.0",
         "drupal/paragraphs": "^1.2",
+        "drupal/state_machine": "^1.0@beta",
         "drush/drush": "~8.0|^9.0.0-beta8",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
