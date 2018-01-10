@@ -1,15 +1,15 @@
 
 # Customer menu items definition
 entity.customer_entity.collection:
-  title: 'Administración de clientes'
+  title: 'Customer management'
   route_name: entity.customer_entity.collection
   description: 'List Customer entities'
   parent: system.admin_structure
   weight: 101
 
 customer_entity.admin.structure.settings:
-  title: Configurar cliente
-  description: 'Configurar cliente'
+  title: Customer configuration
+  description: 'Customer configuration'
   route_name: customer_entity.settings
   parent: system.admin_structure
   weight: 100

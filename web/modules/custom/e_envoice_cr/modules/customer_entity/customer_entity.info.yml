@@ -1,4 +1,4 @@
-name: Factura CR entidad cliente
+name: Invoice CR customer entity
 type: module
 description: This module provides the customer entity for e-invoice.
 core: 8.x

@@ -1,15 +1,15 @@
 
 # Invoice menu items definition
 entity.invoice_entity.collection:
-  title: 'Administración de facturas'
+  title: 'Invoice management'
   route_name: entity.invoice_entity.collection
   description: 'List Invoice entities'
   parent: system.admin_structure
   weight: 102
 
 invoice_entity.admin.structure.settings:
-  title: Configurar factura
-  description: 'Configurar factura'
+  title: Invoice configuration
+  description: 'Invoice configuration'
   route_name: invoice_entity.settings
   parent: system.admin_structure
   weight: 103
