@@ -32,7 +32,7 @@ function invoice_entity_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
       $form['actions']['submit']['#submit'][] = 'invoice_entity_custom_submit';
     }
     $form['field_total_discount']['widget'][0]['value']['#title'] .= ' ' . $currency;
-    $form['field_total_discount']['#disabled'] = 'disabled';
+    $form['field_total_discount']['widget'][0]['value']['#attributes'] = array('readonly' => 'readonly');
     $total_ventaneta = $form['field_total_ventaneta']['widget'][0]['value']['#title'];
     $form['field_total_ventaneta']['widget'][0]['value']['#title'] = $total_ventaneta . ' ' . $currency;
     $form['field_total_impuesto']['widget'][0]['value']['#attributes'] = array('readonly' => 'readonly');

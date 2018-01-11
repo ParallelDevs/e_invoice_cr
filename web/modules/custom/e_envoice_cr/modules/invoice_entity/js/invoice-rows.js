@@ -36,7 +36,7 @@
         $('input[id*="descuento"]').on('keyup change', updateInvoiceValues);
         $('input[id*="discount-percentage"]').on('keyup change', updateInvoiceValues);
         $('input[id*="field-adddis"]').on('keyup change', updateInvoiceValues);
-        $('input[id*="subform-field-impuesto"]').on('keyup change', updateInvoiceValues);
+        $('select[id*="subform-field-impuesto"]').on('keyup change', updateInvoiceValues);
       }
 
       function updateInvoiceValues() {
