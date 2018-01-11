@@ -29,29 +29,6 @@ bundle: invoice_entity
 mode: default
 content:
   field_clave_numerica:
-    weight: 1
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_cliente:
-    weight: 4
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_condicion_venta:
-    weight: 6
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
-  field_consecutivo:
     weight: 2
     label: above
     settings:
@@ -59,8 +36,31 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_fecha_emision:
+  field_cliente:
+    weight: 5
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_condicion_venta:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_consecutivo:
     weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_fecha_emision:
+    weight: 4
     label: above
     settings:
       format_type: medium
@@ -70,7 +70,7 @@ content:
     region: content
   field_filas:
     type: entity_reference_revisions_entity_view
-    weight: 8
+    weight: 9
     label: above
     settings:
       view_mode: default
@@ -78,14 +78,14 @@ content:
     third_party_settings: {  }
     region: content
   field_medio_de_pago:
-    weight: 5
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
   field_plazo_credito:
-    weight: 7
+    weight: 8
     label: above
     settings:
       link_to_entity: false
@@ -104,7 +104,7 @@ content:
     type: number_decimal
     region: content
   field_total_impuesto:
-    weight: 10
+    weight: 11
     label: above
     settings:
       thousand_separator: ''
@@ -115,7 +115,7 @@ content:
     type: number_decimal
     region: content
   field_total_ventaneta:
-    weight: 9
+    weight: 10
     label: above
     settings:
       thousand_separator: ''
@@ -126,7 +126,7 @@ content:
     type: number_decimal
     region: content
   field_totalcomprobante:
-    weight: 11
+    weight: 12
     label: above
     settings:
       thousand_separator: ''
@@ -139,7 +139,7 @@ content:
   name:
     label: above
     type: string
-    weight: -4
+    weight: 0
     region: content
     settings:
       link_to_entity: false
@@ -147,8 +147,9 @@ content:
   user_id:
     label: hidden
     type: author
-    weight: 0
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  content_moderation_control: true

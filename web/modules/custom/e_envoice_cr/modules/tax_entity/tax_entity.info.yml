@@ -1,4 +1,4 @@
-name: Invoice Tax Entity
+name: Invoice CR tax entity
 type: module
 description: This module provides the tax entity for e-invoice.
 core: 8.x

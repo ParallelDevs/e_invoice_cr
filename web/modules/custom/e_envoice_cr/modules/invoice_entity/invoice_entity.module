@@ -4,6 +4,7 @@ use Drupal\e_invoice_cr\Authentication;
 use Drupal\e_invoice_cr\XMLGenerator;
 use Drupal\e_invoice_cr\Signature;
 use Drupal\e_invoice_cr\Communication;
+use Drupal\invoice_email\InvoiceEmailEvent;
 
 /**
  * Implements Hook_form_alter().
@@ -78,8 +79,7 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
 
   try {
     // Get authentication token for the API.
-    $authentication = new Authentication();
-    $token = $authentication->getLoginToken();
+    $token = \Drupal::service('e_invoice_cr.authentication')->getLoginToken();
   } catch (Exception $e) {
     $message = 'Error getting the authentication token.';
     drupal_set_message(t($message), 'error');
@@ -98,7 +98,7 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
     $client_id = $form_state->getValue('field_cliente')[0]['target_id'];
     $client = \Drupal::entityTypeManager()->getStorage('customer_entity')->load($client_id);
     $date_object = $form_state->getValue('field_fecha_emision')[0]['value'];
-    $date = $date_object->format('Y-m-d\TH:i:s-z');
+    $date = str_replace('+', '-', $date_object->format('c'));
     $rows = $form_state->getValue('field_filas');
     $pay_type = $form_state->getValue('field_medio_de_pago')[0]['value'];
     $p_credit = $form_state->getValue('field_plazo_credito')[0]['value'];
@@ -198,6 +198,13 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
     }
   }
 
+  // Load the Symfony event dispatcher object through services.
+  $dispatcher = \Drupal::service('event_dispatcher');
+  // Creating our event class object.
+  $event = new InvoiceEmailEvent($form_state->getValue('name'));
+  // Dispatching the event through the ‘dispatch’  method,
+  // POassing event name and event object ‘$event’ as parameters.
+  $dispatcher->dispatch(InvoiceEmailEvent::SUBMIT, $event);
 }
 
 /**
@@ -327,5 +334,54 @@ function invoice_entity_set_size($variable, $size) {
     $variable = '0' . (string)$variable;
   }
   return $variable;
+}
+
+/**
+ * Implements Hook_entity_operation().
+ */
+function invoice_entity_entity_operation(\Drupal\Core\Entity\EntityInterface $entity) {
+  $type = $entity->getEntityType();
+  if ($type->id() === "invoice_entity") {
+    $status = $entity->get('moderation_state')->value;
+    if ($status === "draft") {
+      $key = $entity->get('field_clave_numerica')->value;
+      $operations = array();
+      $operations['validate'] = array(
+        'title' => t('Validate'),
+        'url' => \Drupal\Core\Url::fromRoute("invoice_entity.validate", ["key" => $key, "id" => $entity->id()]),
+        'weight' => 0,
+      );
+      return $operations;
+    }
+  }
+}
+
+/**
+ * Implements Hook_cron().
+ */
+function invoice_entity_cron() {
+  // Update the invoices states
+  $query = \Drupal::entityQuery('invoice_entity');
+  $nids = $query->execute();
+  if (sizeof($nids) > 0) {
+    $entity_manager = \Drupal::entityManager();
+    foreach ($nids as $index => $item) {
+      $entity = $entity_manager->getStorage('invoice_entity')->load($item);
+      if ($entity->get('moderation_state')->value === 'draft') {
+        $key = $entity->get('field_clave_numerica')->value;
+        $communication = new Communication();
+        $result = $communication->validateDocument($key);
+        if ($result[2] === "rechazado") {
+          $entity->set('moderation_state', 'rejected');
+          $entity->save();
+        } else {
+          $entity->set('moderation_state', 'published');
+          $entity->save();
+        }
+        // Show a notification massage.
+        drupal_set_message(t("The invoices have been verified during the cron process."), 'status');
+      }
+    }
+  }
 }
 
