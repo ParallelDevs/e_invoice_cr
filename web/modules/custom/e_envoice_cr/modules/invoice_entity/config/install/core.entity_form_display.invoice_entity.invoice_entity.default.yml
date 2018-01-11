@@ -55,7 +55,7 @@ third_party_settings:
       children:
         - field_filas
       parent_name: ''
-      weight: 20
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -69,7 +69,7 @@ third_party_settings:
         - field_total_impuesto
         - field_totalcomprobante
       parent_name: ''
-      weight: 20
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -175,4 +175,5 @@ content:
     region: content
     third_party_settings: {  }
 hidden:
+  moderation_state: true
   name: true

@@ -1,0 +1,43 @@
+uuid: 45788b73-b2c0-466d-a055-690cbcd05ea4
+langcode: en
+status: true
+dependencies:
+  module:
+    - content_moderation
+    - invoice_entity
+id: invoice_states
+label: 'Invoice state'
+type: content_moderation
+type_settings:
+  states:
+    draft:
+      published: false
+      default_revision: false
+      label: 'In validation'
+      weight: 0
+    published:
+      published: false
+      default_revision: false
+      label: Accepted
+      weight: 1
+    rejected:
+      published: false
+      default_revision: false
+      label: Rejected
+      weight: 2
+  transitions:
+    publish:
+      label: Validate
+      to: published
+      weight: 1
+      from:
+        - draft
+    validate:
+      label: Validate
+      from:
+        - draft
+      to: rejected
+      weight: 2
+  entity_types:
+    invoice_entity:
+      - invoice_entity
