@@ -3,13 +3,15 @@
 use Drupal\e_invoice_cr\Authentication;
 use Drupal\e_invoice_cr\XMLGenerator;
 use Drupal\e_invoice_cr\Signature;
+use Drupal\e_invoice_cr\Communication;
+use Drupal\invoice_email\InvoiceEmailEvent;
 
 /**
- * Implements Hook_form_alter()
+ * Implements Hook_form_alter().
  */
 function invoice_entity_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
   if ($form_id === 'invoice_entity_add_form' || $form_id === 'invoice_entity_edit_form') {
-    //get default currency
+    // Get default currency.
     $settings = \Drupal::config('e_invoice_cr.settings');
     $currency = '';
     if (isset($settings) && !is_null($settings)) {
@@ -23,12 +25,14 @@ function invoice_entity_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
     $form['field_consecutivo']['#disabled'] = 'disabled';
     $form['field_total_ventaneta']['#disabled'] = 'disabled';
     if ($form_id === 'invoice_entity_add_form') {
-      // generate the invoice keys
+      // Generate the invoice keys.
       $form['field_clave_numerica']['widget'][0]['value']['#default_value'] = invoice_entity_generate_key();
       $form['field_consecutivo']['widget'][0]['value']['#default_value'] = invoice_entity_generate_consecutive();
-      // add the custom form action
+      // Add the custom form action.
       $form['actions']['submit']['#submit'][] = 'invoice_entity_custom_submit';
     }
+    $form['field_total_discount']['widget'][0]['value']['#title'] .= ' ' . $currency;
+    $form['field_total_discount']['#disabled'] = 'disabled';
     $total_ventaneta = $form['field_total_ventaneta']['widget'][0]['value']['#title'];
     $form['field_total_ventaneta']['widget'][0]['value']['#title'] = $total_ventaneta . ' ' . $currency;
     $form['field_total_impuesto']['#disabled'] = 'disabled';
@@ -39,7 +43,7 @@ function invoice_entity_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
     $form['field_totalcomprobante']['widget'][0]['value']['#title'] = $totalcomprobante . ' ' . $currency;
     for ($i = 0; $i >= 0; $i++) {
       if (array_key_exists($i, $form['field_filas']['widget'])) {
-        // rows
+        // Rows.
         $price = $form['field_filas']['widget'][$i]['subform']['field_preciounitario']['widget'][0]['value']['#title'];
         $form['field_filas']['widget'][$i]['subform']['field_preciounitario']['widget'][0]['value']['#title'] = $price . ' ' . $currency;
         $form['field_total_impuesto']['#disabled'] = 'disabled';
@@ -49,52 +53,59 @@ function invoice_entity_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
         $form['field_filas']['widget'][$i]['subform']['field_montototal']['#disabled'] = 'disabled';
         $form['field_filas']['widget'][$i]['subform']['field_subtotal']['#disabled'] = 'disabled';
         $form['field_filas']['widget'][$i]['subform']['field_impuesto']['#disabled'] = 'disabled';
+        $form['field_filas']['widget'][$i]['subform']['field_row_discount']['#disabled'] = 'disabled';
+
+        $visible_condition = array(
+          ':input[id="field-adddis-'. $i .'"]' => array('checked' => TRUE),
+        );
+        $form['field_filas']['widget'][$i]['subform']['field_add_discount']['widget']['value']['#attributes']['id'] = 'field-adddis-' . $i;
+        $form['field_filas']['widget'][$i]['subform']['field_discount_percentage']['widget'][0]['value']['#states']['visible'] = $visible_condition;
+        $form['field_filas']['widget'][$i]['subform']['field_discount_reason']['widget'][0]['value']['#states']['visible'] = $visible_condition;
       } else {
         break;
       }
     }
-    // the library
+    // The library.
     $form['#attached']['library'][] = 'invoice_entity/invoice-rows';
     $form['#attached']['library'][] = 'invoice_entity/invoice-rows-js';
   }
 }
 
 /**
- * Custom submit action
+ * Custom submit action.
  */
 function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
-  ////////////////// Authentication ////////////////////
+  // Authentication.
 
   try {
-    // get authentication token for the API
-    $authentication = new Authentication();
-    $token = $authentication->getLoginToken();
+    // Get authentication token for the API.
+    $token = \Drupal::service('e_invoice_cr.authentication')->getLoginToken();
   } catch (Exception $e) {
-    $message = 'Error obteniendo el token de autenticación, la factura no se podrá enviar.';
+    $message = 'Error getting the authentication token.';
     drupal_set_message(t($message), 'error');
   }
 
   if (!$token) {
-    $message = 'Error obteniendo el token de autenticación, la factura no se podrá enviar.';
+    $message = 'Error getting the authentication token.';
     drupal_set_message(t($message), 'error');
   } else {
-    ////////////////// Get all xml data ////////////////////
+    // Get all xml data.
 
-    // get the invoice data
+    // Get the invoice data.
     $key = $form_state->getValue('field_clave_numerica')[0]['value'];
     $consecutive = $form_state->getValue('field_consecutivo')[0]['value'];
     $condition = $form_state->getValue('field_condicion_venta')[0]['value'];
     $client_id = $form_state->getValue('field_cliente')[0]['target_id'];
     $client = \Drupal::entityTypeManager()->getStorage('customer_entity')->load($client_id);
     $date_object = $form_state->getValue('field_fecha_emision')[0]['value'];
-    $date = $date_object->format('Y-m-d\TH:i:s-z');
+    $date = str_replace('+', '-', $date_object->format('c'));
     $rows = $form_state->getValue('field_filas');
     $pay_type = $form_state->getValue('field_medio_de_pago')[0]['value'];
     $p_credit = $form_state->getValue('field_plazo_credito')[0]['value'];
     $t_tax = $form_state->getValue('field_total_impuesto')[0]['value'];
     $t_sale = $form_state->getValue('field_total_ventaneta')[0]['value'];
     $t_invoice = $form_state->getValue('field_totalcomprobante')[0]['value'];
-    // group the general information
+    // Group the general information.
     $general = [
       'key' => $key,
       'consecutive' => $consecutive,
@@ -106,7 +117,7 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
       't_sale' => $t_sale,
       't_invoice' => $t_invoice,
     ];
-    // the emitter data (currently not supporting fax fields)
+    // The emitter data (currently not supporting fax fields).
     $settings = \Drupal::config('e_invoice_cr.settings');
     $emitter = [
       'name' => $settings->get('name'),
@@ -119,7 +130,7 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
         'data1' => substr($settings->get('postal_code'), 0, 1),
         'data2' => substr($settings->get('postal_code'), 1, 2),
         'data3' => substr($settings->get('postal_code'), 3, 5),
-        'data4' => '01',// this value is not support (*)
+        'data4' => '01', // This value is not support (*).
         'data5' => $settings->get('address'),
       ],
       'phone' => [
@@ -133,37 +144,93 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
       'email' => $settings->get('email'),
     ];
 
-    ////////////////// Create XML document ////////////////////
+    // Create XML document.
 
-    // get base url
+    // Get base url.
     global $base_url;
-    //generate the XML file with the invoice data
+    // Generate the XML file with the invoice data.
     $xml_generator = new XMLGenerator();
-    // get the xml doc built
+    // Get the xml doc built.
     $xml = $xml_generator->generateInvoiceXML($general, $client, $emitter,$rows);
     $xml->saveXML();
-    // create dir
+    // Create dir.
     $path = "public://xml/";
     file_prepare_directory($path, FILE_CREATE_DIRECTORY);
     $result = $xml->save('public://xml/document.xml', LIBXML_NOEMPTYTAG);
 
-    ////////////////// Sign document ////////////////////
+    // Sign document.
 
     $signature = new Signature();
     $response = $signature->signDocument();
 
     if (strpos($response,"Error") !== false || strpos($response, "Failed") !== false) {
-      $message = 'Se generaron errores al momento de firmar la factura. La firma podría estar incorrecta.';
+      $message = 'There were errors during the signature process, the signature could be wrong.';
       drupal_set_message(t($message), 'error');
     }
 
+    // Send document to API.
+
+    $body_data = [
+      'key' => $key,
+      'date' => $date,
+      'e_type' => $settings->get('id_type'),
+      'e_number' => $settings->get('id'),
+      'c_type' => $client->get('field_tipo_de_identificacion')->value,
+      'c_number' => $client->get('field_intensificacion')->value,
+    ];
+    $communication = new Communication();
+    // Get the document.
+    $doc_uri = DRUPAL_ROOT . '/sites/default/files/xml_signed/xades_epes_segned.xml';
+    // Get the xml content.
+    $document = file_get_contents($doc_uri);
+    // Sent the document.
+    $response = $communication->sentDocument($document, $body_data, $token);
+    // Show a error message.
+    if ($response->getStatusCode() != 202 && $response->getStatusCode() != 200) {
+      // Reduce the consecutive.
+      invoice_entity_reduce_consecutive();
+      $message = 'The was a problem sending the electronic document.';
+      drupal_set_message(t($message), 'error');
+    } else {
+      // Show a success message.
+      $message = 'The electronic document was sent to its verification.';
+      drupal_set_message(t($message), 'status');
+    }
   }
 
-
+  // Load the Symfony event dispatcher object through services.
+  $dispatcher = \Drupal::service('event_dispatcher');
+  // Creating our event class object.
+  $event = new InvoiceEmailEvent($form_state->getValue('name'));
+  // Dispatching the event through the ‘dispatch’  method,
+  // POassing event name and event object ‘$event’ as parameters.
+  $dispatcher->dispatch(InvoiceEmailEvent::SUBMIT, $event);
 }
 
 /**
- * Generate the row key
+ * Reduce in 1 the consecutive.
+ */
+function invoice_entity_reduce_consecutive() {
+  $invoice_number = invoice_entity_get_variable('invoice_number');
+  $secure_code = invoice_entity_get_variable('secure_code');
+  $consecutive_number = invoice_entity_get_variable('consecutive_number');
+  if (!is_null($consecutive_number) && $consecutive_number > 1) {
+    $consecutive_number = (int)$consecutive_number - 1;
+    $invoice_number = (int)$invoice_number - 1;
+    $secure_code = (int)$secure_code - 1;
+    // Validate size.
+    $consecutive_number = invoice_entity_set_size((string)$consecutive_number, 20);
+    $invoice_number = invoice_entity_set_size((string)$invoice_number, 10);
+    $secure_code = invoice_entity_set_size((string)$secure_code, 8);
+    // Save the values.
+    invoice_entity_set_variable('consecutive_number', $consecutive_number);
+    invoice_entity_set_variable('invoice_number', $invoice_number);
+    invoice_entity_set_variable('secure_code', $secure_code);
+  }
+}
+
+/**
+ * Generate the row key.
  */
 function invoice_entity_generate_row_key() {
   // get last consecutive
@@ -174,16 +241,16 @@ function invoice_entity_generate_row_key() {
 }
 
 /**
- * Generate the consecutive key and saves it
+ * Generate the consecutive key and saves it.
  */
 function invoice_entity_generate_consecutive() {
-  // get last consecutive
+  // Get last consecutive.
   $consecutive_number = invoice_entity_get_variable('consecutive_number');
   if (!is_null($consecutive_number)) {
     $consecutive_number = (int)$consecutive_number + 1;
-    // validate size
+    // Validate size.
     $consecutive_number = invoice_entity_set_size((string)$consecutive_number, 20);
-    // save the current values
+    // Save the current values.
     invoice_entity_set_variable('consecutive_number', $consecutive_number);
   } else {
     $consecutive_number = '00000000000000000001';
@@ -193,19 +260,19 @@ function invoice_entity_generate_consecutive() {
 }
 
 /**
- * Generate the consecutive key and saves it
+ * Generate the consecutive key and saves it.
  */
 function invoice_entity_generate_key() {
-  // get last key index
+  // Get last key index.
   $invoice_number = invoice_entity_get_variable('invoice_number');
   $secure_code = invoice_entity_get_variable('secure_code');
   if (!is_null($invoice_number) || !is_null($secure_code)) {
     $invoice_number = (int)$invoice_number + 1;
     $secure_code = (int)$secure_code + 1;
-    // validate size
+    // Validate size.
     $invoice_number = invoice_entity_set_size((string)$invoice_number, 10);
     $secure_code = invoice_entity_set_size((string)$secure_code, 8);
-    // save the current values
+    // Save the current values.
     invoice_entity_set_variable('invoice_number', $invoice_number);
     invoice_entity_set_variable('secure_code', $secure_code);
   } else {
@@ -214,35 +281,34 @@ function invoice_entity_generate_key() {
     $secure_code = '0000000001';
     invoice_entity_set_variable('secure_code', $secure_code);
   }
-  // get date information
+  // Get date information.
   $day = date("d");
   $mouth = date("m");
   $year = date("y");
-  // the id user
+  // The id user.
   $settings = \Drupal::config('e_invoice_cr.settings');
   $id_user = $settings->get('id');
   if (is_null($id_user)) {
     invoice_entity_config_error();
     return '0';
   } else {
-    // join the key
+    // Join the key.
     $key = '506' . $day . $mouth . $year . $id_user . '0010000101'. $invoice_number . '1' . $secure_code;
     return $key;
   }
 }
 
 /**
- * Error messages
+ * Error messages.
  */
 function invoice_entity_config_error() {
-  $message = 'No se puede generar la clave de la factura por no se han ingresado los';
-  $message += 'datos de configuración para el modulo, ingrese a /admin/structure/e_invoice_cr/settings';
-  $message += 'para actualizar sus datos.';
+  $message = 'The document key could not be generated because there are not configuration data yet,';
+  $message += 'to set those go to /admin/structure/e_invoice_cr/settings.';
   drupal_set_message(t($message), 'error');
 }
 
 /**
- * Gets variables
+ * Gets variables.
  */
 function invoice_entity_get_variable($variable_name) {
   $config = \Drupal::config('invoice_entity.settings');
@@ -251,7 +317,7 @@ function invoice_entity_get_variable($variable_name) {
 }
 
 /**
- * Sets variables
+ * Sets variables.
  */
 function invoice_entity_set_variable($variable_name, $value) {
   $config = \Drupal::service('config.factory')->getEditable('invoice_entity.settings');
@@ -259,7 +325,7 @@ function invoice_entity_set_variable($variable_name, $value) {
 }
 
 /**
- * Sets the correct string size
+ * Sets the correct string size.
  */
 function invoice_entity_set_size($variable, $size) {
   $current_size = strlen($variable);
@@ -268,5 +334,54 @@ function invoice_entity_set_size($variable, $size) {
     $variable = '0' . (string)$variable;
   }
   return $variable;
+}
+
+/**
+ * Implements Hook_entity_operation().
+ */
+function invoice_entity_entity_operation(\Drupal\Core\Entity\EntityInterface $entity) {
+  $type = $entity->getEntityType();
+  if ($type->id() === "invoice_entity") {
+    $status = $entity->get('moderation_state')->value;
+    if ($status === "draft") {
+      $key = $entity->get('field_clave_numerica')->value;
+      $operations = array();
+      $operations['validate'] = array(
+        'title' => t('Validate'),
+        'url' => \Drupal\Core\Url::fromRoute("invoice_entity.validate", ["key" => $key, "id" => $entity->id()]),
+        'weight' => 0,
+      );
+      return $operations;
+    }
+  }
+}
+
+/**
+ * Implements Hook_cron().
+ */
+function invoice_entity_cron() {
+  // Update the invoices states
+  $query = \Drupal::entityQuery('invoice_entity');
+  $nids = $query->execute();
+  if (sizeof($nids) > 0) {
+    $entity_manager = \Drupal::entityManager();
+    foreach ($nids as $index => $item) {
+      $entity = $entity_manager->getStorage('invoice_entity')->load($item);
+      if ($entity->get('moderation_state')->value === 'draft') {
+        $key = $entity->get('field_clave_numerica')->value;
+        $communication = new Communication();
+        $result = $communication->validateDocument($key);
+        if ($result[2] === "rechazado") {
+          $entity->set('moderation_state', 'rejected');
+          $entity->save();
+        } else {
+          $entity->set('moderation_state', 'published');
+          $entity->save();
+        }
+        // Show a notification massage.
+        drupal_set_message(t("The invoices have been verified during the cron process."), 'status');
+      }
+    }
+  }
 }
 

@@ -1,0 +1,7 @@
+name: Invoice CR email
+type: module
+description: This module provides the email services functionality to send the invoice PDF file to client.
+core: 8.x
+package: other
+dependencies:
+  - e_invoice_cr

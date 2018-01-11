@@ -7,6 +7,8 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
 use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\e_invoice_cr\Communication;
 
 /**
  * Class InvoiceEntityController.
@@ -158,6 +160,32 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
     ];
 
     return $build;
+  }
+
+  /**
+   * Validate a invoice.
+   *
+   * @param $key
+   *   A Invoice  object.
+   *
+   * @return boolean
+   *   An array as expected by drupal_render().
+   */
+  public function validateInvoice($key, $id) {
+    $entity = \Drupal::entityManager()->getStorage('invoice_entity')->load($id);
+    $con = new Communication();
+    $res = $con->validateDocument($key);
+    if ($res[2] === "rechazado") {
+      $entity->set('moderation_state', 'rejected');
+      $entity->save();
+      drupal_set_message(t("Status Rejected. " . $res[3]->DetalleMensaje), 'error');
+    } else {
+      $entity->set('moderation_state', 'published');
+      $entity->save();
+      drupal_set_message(t("Status Accepted. " . $res[3]->DetalleMensaje), 'status');
+    }
+    drupal_set_message(t('A validation request has been performed.'), 'status');
+    return new RedirectResponse('/admin/structure/e-invoice-cr/invoice_entity');
   }
 
 }

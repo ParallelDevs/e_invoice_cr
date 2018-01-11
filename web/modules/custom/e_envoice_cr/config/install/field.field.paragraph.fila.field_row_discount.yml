@@ -1,0 +1,23 @@
+uuid: 1bcd87c3-7567-4a69-915c-54b686752ee0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_row_discount
+    - paragraphs.paragraphs_type.fila
+id: paragraph.fila.field_row_discount
+field_name: field_row_discount
+entity_type: paragraph
+bundle: fila
+label: Discount
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

@@ -11,6 +11,7 @@ dependencies:
     - field.field.invoice_entity.invoice_entity.field_filas
     - field.field.invoice_entity.invoice_entity.field_medio_de_pago
     - field.field.invoice_entity.invoice_entity.field_plazo_credito
+    - field.field.invoice_entity.invoice_entity.field_total_discount
     - field.field.invoice_entity.invoice_entity.field_total_impuesto
     - field.field.invoice_entity.invoice_entity.field_total_ventaneta
     - field.field.invoice_entity.invoice_entity.field_totalcomprobante
@@ -55,7 +56,7 @@ third_party_settings:
       children:
         - field_filas
       parent_name: ''
-      weight: 20
+      weight: 2
       format_type: fieldset
       format_settings:
         id: ''
@@ -65,11 +66,12 @@ third_party_settings:
       label: Cuerpo
     group_resumen:
       children:
+        - field_total_discount
         - field_total_ventaneta
         - field_total_impuesto
         - field_totalcomprobante
       parent_name: ''
-      weight: 20
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -77,6 +79,8 @@ third_party_settings:
         description: ''
         required_fields: true
       label: Resumen
+_core:
+  default_config_hash: kBOPY6uATCGG1MvICxdCmmfyUOqBOT0fgHJBQ0rZPjE
 id: invoice_entity.invoice_entity.default
 targetEntityType: invoice_entity
 bundle: invoice_entity
@@ -142,22 +146,29 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_total_impuesto:
+  field_total_discount:
     weight: 28
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
+  field_total_impuesto:
+    weight: 30
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
   field_total_ventaneta:
-    weight: 27
+    weight: 29
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
   field_totalcomprobante:
-    weight: 29
+    weight: 31
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -173,4 +184,5 @@ content:
     region: content
     third_party_settings: {  }
 hidden:
+  moderation_state: true
   name: true
