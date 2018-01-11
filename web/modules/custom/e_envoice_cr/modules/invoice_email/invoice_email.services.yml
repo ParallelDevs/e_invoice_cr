@@ -1,0 +1,7 @@
+services:
+  invoice_email.send_invoice_email:
+    class: Drupal\invoice_email\EventSubscriber\InvoiceEmailEventSubscriber
+    arguments: []
+    tags:
+      - { name: event_subscriber }
+
