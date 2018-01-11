@@ -31,6 +31,8 @@ function invoice_entity_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
       // Add the custom form action.
       $form['actions']['submit']['#submit'][] = 'invoice_entity_custom_submit';
     }
+    $form['field_total_discount']['widget'][0]['value']['#title'] .= ' ' . $currency;
+    $form['field_total_discount']['#disabled'] = 'disabled';
     $total_ventaneta = $form['field_total_ventaneta']['widget'][0]['value']['#title'];
     $form['field_total_ventaneta']['widget'][0]['value']['#title'] = $total_ventaneta . ' ' . $currency;
     $form['field_total_impuesto']['widget'][0]['value']['#attributes'] = array('readonly' => 'readonly');
@@ -51,6 +53,14 @@ function invoice_entity_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
         $form['field_filas']['widget'][$i]['subform']['field_montototal']['widget'][0]['value']['#attributes'] = array('readonly' => 'readonly');
         $form['field_filas']['widget'][0]['subform']['field_subtotal']['widget'][0]['value']['#attributes'] = array('readonly' => 'readonly');
         $form['field_filas']['widget'][$i]['subform']['field_impuesto'];
+        $form['field_filas']['widget'][$i]['subform']['field_row_discount']['widget'][0]['value']['#attributes'] = array('readonly' => 'readonly');
+
+        $visible_condition = array(
+          ':input[id="field-adddis-'. $i .'"]' => array('checked' => TRUE),
+        );
+        $form['field_filas']['widget'][$i]['subform']['field_add_discount']['widget']['value']['#attributes']['id'] = 'field-adddis-' . $i;
+        $form['field_filas']['widget'][$i]['subform']['field_discount_percentage']['widget'][0]['value']['#states']['visible'] = $visible_condition;
+        $form['field_filas']['widget'][$i]['subform']['field_discount_reason']['widget'][0]['value']['#states']['visible'] = $visible_condition;
       } else {
         break;
       }

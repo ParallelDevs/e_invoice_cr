@@ -1,0 +1,20 @@
+uuid: 3983a619-1843-4626-8513-36ffe28f196e
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_entity
+id: invoice_entity.field_total_discount
+field_name: field_total_discount
+entity_type: invoice_entity
+type: decimal
+settings:
+  precision: 18
+  scale: 3
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
