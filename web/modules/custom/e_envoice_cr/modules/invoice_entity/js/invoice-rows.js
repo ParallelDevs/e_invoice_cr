@@ -74,7 +74,7 @@
           if ($(mt[j]).length > 0) {
             totalSale = totalSale + parseFloat($(mt[j]).val());
             totalDis = totalDis+ parseFloat($(rd[j]).val());
-            totalTax = totalTax + parseFloat($(st[j]).val() - $(mt[j]).val());
+            totalTax = totalTax + parseFloat($(mtl[j]).val() - $(st[j]).val());
             totalInvoice = totalInvoice + parseFloat($(mtl[j]).val());
           }
         }
