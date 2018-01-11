@@ -14,6 +14,7 @@ function e_invoice_cr_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     // Main module help for the e_invoice_cr module.
     case 'help.page.e_invoice_cr':
+      e_invoice_cr_check_java();
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('This module provides an invoice system according to the costa rican regulations.') . '</p>';
@@ -34,3 +35,24 @@ function e_invoice_cr_theme() {
   ];
 }
 
+/**
+ * Implements hook_preprocess_page().
+ */
+function e_invoice_cr_preprocess_page(&$variables) {
+  $current_path = \Drupal::service('path.current')->getPath();
+  if (strpos($current_path, 'e-invoice-cr') || strpos($current_path, 'e_invoice_cr')) {
+    e_invoice_cr_check_java();
+  }
+}
+
+/**
+ * Custom function to check if java is available on the server.
+ */
+function e_invoice_cr_check_java() {
+  $error_message = 'Invoice CR Module: Java not detected on the server. This module needs java installed to work properly.';
+  $command = 'java -version && echo 1 || echo 0';
+  $result = exec($command, $response);
+  if(!$result) {
+    drupal_set_message($error_message, 'error');
+  }
+}
