@@ -7,3 +7,4 @@ dependencies:
   - e_invoice_cr
   - workflows
   - content_moderation
+  - customer_entity

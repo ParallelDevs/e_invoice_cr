@@ -1,18 +1,16 @@
-uuid: c164f689-73ed-44af-8e88-4914788b5b1c
+uuid: 4448c603-8588-4dcc-96a3-785dea2bb661
 langcode: en
 status: true
 dependencies:
   module:
     - paragraphs
-_core:
-  default_config_hash: Gd9YAYVT29p9gwQuBOw13o1RiuJNRuHgHu8wvNU2-cs
-id: paragraph.field_descuento
-field_name: field_descuento
+    - tax_entity
+id: paragraph.field_impuesto
+field_name: field_impuesto
 entity_type: paragraph
-type: integer
+type: entity_reference
 settings:
-  unsigned: false
-  size: normal
+  target_type: tax_entity
 module: core
 locked: false
 cardinality: 1
