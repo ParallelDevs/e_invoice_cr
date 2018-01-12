@@ -10,12 +10,12 @@
   'use strict';
   Drupal.behaviors.geneteFields = {
     attach: function(context, settings) {
-      // calculate the fields needed
+      // Calculate the fields needed.
       calculateValues();
       calculateRowsTotal();
 
       function calculateValues() {
-        // check if it's possible to calculate the current fields
+        // Check if it's possible to calculate the current fields.
         var max = getRows();
         for (var i = 0; i < max; i++) {
           var quantity = $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-cantidad-0-value]').val();
@@ -23,9 +23,9 @@
           if (quantity != '' && price != '') {
             var totalA = quantity * price;
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-montototal-0-value]').val(totalA);
-            var tax = $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-descuento-0-value]').val();
-            tax = '0.' + tax;
-            var totalWithTax = totalA + (totalA * tax);
+            var tax_id = $('select[data-drupal-selector=edit-field-filas-' + i + '-subform-field-impuesto]').val();
+            var tax = parseFloat(searchTax(tax_id));
+            var totalWithTax = totalA + ((tax/100)*totalA);
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-subtotal-0-value]').val(totalWithTax);
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-monto-total-linea-0-value]').val(totalWithTax);
           }
@@ -36,6 +36,7 @@
         $('input[id*="descuento"]').on('keyup change', updateInvoiceValues);
         $('input[id*="discount-percentage"]').on('keyup change', updateInvoiceValues);
         $('input[id*="field-adddis"]').on('keyup change', updateInvoiceValues);
+        $('select[id*="subform-field-impuesto"]').on('keyup change', updateInvoiceValues);
       }
 
       function updateInvoiceValues() {
@@ -49,20 +50,35 @@
           if (quantity != '' && price != '') {
             var totalA = quantity * price;
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-montototal-0-value]').val(totalA);
-            var tax = $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-descuento-0-value]').val();
-            tax = '0.' + tax;
+            var tax_id = $('select[data-drupal-selector=edit-field-filas-' + i + '-subform-field-impuesto]').val();
+            var tax = parseFloat(searchTax(tax_id));
             var discount = totalA * (discount / 100);
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-row-discount-0-value]').val(discount);
             var subTotal = totalA - discount;
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-subtotal-0-value]').val(subTotal);
-            var totalWithTax = subTotal + (totalA * tax);
+            var totalWithTax = subTotal + ((tax/100)*totalA);
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-monto-total-linea-0-value]').val(totalWithTax);
           }
         }
         calculateRowsTotal();
       }
 
-      // calculate the general rows totals
+      // Gets the tax percentage
+      function searchTax(id) {
+        if (id == '_none') {
+          return 0;
+        }
+        else {
+          var taxs = drupalSettings.taxsObject;
+          for (var i = 0; i < taxs.length; i++) {
+            if (taxs["" + i].id == id) {
+              return taxs["" + i].percentage;
+            }
+          }
+        }
+      }
+
+      // Calculate the general rows totals.
       function calculateRowsTotal() {
         var mt = $('input[id*="montototal"]');
         var rd = $('input[id*="row-discount"]');
@@ -84,7 +100,7 @@
         $('#edit-field-totalcomprobante-0-value').val(totalInvoice);
       }
 
-      // returns the rows quantity
+      // Returns the rows quantity.
       function getRows() {
         var index = 0;
         while ($('input[data-drupal-selector=edit-field-filas-' + index + '-subform-field-preciounitario-0-value]').length > 0) {

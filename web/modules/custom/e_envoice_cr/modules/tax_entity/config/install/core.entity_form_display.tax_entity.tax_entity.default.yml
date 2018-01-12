@@ -4,21 +4,28 @@ status: true
 dependencies:
   config:
     - field.field.tax_entity.tax_entity.field_tax_percentage
+    - field.field.tax_entity.tax_entity.field_tax_type
   module:
     - tax_entity
 _core:
-  default_config_hash: TuQ6lydf6jgeR9fatw5ebgpFM6yAum_wXh57aqHH2UQ
+  default_config_hash: eVrWgXzbO5_HxYKTSBuQrubNfnf2bUm1cG0zoMalVc0
 id: tax_entity.tax_entity.default
 targetEntityType: tax_entity
 bundle: tax_entity
 mode: default
 content:
   field_tax_percentage:
-    weight: 1
+    weight: 2
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
+  field_tax_type:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   name:
     type: string_textfield
@@ -30,11 +37,12 @@ content:
     third_party_settings: {  }
   user_id:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 10
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
     region: content
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  moderation_state: true

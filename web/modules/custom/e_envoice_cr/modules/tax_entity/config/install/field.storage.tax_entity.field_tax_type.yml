@@ -1,0 +1,48 @@
+uuid: c6ad9378-0db1-4877-8bef-eb933df33042
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - tax_entity
+id: tax_entity.field_tax_type
+field_name: field_tax_type
+entity_type: tax_entity
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '01'
+      label: 'Impuesto General sobre las Ventas'
+    -
+      value: '02'
+      label: 'Impuesto Selectivo de Consumo'
+    -
+      value: '03'
+      label: 'Impuesto Único a los combustibles'
+    -
+      value: '04'
+      label: 'Impuesto específico de Bebidas Alcohólicas'
+    -
+      value: '05'
+      label: 'Impuesto Específico sobre las bebidas envasadas sin contenido alcohólico y jabones de tocador'
+    -
+      value: '06'
+      label: 'Impuesto a los Productos de Tabaco'
+    -
+      value: '07'
+      label: Servicio
+    -
+      value: '12'
+      label: 'Impuesto Especifico al Cemento'
+    -
+      value: '98'
+      label: Otros
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

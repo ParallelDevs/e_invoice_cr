@@ -9,3 +9,5 @@ dependencies:
   - addressfield_cr
   - paragraphs
   - entity_print
+  - content_moderation
+  - tax_entity
