@@ -49,7 +49,7 @@ function e_invoice_cr_preprocess_page(&$variables) {
  * Custom function to check if java is available on the server.
  */
 function e_invoice_cr_check_java() {
-  $error_message = 'Invoice CR Module: Java not detected on the server. This module needs java installed to work properly.';
+  $error_message = t('Invoice CR Module: Java not detected on the server. This module needs java installed to work properly.');
   $command = 'java -version && echo 1 || echo 0';
   $result = exec($command, $response);
   if(!$result) {
