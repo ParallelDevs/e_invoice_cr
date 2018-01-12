@@ -82,6 +82,8 @@ class XMLGenerator {
       if (is_numeric ($index)) {
         $count = $index + 1;
         $values = $item['subform'];
+        $discount = $values['field_add_discount']['value'] ? $values['field_row_discount'][0]['value'] : 0;
+        $discount_reason = $values['field_add_discount']['value'] ? $values['field_discount_reason'][0]['value'] : "";
         $tax = (float)($values['field_subtotal'][0]['value']) * (float)('0.' . $values['field_descuento'][0]['value']);
         // Continue building the xml.
         $xml_doc .= '<LineaDetalle>' . "\n";
@@ -97,7 +99,7 @@ class XMLGenerator {
         $xml_doc .= '<PrecioUnitario>' . $values['field_preciounitario'][0]['value'] . '</PrecioUnitario>' . "\n";
         $xml_doc .= '<MontoTotal>' . $values['field_montototal'][0]['value'] . '</MontoTotal>' . "\n";
         $xml_doc .= '<MontoDescuento>0</MontoDescuento>' . "\n"; // No supported at the moment (*).
-        $xml_doc .= '<NaturalezaDescuento></NaturalezaDescuento>' . "\n"; // No supported at the moment (*).
+        $xml_doc .= '<NaturalezaDescuento>'. $discount_reason .'</NaturalezaDescuento>' . "\n"; // No supported at the moment (*).
         $xml_doc .= '<SubTotal>' . $values['field_subtotal'][0]['value'] . '</SubTotal>' . "\n";
         $xml_doc .= '<Impuesto>' . "\n";
         $xml_doc .= '<Codigo>01</Codigo>' . "\n"; // No supported at the moment (*).
