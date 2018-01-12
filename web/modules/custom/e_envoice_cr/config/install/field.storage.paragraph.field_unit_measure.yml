@@ -1,0 +1,282 @@
+uuid: c69edb3e-e38b-41d8-893f-a4f72c265192
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_unit_measure
+field_name: field_unit_measure
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: Sp
+      label: 'Servicios Profesionales'
+    -
+      value: m
+      label: Metro
+    -
+      value: kg
+      label: Kilogramo
+    -
+      value: s
+      label: Segundo
+    -
+      value: A
+      label: Ampere
+    -
+      value: K
+      label: Kelvin
+    -
+      value: mol
+      label: Mol
+    -
+      value: cd
+      label: Candela
+    -
+      value: m²
+      label: 'metro cuadrado'
+    -
+      value: m³
+      label: 'metro cúbico'
+    -
+      value: m/s
+      label: 'metro por segundo'
+    -
+      value: m/s²
+      label: 'metro por segundo cuadrado'
+    -
+      value: 1/m
+      label: '1 por metro'
+    -
+      value: kg/m³
+      label: 'kilogramo por metro cúbico'
+    -
+      value: A/m²
+      label: 'ampere por metro cuadrado'
+    -
+      value: A/m
+      label: 'ampere por metro'
+    -
+      value: mol/m³
+      label: 'mol por metro cúbico'
+    -
+      value: cd/m²
+      label: 'candela por metro cuadrado'
+    -
+      value: '1'
+      label: 'uno (indice de refracción)'
+    -
+      value: rad
+      label: radián
+    -
+      value: sr
+      label: estereorradián
+    -
+      value: Hz
+      label: hertz
+    -
+      value: 'N'
+      label: newton
+    -
+      value: Pa
+      label: pascal
+    -
+      value: J
+      label: Joule
+    -
+      value: W
+      label: Watt
+    -
+      value: C
+      label: coulomb
+    -
+      value: V
+      label: volt
+    -
+      value: F
+      label: farad
+    -
+      value: Ω
+      label: ohm
+    -
+      value: S
+      label: siemens
+    -
+      value: Wb
+      label: weber
+    -
+      value: T
+      label: tesla
+    -
+      value: H
+      label: henry
+    -
+      value: °C
+      label: 'grado Celsius'
+    -
+      value: lm
+      label: lumen
+    -
+      value: lx
+      label: lux
+    -
+      value: Bq
+      label: Becquerel
+    -
+      value: Gy
+      label: gray
+    -
+      value: Sv
+      label: sievert
+    -
+      value: kat
+      label: katal
+    -
+      value: Pa·s
+      label: 'pascal segundo'
+    -
+      value: N·m
+      label: 'newton metro'
+    -
+      value: N/m
+      label: 'newton por metro'
+    -
+      value: rad/s
+      label: 'radián por segundo'
+    -
+      value: rad/s²
+      label: 'radián por segundo cuadrado'
+    -
+      value: W/m²
+      label: 'watt por metro cuadrado'
+    -
+      value: J/K
+      label: 'joule por kelvin'
+    -
+      value: J/(kg·K)
+      label: 'joule por kilogramo kelvin'
+    -
+      value: J/kg
+      label: 'joule por kilogramo'
+    -
+      value: W/(m·K)
+      label: 'watt por metro kevin'
+    -
+      value: J/m³
+      label: 'joule por metro cúbico'
+    -
+      value: V/m
+      label: 'volt por metro'
+    -
+      value: C/m³
+      label: 'coulomb por metro cúbico'
+    -
+      value: C/m²
+      label: 'coulomb por metro cuadrado'
+    -
+      value: F/m
+      label: 'farad por metro'
+    -
+      value: H/m
+      label: 'henry por metro'
+    -
+      value: J/mol
+      label: 'joule por mol'
+    -
+      value: J/(mol·K)
+      label: 'joule por mol kelvin'
+    -
+      value: C/kg
+      label: 'coulomb por kilogramo'
+    -
+      value: Gy/s
+      label: 'gray por segundo'
+    -
+      value: W/sr
+      label: 'watt por estereorradián'
+    -
+      value: W/(m²·sr)
+      label: 'watt por metro cuadrado estereorradián'
+    -
+      value: kat/m³
+      label: 'katal por metro cúbico'
+    -
+      value: min
+      label: minuto
+    -
+      value: h
+      label: hora
+    -
+      value: d
+      label: día
+    -
+      value: º
+      label: grado
+    -
+      value: ´
+      label: minuto
+    -
+      value: ´´
+      label: segundo
+    -
+      value: L
+      label: litro
+    -
+      value: t
+      label: tonelada
+    -
+      value: Np
+      label: neper
+    -
+      value: B
+      label: bel
+    -
+      value: eV
+      label: electronvolt
+    -
+      value: u
+      label: 'unidad de masa atómica unificada'
+    -
+      value: ua
+      label: 'unidad astronómica'
+    -
+      value: Unid
+      label: Unidad
+    -
+      value: Gal
+      label: Galón
+    -
+      value: g
+      label: Gramo
+    -
+      value: Km
+      label: Kilometro
+    -
+      value: ln
+      label: pulgada
+    -
+      value: cm
+      label: centímetro
+    -
+      value: mL
+      label: mililitro
+    -
+      value: mm
+      label: Milímetro
+    -
+      value: Oz
+      label: Onzas
+    -
+      value: Otros
+      label: Otros
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,19 @@
+uuid: b5237119-a658-472e-9ac6-733c00e70ee7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_another_unit_measure
+    - paragraphs.paragraphs_type.fila
+id: paragraph.fila.field_another_unit_measure
+field_name: field_another_unit_measure
+entity_type: paragraph
+bundle: fila
+label: 'Another unit measure'
+description: 'You must specify the unit measure.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

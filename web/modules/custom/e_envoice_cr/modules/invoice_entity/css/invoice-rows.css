@@ -8,10 +8,11 @@
 .field--name-field-detalle {
   margin-bottom: 10px;
 }
-.field--name-field-montototal, .field--name-field-descuento, .field--name-field-subtotal, .field--name-field-monto-total-linea, .field--name-field-row-discount {
+.field--name-field-montototal, .field--name-field-impuesto, .field--name-field-subtotal, .field--name-field-monto-total-linea, .field--name-field-row-discount {
   width: 80%;
   float: right;
   margin-bottom: 10px;
+  text-align: right;
 }
 .field--name-field-montototal div {
   float: right;
@@ -31,8 +32,11 @@
 .field--name-field-montototal label {
   display: inline-block;
 }
-.field--name-field-descuento label {
+.field--name-field-impuesto label {
   display: inline-block;
+}
+.field--name-field-impuesto select {
+  width: 179px
 }
 .field--name-field-row-discount label {
   display: inline-block;
