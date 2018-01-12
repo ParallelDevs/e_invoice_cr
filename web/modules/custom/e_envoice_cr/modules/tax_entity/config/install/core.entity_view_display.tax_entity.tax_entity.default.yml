@@ -4,17 +4,19 @@ status: true
 dependencies:
   config:
     - field.field.tax_entity.tax_entity.field_tax_percentage
+    - field.field.tax_entity.tax_entity.field_tax_type
   module:
+    - options
     - tax_entity
 _core:
-  default_config_hash: rA5U3au9LwDTTfhQE6ewn6IhpxOusZYf9No0w2qmOWg
+  default_config_hash: CGObHDL6doNPIQPsvhgWw0zdCFBo7Ru0Lli-7MYq4s8
 id: tax_entity.tax_entity.default
 targetEntityType: tax_entity
 bundle: tax_entity
 mode: default
 content:
   field_tax_percentage:
-    weight: 1
+    weight: 2
     label: inline
     settings:
       thousand_separator: ''
@@ -23,6 +25,13 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
+    region: content
+  field_tax_type:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
     region: content
   name:
     label: above
@@ -33,4 +42,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
 hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   user_id: true

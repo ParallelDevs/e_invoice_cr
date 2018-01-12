@@ -5,7 +5,7 @@ dependencies:
   module:
     - tax_entity
 _core:
-  default_config_hash: P8-is0JdrtvjickjvNNAa7fOUqeO6K-UPcbylTSzld4
+  default_config_hash: gtmTD_GZtGAYKrNLmpyCCPAAUrDikyiS3fpqPZE_Lis
 id: tax_entity.field_tax_percentage
 field_name: field_tax_percentage
 entity_type: tax_entity

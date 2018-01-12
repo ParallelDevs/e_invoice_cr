@@ -1,0 +1,21 @@
+uuid: c1f95b35-5178-44a3-855a-38277028b1f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_unit_measure
+    - paragraphs.paragraphs_type.fila
+  module:
+    - options
+id: paragraph.fila.field_unit_measure
+field_name: field_unit_measure
+entity_type: paragraph
+bundle: fila
+label: 'Unit Measure'
+description: 'Select the unit measure.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
