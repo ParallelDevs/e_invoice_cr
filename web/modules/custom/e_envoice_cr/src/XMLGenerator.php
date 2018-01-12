@@ -16,7 +16,8 @@ class XMLGenerator {
     $settings = \Drupal::config('e_invoice_cr.settings');
     $currency = $settings->get('currency');
     $total_services = 0;
-    $total_items = 0;
+    $total_items_with_tax = 0;
+    $total_items_without_tax = 0;
 
     // Build the xml code.
     $xml_doc = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
@@ -69,9 +70,9 @@ class XMLGenerator {
     $xml_doc .= "\t\t</Telefono>" . "\n";
     $xml_doc .= "\t\t<Fax>" . "\n";
     $xml_doc .= "\t\t\t<CodigoPais>" . substr($client->get('field_fax')->value, 0, 3) . "</CodigoPais>" . "\n";
-    $xml_doc .= "\t\t\t<NumTelefono>" . substr($client->get('field_fax')->value, 4 ) . "</NumTelefono>" . "\n";
+    $xml_doc .= "\t\t\t<NumTelefono>" . substr($client->get('field_fax')->value, 3 ) . "</NumTelefono>" . "\n";
     $xml_doc .= "\t\t</Fax>" . "\n";
-    $xml_doc .= "\t\t<CorreoElectronico>" . $emitter['email'] . "</CorreoElectronico>" . "\n";
+    $xml_doc .= "\t\t<CorreoElectronico>" . $client->get('field_correo_electronico')->value . "</CorreoElectronico>" . "\n";
     $xml_doc .= "\t</Receptor>" . "\n";
     $xml_doc .= "\t<CondicionVenta>" . $general_data['condition'] . "</CondicionVenta>" . "\n";
     $xml_doc .= "\t<PlazoCredito>" . $general_data['p_credit'] . "</PlazoCredito>" . "\n";
@@ -103,36 +104,43 @@ class XMLGenerator {
         $xml_doc .= "\t\t\t<MontoTotal>" . $values['field_montototal'][0]['value'] . "</MontoTotal>" . "\n";
         $xml_doc .= "\t\t\t<MontoDescuento>" . $discount . "</MontoDescuento>" . "\n";
         $xml_doc .= "\t\t\t<NaturalezaDescuento>". $discount_reason ."</NaturalezaDescuento>" . "\n";
-        $xml_doc .= "\t\t\t<SubTotal>" . $values['field_subtotal'][0]['value'] . "</SubTotal>" . "\n";
+        $xml_doc .= "\t\t\t<SubTotal>" . round($values['field_subtotal'][0]['value'], 5) . "</SubTotal>" . "\n";
         $xml_doc .= "\t\t\t<Impuesto>" . "\n";
         $xml_doc .= "\t\t\t\t<Codigo>" . $tax->get('field_tax_type')->value . "</Codigo>" . "\n";
         $xml_doc .= "\t\t\t\t<Tarifa>" . $tax->get('field_tax_percentage')->value . "</Tarifa>" . "\n";
         $xml_doc .= "\t\t\t\t<Monto>" . $tax_mount . '</Monto>' . "\n";
         $xml_doc .= "\t\t\t\t<Exoneracion>" . "\n"; // No supported at the moment (*).
-        $xml_doc .= "\t\t\t\t\t<TipoDocumento></TipoDocumento>" . "\n"; // No supported at the moment (*).
-        $xml_doc .= "\t\t\t\t\t<NumeroDocumento></NumeroDocumento>" . "\n"; // No supported at the moment (*).
-        $xml_doc .= "\t\t\t\t\t<NombreInstitucion></NombreInstitucion>" . "\n"; // No supported at the moment (*).
-        $xml_doc .= "\t\t\t\t\t<FechaEmision></FechaEmision>" . "\n"; // No supported at the moment (*).
-        $xml_doc .= "\t\t\t\t\t<MontoImpuesto></MontoImpuesto>" . "\n"; // No supported at the moment (*).
-        $xml_doc .= "\t\t\t\t\t<PorcentajeCompra></PorcentajeCompra>" . "\n"; // No supported at the moment (*).
+        $xml_doc .= "\t\t\t\t\t<TipoDocumento>01</TipoDocumento>" . "\n"; // No supported at the moment (*).
+        $xml_doc .= "\t\t\t\t\t<NumeroDocumento>01</NumeroDocumento>" . "\n"; // No supported at the moment (*).
+        $xml_doc .= "\t\t\t\t\t<NombreInstitucion>asdas</NombreInstitucion>" . "\n"; // No supported at the moment (*).
+        $xml_doc .= "\t\t\t\t\t<FechaEmision>2017-11-27T09:55:05-06:00</FechaEmision>" . "\n"; // No supported at the moment (*).
+        $xml_doc .= "\t\t\t\t\t<MontoImpuesto>12</MontoImpuesto>" . "\n"; // No supported at the moment (*).
+        $xml_doc .= "\t\t\t\t\t<PorcentajeCompra>2</PorcentajeCompra>" . "\n"; // No supported at the moment (*).
         $xml_doc .= "\t\t\t\t</Exoneracion>" . "\n"; // No supported at the moment (*).
         $xml_doc .= "\t\t\t</Impuesto>" . "\n";
-        $xml_doc .= "\t\t\t<MontoTotalLinea>" . $values['field_monto_total_linea'][0]['value'] . "</MontoTotalLinea>" . "\n";
+        $xml_doc .= "\t\t\t<MontoTotalLinea>" . round($values['field_monto_total_linea'][0]['value'], 5) . "</MontoTotalLinea>" . "\n";
         $xml_doc .= "\t\t</LineaDetalle>" . "\n";
-        $total_items = $total_items + (int)$values['field_cantidad'][0]['value'];
-        $total_services++;
+        // Save the ones with tax
+        if ($tax_mount !== "" && $tax_mount > 0 && $tax_mount !== NULL) {
+          $total_items_with_tax = $total_items_with_tax + (int)$values['field_cantidad'][0]['value'];
+          $total_services++;
+        } else {
+          // Save the ones without tax
+          $total_items_without_tax = $total_items_without_tax + (int)$values['field_cantidad'][0]['value'];
+          $total_services++;
+        }
       }
     }
     $xml_doc .= "\t</DetalleServicio>" . "\n";
     $xml_doc .= "\t<ResumenFactura>" . "\n";
-    $xml_doc .= "\t\t<CodigoMoneda>" . $currency . "</CodigoMoneda>" . "\n";
+    $xml_doc .= "\t\t<CodigoMoneda>" . strtoupper($currency ) . "</CodigoMoneda>" . "\n";
     $xml_doc .= "\t\t<TipoCambio>0</TipoCambio>" . "\n"; // No supported at the moment (*).
-    $xml_doc .= "\t\t<TotalServGravados>" . $total_services . "</TotalServGravados>" . "\n";
-    $xml_doc .= "\t\t<TotalServExentos>0</TotalServExentos>" . "\n"; // No supported at the moment (*).
-    $xml_doc .= "\t\t<TotalMercanciasGravadas>" . $total_items . "</TotalMercanciasGravadas>" . "\n";
-    $xml_doc .= "\t\t<TotalMercanciasExentas>0</TotalMercanciasExentas>" . "\n"; // No supported at the moment (*).
-    $xml_doc .= "\t\t<TotalGravado>" . $total_items . "</TotalGravado>" . "\n";
-    $xml_doc .= "\t\t<TotalExento>0</TotalExento>" . "\n"; // No supported at the moment (*).
+    $xml_doc .= "\t\t<TotalServGravados>" . $total_items_with_tax . "</TotalServGravados>" . "\n";
+    $xml_doc .= "\t\t<TotalServExentos>" . $total_items_without_tax . "</TotalServExentos>" . "\n"; // No supported at the moment (*).
+    $xml_doc .= "\t\t<TotalMercanciasGravadas>" . $total_items_with_tax . "</TotalMercanciasGravadas>" . "\n";
+    $xml_doc .= "\t\t<TotalMercanciasExentas>" . $total_items_without_tax . "</TotalMercanciasExentas>" . "\n"; // No supported at the moment (*).
+    $xml_doc .= "\t\t<TotalGravado>" . $total_items_with_tax . "</TotalGravado>" . "\n";
+    $xml_doc .= "\t\t<TotalExento>" . $total_items_without_tax . "</TotalExento>" . "\n"; // No supported at the moment (*).
     $xml_doc .= "\t\t<TotalVenta>" . $general_data['t_sale'] . "</TotalVenta>" . "\n";
     $xml_doc .= "\t\t<TotalDescuentos>0</TotalDescuentos>" . "\n"; // No supported at the moment (*).
     $xml_doc .= "\t\t<TotalVentaNeta>" . $general_data['t_sale'] . "</TotalVentaNeta>" . "\n";

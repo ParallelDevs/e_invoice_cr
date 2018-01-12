@@ -25,8 +25,11 @@
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-montototal-0-value]').val(totalA);
             var tax_id = $('select[data-drupal-selector=edit-field-filas-' + i + '-subform-field-impuesto]').val();
             var tax = parseFloat(searchTax(tax_id));
-            var totalWithTax = totalA + ((tax/100)*totalA);
-            $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-subtotal-0-value]').val(totalWithTax);
+            var discount = totalA * (discount / 100);
+            $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-row-discount-0-value]').val(discount);
+            var subTotal = totalA - discount;
+            $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-subtotal-0-value]').val(subTotal);
+            var totalWithTax = parseFloat(subTotal + ((tax/100)*totalA));
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-monto-total-linea-0-value]').val(totalWithTax);
           }
         }
@@ -56,7 +59,7 @@
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-row-discount-0-value]').val(discount);
             var subTotal = totalA - discount;
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-subtotal-0-value]').val(subTotal);
-            var totalWithTax = subTotal + ((tax/100)*totalA);
+            var totalWithTax = parseFloat(subTotal + ((tax/100)*totalA));
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-monto-total-linea-0-value]').val(totalWithTax);
           }
         }
@@ -89,7 +92,7 @@
         for (var j = 0; j < rows; j++) {
           if ($(mt[j]).length > 0) {
             totalSale = totalSale + parseFloat($(mt[j]).val());
-            totalDis = totalDis+ parseFloat($(rd[j]).val());
+            totalDis = totalDis + parseFloat($(rd[j]).val());
             totalTax = totalTax + parseFloat($(mtl[j]).val() - $(st[j]).val());
             totalInvoice = totalInvoice + parseFloat($(mtl[j]).val());
           }

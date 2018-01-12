@@ -26,8 +26,9 @@ function invoice_entity_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
     $form['field_total_ventaneta']['widget'][0]['value']['#attributes'] = array('readonly' => 'readonly');
     if ($form_id === 'invoice_entity_add_form') {
       // Generate the invoice keys.
-      $form['field_clave_numerica']['widget'][0]['value']['#default_value'] = invoice_entity_generate_key();
-      $form['field_consecutivo']['widget'][0]['value']['#default_value'] = invoice_entity_generate_consecutive();
+      $key = invoice_entity_generate_key();
+      $form['field_clave_numerica']['widget'][0]['value']['#default_value'] = $key;
+      $form['field_consecutivo']['widget'][0]['value']['#default_value'] = invoice_entity_generate_consecutive($key);
       // Add the custom form action.
       $form['actions']['submit']['#submit'][] = 'invoice_entity_custom_submit';
     }
@@ -128,9 +129,9 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
       'date' => $date,
       'pay_type' => $pay_type,
       'p_credit' => $p_credit,
-      't_tax' => $t_tax,
-      't_sale' => $t_sale,
-      't_invoice' => $t_invoice,
+      't_tax' => round($t_tax, 5),
+      't_sale' => round($t_sale, 5),
+      't_invoice' => round($t_invoice, 5),
     ];
     // The emitter data (currently not supporting fax fields).
     $settings = \Drupal::config('e_invoice_cr.settings');
@@ -153,8 +154,8 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
           'number' => substr($settings->get('phone'), 3 ),
         ],
       'fax' => [
-          'code' => '',
-          'number' => '',
+          'code' => '506',
+          'number' => '83095057',
         ],
       'email' => $settings->get('email'),
     ];
@@ -258,19 +259,8 @@ function invoice_entity_generate_row_key() {
 /**
  * Generate the consecutive key and saves it.
  */
-function invoice_entity_generate_consecutive() {
-  // Get last consecutive.
-  $consecutive_number = invoice_entity_get_variable('consecutive_number');
-  if (!is_null($consecutive_number)) {
-    $consecutive_number = (int)$consecutive_number + 1;
-    // Validate size.
-    $consecutive_number = invoice_entity_set_size((string)$consecutive_number, 20);
-    // Save the current values.
-    invoice_entity_set_variable('consecutive_number', $consecutive_number);
-  } else {
-    $consecutive_number = '00000000000000000001';
-    invoice_entity_set_variable('consecutive_number', $consecutive_number);
-  }
+function invoice_entity_generate_consecutive($key) {
+  $consecutive_number = substr($key, -29, 20);
   return $consecutive_number;
 }
 
