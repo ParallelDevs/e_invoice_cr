@@ -1,6 +1,12 @@
-e_envoice_cr.admin:
+e_envoice_cr.tools:
+  route_name: e_invoice_cr.options
+  parent: system.admin
   title: 'Invoice CR'
-  description: 'Invoice CR settings'
-  parent: system.admin_config
-  route_name: e_invoice_cr.settings
   weight: 100
+
+e_envoice_cr.admin:
+  title: 'Invoice Settings'
+  description: 'Invoice CR settings'
+  parent: e_envoice_cr.tools
+  route_name: e_invoice_cr.settings
+  weight: 105
