@@ -1,14 +1,21 @@
 
 # Tax entity menu items definition
+entity.tax_entity.content:
+  title: 'Tax Entity'
+  route_name: tax_entity.options
+  parent: e_envoice_cr.tools
+  weight: 102
+
 entity.tax_entity.collection:
-  title: 'Tax management'
+  title: 'Management'
   route_name: entity.tax_entity.collection
   description: 'Tax management'
-  parent: system.admin_structure
+  parent: entity.tax_entity.content
   weight: 100
 
 tax_entity.admin.structure.settings:
-  title: Tax configuration
+  title: Configuration
   description: 'Tax configuration'
   route_name: tax_entity.settings
-  parent: system.admin_structure
+  parent: entity.tax_entity.content
+  weight: 101

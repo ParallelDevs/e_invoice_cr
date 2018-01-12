@@ -14,8 +14,16 @@ e_invoice_cr.content:
   requirements:
     _permission: 'access content'
 
+e_invoice_cr.options:
+  path: '/admin/e_invoice_cr/options'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Invoice'
+  requirements:
+    _permission: 'access administration pages'
+
 e_invoice_cr.settings:
-  path: '/admin/structure/e_invoice_cr/settings'
+  path: '/admin/e-invoice-cr/settings'
   defaults:
     _form: '\Drupal\e_invoice_cr\Form\invoiceSettingsForm'
     _title: 'Invoice CR'
