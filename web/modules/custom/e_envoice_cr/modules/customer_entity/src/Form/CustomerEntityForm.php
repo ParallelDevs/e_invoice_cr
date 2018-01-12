@@ -36,6 +36,44 @@ class CustomerEntityForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $error_short_id = 'The @field is too short. The id number must have 12 characters, add zeros at the start if it\'s necessary.';
+    $error_only_number = '@field should only have numbers. No spaces or special characters.';
+
+    // Fields to evaluate.
+    $id = 'field_intensificacion';
+    $foreign_id = 'field_intensificacion_ex';
+    $phone = 'field_telefono';
+
+    // Validating id field.
+    if (strlen($form_state->getValue($id)) < 12) {
+      $form_state->setErrorByName($id, $this->t($error_short_id, array('@field' => 'ID')));
+    }
+
+    if (!is_numeric($form_state->getValue($id))) {
+      $form_state->setErrorByName($id, $this->t($error_only_number, array('@field' => 'The ID field')));
+    }
+
+    // Validating the foreign id field.
+    if (empty($form_state->getValue($foreign_id))) {  // Check only if it has a value.
+      if (strlen($form_state->getValue($foreign_id)) < 12) {
+        $form_state->setErrorByName($foreign_id, $this->t($error_short_id, ['@field' => 'Foreign ID']));
+      }
+
+      if (!is_numeric($form_state->getValue($foreign_id))) {
+        $form_state->setErrorByName($foreign_id, $this->t($error_only_number, ['@field' => 'The Foreign ID']));
+      }
+    }
+
+    // Validating telephone field.
+    if (!is_numeric($form_state->getValue($phone))) {
+      $form_state->setErrorByName($phone, $this->t($error_only_number, array('@field' => 'The telephone number')));
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function save(array $form, FormStateInterface $form_state) {
     $entity = &$this->entity;
 
