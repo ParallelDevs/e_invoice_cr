@@ -46,29 +46,30 @@ class CustomerEntityForm extends ContentEntityForm {
     $phone = 'field_telefono';
 
     // Validating id field.
-    if (strlen($form_state->getValue($id)) < 12) {
+    if (strlen($form_state->getValue($id)[0]['value']) < 12) {
       $form_state->setErrorByName($id, $this->t($error_short_id, array('@field' => 'ID')));
     }
 
-    if (!is_numeric($form_state->getValue($id))) {
+    if (!is_numeric($form_state->getValue($id)[0]['value'])) {
       $form_state->setErrorByName($id, $this->t($error_only_number, array('@field' => 'The ID field')));
     }
 
     // Validating the foreign id field.
-    if (empty($form_state->getValue($foreign_id))) {  // Check only if it has a value.
-      if (strlen($form_state->getValue($foreign_id)) < 12) {
+    if (!empty($form_state->getValue($foreign_id)[0]['value'])) {  // Check only if it has a value.
+      if (strlen($form_state->getValue($foreign_id)[0]['value']) < 12) {
         $form_state->setErrorByName($foreign_id, $this->t($error_short_id, ['@field' => 'Foreign ID']));
       }
 
-      if (!is_numeric($form_state->getValue($foreign_id))) {
+      if (!is_numeric($form_state->getValue($foreign_id)[0]['value'])) {
         $form_state->setErrorByName($foreign_id, $this->t($error_only_number, ['@field' => 'The Foreign ID']));
       }
     }
 
     // Validating telephone field.
-    if (!is_numeric($form_state->getValue($phone))) {
+    if (!is_numeric($form_state->getValue($phone)[0]['value'])) {
       $form_state->setErrorByName($phone, $this->t($error_only_number, array('@field' => 'The telephone number')));
     }
+    parent::validateForm($form, $form_state);
   }
 
   /**
