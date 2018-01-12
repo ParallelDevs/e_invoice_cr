@@ -44,8 +44,12 @@ class Communication implements CommunicationInterface {
     } else {
       $url = 'https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion';
     }
-    // Do the request.
-    $request = $client->request('POST', $url, $options);
+    try {
+      // Do the request.
+      $request = $client->request('POST', $url, $options);
+    } catch (Exception $e) {
+      drupal_set_message(t('Communication error. ' . $e->getMessage()), 'error');
+    }
     return $request;
   }
 

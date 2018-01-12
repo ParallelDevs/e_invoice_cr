@@ -54,13 +54,16 @@ function invoice_entity_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
         $form['field_filas']['widget'][0]['subform']['field_subtotal']['widget'][0]['value']['#attributes'] = array('readonly' => 'readonly');
         $form['field_filas']['widget'][$i]['subform']['field_impuesto'];
         $form['field_filas']['widget'][$i]['subform']['field_row_discount']['widget'][0]['value']['#attributes'] = array('readonly' => 'readonly');
-
         $visible_condition = array(
           ':input[id="field-adddis-'. $i .'"]' => array('checked' => TRUE),
         );
         $form['field_filas']['widget'][$i]['subform']['field_add_discount']['widget']['value']['#attributes']['id'] = 'field-adddis-' . $i;
         $form['field_filas']['widget'][$i]['subform']['field_discount_percentage']['widget'][0]['value']['#states']['visible'] = $visible_condition;
         $form['field_filas']['widget'][$i]['subform']['field_discount_reason']['widget'][0]['value']['#states']['visible'] = $visible_condition;
+        $visible = array(
+          'select[id="edit-field-filas-'.$i.'-subform-field-unit-measure"]' => array('value' => 'Otros'),
+        );
+        $form['field_filas']['widget'][$i]['subform']['field_another_unit_measure']['widget'][0]['value']['#states']['visible'] = $visible;
       } else {
         break;
       }
