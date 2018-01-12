@@ -100,6 +100,7 @@ class invoiceSettingsForm extends ConfigFormBase {
       '#description' => $this->t('The id number must have 12 characters, add zeros at the start if it\'s necessary.'),
       '#required' => TRUE,
       '#size' => 12,
+      '#maxlength' => 12,
     ];
     $form['taxpayer_fieldset']['name'] = [
       '#type' => 'textfield',
@@ -117,6 +118,7 @@ class invoiceSettingsForm extends ConfigFormBase {
       '#type' => 'tel',
       '#title' => $this->t('Phone number:'),
       '#default_value' => $phone,
+      '#description' => $this->t('Please add the country code to the beginning. This field should only have numbers. No spaces or special characters.'),
       '#required' => TRUE,
     ];
     $form['taxpayer_fieldset']['email'] = [
@@ -179,6 +181,24 @@ class invoiceSettingsForm extends ConfigFormBase {
     ];
 
     return parent::buildForm($form, $form_state);
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    if (strlen($form_state->getValue('id')) < 12) {
+      $form_state->setErrorByName('id', $this->t('The id is too short. The id number must have 12 characters, add zeros at the start if it\'s necessary.'));
+    }
+
+    if (!is_numeric($form_state->getValue('id'))) {
+      $form_state->setErrorByName('id', $this->t('This field should only have numbers. No spaces or special characters.'));
+    }
+
+    if (!is_numeric($form_state->getValue('phone'))) {
+      $form_state->setErrorByName('phone', $this->t('This field should only have numbers. No spaces or special characters.'));
+    }
   }
 
   /**
