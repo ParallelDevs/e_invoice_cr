@@ -1,15 +1,21 @@
 
 # Customer menu items definition
+entity.customer_entity.content:
+  title: 'Customer Entity'
+  parent: e_envoice_cr.tools
+  route_name: entity.customer_entity.options
+  weight: 100
+
 entity.customer_entity.collection:
-  title: 'Customer management'
+  title: 'Management'
   route_name: entity.customer_entity.collection
   description: 'List Customer entities'
-  parent: system.admin_structure
-  weight: 101
+  parent: entity.customer_entity.content
+  weight: 100
 
 customer_entity.admin.structure.settings:
-  title: Customer configuration
+  title: Configuration
   description: 'Customer configuration'
   route_name: customer_entity.settings
-  parent: system.admin_structure
-  weight: 100
+  parent: entity.customer_entity.content
+  weight: 101
