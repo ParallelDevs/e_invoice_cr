@@ -371,6 +371,15 @@ function invoice_entity_entity_operation(\Drupal\Core\Entity\EntityInterface $en
       );
       return $operations;
     }
+    if ($status === "published") {
+      $operations = array();
+      $operations['View'] = array(
+        'title' => t('View'),
+        'url' => \Drupal\Core\Url::fromRoute("entity.invoice_entity.canonical", ["invoice_entity" => $entity->id()]),
+        'weight' => 0,
+      );
+      return $operations;
+    }
   }
 }
 
