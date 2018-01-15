@@ -252,4 +252,28 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
     return $fields;
   }
 
+  /**
+   * Gets an array of placeholders for this entity.
+   *
+   * Individual entity classes may override this method to add additional
+   * placeholders if desired. If so, they should be sure to replicate the
+   * property caching logic.
+   *
+   * @param string $rel
+   *   The link relationship type, for example: canonical or edit-form.
+   *
+   * @return array
+   *   An array of URI placeholders.
+   */
+  protected function urlRouteParameters($rel) {
+    $uri_route_parameters = parent::urlRouteParameters($rel);
+    if ($rel === 'revision_revert' && $this instanceof RevisionableContentEntityBase) {
+      $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
+    }
+    elseif ($rel === 'revision_delete' && $this instanceof RevisionableContentEntityBase) {
+      $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
+    }
+    return $uri_route_parameters;
+  }
+
 }
