@@ -47,10 +47,11 @@ class Communication implements CommunicationInterface {
     try {
       // Do the request.
       $request = $client->request('POST', $url, $options);
-    } catch (Exception $e) {
+      return $request;
+    } catch (\GuzzleHttp\Exception\ClientException $e) {
       drupal_set_message(t('Communication error. ' . $e->getMessage()), 'error');
+      return NULL;
     }
-    return $request;
   }
 
   /**

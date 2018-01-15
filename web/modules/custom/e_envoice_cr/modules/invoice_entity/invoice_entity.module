@@ -202,15 +202,17 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
     // Sent the document.
     $response = $communication->sentDocument($document, $body_data, $token);
     // Show a error message.
-    if ($response->getStatusCode() != 202 && $response->getStatusCode() != 200) {
-      // Reduce the consecutive.
-      invoice_entity_reduce_consecutive();
-      $message = 'The was a problem sending the electronic document.';
-      drupal_set_message(t($message), 'error');
-    } else {
-      // Show a success message.
-      $message = 'The electronic document was sent to its verification.';
-      drupal_set_message(t($message), 'status');
+    if (!is_null($response)) {
+      if ($response->getStatusCode() != 202 && $response->getStatusCode() != 200) {
+        // Reduce the consecutive.
+        invoice_entity_reduce_consecutive();
+        $message = 'The was a problem sending the electronic document.';
+        drupal_set_message(t($message), 'error');
+      } else {
+        // Show a success message.
+        $message = 'The electronic document was sent to its verification.';
+        drupal_set_message(t($message), 'status');
+      }
     }
   }
 
