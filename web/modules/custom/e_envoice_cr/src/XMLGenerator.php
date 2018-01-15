@@ -91,7 +91,9 @@ class XMLGenerator {
         $tax_id = $values['field_impuesto'][0]['target_id'];
         $entity_manager = \Drupal::entityManager();
         $tax = $entity_manager->getStorage('tax_entity')->load($tax_id);
-        $tax_mount = ($tax->get('field_tax_percentage')->value/100)*$values['field_subtotal'][0]['value'];
+        if ($tax !== NULL) {
+          $tax_mount = ($tax->get('field_tax_percentage')->value/100)*$values['field_subtotal'][0]['value'];
+        }
         // Continue building the xml.
         $xml_doc .= "\t\t<LineaDetalle>" . "\n";
         $xml_doc .= "\t\t\t<NumeroLinea>" . $count . "</NumeroLinea>" . "\n";
@@ -110,19 +112,16 @@ class XMLGenerator {
           $xml_doc .= "\t\t\t<NaturalezaDescuento>". $discount_reason ."</NaturalezaDescuento>" . "\n";
         }
         $xml_doc .= "\t\t\t<SubTotal>" . round($values['field_subtotal'][0]['value'], 5) . "</SubTotal>" . "\n";
-        $xml_doc .= "\t\t\t<Impuesto>" . "\n";
-        $xml_doc .= "\t\t\t\t<Codigo>" . $tax->get('field_tax_type')->value . "</Codigo>" . "\n";
-        $xml_doc .= "\t\t\t\t<Tarifa>" . $tax->get('field_tax_percentage')->value . "</Tarifa>" . "\n";
-        $xml_doc .= "\t\t\t\t<Monto>" . $tax_mount . '</Monto>' . "\n";
-        $xml_doc .= "\t\t\t\t<Exoneracion>" . "\n"; // No supported at the moment (*).
-        $xml_doc .= "\t\t\t\t\t<TipoDocumento>01</TipoDocumento>" . "\n"; // No supported at the moment (*).
-        $xml_doc .= "\t\t\t\t\t<NumeroDocumento>01</NumeroDocumento>" . "\n"; // No supported at the moment (*).
-        $xml_doc .= "\t\t\t\t\t<NombreInstitucion>asdas</NombreInstitucion>" . "\n"; // No supported at the moment (*).
-        $xml_doc .= "\t\t\t\t\t<FechaEmision>2017-11-27T09:55:05-06:00</FechaEmision>" . "\n"; // No supported at the moment (*).
-        $xml_doc .= "\t\t\t\t\t<MontoImpuesto>12</MontoImpuesto>" . "\n"; // No supported at the moment (*).
-        $xml_doc .= "\t\t\t\t\t<PorcentajeCompra>2</PorcentajeCompra>" . "\n"; // No supported at the moment (*).
-        $xml_doc .= "\t\t\t\t</Exoneracion>" . "\n"; // No supported at the moment (*).
-        $xml_doc .= "\t\t\t</Impuesto>" . "\n";
+        if ($tax !== NULL) {
+          if ($tax->get('field_tax_percentage')->value > 0) {
+            $xml_doc .= "\t\t\t<Impuesto>" . "\n";
+            $xml_doc .= "\t\t\t\t<Codigo>" . $tax->get('field_tax_type')->value . "</Codigo>" . "\n";
+            $xml_doc .= "\t\t\t\t<Tarifa>" . $tax->get('field_tax_percentage')->value . "</Tarifa>" . "\n";
+            $xml_doc .= "\t\t\t\t<Monto>" . $tax_mount . '</Monto>' . "\n";
+            // Here exonerations data.
+            $xml_doc .= "\t\t\t</Impuesto>" . "\n";
+          }
+        }
         $xml_doc .= "\t\t\t<MontoTotalLinea>" . round($values['field_monto_total_linea'][0]['value'], 5) . "</MontoTotalLinea>" . "\n";
         $xml_doc .= "\t\t</LineaDetalle>" . "\n";
         // Save the ones with tax
