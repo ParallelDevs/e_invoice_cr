@@ -182,7 +182,7 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
         $entity->set('moderation_state', 'rejected');
         $entity->save();
         drupal_set_message(t("Status Rejected. " . $res[3]->DetalleMensaje), 'error');
-      } else {
+      } elseif ($res[2] === "aceptado") {
         $entity->set('moderation_state', 'published');
         $entity->save();
         drupal_set_message(t("Status Accepted. " . $res[3]->DetalleMensaje), 'status');

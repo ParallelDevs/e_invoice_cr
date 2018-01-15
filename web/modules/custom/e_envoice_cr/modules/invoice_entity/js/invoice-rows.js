@@ -29,7 +29,7 @@
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-row-discount-0-value]').val(discount);
             var subTotal = totalA - discount;
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-subtotal-0-value]').val(subTotal);
-            var totalWithTax = parseFloat(subTotal + ((tax/100)*totalA));
+            var totalWithTax = parseFloat(subTotal + ((tax/100)*subTotal));
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-monto-total-linea-0-value]').val(totalWithTax);
           }
         }
@@ -59,7 +59,7 @@
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-row-discount-0-value]').val(discount);
             var subTotal = totalA - discount;
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-subtotal-0-value]').val(subTotal);
-            var totalWithTax = parseFloat(subTotal + ((tax/100)*totalA));
+            var totalWithTax = parseFloat(subTotal + ((tax/100)*subTotal));
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-monto-total-linea-0-value]').val(totalWithTax);
           }
         }
@@ -91,12 +91,12 @@
         var totalSale = 0, totalDis = 0, totalTax = 0, totalInvoice = 0;
         for (var j = 0; j < rows; j++) {
           if ($(mt[j]).length > 0) {
-            totalSale = totalSale + parseFloat($(mt[j]).val());
+            totalSale = totalSale + (parseFloat($(mt[j]).val()) - parseFloat($(rd[j]).val()));
             totalDis = totalDis + parseFloat($(rd[j]).val());
             totalTax = totalTax + parseFloat($(mtl[j]).val() - $(st[j]).val());
-            totalInvoice = totalInvoice + parseFloat($(mtl[j]).val());
           }
         }
+        totalInvoice = totalSale + totalTax;
         $('#edit-field-total-ventaneta-0-value').val(totalSale);
         $('#edit-field-total-discount-0-value').val(totalDis);
         $('#edit-field-total-impuesto-0-value').val(totalTax);

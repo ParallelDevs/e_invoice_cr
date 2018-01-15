@@ -122,6 +122,7 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
     $rows = $form_state->getValue('field_filas');
     $pay_type = $form_state->getValue('field_medio_de_pago')[0]['value'];
     $p_credit = $form_state->getValue('field_plazo_credito')[0]['value'];
+    $t_discount = $form_state->getValue('field_total_discount')[0]['value'];
     $t_tax = $form_state->getValue('field_total_impuesto')[0]['value'];
     $t_sale = $form_state->getValue('field_total_ventaneta')[0]['value'];
     $t_invoice = $form_state->getValue('field_totalcomprobante')[0]['value'];
@@ -133,6 +134,7 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
       'date' => $date,
       'pay_type' => $pay_type,
       'p_credit' => $p_credit,
+      't_discount' => round($t_discount, 5),
       't_tax' => round($t_tax, 5),
       't_sale' => round($t_sale, 5),
       't_invoice' => round($t_invoice, 5),
