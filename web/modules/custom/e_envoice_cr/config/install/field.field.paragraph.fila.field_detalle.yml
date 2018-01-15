@@ -5,13 +5,15 @@ dependencies:
   config:
     - field.storage.paragraph.field_detalle
     - paragraphs.paragraphs_type.fila
+_core:
+  default_config_hash: BQt_jk91uG03Kwj0CeKcfi6bdD2M85n_1LxGcY3qbG4
 id: paragraph.fila.field_detalle
 field_name: field_detalle
 entity_type: paragraph
 bundle: fila
 label: Detalle
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''

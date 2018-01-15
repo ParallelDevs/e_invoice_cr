@@ -141,7 +141,7 @@ class invoiceSettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Others:'),
       '#default_value' => $address,
-      '#required' => FALSE,
+      '#required' => TRUE,
     ];
     $form['taxpayer_fieldset']['currency'] = [
       '#type' => 'select',
@@ -188,8 +188,28 @@ class invoiceSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    if (strlen($form_state->getValue('id')) < 12) {
-      $form_state->setErrorByName('id', $this->t('The id is too short. The id number must have 12 characters, add zeros at the start if it\'s necessary.'));
+    $id_type = $form_state->getValue('id_type');
+    switch ($id_type) {
+      case "01":
+        if (strlen($form_state->getValue('id')) !== 9) {
+          $form_state->setErrorByName('id', $this->t('The id should have 9 characters, add zeros at the start if it\'s necessary.'));
+        }
+        break;
+      case "02":
+        if (strlen($form_state->getValue('id')) !== 10) {
+          $form_state->setErrorByName('id', $this->t('The id should have 10 characters, add zeros at the start if it\'s necessary.'));
+        }
+        break;
+      case "03":
+        if (strlen($form_state->getValue('id')) < 11 || strlen($form_state->getValue('id')) > 12) {
+          $form_state->setErrorByName('id', $this->t('The id should have 11 or 12 characters, add zeros at the start if it\'s necessary.'));
+        }
+        break;
+      case "04":
+        if (strlen($form_state->getValue('id')) !== 10) {
+          $form_state->setErrorByName('id', $this->t('The id should have 10 characters, add zeros at the start if it\'s necessary.'));
+        }
+        break;
     }
 
     if (!is_numeric($form_state->getValue('id'))) {
