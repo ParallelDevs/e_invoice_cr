@@ -175,16 +175,20 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
     $entity = \Drupal::entityManager()->getStorage('invoice_entity')->load($id);
     $con = new Communication();
     $res = $con->validateDocument($key);
-    if ($res[2] === "rechazado") {
-      $entity->set('moderation_state', 'rejected');
-      $entity->save();
-      drupal_set_message(t("Status Rejected. " . $res[3]->DetalleMensaje), 'error');
+    if (is_null($res)) {
+      drupal_set_message(t("Status Unknown. The state couldn't be validated."), 'error');
     } else {
-      $entity->set('moderation_state', 'published');
-      $entity->save();
-      drupal_set_message(t("Status Accepted. " . $res[3]->DetalleMensaje), 'status');
+      if ($res[2] === "rechazado") {
+        $entity->set('moderation_state', 'rejected');
+        $entity->save();
+        drupal_set_message(t("Status Rejected. " . $res[3]->DetalleMensaje), 'error');
+      } else {
+        $entity->set('moderation_state', 'published');
+        $entity->save();
+        drupal_set_message(t("Status Accepted. " . $res[3]->DetalleMensaje), 'status');
+      }
+      drupal_set_message(t('A validation request has been performed.'), 'status');
     }
-    drupal_set_message(t('A validation request has been performed.'), 'status');
     return new RedirectResponse('/admin/structure/e-invoice-cr/invoice_entity');
   }
 

@@ -99,11 +99,15 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
   } catch (Exception $e) {
     $message = 'Error getting the authentication token.';
     drupal_set_message(t($message), 'error');
+    $form_state->setRebuild();
+    $form_state->setSubmitHandlers([]);
   }
 
   if (!$token) {
     $message = 'Error getting the authentication token.';
     drupal_set_message(t($message), 'error');
+    $form_state->setRebuild();
+    $form_state->setSubmitHandlers([]);
   } else {
     // Get all xml data.
 
@@ -181,11 +185,10 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
 
     if (strpos($response,"Error") !== false || strpos($response, "Failed") !== false) {
       $message = 'There were errors during the signature process, the signature could be wrong.';
-      drupal_set_message(t($message), 'error');
+      drupal_set_message(t($message), 'warning');
     }
 
     // Send document to API.
-
     $body_data = [
       'key' => $key,
       'date' => $date,
@@ -208,11 +211,16 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
         invoice_entity_reduce_consecutive();
         $message = 'The was a problem sending the electronic document.';
         drupal_set_message(t($message), 'error');
+        $form_state->setRebuild();
+        $form_state->setSubmitHandlers([]);
       } else {
         // Show a success message.
         $message = 'The electronic document was sent to its verification.';
         drupal_set_message(t($message), 'status');
       }
+    } else {
+      $form_state->setRebuild();
+      $form_state->setSubmitHandlers([]);
     }
   }
 
@@ -295,6 +303,7 @@ function invoice_entity_generate_key() {
   // The id user.
   $settings = \Drupal::config('e_invoice_cr.settings');
   $id_user = $settings->get('id');
+  $id_user = invoice_entity_set_size((string)$id_user, 12);
   if (is_null($id_user)) {
     invoice_entity_config_error();
     return '0';

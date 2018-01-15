@@ -19,7 +19,7 @@ class Communication implements CommunicationInterface {
     // Build the body info.
     $body = [
       'clave' => $body['key'],
-      'fecha' => $body['date'],
+      'fecha' => '2018-01-15T10:03:00-0600',
       'emisor' => [
         'tipoIdentificacion' => $body['e_type'],
         'numeroIdentificacion' => $body['e_number'],
@@ -80,16 +80,22 @@ class Communication implements CommunicationInterface {
       ],
     ];
     // Do the request.
-    $request = $client->get($url, $options);
-    $body_responce = \GuzzleHttp\json_decode($request->getBody()->getContents());
-    $result = [];
-    foreach ($body_responce as $index => $item) {
-      if ($index === "respuesta-xml") {
-       $item = simplexml_load_string(base64_decode($item));
+    try {
+      // Do the request.
+      $request = $client->get($url, $options);
+      $body_responce = \GuzzleHttp\json_decode($request->getBody()->getContents());
+      $result = [];
+      foreach ($body_responce as $index => $item) {
+        if ($index === "respuesta-xml") {
+          $item = simplexml_load_string(base64_decode($item));
+        }
+        $result[] = $item;
       }
-      $result[] = $item;
+      return $result;
+    } catch (\GuzzleHttp\Exception\ClientException $e) {
+      drupal_set_message(t('Communication error. ' . $e->getMessage()), 'error');
+      return NULL;
     }
 
-    return $result;
   }
 }

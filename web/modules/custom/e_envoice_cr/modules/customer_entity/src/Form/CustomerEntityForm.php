@@ -50,29 +50,25 @@ class CustomerEntityForm extends ContentEntityForm {
     // Validating id field regarding the identification type.
     switch ($form_state->getValue('field_tipo_de_identificacion')[0]['value']) {
       case "01":
-        if (strlen($form_state->getValue($id)) !== 9) {
+        if (strlen($form_state->getValue($id)[0]['value']) !== 9) {
           $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '9')));
         }
         break;
       case "02":
-        if (strlen($form_state->getValue($id)) !== 10) {
+        if (strlen($form_state->getValue($id)[0]['value']) !== 10) {
           $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '10')));
         }
         break;
       case "03":
-        if (strlen($form_state->getValue($id)) < 11 || strlen($form_state->getValue('id')) > 12) {
+        if (strlen($form_state->getValue($id)[0]['value']) < 11 || strlen($form_state->getValue('id')) > 12) {
           $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '11 or 12')));
         }
         break;
       case "04":
-        if (strlen($form_state->getValue($id)) !== 10) {
+        if (strlen($form_state->getValue($id)[0]['value']) !== 10) {
           $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '10')));
         }
         break;
-    }
-
-    if (strlen($form_state->getValue($id)[0]['value']) < 12) {
-      $form_state->setErrorByName($id, $this->t($error_short_id, array('@field' => 'ID')));
     }
 
     if (!is_numeric($form_state->getValue($id)[0]['value'])) {
