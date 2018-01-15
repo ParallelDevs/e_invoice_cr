@@ -37,7 +37,7 @@ class CustomerEntityForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $error_short_id = 'The @field is too short. The id number must have 12 characters, add zeros at the start if it\'s necessary.';
+    $error_short_id = 'The id should have @rage characters, add zeros at the start if it\'s necessary.';
     $error_only_number = '@field should only have numbers. No spaces or special characters.';
 
     // Fields to evaluate.
@@ -45,30 +45,56 @@ class CustomerEntityForm extends ContentEntityForm {
     $foreign_id = 'field_intensificacion_ex';
     $phone = 'field_telefono';
 
-    // Validating id field.
-    if (strlen($form_state->getValue($id)) < 12) {
+    $type = $form_state->getValue('field_tipo_de_identificacion');
+
+    // Validating id field regarding the identification type.
+    switch ($form_state->getValue('field_tipo_de_identificacion')[0]['value']) {
+      case "01":
+        if (strlen($form_state->getValue($id)) !== 9) {
+          $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '9')));
+        }
+        break;
+      case "02":
+        if (strlen($form_state->getValue($id)) !== 10) {
+          $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '10')));
+        }
+        break;
+      case "03":
+        if (strlen($form_state->getValue($id)) < 11 || strlen($form_state->getValue('id')) > 12) {
+          $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '11 or 12')));
+        }
+        break;
+      case "04":
+        if (strlen($form_state->getValue($id)) !== 10) {
+          $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '10')));
+        }
+        break;
+    }
+
+    if (strlen($form_state->getValue($id)[0]['value']) < 12) {
       $form_state->setErrorByName($id, $this->t($error_short_id, array('@field' => 'ID')));
     }
 
-    if (!is_numeric($form_state->getValue($id))) {
+    if (!is_numeric($form_state->getValue($id)[0]['value'])) {
       $form_state->setErrorByName($id, $this->t($error_only_number, array('@field' => 'The ID field')));
     }
 
     // Validating the foreign id field.
-    if (empty($form_state->getValue($foreign_id))) {  // Check only if it has a value.
-      if (strlen($form_state->getValue($foreign_id)) < 12) {
-        $form_state->setErrorByName($foreign_id, $this->t($error_short_id, ['@field' => 'Foreign ID']));
+    if (!empty($form_state->getValue($foreign_id)[0]['value'])) {  // Check only if it has a value.
+      if (strlen($form_state->getValue($foreign_id)[0]['value']) < 12) {
+        $form_state->setErrorByName($foreign_id, $this->t('The foreign id should have 12 characters, add zeros at the start if it\'s necessary.'));
       }
 
-      if (!is_numeric($form_state->getValue($foreign_id))) {
+      if (!is_numeric($form_state->getValue($foreign_id)[0]['value'])) {
         $form_state->setErrorByName($foreign_id, $this->t($error_only_number, ['@field' => 'The Foreign ID']));
       }
     }
 
     // Validating telephone field.
-    if (!is_numeric($form_state->getValue($phone))) {
+    if (!is_numeric($form_state->getValue($phone)[0]['value'])) {
       $form_state->setErrorByName($phone, $this->t($error_only_number, array('@field' => 'The telephone number')));
     }
+    parent::validateForm($form, $form_state);
   }
 
   /**
