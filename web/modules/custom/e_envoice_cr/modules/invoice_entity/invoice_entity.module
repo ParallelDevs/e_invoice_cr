@@ -15,10 +15,17 @@ function invoice_entity_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
     $settings = \Drupal::config('e_invoice_cr.settings');
     $currency = '';
     if (isset($settings) && !is_null($settings)) {
-      $currency = $settings->get('currency') === 'crc' ? '₡' : '$';
-
+      if (!is_null($settings->get('currency'))) {
+        $currency = $settings->get('currency') === 'crc' ? '₡' : '$';
+      } else {
+        invoice_entity_config_error();
+        // Disable the submit button.
+        $form['actions']['submit']['#disabled'] = TRUE;
+      }
     } else {
       invoice_entity_config_error();
+      // Disable the submit button.
+      $form['actions']['submit']['#disabled'] = TRUE;
     }
 
     $form['field_clave_numerica']['#disabled'] = 'disabled';
@@ -42,6 +49,11 @@ function invoice_entity_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
     $form['field_totalcomprobante']['widget'][0]['value']['#attributes'] = array('readonly' => 'readonly');
     $totalcomprobante = $form['field_totalcomprobante']['widget'][0]['value']['#title'];
     $form['field_totalcomprobante']['widget'][0]['value']['#title'] = $totalcomprobante . ' ' . $currency;
+    $visible = array(
+      'select[id="edit-field-condicion-venta"]' => array('value' => '02'),
+    );
+    $form['field_plazo_credito']['widget'][0]['value']['#states']['visible'] = $visible;
+    /// /////
     for ($i = 0; $i >= 0; $i++) {
       if (array_key_exists($i, $form['field_filas']['widget'])) {
         // Rows.
@@ -320,8 +332,8 @@ function invoice_entity_generate_key() {
  * Error messages.
  */
 function invoice_entity_config_error() {
-  $message = 'The document key could not be generated because there are not configuration data yet,';
-  $message += 'to set those go to /admin/structure/e_invoice_cr/settings.';
+  $message = 'The document key could not be generated because there are not configuration data yet, ';
+  $message .= 'to set those go to /admin/e-invoice-cr/settings.';
   drupal_set_message(t($message), 'error');
 }
 

@@ -18,7 +18,8 @@ class CustomerEntityForm extends ContentEntityForm {
   public function buildForm(array $form, FormStateInterface $form_state) {
     /* @var $entity \Drupal\customer_entity\Entity\CustomerEntity */
     $form = parent::buildForm($form, $form_state);
-
+    // Set the name field as required.
+    $form['name']['widget'][0]['value']['#required'] = TRUE;
     if (!$this->entity->isNew()) {
       $form['new_revision'] = [
         '#type' => 'checkbox',
