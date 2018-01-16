@@ -1,0 +1,14 @@
+uuid: 4e82f74f-da14-4ec3-8354-f93d872a57b6
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+id: fila
+label: Fila
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

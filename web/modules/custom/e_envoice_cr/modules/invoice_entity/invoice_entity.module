@@ -160,8 +160,8 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
           'number' => substr($settings->get('phone'), 3 ),
         ],
       'fax' => [
-          'code' => '506',
-          'number' => '83095057',
+          'code' => substr($settings->get('fax'), 0, 3),
+          'number' => substr($settings->get('fax'), 3 ),
         ],
       'email' => $settings->get('email'),
     ];
@@ -411,4 +411,5 @@ function invoice_entity_cron() {
     }
   }
 }
+
 

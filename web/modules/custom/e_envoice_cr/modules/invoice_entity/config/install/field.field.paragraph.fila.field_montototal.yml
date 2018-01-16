@@ -1,0 +1,28 @@
+uuid: cd0d16c8-c4e4-4738-9952-9a10ed14b647
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_montototal
+    - paragraphs.paragraphs_type.fila
+  module:
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+id: paragraph.fila.field_montototal
+field_name: field_montototal
+entity_type: paragraph
+bundle: fila
+label: 'Monto Total'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

@@ -1,0 +1,24 @@
+uuid: 41cad90d-61e2-4c53-8dcb-d0c678ad5659
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+id: paragraph.field_subtotal
+field_name: field_subtotal
+entity_type: paragraph
+type: decimal
+settings:
+  precision: 32
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,24 @@
+uuid: 3aa324e5-5474-4b4e-9c01-0c922dede345
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+id: paragraph.field_monto_total_linea
+field_name: field_monto_total_linea
+entity_type: paragraph
+type: decimal
+settings:
+  precision: 32
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

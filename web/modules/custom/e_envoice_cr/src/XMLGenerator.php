@@ -46,10 +46,12 @@ class XMLGenerator {
     $xml_doc .= "\t\t\t<CodigoPais>" . $emitter['phone']['code'] . "</CodigoPais>" . "\n";
     $xml_doc .= "\t\t\t<NumTelefono>" . $emitter['phone']['number'] . "</NumTelefono>" . "\n";
     $xml_doc .= "\t\t</Telefono>" . "\n";
-    $xml_doc .= "\t\t<Fax>" . "\n";
-    $xml_doc .= "\t\t\t<CodigoPais>" . $emitter['fax']['code'] . "</CodigoPais>" . "\n";
-    $xml_doc .= "\t\t\t<NumTelefono>" . $emitter['fax']['number'] . "</NumTelefono>" . "\n";
-    $xml_doc .= "\t\t</Fax>" . "\n";
+    if (!is_null($emitter['fax']['code']) && $emitter['fax']['code'] !== "") {
+      $xml_doc .= "\t\t<Fax>" . "\n";
+      $xml_doc .= "\t\t\t<CodigoPais>" . $emitter['fax']['code'] . "</CodigoPais>" . "\n";
+      $xml_doc .= "\t\t\t<NumTelefono>" . $emitter['fax']['number'] . "</NumTelefono>" . "\n";
+      $xml_doc .= "\t\t</Fax>" . "\n";
+    }
     $xml_doc .= "\t\t<CorreoElectronico>" . $emitter['email'] . "</CorreoElectronico>" . "\n";
     $xml_doc .= "\t</Emisor>" . "\n";
     $xml_doc .= "\t<Receptor>" . "\n"; // starts 'Receptor'
@@ -71,10 +73,12 @@ class XMLGenerator {
     $xml_doc .= "\t\t\t<CodigoPais>" . substr($client->get('field_telefono')->value, 0, 3) . "</CodigoPais>" . "\n";
     $xml_doc .= "\t\t\t<NumTelefono>" . substr($client->get('field_telefono')->value, 3 ) . "</NumTelefono>" . "\n";
     $xml_doc .= "\t\t</Telefono>" . "\n";
-    $xml_doc .= "\t\t<Fax>" . "\n";
-    $xml_doc .= "\t\t\t<CodigoPais>" . substr($client->get('field_fax')->value, 0, 3) . "</CodigoPais>" . "\n";
-    $xml_doc .= "\t\t\t<NumTelefono>" . substr($client->get('field_fax')->value, 3 ) . "</NumTelefono>" . "\n";
-    $xml_doc .= "\t\t</Fax>" . "\n";
+    if (!is_null($client->get('field_fax')->value) && $client->get('field_fax')->value !== "") {
+      $xml_doc .= "\t\t<Fax>" . "\n";
+      $xml_doc .= "\t\t\t<CodigoPais>" . substr($client->get('field_fax')->value, 0, 3) . "</CodigoPais>" . "\n";
+      $xml_doc .= "\t\t\t<NumTelefono>" . substr($client->get('field_fax')->value, 3 ) . "</NumTelefono>" . "\n";
+      $xml_doc .= "\t\t</Fax>" . "\n";
+    }
     $xml_doc .= "\t\t<CorreoElectronico>" . $client->get('field_correo_electronico')->value . "</CorreoElectronico>" . "\n";
     $xml_doc .= "\t</Receptor>" . "\n";
     $xml_doc .= "\t<CondicionVenta>" . $general_data['condition'] . "</CondicionVenta>" . "\n";

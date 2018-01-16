@@ -42,6 +42,7 @@ class invoiceSettingsForm extends ConfigFormBase {
     $name = $settings->get('name');
     $commercial_name = $settings->get('commercial_name');
     $phone = $settings->get('phone');
+    $fax = $settings->get('fax');
     $email = $settings->get('email');
     $postal_code = $settings->get('postal_code');
     $address = $settings->get('address');
@@ -120,6 +121,13 @@ class invoiceSettingsForm extends ConfigFormBase {
       '#default_value' => $phone,
       '#description' => $this->t('Please add the country code to the beginning. This field should only have numbers. No spaces or special characters.'),
       '#required' => TRUE,
+    ];
+    $form['taxpayer_fieldset']['fax'] = [
+      '#type' => 'tel',
+      '#title' => $this->t('Fax number:'),
+      '#default_value' => $fax,
+      '#description' => $this->t('Please add the country code to the beginning. This field should only have numbers. No spaces or special characters.'),
+      '#required' => FALSE,
     ];
     $form['taxpayer_fieldset']['email'] = [
       '#type' => 'email',
@@ -219,6 +227,12 @@ class invoiceSettingsForm extends ConfigFormBase {
     if (!is_numeric($form_state->getValue('phone'))) {
       $form_state->setErrorByName('phone', $this->t('This field should only have numbers. No spaces or special characters.'));
     }
+
+    if (strlen($form_state->getValue('fax')) > 0) {
+      if (!is_numeric($form_state->getValue('fax'))) {
+        $form_state->setErrorByName('fax', $this->t('This field should only have numbers. No spaces or special characters.'));
+      }
+    }
   }
 
   /**
@@ -236,6 +250,7 @@ class invoiceSettingsForm extends ConfigFormBase {
       ->set('name', $form_state->getValue('name'))
       ->set('commercial_name', $form_state->getValue('commercial_name'))
       ->set('phone', $form_state->getValue('phone'))
+      ->set('fax', $form_state->getValue('fax'))
       ->set('email', $form_state->getValue('email'))
       ->set('postal_code', $form_state->getValue('postal_code'))
       ->set('address', $form_state->getValue('address'))

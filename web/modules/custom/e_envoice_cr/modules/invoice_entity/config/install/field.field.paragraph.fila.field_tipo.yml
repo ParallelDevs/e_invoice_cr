@@ -1,0 +1,27 @@
+uuid: 6f059beb-78d7-4a2f-acfb-5fcec7ceae4f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_tipo
+    - paragraphs.paragraphs_type.fila
+  module:
+    - options
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+id: paragraph.fila.field_tipo
+field_name: field_tipo
+entity_type: paragraph
+bundle: fila
+label: Tipo
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '01'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

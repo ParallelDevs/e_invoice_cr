@@ -1,0 +1,140 @@
+uuid: c6a555d0-1361-4f33-a20e-a0e82fa75490
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.fila.field_add_discount
+    - field.field.paragraph.fila.field_another_unit_measure
+    - field.field.paragraph.fila.field_cantidad
+    - field.field.paragraph.fila.field_codigo
+    - field.field.paragraph.fila.field_detalle
+    - field.field.paragraph.fila.field_discount_percentage
+    - field.field.paragraph.fila.field_discount_reason
+    - field.field.paragraph.fila.field_impuesto
+    - field.field.paragraph.fila.field_monto_total_linea
+    - field.field.paragraph.fila.field_montototal
+    - field.field.paragraph.fila.field_preciounitario
+    - field.field.paragraph.fila.field_row_discount
+    - field.field.paragraph.fila.field_subtotal
+    - field.field.paragraph.fila.field_tipo
+    - field.field.paragraph.fila.field_unit_measure
+    - paragraphs.paragraphs_type.fila
+  module:
+    - options
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+_core:
+  default_config_hash: 0qTiUO4VNVmhZoRYhLJF2Cpn0FvwWhBgLwN7-ioiFO0
+id: paragraph.fila.default
+targetEntityType: paragraph
+bundle: fila
+mode: default
+content:
+  field_another_unit_measure:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_cantidad:
+    weight: 2
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_codigo:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_detalle:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_impuesto:
+    weight: 7
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_monto_total_linea:
+    weight: 9
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_montototal:
+    weight: 6
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_preciounitario:
+    weight: 5
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_subtotal:
+    weight: 8
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_decimal
+    region: content
+  field_tipo:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_unit_measure:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_add_discount: true
+  field_discount_percentage: true
+  field_discount_reason: true
+  field_row_discount: true

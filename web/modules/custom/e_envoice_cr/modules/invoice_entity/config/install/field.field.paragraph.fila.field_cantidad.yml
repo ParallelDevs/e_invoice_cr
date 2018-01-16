@@ -1,0 +1,28 @@
+uuid: a56ffc4b-040d-4506-8da1-8d7e3fe3760d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_cantidad
+    - paragraphs.paragraphs_type.fila
+  module:
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+id: paragraph.fila.field_cantidad
+field_name: field_cantidad
+entity_type: paragraph
+bundle: fila
+label: Cantidad
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

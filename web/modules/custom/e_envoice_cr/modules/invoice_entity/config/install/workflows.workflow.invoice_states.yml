@@ -5,6 +5,9 @@ dependencies:
   module:
     - content_moderation
     - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
 id: invoice_states
 label: 'Invoice state'
 type: content_moderation

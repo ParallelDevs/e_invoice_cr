@@ -8,3 +8,4 @@ dependencies:
   - workflows
   - content_moderation
   - customer_entity
+  - tax_entity

@@ -1,0 +1,30 @@
+uuid: 22554ec4-cb10-4061-9cf7-458c2e174640
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_impuesto
+    - paragraphs.paragraphs_type.fila
+  module:
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+id: paragraph.fila.field_impuesto
+field_name: field_impuesto
+entity_type: paragraph
+bundle: fila
+label: Impuesto
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:tax_entity'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

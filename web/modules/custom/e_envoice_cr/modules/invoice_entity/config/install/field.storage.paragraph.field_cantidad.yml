@@ -1,0 +1,24 @@
+uuid: d7a9ca8d-194f-464b-9824-d19fcd70d0fd
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+id: paragraph.field_cantidad
+field_name: field_cantidad
+entity_type: paragraph
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
