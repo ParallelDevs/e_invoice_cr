@@ -9,7 +9,7 @@
   margin-bottom: 10px;
 }
 .field--name-field-montototal, .field--name-field-impuesto, .field--name-field-subtotal, .field--name-field-monto-total-linea, .field--name-field-row-discount {
-  width: 80%;
+  width: 54%;
   float: right;
   margin-bottom: 10px;
   text-align: right;
@@ -46,5 +46,21 @@
 }
 .field--name-field-monto-total-linea label {
   display: inline-block;
+}
+
+.field--name-field-unit-measure {
+  margin-top: 15px;
+}
+
+.field--name-field-another-unit-measure, .field--name-field-discount-percentage {
+  margin-bottom: 10px;
+}
+.field--name-field-discount-reason {
+  float: left;
+}
+.field--name-field-add-discount {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #b8b8b8;
 }
 

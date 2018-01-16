@@ -74,7 +74,7 @@ function invoice_entity_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
         $form['field_filas']['widget'][$i]['subform']['field_discount_percentage']['widget'][0]['value']['#states']['visible'] = $visible_condition;
         $form['field_filas']['widget'][$i]['subform']['field_discount_reason']['widget'][0]['value']['#states']['visible'] = $visible_condition;
         $visible = array(
-          'select[id="edit-field-filas-'.$i.'-subform-field-unit-measure"]' => array('value' => 'Otros'),
+          'select[data-drupal-selector="edit-field-filas-'.$i.'-subform-field-unit-measure"]' => array('value' => 'Otros'),
         );
         $form['field_filas']['widget'][$i]['subform']['field_another_unit_measure']['widget'][0]['value']['#states']['visible'] = $visible;
       } else {
@@ -424,4 +424,15 @@ function invoice_entity_cron() {
   }
 }
 
+/**
+ * Implements Hook_preprocess_page().
+ */
+function invoice_entity_preprocess_page(&$variables) {
+  // Validate the route and the library.
+  $variables['page']['#cache']['contexts'][] = 'route';
+  $route = "entity.invoice_entity.canonical";
+  if (\Drupal::routeMatch()->getRouteName() === $route) {
+    $variables['#attached']['library'][] = 'invoice_entity/invoice';
+  }
+}
 

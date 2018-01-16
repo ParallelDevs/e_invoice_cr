@@ -63,6 +63,22 @@ content:
     third_party_settings: {  }
     type: basic_string
     region: content
+  field_discount_percentage:
+    type: number_integer
+    weight: 5
+    region: content
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+  field_discount_reason:
+    type: basic_string
+    weight: 5
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
   field_impuesto:
     weight: 7
     label: above
@@ -94,7 +110,7 @@ content:
     type: number_decimal
     region: content
   field_preciounitario:
-    weight: 5
+    weight: 4
     label: above
     settings:
       thousand_separator: ''
@@ -134,6 +150,4 @@ hidden:
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
   field_add_discount: true
-  field_discount_percentage: true
-  field_discount_reason: true
   field_row_discount: true
