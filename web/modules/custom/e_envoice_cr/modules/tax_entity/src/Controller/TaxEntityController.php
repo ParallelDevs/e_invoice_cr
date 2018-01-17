@@ -127,8 +127,15 @@ class TaxEntityController extends ControllerBase implements ContainerInjectionIn
             $links['revert'] = [
               'title' => $this->t('Revert'),
               'url' => $has_translations ?
-              Url::fromRoute('entity.tax_entity.translation_revert', ['tax_entity' => $tax_entity->id(), 'tax_entity_revision' => $vid, 'langcode' => $langcode]) :
-              Url::fromRoute('entity.tax_entity.revision_revert', ['tax_entity' => $tax_entity->id(), 'tax_entity_revision' => $vid]),
+              Url::fromRoute('entity.tax_entity.translation_revert', [
+                'tax_entity' => $tax_entity->id(),
+                'tax_entity_revision' => $vid,
+                'langcode' => $langcode
+              ]) :
+              Url::fromRoute('entity.tax_entity.revision_revert', [
+                'tax_entity' => $tax_entity->id(),
+                'tax_entity_revision' => $vid
+              ]),
             ];
           }
 

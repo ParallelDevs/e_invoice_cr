@@ -52,34 +52,40 @@ class CustomerEntityForm extends ContentEntityForm {
     switch ($form_state->getValue('field_tipo_de_identificacion')[0]['value']) {
       case "01":
         if (strlen($form_state->getValue($id)[0]['value']) !== 9) {
-          $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '9')));
+          $form_state->setErrorByName($id, $this->t($error_short_id, ['@rage' => '9']));
         }
         break;
+
       case "02":
         if (strlen($form_state->getValue($id)[0]['value']) !== 10) {
-          $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '10')));
+          $form_state->setErrorByName($id, $this->t($error_short_id, ['@rage' => '10']));
         }
         break;
+
       case "03":
         if (strlen($form_state->getValue($id)[0]['value']) < 11 || strlen($form_state->getValue('id')) > 12) {
-          $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '11 or 12')));
+          $form_state->setErrorByName($id, $this->t($error_short_id, ['@rage' => '11 or 12']));
         }
         break;
+
       case "04":
         if (strlen($form_state->getValue($id)[0]['value']) !== 10) {
-          $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '10')));
+          $form_state->setErrorByName($id, $this->t($error_short_id, ['@rage' => '10']));
         }
         break;
+
     }
 
     if (!is_numeric($form_state->getValue($id)[0]['value'])) {
-      $form_state->setErrorByName($id, $this->t($error_only_number, array('@field' => 'The ID field')));
+      $form_state->setErrorByName($id, $this->t($error_only_number, ['@field' => 'The ID field']));
     }
 
     // Validating the foreign id field.
-    if (!empty($form_state->getValue($foreign_id)[0]['value'])) {  // Check only if it has a value.
+    if (!empty($form_state->getValue($foreign_id)[0]['value'])) {
       if (strlen($form_state->getValue($foreign_id)[0]['value']) < 12) {
-        $form_state->setErrorByName($foreign_id, $this->t('The foreign id should have 12 characters, add zeros at the start if it\'s necessary.'));
+        $form_state->setErrorByName($foreign_id,
+          $this->t("The foreign id should have 12 characters, add zeros at the start if it's necessary.")
+        );
       }
 
       if (!is_numeric($form_state->getValue($foreign_id)[0]['value'])) {
@@ -89,7 +95,7 @@ class CustomerEntityForm extends ContentEntityForm {
 
     // Validating telephone field.
     if (!is_numeric($form_state->getValue($phone)[0]['value'])) {
-      $form_state->setErrorByName($phone, $this->t($error_only_number, array('@field' => 'The telephone number')));
+      $form_state->setErrorByName($phone, $this->t($error_only_number, ['@field' => 'The telephone number']));
     }
     parent::validateForm($form, $form_state);
   }

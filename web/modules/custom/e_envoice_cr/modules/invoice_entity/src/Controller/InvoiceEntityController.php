@@ -129,8 +129,14 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
             $links['revert'] = [
               'title' => $this->t('Revert'),
               'url' => $has_translations ?
-              Url::fromRoute('entity.invoice_entity.translation_revert', ['invoice_entity' => $invoice_entity->id(), 'invoice_entity_revision' => $vid, 'langcode' => $langcode]) :
-              Url::fromRoute('entity.invoice_entity.revision_revert', ['invoice_entity' => $invoice_entity->id(), 'invoice_entity_revision' => $vid]),
+              Url::fromRoute('entity.invoice_entity.translation_revert', [
+                'invoice_entity' => $invoice_entity->id(),
+                'invoice_entity_revision' => $vid, 'langcode' => $langcode
+              ]) :
+              Url::fromRoute('entity.invoice_entity.revision_revert', [
+                'invoice_entity' => $invoice_entity->id(),
+                'invoice_entity_revision' => $vid
+              ]),
             ];
           }
 
@@ -165,10 +171,12 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
   /**
    * Validate a invoice.
    *
-   * @param $key
+   * @param string $key
    *   A Invoice  object.
+   * @param string $id
+   *   A Invoice Id.
    *
-   * @return boolean
+   * @return bool
    *   An array as expected by drupal_render().
    */
   public function validateInvoice($key, $id) {
@@ -177,15 +185,17 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
     $res = $con->validateDocument($key);
     if (is_null($res)) {
       drupal_set_message(t("Status Unknown. The state couldn't be validated."), 'error');
-    } else {
+    }
+    else {
       if ($res[2] === "rechazado") {
         $entity->set('moderation_state', 'rejected');
         $entity->save();
-        drupal_set_message(t("Status Rejected. " . $res[3]->DetalleMensaje), 'error');
-      } elseif ($res[2] === "aceptado") {
+        drupal_set_message(t("Status Rejected. @text", ["@text" => $res[3]->DetalleMensaje]), 'error');
+      }
+      elseif ($res[2] === "aceptado") {
         $entity->set('moderation_state', 'published');
         $entity->save();
-        drupal_set_message(t("Status Accepted. " . $res[3]->DetalleMensaje), 'status');
+        drupal_set_message(t("Status Accepted. @text", ["@text" => $res[3]->DetalleMensaje]), 'status');
       }
       drupal_set_message(t('A validation request has been performed.'), 'status');
     }

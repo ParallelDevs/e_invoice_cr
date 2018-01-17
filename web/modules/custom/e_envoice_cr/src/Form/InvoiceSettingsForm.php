@@ -8,7 +8,8 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Configure e_invoice settings for this site.
  */
-class invoiceSettingsForm extends ConfigFormBase {
+class InvoiceSettingsForm extends ConfigFormBase {
+
   /**
    * {@inheritdoc}
    */
@@ -33,7 +34,7 @@ class invoiceSettingsForm extends ConfigFormBase {
     $options_env = ["1" => "Production", "2" => "Sandbox"];
     $options_id_type = ["01" => "Physical person id", "02" => "Company id", "03" => "DIMEX", "04" => "NITE"];
     $settings = \Drupal::config('e_invoice_cr.settings');
-    // get default values
+    // Get default values.
     $environment = $settings->get('environment');
     $username = $settings->get('username');
     $password = $settings->get('password');
@@ -47,7 +48,7 @@ class invoiceSettingsForm extends ConfigFormBase {
     $postal_code = $settings->get('postal_code');
     $address = $settings->get('address');
     $currency = $settings->get('currency');
-    $p12_cert= $settings->get('p12_cert');
+    $p12_cert = $settings->get('p12_cert');
     $cert_password = $settings->get('cert_password');
 
     $form['environment'] = [
@@ -91,14 +92,14 @@ class invoiceSettingsForm extends ConfigFormBase {
       '#default_value' => $id_type,
       '#required' => TRUE,
       '#options' => $options_id_type,
-      '#description' => $this->t('Select the taxpayer\'s id type.'),
+      '#description' => $this->t("Select the taxpayer's id type."),
       '#validated' => TRUE,
     ];
     $form['taxpayer_fieldset']['id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Id number:'),
       '#default_value' => $id,
-      '#description' => $this->t('The id number must have 12 characters, add zeros at the start if it\'s necessary.'),
+      '#description' => $this->t("The id number must have 12 characters, add zeros at the start if it's necessary."),
       '#required' => TRUE,
       '#size' => 12,
       '#maxlength' => 12,
@@ -200,24 +201,28 @@ class invoiceSettingsForm extends ConfigFormBase {
     switch ($id_type) {
       case "01":
         if (strlen($form_state->getValue('id')) !== 9) {
-          $form_state->setErrorByName('id', $this->t('The id should have 9 characters, add zeros at the start if it\'s necessary.'));
+          $form_state->setErrorByName('id', $this->t("The id should have 9 characters, add zeros at the start if it's necessary."));
         }
         break;
+
       case "02":
         if (strlen($form_state->getValue('id')) !== 10) {
-          $form_state->setErrorByName('id', $this->t('The id should have 10 characters, add zeros at the start if it\'s necessary.'));
+          $form_state->setErrorByName('id', $this->t("The id should have 10 characters, add zeros at the start if it's necessary."));
         }
         break;
+
       case "03":
         if (strlen($form_state->getValue('id')) < 11 || strlen($form_state->getValue('id')) > 12) {
-          $form_state->setErrorByName('id', $this->t('The id should have 11 or 12 characters, add zeros at the start if it\'s necessary.'));
+          $form_state->setErrorByName('id', $this->t("The id should have 11 or 12 characters, add zeros at the start if it's necessary."));
         }
         break;
+
       case "04":
         if (strlen($form_state->getValue('id')) !== 10) {
-          $form_state->setErrorByName('id', $this->t('The id should have 10 characters, add zeros at the start if it\'s necessary.'));
+          $form_state->setErrorByName('id', $this->t("The id should have 10 characters, add zeros at the start if it's necessary."));
         }
         break;
+
     }
 
     if (!is_numeric($form_state->getValue('id'))) {
@@ -239,9 +244,9 @@ class invoiceSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Retrieve the configuration
+    // Retrieve the configuration.
     \Drupal::configFactory()->getEditable('e_invoice_cr.settings')
-      // Set the submitted configuration setting
+      // Set the submitted configuration setting.
       ->set('environment', $form_state->getValue('environment'))
       ->set('username', $form_state->getValue('username'))
       ->set('password', $form_state->getValue('password'))
@@ -260,9 +265,10 @@ class invoiceSettingsForm extends ConfigFormBase {
       ->save();
     $fid = $form_state->getValue('p12_cert');
     $file_object = file_load($fid[0], $reset = FALSE);
-    // make copies and change the file names
+    // Make copies and change the file names.
     file_copy($file_object, 'public://certs/cert.pfx', FILE_EXISTS_REPLACE);
     file_copy($file_object, 'public://certs/cert.p12', FILE_EXISTS_REPLACE);
     parent::submitForm($form, $form_state);
   }
+
 }

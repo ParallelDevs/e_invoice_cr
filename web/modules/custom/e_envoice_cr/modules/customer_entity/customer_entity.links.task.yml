@@ -24,4 +24,3 @@ entity.customer_entity.delete_form:
   base_route:  entity.customer_entity.canonical
   title: Delete
   weight: 10
-

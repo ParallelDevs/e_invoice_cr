@@ -14,8 +14,6 @@ use Drupal\user\EntityOwnerInterface;
  */
 interface CustomerEntityInterface extends RevisionableInterface, RevisionLogInterface, EntityChangedInterface, EntityOwnerInterface {
 
-  // Add get/set methods for your configuration properties here.
-
   /**
    * Gets the Customer name.
    *

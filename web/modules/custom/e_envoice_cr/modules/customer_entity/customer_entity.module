@@ -1,4 +1,6 @@
 <?php
 
-
-
+/**
+ * @file
+ * Contains customer_entity.module.
+ */

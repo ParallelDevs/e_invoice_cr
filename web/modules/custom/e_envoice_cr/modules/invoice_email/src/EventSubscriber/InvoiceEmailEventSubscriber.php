@@ -20,17 +20,17 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  static function getSubscribedEvents() {
-    $events[InvoiceEmailEvent::SUBMIT][] = array('invoiceEmailSendPdf', 800);
+  public static function getSubscribedEvents() {
+    $events[InvoiceEmailEvent::SUBMIT][] = ['invoiceEmailSendPdf', 800];
     return $events;
   }
 
   /**
    * Subscriber Callback for the event.
-   * @param InvoiceEmailEvent $event
    */
   public function invoiceEmailSendPdf(InvoiceEmailEvent $event) {
-    // add texct
+    // Add text.
     drupal_set_message("Merlin is working here.... " . $event->getReferenceID() . " as Reference");
   }
+
 }

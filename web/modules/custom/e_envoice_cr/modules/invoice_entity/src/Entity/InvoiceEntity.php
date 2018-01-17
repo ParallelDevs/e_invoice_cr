@@ -94,8 +94,6 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
       }
     }
 
-    // If no revision author has been set explicitly, make the invoice_entity owner the
-    // revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());
     }

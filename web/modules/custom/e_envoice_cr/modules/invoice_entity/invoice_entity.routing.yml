@@ -13,5 +13,3 @@ invoice_entity.validate:
     _title: 'Validation Request'
   requirements:
     _permission: 'access content'
-
-

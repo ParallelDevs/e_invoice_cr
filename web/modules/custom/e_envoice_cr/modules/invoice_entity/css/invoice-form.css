@@ -1,4 +1,7 @@
-.field--name-field-tipo, .field--name-field-codigo, .field--name-field-cantidad, .field--name-field-preciounitario {
+.field--name-field-tipo,
+.field--name-field-codigo,
+.field--name-field-cantidad,
+.field--name-field-preciounitario {
   display: inline-block;
   width: 20%;
 }
@@ -8,7 +11,11 @@
 .field--name-field-detalle {
   margin-bottom: 10px;
 }
-.field--name-field-montototal, .field--name-field-impuesto, .field--name-field-subtotal, .field--name-field-monto-total-linea, .field--name-field-row-discount {
+.field--name-field-montototal,
+.field--name-field-impuesto,
+.field--name-field-subtotal,
+.field--name-field-monto-total-linea,
+.field--name-field-row-discount {
   width: 54%;
   float: right;
   margin-bottom: 10px;
@@ -36,7 +43,7 @@
   display: inline-block;
 }
 .field--name-field-impuesto select {
-  width: 179px
+  width: 179px;
 }
 .field--name-field-row-discount label {
   display: inline-block;
@@ -52,7 +59,8 @@
   margin-top: 15px;
 }
 
-.field--name-field-another-unit-measure, .field--name-field-discount-percentage {
+.field--name-field-another-unit-measure,
+.field--name-field-discount-percentage {
   margin-bottom: 10px;
 }
 .field--name-field-discount-reason {
@@ -63,4 +71,3 @@
   padding-top: 10px;
   border-top: 1px solid #b8b8b8;
 }
-

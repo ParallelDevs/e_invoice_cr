@@ -13,7 +13,6 @@ use Drupal\Core\Link;
  */
 class InvoiceEntityListBuilder extends EntityListBuilder {
 
-
   /**
    * {@inheritdoc}
    */
@@ -34,12 +33,15 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
       case "draft":
         $state_label = t("In validation");
         break;
+
       case "published":
         $state_label = t("Accepted");
         break;
+
       case "rejected":
         $state_label = t("Rejected");
         break;
+
     }
     $row['id'] = $entity->id();
     $row['status'] = $state_label;

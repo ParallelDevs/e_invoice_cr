@@ -94,8 +94,6 @@ class CustomerEntity extends RevisionableContentEntityBase implements CustomerEn
       }
     }
 
-    // If no revision author has been set explicitly, make the customer_entity owner the
-    // revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());
     }

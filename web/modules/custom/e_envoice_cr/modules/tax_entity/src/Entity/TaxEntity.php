@@ -94,8 +94,6 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
       }
     }
 
-    // If no revision author has been set explicitly, make the tax_entity owner the
-    // revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());
     }

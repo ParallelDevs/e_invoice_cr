@@ -10,7 +10,7 @@
   width: 33.3%;
   float: left;
 }
-.field--name-field-cliente  {
+.field--name-field-cliente {
   border-top: 1px solid #b8b8b8;
   width: 100%;
   margin-top: 10px;
@@ -105,7 +105,10 @@
   width: 100%;
   margin: 20px 0;
 }
-.field--name-field-montototal, .field--name-field-impuesto, .field--name-field-subtotal, .field--name-field-monto-total-linea {
+.field--name-field-montototal,
+.field--name-field-impuesto,
+.field--name-field-subtotal,
+.field--name-field-monto-total-linea {
   float: right;
   margin-left: 15px;
 }
@@ -127,8 +130,8 @@
   display: inline-block;
 }
 .field--name-field-total-ventaneta .field__label:after {
-   content: ':';
- }
+  content: ':';
+}
 .field--name-field-total-impuesto .field__label:after {
   content: ':';
 }

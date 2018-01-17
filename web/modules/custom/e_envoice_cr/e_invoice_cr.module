@@ -52,7 +52,7 @@ function e_invoice_cr_check_java() {
   $error_message = t('Invoice CR Module: Java not detected on the server. This module needs java installed to work properly.');
   $command = 'java -version && echo 1 || echo 0';
   $result = exec($command, $response);
-  if(!$result) {
+  if (!$result) {
     drupal_set_message($error_message, 'error');
   }
 }
