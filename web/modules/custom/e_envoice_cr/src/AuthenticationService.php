@@ -1,9 +1,9 @@
 <?php
+
 namespace Drupal\e_invoice_cr;
 
-
 /**
- * .
+ * Implements the authentication functionality.
  */
 class AuthenticationService {
 
@@ -17,35 +17,47 @@ class AuthenticationService {
     $environment = $settings->get('environment');
     // Access token url.
     $url = "";
+    $client_id = "";
     if ($environment === "1") {
       $url = 'https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token';
-    } else {
+      $client_id = "api-prod";
+    }
+    else {
       $url = 'https://idp.comprobanteselectronicos.go.cr/auth/realms/rut-stag/protocol/openid-connect/token';
+      $client_id = "api-stag";
     }
     if ($username !== "" && $password !== "") {
-      $data = array('client_id' => 'api-stag', // Test: 'api-stag' Production: 'api-prod'.
-        'client_secret' => '', // Always empty.
-        'grant_type' => 'password', // Always 'password'.
-        // Go to https://www.hacienda.go.cr/ATV/login.aspx to generate a username and password credentials.
+      $data = [
+        'client_id' => $client_id,
+        'client_secret' => '',
+        'grant_type' => 'password',
         'username' => $username,
         'password' => $password,
-        'scope' =>''); // Always empty.
+        'scope' => '',
+      ];
       // Use key 'http' even if you send the request to https://.
-      $options = array(
-        'http' => array(
+      $options = [
+        'http' => [
           'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
           'method'  => 'POST',
-          'content' => http_build_query($data)
-        )
-      );
-      $context  = stream_context_create($options);
-      $result = file_get_contents($url, false, $context);
-      if ($result === FALSE) { echo $result; }
-      $token = json_decode($result); // Get a token object.
+          'content' => http_build_query($data),
+        ],
+      ];
+      $context = stream_context_create($options);
+      $result = file_get_contents($url, FALSE, $context);
+      if ($result === FALSE) {
+        echo $result;
+      }
 
-      return $token->access_token; // Return a json object whith token and refresh token.
-    } else {
+      // Get a token object.
+      $token = json_decode($result);
+      // Return a json object whith token and refresh token.
+      return $token->access_token;
+    }
+    else {
       return "";
     }
+
   }
+
 }

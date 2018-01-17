@@ -1,9 +1,9 @@
 <?php
+
 namespace Drupal\e_invoice_cr;
 
-
 /**
- * .
+ * Implements the XML signature process.
  */
 class Signature implements SignatureInterface {
 
@@ -12,7 +12,7 @@ class Signature implements SignatureInterface {
    */
   public function signDocument() {
     // Locate where is the jar.
-    $res = chdir( "modules/custom/e_envoice_cr/jar" );
+    $res = chdir("modules/custom/e_envoice_cr/jar");
     if ($res) {
       $base_path = DRUPAL_ROOT . '/sites/default/files/';
       // Check the directory.
@@ -25,20 +25,23 @@ class Signature implements SignatureInterface {
         $doc_path = $base_path . "xml/";
         $signed_path = $base_path . "xml_signed/";
         // Build the java command.
-        $command = 'java -jar java-xades4j-signer.jar ' . $cert_path . ' "'. $pass . '" ' . $doc_path . ' ' . $signed_path . ' 2>&1';
+        $command = 'java -jar java-xades4j-signer.jar ' . $cert_path . ' "' . $pass . '" ' . $doc_path . ' ' . $signed_path . ' 2>&1';
         // Execute the command.
         exec($command, $response);
         // Send the response.
         return $response;
-      } else {
+      }
+      else {
         $message = 'Error. The xml_signed directory could not be created.';
         drupal_set_message(t($message), 'error');
-        return false;
+        return FALSE;
       }
-    } else {
+    }
+    else {
       $message = 'Error. There were problems running the chdir command.';
       drupal_set_message(t($message), 'error');
-      return false;
+      return FALSE;
     }
   }
+
 }

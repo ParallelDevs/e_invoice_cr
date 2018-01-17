@@ -185,7 +185,7 @@ function invoice_entity_custom_submit(&$form, \Drupal\Core\Form\FormStateInterfa
     // Generate the XML file with the invoice data.
     $xml_generator = new XMLGenerator();
     // Get the xml doc built.
-    $xml = $xml_generator->generateInvoiceXML($general, $client, $emitter,$rows);
+    $xml = $xml_generator->generateInvoiceXml($general, $client, $emitter,$rows);
     $xml->saveXML();
     // Create dir.
     $path = "public://xml/";
