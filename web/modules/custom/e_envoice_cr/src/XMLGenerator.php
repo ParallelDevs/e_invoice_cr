@@ -29,8 +29,8 @@ class XMLGenerator {
     $xml_doc .= "\t<Clave>" . $general_data['key'] . "</Clave>\n";
     $xml_doc .= "\t<NumeroConsecutivo>" . $general_data['consecutive'] . "</NumeroConsecutivo>\n";
     $xml_doc .= "\t<FechaEmision>" . $general_data['date'] . "</FechaEmision>\n";
-    $xml_doc .= "\t<Emisor>\n";
     // Start 'Emisor'.
+    $xml_doc .= "\t<Emisor>\n";
     $xml_doc .= "\t\t<Nombre>" . $emitter['name'] . "</Nombre>\n";
     $xml_doc .= "\t\t<Identificacion>\n";
     $xml_doc .= "\t\t\t<Tipo>" . $emitter['id']['type'] . "</Tipo>\n";
@@ -56,14 +56,14 @@ class XMLGenerator {
     }
     $xml_doc .= "\t\t<CorreoElectronico>" . $emitter['email'] . "</CorreoElectronico>\n";
     $xml_doc .= "\t</Emisor>\n";
-    $xml_doc .= "\t<Receptor>\n";
     // Starts 'Receptor'.
+    $xml_doc .= "\t<Receptor>\n";
     $xml_doc .= "\t\t<Nombre>" . $client->get('name')->value . "</Nombre>\n";
     $xml_doc .= "\t\t<Identificacion>\n";
     $xml_doc .= "\t\t\t<Tipo>" . $client->get('field_tipo_de_identificacion')->value . "</Tipo>\n";
     $xml_doc .= "\t\t\t<Numero>" . $client->get('field_intensificacion')->value . "</Numero>\n";
     $xml_doc .= "\t\t</Identificacion>\n";
-    $xml_doc .= "\t\t<IdentificacionExtranjero>" . $client->get('field_intensificacion_ex')->value . "</IdentificacionExtranjero>v";
+    $xml_doc .= "\t\t<IdentificacionExtranjero>" . $client->get('field_intensificacion_ex')->value . "</IdentificacionExtranjero>\n";
     $xml_doc .= "\t\t<NombreComercial>" . $client->get('field_nombrecomercial')->value . "</NombreComercial>\n";
     $xml_doc .= "\t\t<Ubicacion>\n";
     $xml_doc .= "\t\t\t<Provincia>" . substr($client_zip_code[0]['zipcode'], 0, 1) . "</Provincia>\n";
