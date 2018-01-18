@@ -5,7 +5,6 @@
  * Contains invoice_entity.module.
  */
 
-use Drupal\e_invoice_cr\Authentication;
 use Drupal\e_invoice_cr\XMLGenerator;
 use Drupal\e_invoice_cr\Signature;
 use Drupal\e_invoice_cr\Communication;
