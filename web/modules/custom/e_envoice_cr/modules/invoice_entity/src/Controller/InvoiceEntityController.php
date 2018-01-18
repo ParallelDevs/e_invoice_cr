@@ -132,11 +132,11 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
               Url::fromRoute('entity.invoice_entity.translation_revert', [
                 'invoice_entity' => $invoice_entity->id(),
                 'invoice_entity_revision' => $vid,
-                'langcode' => $langcode
+                'langcode' => $langcode,
               ]) :
               Url::fromRoute('entity.invoice_entity.revision_revert', [
                 'invoice_entity' => $invoice_entity->id(),
-                'invoice_entity_revision' => $vid
+                'invoice_entity_revision' => $vid,
               ]),
             ];
           }
