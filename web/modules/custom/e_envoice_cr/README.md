@@ -13,5 +13,5 @@ give more documents support.
 
 # INSTALLATION
 
-See spanish documentation 
-at https://docs.google.com/document/d/1SNvUe5eaaEs76PW49B9JeJ-v2NW09Kf-aqb1LaPj9yE/edit?usp=sharing
+See spanish documentation
+[here](https://docs.google.com/document/d/1SNvUe5eaaEs76PW49B9JeJ-v2NW09Kf-aqb1LaPj9yE/edit?usp=sharing).

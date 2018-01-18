@@ -203,8 +203,8 @@ function invoice_entity_custom_submit(&$form, FormStateInterface $form_state) {
     $response = $signature->signDocument();
 
     if (strpos($response, "Error") !== FALSE || strpos($response, "Failed") !== FALSE) {
-      $message = 'There were errors during the signature process, the signature could be wrong.';
-      drupal_set_message(t($message), 'warning');
+      $message = t('There were errors during the signature process, the signature could be wrong.');
+      drupal_set_message($message, 'warning');
     }
 
     // Send document to API.
@@ -228,15 +228,15 @@ function invoice_entity_custom_submit(&$form, FormStateInterface $form_state) {
       if ($response->getStatusCode() != 202 && $response->getStatusCode() != 200) {
         // Reduce the consecutive.
         invoice_entity_reduce_consecutive();
-        $message = 'The was a problem sending the electronic document.';
-        drupal_set_message(t($message), 'error');
+        $message = t('The was a problem sending the electronic document.');
+        drupal_set_message($message, 'error');
         $form_state->setRebuild();
         $form_state->setSubmitHandlers([]);
       }
       else {
         // Show a success message.
-        $message = 'The electronic document was sent to its verification.';
-        drupal_set_message(t($message), 'status');
+        $message = t('The electronic document was sent to its verification.');
+        drupal_set_message($message, 'status');
       }
     }
     else {
@@ -341,9 +341,8 @@ function invoice_entity_generate_key() {
  * Error messages.
  */
 function invoice_entity_config_error() {
-  $message = 'The document key could not be generated because there are not configuration data yet, ';
-  $message .= 'to set those go to /admin/e-invoice-cr/settings.';
-  drupal_set_message(t($message), 'error');
+  $message = t('The document key could not be generated because there are not configuration data yet, to set those go to /admin/e-invoice-cr/settings.');
+  drupal_set_message($message, 'error');
 }
 
 /**
