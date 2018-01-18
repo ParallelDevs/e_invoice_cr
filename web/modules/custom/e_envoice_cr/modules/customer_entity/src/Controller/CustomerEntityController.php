@@ -131,12 +131,12 @@ class CustomerEntityController extends ControllerBase implements ContainerInject
                 [
                   'customer_entity' => $customer_entity->id(),
                   'customer_entity_revision' => $vid,
-                  'langcode' => $langcode
+                  'langcode' => $langcode,
                 ]) :
               Url::fromRoute('entity.customer_entity.revision_revert',
                 [
                   'customer_entity' => $customer_entity->id(),
-                  'customer_entity_revision' => $vid
+                  'customer_entity_revision' => $vid,
                 ]),
             ];
           }

@@ -32,7 +32,12 @@ class InvoiceSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $base_url = $host = \Drupal::request()->getHost();
     $options_env = ["1" => "Production", "2" => "Sandbox"];
-    $options_id_type = ["01" => "Physical person id", "02" => "Company id", "03" => "DIMEX", "04" => "NITE"];
+    $options_id_type = [
+      "01" => "Physical person id",
+      "02" => "Company id",
+      "03" => "DIMEX",
+      "04" => "NITE",
+    ];
     $settings = \Drupal::config('e_invoice_cr.settings');
     // Get default values.
     $environment = $settings->get('environment');
@@ -167,11 +172,9 @@ class InvoiceSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Certificate information.'),
     ];
 
-    $validators = array(
-      'file_validate_extensions' => array('p12'),
-    );
+    $validators = ['file_validate_extensions' => ['p12']];
     $path = \Drupal::moduleHandler()->getModule('e_invoice_cr')->getPath();
-    $form['cert_fieldset']['p12_cert'] = array(
+    $form['cert_fieldset']['p12_cert'] = [
       '#type' => 'managed_file',
       '#name' => 'Certificate p12.',
       '#title' => $this->t('Certificate p12.'),
@@ -180,7 +183,7 @@ class InvoiceSettingsForm extends ConfigFormBase {
       '#upload_validators' => $validators,
       '#upload_location' => 'public://certs/',
       '#required' => TRUE,
-    );
+    ];
 
     $form['cert_fieldset']['cert_password'] = [
       '#type' => 'password',
@@ -191,7 +194,6 @@ class InvoiceSettingsForm extends ConfigFormBase {
 
     return parent::buildForm($form, $form_state);
   }
-
 
   /**
    * {@inheritdoc}

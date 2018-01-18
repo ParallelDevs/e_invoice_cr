@@ -2,6 +2,8 @@
 
 namespace Drupal\e_invoice_cr;
 
+use GuzzleHttp\Exception\ClientException;
+
 /**
  * Provide the API communication functionality.
  */
@@ -50,7 +52,7 @@ class Communication implements CommunicationInterface {
       $request = $client->request('POST', $url, $options);
       return $request;
     }
-    catch (\GuzzleHttp\Exception\ClientException $e) {
+    catch (ClientException $e) {
       drupal_set_message(t('Communication error. @error', ['@error' => $e->getMessage()]), 'error');
       return NULL;
     }
@@ -96,7 +98,7 @@ class Communication implements CommunicationInterface {
       }
       return $result;
     }
-    catch (\GuzzleHttp\Exception\ClientException $e) {
+    catch (ClientException $e) {
       drupal_set_message(t('Communication error. @error', ['@error' => $e->getMessage()]), 'error');
       return NULL;
     }
