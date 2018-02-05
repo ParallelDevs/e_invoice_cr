@@ -2,7 +2,6 @@
 
 namespace Drupal\e_invoice_cr;
 
-
 /**
  * Communication with the API.
  */

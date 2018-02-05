@@ -127,8 +127,17 @@ class CustomerEntityController extends ControllerBase implements ContainerInject
             $links['revert'] = [
               'title' => $this->t('Revert'),
               'url' => $has_translations ?
-              Url::fromRoute('entity.customer_entity.translation_revert', ['customer_entity' => $customer_entity->id(), 'customer_entity_revision' => $vid, 'langcode' => $langcode]) :
-              Url::fromRoute('entity.customer_entity.revision_revert', ['customer_entity' => $customer_entity->id(), 'customer_entity_revision' => $vid]),
+              Url::fromRoute('entity.customer_entity.translation_revert',
+                [
+                  'customer_entity' => $customer_entity->id(),
+                  'customer_entity_revision' => $vid,
+                  'langcode' => $langcode,
+                ]) :
+              Url::fromRoute('entity.customer_entity.revision_revert',
+                [
+                  'customer_entity' => $customer_entity->id(),
+                  'customer_entity_revision' => $vid,
+                ]),
             ];
           }
 

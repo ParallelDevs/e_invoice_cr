@@ -10,4 +10,3 @@ dependencies:
   - paragraphs
   - entity_print
   - content_moderation
-  - tax_entity

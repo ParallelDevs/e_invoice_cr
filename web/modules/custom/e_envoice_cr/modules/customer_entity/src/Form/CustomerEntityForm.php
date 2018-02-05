@@ -18,7 +18,8 @@ class CustomerEntityForm extends ContentEntityForm {
   public function buildForm(array $form, FormStateInterface $form_state) {
     /* @var $entity \Drupal\customer_entity\Entity\CustomerEntity */
     $form = parent::buildForm($form, $form_state);
-
+    // Set the name field as required.
+    $form['name']['widget'][0]['value']['#required'] = TRUE;
     if (!$this->entity->isNew()) {
       $form['new_revision'] = [
         '#type' => 'checkbox',
@@ -37,9 +38,6 @@ class CustomerEntityForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $error_short_id = 'The id should have @rage characters, add zeros at the start if it\'s necessary.';
-    $error_only_number = '@field should only have numbers. No spaces or special characters.';
-
     // Fields to evaluate.
     $id = 'field_intensificacion';
     $foreign_id = 'field_intensificacion_ex';
@@ -51,44 +49,50 @@ class CustomerEntityForm extends ContentEntityForm {
     switch ($form_state->getValue('field_tipo_de_identificacion')[0]['value']) {
       case "01":
         if (strlen($form_state->getValue($id)[0]['value']) !== 9) {
-          $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '9')));
+          $form_state->setErrorByName($id, $this->t("The id should have 9 characters, add zeros at the start if it\'s necessary."));
         }
         break;
+
       case "02":
         if (strlen($form_state->getValue($id)[0]['value']) !== 10) {
-          $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '10')));
+          $form_state->setErrorByName($id, $this->t("The id should have 10 characters, add zeros at the start if it\'s necessary."));
         }
         break;
+
       case "03":
         if (strlen($form_state->getValue($id)[0]['value']) < 11 || strlen($form_state->getValue('id')) > 12) {
-          $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '11 or 12')));
+          $form_state->setErrorByName($id, $this->t("The id should have 11 or 12 characters, add zeros at the start if it\'s necessary."));
         }
         break;
+
       case "04":
         if (strlen($form_state->getValue($id)[0]['value']) !== 10) {
-          $form_state->setErrorByName($id, $this->t($error_short_id, array('@rage' => '10')));
+          $form_state->setErrorByName($id, $this->t("The id should have 10 characters, add zeros at the start if it\'s necessary."));
         }
         break;
+
     }
 
     if (!is_numeric($form_state->getValue($id)[0]['value'])) {
-      $form_state->setErrorByName($id, $this->t($error_only_number, array('@field' => 'The ID field')));
+      $form_state->setErrorByName($id, $this->t("The ID field should only have numbers. No spaces or special characters."));
     }
 
     // Validating the foreign id field.
-    if (!empty($form_state->getValue($foreign_id)[0]['value'])) {  // Check only if it has a value.
+    if (!empty($form_state->getValue($foreign_id)[0]['value'])) {
       if (strlen($form_state->getValue($foreign_id)[0]['value']) < 12) {
-        $form_state->setErrorByName($foreign_id, $this->t('The foreign id should have 12 characters, add zeros at the start if it\'s necessary.'));
+        $form_state->setErrorByName($foreign_id,
+          $this->t("The foreign id should have 12 characters, add zeros at the start if it's necessary.")
+        );
       }
 
       if (!is_numeric($form_state->getValue($foreign_id)[0]['value'])) {
-        $form_state->setErrorByName($foreign_id, $this->t($error_only_number, ['@field' => 'The Foreign ID']));
+        $form_state->setErrorByName($foreign_id, $this->t("The foreign ID should only have numbers. No spaces or special characters."));
       }
     }
 
     // Validating telephone field.
     if (!is_numeric($form_state->getValue($phone)[0]['value'])) {
-      $form_state->setErrorByName($phone, $this->t($error_only_number, array('@field' => 'The telephone number')));
+      $form_state->setErrorByName($phone, $this->t("The telephone number should only have numbers. No spaces or special characters."));
     }
     parent::validateForm($form, $form_state);
   }

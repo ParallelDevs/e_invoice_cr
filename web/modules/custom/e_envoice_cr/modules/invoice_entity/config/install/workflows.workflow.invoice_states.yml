@@ -1,10 +1,12 @@
-uuid: 45788b73-b2c0-466d-a055-690cbcd05ea4
 langcode: en
 status: true
 dependencies:
   module:
     - content_moderation
     - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
 id: invoice_states
 label: 'Invoice state'
 type: content_moderation

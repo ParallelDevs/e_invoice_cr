@@ -1,9 +1,11 @@
 <?php
+
 namespace Drupal\e_invoice_cr;
 
+use GuzzleHttp\Exception\ClientException;
 
 /**
- * .
+ * Provide the API communication functionality.
  */
 class Communication implements CommunicationInterface {
 
@@ -41,15 +43,17 @@ class Communication implements CommunicationInterface {
     // Validate environment.
     if ($environment === "1") {
       $url = 'https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion';
-    } else {
+    }
+    else {
       $url = 'https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion';
     }
     try {
       // Do the request.
       $request = $client->request('POST', $url, $options);
       return $request;
-    } catch (\GuzzleHttp\Exception\ClientException $e) {
-      drupal_set_message(t('Communication error. ' . $e->getMessage()), 'error');
+    }
+    catch (ClientException $e) {
+      drupal_set_message(t('Communication error. @error', ['@error' => $e->getMessage()]), 'error');
       return NULL;
     }
   }
@@ -69,7 +73,8 @@ class Communication implements CommunicationInterface {
     // Validate environment.
     if ($environment === "1") {
       $url = 'https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/' . $key;
-    } else {
+    }
+    else {
       $url = 'https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/' . $key;
     }
     // Set the headers data.
@@ -92,10 +97,12 @@ class Communication implements CommunicationInterface {
         $result[] = $item;
       }
       return $result;
-    } catch (\GuzzleHttp\Exception\ClientException $e) {
-      drupal_set_message(t('Communication error. ' . $e->getMessage()), 'error');
+    }
+    catch (ClientException $e) {
+      drupal_set_message(t('Communication error. @error', ['@error' => $e->getMessage()]), 'error');
       return NULL;
     }
 
   }
+
 }
