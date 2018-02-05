@@ -125,7 +125,7 @@ class XMLGenerator {
             $xml_doc .= "\t\t\t<Impuesto>\n";
             $xml_doc .= "\t\t\t\t<Codigo>" . $tax->get('field_tax_type')->value . "</Codigo>\n";
             $xml_doc .= "\t\t\t\t<Tarifa>" . $tax->get('field_tax_percentage')->value . "</Tarifa>\n";
-            $xml_doc .= "\t\t\t\t<Monto>" . $tax_mount . '</Monto>\n';
+            $xml_doc .= "\t\t\t\t<Monto>" . $tax_mount . '</Monto>' . "\n";
             // Here exonerations data.
             $xml_doc .= "\t\t\t</Impuesto>\n";
           }
