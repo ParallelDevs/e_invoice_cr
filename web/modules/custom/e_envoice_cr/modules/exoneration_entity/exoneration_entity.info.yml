@@ -1,0 +1,5 @@
+name: Invoice CR Exoneration Entity
+type: module
+description: Module to create the Exoneration Module
+core: 8.x
+package: other

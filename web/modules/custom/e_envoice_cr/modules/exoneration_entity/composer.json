@@ -1,0 +1,14 @@
+{
+  "name": "drupal/exoneration_entity",
+  "type": "drupal-module",
+  "description": "Module to create the Exoneration Module",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/exoneration_entity",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/exoneration_entity",
+    "source": "http://cgit.drupalcode.org/exoneration_entity"
+  },
+  "require": { }
+}

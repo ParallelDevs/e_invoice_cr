@@ -1,0 +1,14 @@
+
+# Exoneration entity menu items definition
+entity.exoneration_entity.collection:
+  title: 'Exoneration entity list'
+  route_name: entity.exoneration_entity.collection
+  description: 'List Exoneration entity entities'
+  parent: system.admin_structure
+  weight: 100
+
+exoneration_entity.admin.structure.settings:
+  title: Exoneration entity settings
+  description: 'Configure Exoneration entity entities'
+  route_name: exoneration_entity.settings
+  parent: system.admin_structure

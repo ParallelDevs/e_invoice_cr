@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains exoneration_entity.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function exoneration_entity_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the exoneration_entity module.
+    case 'help.page.exoneration_entity':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Module to create the Exoneration Module') . '</p>';
+      return $output;
+
+    default:
+  }
+}

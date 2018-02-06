@@ -1,0 +1,30 @@
+add exoneration entity entities:
+  title: 'Create new Exoneration entity entities'
+
+administer exoneration entity entities:
+  title: 'Administer Exoneration entity entities'
+  description: 'Allow to access the administration form to configure Exoneration entity entities.'
+  restrict access: true
+
+delete exoneration entity entities:
+  title: 'Delete Exoneration entity entities'
+
+edit exoneration entity entities:
+  title: 'Edit Exoneration entity entities'
+
+view published exoneration entity entities:
+  title: 'View published Exoneration entity entities'
+
+view unpublished exoneration entity entities:
+  title: 'View unpublished Exoneration entity entities'
+
+view all exoneration entity revisions:
+  title: 'View all Exoneration entity revisions'
+
+revert all exoneration entity revisions:
+  title: 'Revert all Exoneration entity revisions'
+  description: 'Role requires permission <em>view Exoneration entity revisions</em> and <em>edit rights</em> for exoneration entity entities in question or <em>administer exoneration entity entities</em>.'
+
+delete all exoneration entity revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Exoneration entity revisions</em> and <em>delete rights</em> for exoneration entity entities in question or <em>administer exoneration entity entities</em>.'
