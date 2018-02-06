@@ -1,3 +1,11 @@
+e_invoice_cr.structure:
+  path: '/admin/e_invoice_cr/structure'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Invoice CR'
+  requirements:
+    _permission: 'access administration pages'
+
 e_invoice_cr.options:
   path: '/admin/e_invoice_cr/options'
   defaults:
