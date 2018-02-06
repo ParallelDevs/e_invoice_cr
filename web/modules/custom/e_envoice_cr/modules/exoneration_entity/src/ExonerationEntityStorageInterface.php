@@ -18,7 +18,7 @@ use Drupal\exoneration_entity\Entity\ExonerationEntityInterface;
 interface ExonerationEntityStorageInterface extends ContentEntityStorageInterface {
 
   /**
-   * Gets a list of Exoneration entity revision IDs for a specific Exoneration entity.
+   * Gets a list of Exoneration entity revision IDs for a specific Exoneration.
    *
    * @param \Drupal\exoneration_entity\Entity\ExonerationEntityInterface $entity
    *   The Exoneration entity entity.
@@ -29,7 +29,7 @@ interface ExonerationEntityStorageInterface extends ContentEntityStorageInterfac
   public function revisionIds(ExonerationEntityInterface $entity);
 
   /**
-   * Gets a list of revision IDs having a given user as Exoneration entity author.
+   * Gets a list of revision IDs having a given user as Exoneration author.
    *
    * @param \Drupal\Core\Session\AccountInterface $account
    *   The user entity.

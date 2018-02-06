@@ -14,8 +14,6 @@ use Drupal\user\EntityOwnerInterface;
  */
 interface ExonerationEntityInterface extends ContentEntityInterface, RevisionLogInterface, EntityChangedInterface, EntityOwnerInterface {
 
-  // Add get/set methods for your configuration properties here.
-
   /**
    * Gets the Exoneration entity name.
    *
@@ -68,7 +66,8 @@ interface ExonerationEntityInterface extends ContentEntityInterface, RevisionLog
    * Sets the published status of a Exoneration entity.
    *
    * @param bool $published
-   *   TRUE to set this Exoneration entity to published, FALSE to set it to unpublished.
+   *   TRUE to set this Exoneration entity to published,
+   *   FALSE to set it to unpublished.
    *
    * @return \Drupal\exoneration_entity\Entity\ExonerationEntityInterface
    *   The called Exoneration entity entity.

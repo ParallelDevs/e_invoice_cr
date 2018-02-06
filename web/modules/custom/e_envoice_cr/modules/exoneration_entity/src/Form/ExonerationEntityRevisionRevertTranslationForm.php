@@ -10,7 +10,7 @@ use Drupal\exoneration_entity\Entity\ExonerationEntityInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a form for reverting a Exoneration entity revision for a single translation.
+ * Form for reverting a Exoneration revision for a single translation.
  *
  * @ingroup exoneration_entity
  */

@@ -127,8 +127,15 @@ class ExonerationEntityController extends ControllerBase implements ContainerInj
             $links['revert'] = [
               'title' => $this->t('Revert'),
               'url' => $has_translations ?
-              Url::fromRoute('entity.exoneration_entity.translation_revert', ['exoneration_entity' => $exoneration_entity->id(), 'exoneration_entity_revision' => $vid, 'langcode' => $langcode]) :
-              Url::fromRoute('entity.exoneration_entity.revision_revert', ['exoneration_entity' => $exoneration_entity->id(), 'exoneration_entity_revision' => $vid]),
+              Url::fromRoute('entity.exoneration_entity.translation_revert', [
+                'exoneration_entity' => $exoneration_entity->id(),
+                'exoneration_entity_revision' => $vid,
+                'langcode' => $langcode,
+              ]) :
+              Url::fromRoute('entity.exoneration_entity.revision_revert', [
+                'exoneration_entity' => $exoneration_entity->id(),
+                'exoneration_entity_revision' => $vid,
+              ]),
             ];
           }
 

@@ -94,7 +94,8 @@ class ExonerationEntity extends RevisionableContentEntityBase implements Exonera
       }
     }
 
-    // If no revision author has been set explicitly, make the exoneration_entity owner the
+    // If no revision author has been set explicitly,
+    // make the exoneration_entity owner the
     // revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());
