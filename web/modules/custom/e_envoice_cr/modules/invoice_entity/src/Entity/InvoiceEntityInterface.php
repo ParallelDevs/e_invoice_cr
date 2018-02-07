@@ -34,6 +34,14 @@ interface InvoiceEntityInterface extends RevisionableInterface, RevisionLogInter
   public function setName($name);
 
   /**
+   * Gets the Invoice type.
+   *
+   * @return string
+   *   Type of the Invoice.
+   */
+  public function getInvoiceType();
+
+  /**
    * Gets the Invoice creation timestamp.
    *
    * @return int

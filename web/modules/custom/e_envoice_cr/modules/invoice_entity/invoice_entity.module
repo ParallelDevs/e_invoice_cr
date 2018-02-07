@@ -130,6 +130,7 @@ function invoice_entity_custom_submit(&$form, FormStateInterface $form_state) {
   }
   else {
     // Get the invoice data.
+    $type_of = $form_state->getValue('type_of')[0]['value'];
     $key = $form_state->getValue('field_clave_numerica')[0]['value'];
     $consecutive = $form_state->getValue('field_consecutivo')[0]['value'];
     $condition = $form_state->getValue('field_condicion_venta')[0]['value'];
@@ -191,7 +192,7 @@ function invoice_entity_custom_submit(&$form, FormStateInterface $form_state) {
     // Generate the XML file with the invoice data.
     $xml_generator = new XMLGenerator();
     // Get the xml doc built.
-    $xml = $xml_generator->generateInvoiceXml($general, $client, $emitter, $rows);
+    $xml = $xml_generator->generateInvoiceXml($general, $client, $emitter, $rows, $type_of);
     $xml->saveXML();
     // Create dir.
     $path = "public://xml/";
