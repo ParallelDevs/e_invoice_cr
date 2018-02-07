@@ -17,6 +17,7 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
    */
   public function buildHeader() {
     $header['id'] = $this->t('Invoice ID');
+    $header['type_of'] = $this->t('Type');
     $header['status'] = $this->t('Status');
     return $header + parent::buildHeader();
   }
@@ -43,6 +44,7 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
 
     }
     $row['id'] = $entity->id();
+    $row['type_of'] = $entity->getInvoiceType();
     $row['status'] = $state_label;
     return $row + parent::buildRow($entity);
   }

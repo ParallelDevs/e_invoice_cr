@@ -12,7 +12,7 @@ class XMLGenerator {
   /**
    * {@inheritdoc}
    */
-  public function generateInvoiceXml($general_data, $client, $emitter, $rows) {
+  public function generateInvoiceXml($general_data, $client, $emitter, $rows, $type = 'FE') {
     $client_zip_code = $client->field_direccion_->getValue();
     $settings = \Drupal::config('e_invoice_cr.settings');
     $currency = $settings->get('currency');
@@ -23,9 +23,12 @@ class XMLGenerator {
     $total_prod_with_tax = 0;
     $total_prod_without_tax = 0;
 
+    $tagname = $this->getXmlTagName($type);
+    $xmlns = $this->getXmlns($type);
+
     // Build the xml code.
     $xml_doc = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
-    $xml_doc .= "<FacturaElectronica xmlns=\"https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">\n";
+    $xml_doc .= "<" . $tagname . " xmlns=\"" . $xmlns . "\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">\n";
     $xml_doc .= "\t<Clave>" . $general_data['key'] . "</Clave>\n";
     $xml_doc .= "\t<NumeroConsecutivo>" . $general_data['consecutive'] . "</NumeroConsecutivo>\n";
     $xml_doc .= "\t<FechaEmision>" . $general_data['date'] . "</FechaEmision>\n";
@@ -191,12 +194,68 @@ class XMLGenerator {
     $xml_doc .= "\t<Otros>\n";
     $xml_doc .= "\t\t<OtroTexto></OtroTexto>\n";
     $xml_doc .= "\t</Otros>\n";
-    $xml_doc .= "</FacturaElectronica>\n";
+    $xml_doc .= "</" . $tagname . ">\n";
 
     // Create the xml document.
     $doc = new DOMDocument();
     $doc->loadXML($xml_doc);
     return $doc;
+  }
+
+  /**
+   * Gets the Invoice xml tag name according to the type of invoice.
+   *
+   * @param string $type
+   *   Type of invoice.
+   *
+   * @return null|string
+   *   Tag name for the XML File.
+   */
+  private function getXmlTagName($type) {
+    switch ($type) {
+      case 'FE':
+        return 'FacturaElectronica';
+
+      case 'TE':
+        return 'TiqueteElectronico';
+
+      case 'NC':
+        return 'NotaCreditoElectronica';
+
+      case 'ND':
+        return 'NotaDebitoElectronica';
+
+      default:
+        return NULL;
+    }
+  }
+
+  /**
+   * Gets the Invoice xml tag according to the type of invoice.
+   *
+   * @param string $type
+   *   Type of invoice.
+   *
+   * @return string
+   *   Url to the XML document.
+   */
+  private function getXmlns($type) {
+    switch ($type) {
+      case 'FE':
+        return 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica';
+
+      case 'TE':
+        return 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico';
+
+      case 'NC':
+        return 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica';
+
+      case 'ND':
+        return 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaDebitoElectronica';
+
+      default:
+        return NULL;
+    }
   }
 
 }

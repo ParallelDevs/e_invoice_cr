@@ -117,6 +117,13 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
   /**
    * {@inheritdoc}
    */
+  public function getInvoiceType() {
+    return $this->get('type_of')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getCreatedTime() {
     return $this->get('created')->value;
   }
@@ -221,6 +228,32 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
       ])
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
+        'weight' => -4,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['type_of'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Type of document'))
+      ->setRevisionable(FALSE)
+      ->setTranslatable(FALSE)
+      ->setSettings([
+        'allowed_values' => [
+          'FE' => t('Electronic Bill'),
+          'TE' => t('Electronic Ticket'),
+          'NC' => t('Credit Note'),
+          'ND' => t('Debit Note'),
+        ],
+      ])
+      ->setRequired(TRUE)
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => -4,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'options_select',
         'weight' => -4,
       ])
       ->setDisplayConfigurable('form', TRUE)
