@@ -26,7 +26,7 @@ interface CommunicationInterface {
   /**
    * Check if document is already registered.
    *
-   * @return boolean
+   * @return bool
    *   If the document exist.
    */
   public function checkDocument($key = NULL);

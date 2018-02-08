@@ -82,8 +82,11 @@ class Communication implements CommunicationInterface {
           }
           $result[] = $item;
         }
+
         return $result;
-      } catch (ClientException $e) {
+      }
+
+      catch (ClientException $e) {
         drupal_set_message(t('Communication error. @error', ['@error' => $e->getMessage()]), 'error');
         return NULL;
       }
@@ -95,7 +98,7 @@ class Communication implements CommunicationInterface {
    * {@inheritdoc}
    */
   public function checkDocument($key = NULL) {
-    if($key != NULL) {
+    if ($key != NULL) {
       $options = $this->getAuthArray();
       $environment = $this->getEnvironment();
       $url = $environment . 'comprobantes/' . $key;
@@ -112,14 +115,14 @@ class Communication implements CommunicationInterface {
           }
           $result[] = $item;
         }
-        return true;
+        return TRUE;
       }
       catch (ClientException $e) {
         drupal_set_message(t('Communication error. @error', ['@error' => $e->getMessage()]), 'error');
-        return false;
+        return FALSE;
       }
     }
-    return false;
+    return FALSE;
   }
 
   /**
@@ -128,7 +131,8 @@ class Communication implements CommunicationInterface {
   public function getEnvironment() {
     // Get the config info.
     $settings = \Drupal::config('e_invoice_cr.settings');
-    $environment = $settings->get('environment');    // Validate environment.
+    $environment = $settings->get('environment');
+    // Validate environment.
     if ($environment === "1") {
       $url = 'https://api.comprobanteselectronicos.go.cr/recepcion/v1/';
     }

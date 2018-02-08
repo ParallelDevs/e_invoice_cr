@@ -45,10 +45,8 @@ function invoice_entity_form_alter(&$form, FormStateInterface $form_state, $form
       // Generate the invoice keys.
       $type_of = $form_state->getUserInput()['type_of'];
       $key = $type_of ? invoice_entity_generate_key($type_of) : invoice_entity_generate_key();
-
-      //$comu = new Communication();
-      //$exist = $comu->checkDocument($key);
-
+      // $comu = new Communication();
+      // $exist = $comu->checkDocument($key);
       $form['field_clave_numerica']['widget'][0]['value']['#default_value'] = $key;
       $form['field_consecutivo']['widget'][0]['value']['#default_value'] = invoice_entity_generate_consecutive($key);
       // Add the custom form action.
@@ -163,8 +161,8 @@ function invoice_entity_custom_submit(&$form, FormStateInterface $form_state) {
       't_tax' => round($t_tax, 5),
       't_sale' => round($t_sale, 5),
       't_invoice' => round($t_invoice, 5),
-      'xml_tag' => InvoiceEntityInterface::documentationInfo[$type_of]['xmltag'],
-      'xmlns' => InvoiceEntityInterface::documentationInfo[$type_of]['xmlns'],
+      'xml_tag' => InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['xmltag'],
+      'xmlns' => InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['xmlns'],
     ];
     // The emitter data (currently not supporting fax fields).
     $settings = \Drupal::config('e_invoice_cr.settings');
@@ -340,8 +338,8 @@ function invoice_entity_generate_key($document = 'FE') {
     return '0';
   }
   else {
-    $document_code = isset(InvoiceEntityInterface::documentationInfo[$document]) ?
-      InvoiceEntityInterface::documentationInfo[$document]['code'] : '01';
+    $document_code = isset(InvoiceEntityInterface::DOCUMENTATIONINFO[$document]) ?
+      InvoiceEntityInterface::DOCUMENTATIONINFO[$document]['code'] : '01';
 
     // Join the key.
     $key = '506' . $day . $mouth . $year . $id_user . '00100001' . $document_code . $invoice_number . '1' . $secure_code;

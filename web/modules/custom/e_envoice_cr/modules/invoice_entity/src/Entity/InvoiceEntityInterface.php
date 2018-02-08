@@ -14,12 +14,12 @@ use Drupal\user\EntityOwnerInterface;
  */
 interface InvoiceEntityInterface extends RevisionableInterface, RevisionLogInterface, EntityChangedInterface, EntityOwnerInterface {
 
-  public const documentationInfo = [
+  public const DOCUMENTATIONINFO = [
     'FE' => [
       'code' => '01',
       'label' => 'Electronic Bill',
       'xmltag' => 'FacturaElectronica',
-      'xmlns' => 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica'
+      'xmlns' => 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica',
     ],
     'ND' => [
       'code' => '02',
@@ -37,8 +37,8 @@ interface InvoiceEntityInterface extends RevisionableInterface, RevisionLogInter
       'code' => '04',
       'label' => 'Electronic Ticket',
       'xmltag' => 'TiqueteElectronico',
-      'xmlns' => 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico'
-    ]
+      'xmlns' => 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico',
+    ],
   ];
 
   /**
