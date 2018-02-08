@@ -12,6 +12,7 @@ use Drupal\invoice_email\InvoiceEmailEvent;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
+use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 
 /**
  * Implements hook_form_alter().
@@ -42,7 +43,12 @@ function invoice_entity_form_alter(&$form, FormStateInterface $form_state, $form
     $form['field_total_ventaneta']['widget'][0]['value']['#attributes'] = ['readonly' => 'readonly'];
     if ($form_id === 'invoice_entity_add_form') {
       // Generate the invoice keys.
-      $key = invoice_entity_generate_key();
+      $type_of = $form_state->getUserInput()['type_of'];
+      $key = $type_of ? invoice_entity_generate_key($type_of) : invoice_entity_generate_key();
+
+      //$comu = new Communication();
+      //$exist = $comu->checkDocument($key);
+
       $form['field_clave_numerica']['widget'][0]['value']['#default_value'] = $key;
       $form['field_consecutivo']['widget'][0]['value']['#default_value'] = invoice_entity_generate_consecutive($key);
       // Add the custom form action.
@@ -157,6 +163,8 @@ function invoice_entity_custom_submit(&$form, FormStateInterface $form_state) {
       't_tax' => round($t_tax, 5),
       't_sale' => round($t_sale, 5),
       't_invoice' => round($t_invoice, 5),
+      'xml_tag' => InvoiceEntityInterface::documentationInfo[$type_of]['xmltag'],
+      'xmlns' => InvoiceEntityInterface::documentationInfo[$type_of]['xmlns'],
     ];
     // The emitter data (currently not supporting fax fields).
     $settings = \Drupal::config('e_invoice_cr.settings');
@@ -299,7 +307,7 @@ function invoice_entity_generate_consecutive($key) {
 /**
  * Generate the consecutive key and saves it.
  */
-function invoice_entity_generate_key() {
+function invoice_entity_generate_key($document = 'FE') {
   // Get last key index.
   $invoice_number = invoice_entity_get_variable('invoice_number');
   $secure_code = invoice_entity_get_variable('secure_code');
@@ -332,8 +340,11 @@ function invoice_entity_generate_key() {
     return '0';
   }
   else {
+    $document_code = isset(InvoiceEntityInterface::documentationInfo[$document]) ?
+      InvoiceEntityInterface::documentationInfo[$document]['code'] : '01';
+
     // Join the key.
-    $key = '506' . $day . $mouth . $year . $id_user . '0010000101' . $invoice_number . '1' . $secure_code;
+    $key = '506' . $day . $mouth . $year . $id_user . '00100001' . $document_code . $invoice_number . '1' . $secure_code;
     return $key;
   }
 }

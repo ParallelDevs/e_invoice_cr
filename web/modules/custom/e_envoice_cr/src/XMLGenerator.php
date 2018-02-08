@@ -22,9 +22,8 @@ class XMLGenerator {
     $total_serv_without_tax = 0;
     $total_prod_with_tax = 0;
     $total_prod_without_tax = 0;
-
-    $tagname = $this->getXmlTagName($type);
-    $xmlns = $this->getXmlns($type);
+    $tagname = $general_data['xml_tag'];
+    $xmlns = $general_data['xmlns'];
 
     // Build the xml code.
     $xml_doc = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
@@ -200,62 +199,6 @@ class XMLGenerator {
     $doc = new DOMDocument();
     $doc->loadXML($xml_doc);
     return $doc;
-  }
-
-  /**
-   * Gets the Invoice xml tag name according to the type of invoice.
-   *
-   * @param string $type
-   *   Type of invoice.
-   *
-   * @return null|string
-   *   Tag name for the XML File.
-   */
-  private function getXmlTagName($type) {
-    switch ($type) {
-      case 'FE':
-        return 'FacturaElectronica';
-
-      case 'TE':
-        return 'TiqueteElectronico';
-
-      case 'NC':
-        return 'NotaCreditoElectronica';
-
-      case 'ND':
-        return 'NotaDebitoElectronica';
-
-      default:
-        return NULL;
-    }
-  }
-
-  /**
-   * Gets the Invoice xml tag according to the type of invoice.
-   *
-   * @param string $type
-   *   Type of invoice.
-   *
-   * @return string
-   *   Url to the XML document.
-   */
-  private function getXmlns($type) {
-    switch ($type) {
-      case 'FE':
-        return 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica';
-
-      case 'TE':
-        return 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico';
-
-      case 'NC':
-        return 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica';
-
-      case 'ND':
-        return 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaDebitoElectronica';
-
-      default:
-        return NULL;
-    }
   }
 
 }
