@@ -10,19 +10,19 @@ use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
  */
 class InvoiceService implements InvoiceServiceInterface {
 
-  private $invoiceNumber;
-  private $secureCode;
+  protected static $invoiceNumber;
+  protected static $secureCode;
 
   /**
    * Constructs a new InvoiceService object.
    */
   public function __construct() {
-    $this->invoiceNumber = $this->getInvoiceVariable('invoice_number');
-    $this->secureCode = $this->getInvoiceVariable('secure_code');
+    self::$invoiceNumber = $this->getInvoiceVariable('invoice_number');
+    self::$secureCode = $this->getInvoiceVariable('secure_code');
 
-    if (is_null($this->invoiceNumber) || is_null($this->secureCode)) {
-      $this->invoiceNumber = '0000000001';
-      $this->secureCode = '0000000001';
+    if (is_null(self::$invoiceNumber) || is_null(self::$secureCode)) {
+      self::$invoiceNumber = '0000000001';
+      self::$secureCode = '00000001';
       $this->updateValues();
     }
   }
@@ -41,18 +41,18 @@ class InvoiceService implements InvoiceServiceInterface {
   }
 
   public function increaseValues() {
-    $this->invoiceNumber = str_pad(intval($this->invoiceNumber) + 1, 10, '0', STR_PAD_LEFT);
-    $this->secureCode = str_pad(intval($this->secureCode) + 1, 8,'0', STR_PAD_LEFT);
+    self::$invoiceNumber = str_pad(intval(self::$invoiceNumber) + 1, 10, '0', STR_PAD_LEFT);
+    self::$secureCode = str_pad(intval(self::$secureCode) + 1, 8,'0', STR_PAD_LEFT);
   }
 
   public function decreaseValues() {
-    $this->invoiceNumber = str_pad(intval($this->invoiceNumber) - 1, 10, '0', STR_PAD_LEFT);
-    $this->secureCode = str_pad(intval($this->secureCode) - 1, 8,'0', STR_PAD_LEFT);
+    self::$invoiceNumber = str_pad(intval(self::$invoiceNumber) - 1, 10, '0', STR_PAD_LEFT);
+    self::$secureCode = str_pad(intval(self::$secureCode) - 1, 8,'0', STR_PAD_LEFT);
   }
 
   public function updateValues() {
-    $this->setInvoiceVariable('invoice_number', $this->invoiceNumber);
-    $this->setInvoiceVariable('secure_code', $this->secureCode);
+    $this->setInvoiceVariable('invoice_number', self::$invoiceNumber);
+    $this->setInvoiceVariable('secure_code', self::$secureCode);
   }
 
   /**
@@ -83,7 +83,7 @@ class InvoiceService implements InvoiceServiceInterface {
     if (!is_null($result)) {
       $state = $result[2] === 'rechazado' ? 'rejected' : 'published';
       $entity->set('moderation_state', $state);
-      $entity->save();
+    //  $entity->save();
     }
 
     return [
@@ -112,7 +112,7 @@ class InvoiceService implements InvoiceServiceInterface {
         InvoiceEntityInterface::DOCUMENTATIONINFO[$type]['code'] : '01';
 
       // Join the key.
-      $key = '506' . $day . $mouth . $year . $id_user . '00100001' . $document_code . $this->invoiceNumber . '1' . $this->secureCode;
+      $key = '506' . $day . $mouth . $year . $id_user . '00100001' . $document_code . self::$invoiceNumber . '1' . self::$secureCode;
       return $key;
     }
   }

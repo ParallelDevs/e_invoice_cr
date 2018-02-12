@@ -47,9 +47,11 @@ function invoice_entity_form_alter(&$form, FormStateInterface $form_state, $form
     if ($form_id === 'invoice_entity_add_form') {
       // Generate the invoice keys.
       $type_of = $form_state->getUserInput()['type_of'];
-      $key = $type_of ? $invoice_service->generateInvoiceKey($type_of) : $invoice_service->getUniqueInvoiceKey();
+      $key = $type_of ? $invoice_service->getUniqueInvoiceKey($type_of) : $invoice_service->getUniqueInvoiceKey();
       if ($key == NULL) {
         invoice_entity_config_error();
+      } else {
+        $invoice_service->updateValues();
       }
 
       $form['field_clave_numerica']['widget'][0]['value']['#default_value'] = $key;
@@ -160,6 +162,7 @@ function invoice_entity_custom_submit(&$form, FormStateInterface $form_state) {
     // Group the general information.
     $general = [
       'key' => $key,
+      'type_doc' => InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['code'],
       'consecutive' => $consecutive,
       'condition' => $condition,
       'date' => $date,
@@ -276,9 +279,7 @@ function invoice_entity_custom_submit(&$form, FormStateInterface $form_state) {
 function invoice_entity_generate_row_key() {
   // Get last consecutive.
   $result = rand(1, 999999);
-  $result = invoice_entity_set_size((string) $result, 6);
-
-  return $result;
+  return str_pad($result, 6, '0', STR_PAD_LEFT);
 }
 
 /**
@@ -295,35 +296,6 @@ function invoice_entity_generate_consecutive($key) {
 function invoice_entity_config_error() {
   $message = t('The document key could not be generated because there are not configuration data yet, to set those go to /admin/e-invoice-cr/settings.');
   drupal_set_message($message, 'error');
-}
-
-/**
- * Gets variables.
- */
-function invoice_entity_get_variable($variable_name) {
-  $config = \Drupal::config('invoice_entity.settings');
-  $value = $config->get($variable_name);
-  return $value;
-}
-
-/**
- * Sets variables.
- */
-function invoice_entity_set_variable($variable_name, $value) {
-  $config = \Drupal::service('config.factory')->getEditable('invoice_entity.settings');
-  $config->set($variable_name, $value)->save();
-}
-
-/**
- * Sets the correct string size.
- */
-function invoice_entity_set_size($variable, $size) {
-  $current_size = strlen($variable);
-  $size = $size - $current_size;
-  for ($i = 0; $i < $size; $i++) {
-    $variable = '0' . (string) $variable;
-  }
-  return $variable;
 }
 
 /**

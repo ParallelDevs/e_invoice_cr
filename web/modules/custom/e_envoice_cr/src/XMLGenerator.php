@@ -180,7 +180,7 @@ class XMLGenerator {
     $xml_doc .= "\t</ResumenFactura>\n";
     $xml_doc .= "\t<InformacionReferencia>\n";
     // 01 because it's an invoice.
-    $xml_doc .= "\t\t<TipoDoc>01</TipoDoc>\n";
+    $xml_doc .= "\t\t<TipoDoc>" . $general_data['type_doc'] . "</TipoDoc>\n";
     $xml_doc .= "\t\t<Numero>" . $general_data['key'] . "</Numero>\n";
     $xml_doc .= "\t\t<FechaEmision>" . $general_data['date'] . "</FechaEmision>\n";
     $xml_doc .= "\t\t<Codigo>02</Codigo>\n";
