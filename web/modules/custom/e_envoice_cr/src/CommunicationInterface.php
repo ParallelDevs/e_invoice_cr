@@ -24,14 +24,6 @@ interface CommunicationInterface {
   public function validateDocument($key = NULL);
 
   /**
-   * Check if document is already registered.
-   *
-   * @return bool
-   *   If the document exist.
-   */
-  public function checkDocument($key = NULL);
-
-  /**
    * Get the environment url.
    *
    * @return string

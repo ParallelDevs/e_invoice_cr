@@ -14,8 +14,10 @@ class Communication implements CommunicationInterface {
    */
   public function sentDocument($doc = NULL, $body = NULL, $token = NULL) {
     // Get the config info.
-    $settings = \Drupal::config('e_invoice_cr.settings');
-    $environment = $settings->get('environment');
+    $options = $this->getAuthArray();
+    $environment = $this->getEnvironment();
+    $url = $environment . 'recepcion';
+
     // Start the client.
     $client = \Drupal::httpClient();
     // Build the body info.
@@ -32,21 +34,10 @@ class Communication implements CommunicationInterface {
       ],
       'comprobanteXml' => base64_encode($doc),
     ];
+
     // Set the headers and body data.
-    $options = [
-      'headers' => [
-        'Authorization' => 'Bearer ' . $token,
-        'Content-type' => 'application/json',
-      ],
-      "body" => json_encode($body),
-    ];
-    // Validate environment.
-    if ($environment === "1") {
-      $url = 'https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion';
-    }
-    else {
-      $url = 'https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion';
-    }
+    $options["body"] = json_encode($body);
+
     try {
       // Do the request.
       $request = $client->request('POST', $url, $options);
@@ -87,42 +78,10 @@ class Communication implements CommunicationInterface {
       }
 
       catch (ClientException $e) {
-        drupal_set_message(t('Communication error. @error', ['@error' => $e->getMessage()]), 'error');
         return NULL;
       }
     }
     return NULL;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function checkDocument($key = NULL) {
-    if ($key != NULL) {
-      $options = $this->getAuthArray();
-      $environment = $this->getEnvironment();
-      $url = $environment . 'comprobantes/' . $key;
-
-      $client = \Drupal::httpClient();
-      try {
-        // Do the request.
-        $request = $client->get($url, $options);
-        $body_responce = \GuzzleHttp\json_decode($request->getBody()->getContents());
-        $result = [];
-        foreach ($body_responce as $index => $item) {
-          if ($index === "respuesta-xml") {
-            $item = simplexml_load_string(base64_decode($item));
-          }
-          $result[] = $item;
-        }
-        return TRUE;
-      }
-      catch (ClientException $e) {
-        drupal_set_message(t('Communication error. @error', ['@error' => $e->getMessage()]), 'error');
-        return FALSE;
-      }
-    }
-    return FALSE;
   }
 
   /**
@@ -133,13 +92,9 @@ class Communication implements CommunicationInterface {
     $settings = \Drupal::config('e_invoice_cr.settings');
     $environment = $settings->get('environment');
     // Validate environment.
-    if ($environment === "1") {
-      $url = 'https://api.comprobanteselectronicos.go.cr/recepcion/v1/';
-    }
-    else {
-      $url = 'https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/';
-    }
-    return $url;
+    return $environment === "1" ?
+      'https://api.comprobanteselectronicos.go.cr/recepcion/v1/' :
+      'https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/';
   }
 
   /**
@@ -157,6 +112,7 @@ class Communication implements CommunicationInterface {
         'Authorization' => 'Bearer ' . $token,
         'Content-type' => 'application/json',
       ],
+     // 'allow_redirects' => false,
     ];
   }
 

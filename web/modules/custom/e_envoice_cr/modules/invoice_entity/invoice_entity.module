@@ -19,6 +19,9 @@ use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
  */
 function invoice_entity_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id === 'invoice_entity_add_form' || $form_id === 'invoice_entity_edit_form') {
+    /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
+    $invoice_service = \Drupal::service('invoice_entity.service');
+
     // Get default currency.
     $settings = \Drupal::config('e_invoice_cr.settings');
     $currency = '';
@@ -44,9 +47,11 @@ function invoice_entity_form_alter(&$form, FormStateInterface $form_state, $form
     if ($form_id === 'invoice_entity_add_form') {
       // Generate the invoice keys.
       $type_of = $form_state->getUserInput()['type_of'];
-      $key = $type_of ? invoice_entity_generate_key($type_of) : invoice_entity_generate_key();
-      // $comu = new Communication();
-      // $exist = $comu->checkDocument($key);
+      $key = $type_of ? $invoice_service->generateInvoiceKey($type_of) : $invoice_service->getUniqueInvoiceKey();
+      if ($key == NULL) {
+        invoice_entity_config_error();
+      }
+
       $form['field_clave_numerica']['widget'][0]['value']['#default_value'] = $key;
       $form['field_consecutivo']['widget'][0]['value']['#default_value'] = invoice_entity_generate_consecutive($key);
       // Add the custom form action.
@@ -133,6 +138,9 @@ function invoice_entity_custom_submit(&$form, FormStateInterface $form_state) {
     $form_state->setSubmitHandlers([]);
   }
   else {
+    /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
+    $invoice_service = \Drupal::service('invoice_entity.service');
+
     // Get the invoice data.
     $type_of = $form_state->getValue('type_of')[0]['value'];
     $key = $form_state->getValue('field_clave_numerica')[0]['value'];
@@ -234,7 +242,7 @@ function invoice_entity_custom_submit(&$form, FormStateInterface $form_state) {
     if (!is_null($response)) {
       if ($response->getStatusCode() != 202 && $response->getStatusCode() != 200) {
         // Reduce the consecutive.
-        invoice_entity_reduce_consecutive();
+        $invoice_service->decreaseValues();
         $message = t('The was a problem sending the electronic document.');
         drupal_set_message($message, 'error');
         $form_state->setRebuild();
@@ -245,6 +253,7 @@ function invoice_entity_custom_submit(&$form, FormStateInterface $form_state) {
         $message = t('The electronic document was sent to its verification.');
         drupal_set_message($message, 'status');
       }
+      $invoice_service->updateValues();
     }
     else {
       $form_state->setRebuild();
@@ -259,28 +268,6 @@ function invoice_entity_custom_submit(&$form, FormStateInterface $form_state) {
   // Dispatching the event through the ‘dispatch’  method,
   // Passing event name and event object ‘$event’ as parameters.
   $dispatcher->dispatch(InvoiceEmailEvent::SUBMIT, $event);
-}
-
-/**
- * Reduce in 1 the consecutive.
- */
-function invoice_entity_reduce_consecutive() {
-  $invoice_number = invoice_entity_get_variable('invoice_number');
-  $secure_code = invoice_entity_get_variable('secure_code');
-  $consecutive_number = invoice_entity_get_variable('consecutive_number');
-  if (!is_null($consecutive_number) && $consecutive_number > 1) {
-    $consecutive_number = (int) $consecutive_number - 1;
-    $invoice_number = (int) $invoice_number - 1;
-    $secure_code = (int) $secure_code - 1;
-    // Validate size.
-    $consecutive_number = invoice_entity_set_size((string) $consecutive_number, 20);
-    $invoice_number = invoice_entity_set_size((string) $invoice_number, 10);
-    $secure_code = invoice_entity_set_size((string) $secure_code, 8);
-    // Save the values.
-    invoice_entity_set_variable('consecutive_number', $consecutive_number);
-    invoice_entity_set_variable('invoice_number', $invoice_number);
-    invoice_entity_set_variable('secure_code', $secure_code);
-  }
 }
 
 /**
@@ -300,51 +287,6 @@ function invoice_entity_generate_row_key() {
 function invoice_entity_generate_consecutive($key) {
   $consecutive_number = substr($key, -29, 20);
   return $consecutive_number;
-}
-
-/**
- * Generate the consecutive key and saves it.
- */
-function invoice_entity_generate_key($document = 'FE') {
-  // Get last key index.
-  $invoice_number = invoice_entity_get_variable('invoice_number');
-  $secure_code = invoice_entity_get_variable('secure_code');
-  if (!is_null($invoice_number) || !is_null($secure_code)) {
-    $invoice_number = (int) $invoice_number + 1;
-    $secure_code = (int) $secure_code + 1;
-    // Validate size.
-    $invoice_number = invoice_entity_set_size((string) $invoice_number, 10);
-    $secure_code = invoice_entity_set_size((string) $secure_code, 8);
-    // Save the current values.
-    invoice_entity_set_variable('invoice_number', $invoice_number);
-    invoice_entity_set_variable('secure_code', $secure_code);
-  }
-  else {
-    $invoice_number = '0000000001';
-    invoice_entity_set_variable('invoice_number', $invoice_number);
-    $secure_code = '0000000001';
-    invoice_entity_set_variable('secure_code', $secure_code);
-  }
-  // Get date information.
-  $day = date("d");
-  $mouth = date("m");
-  $year = date("y");
-  // The id user.
-  $settings = \Drupal::config('e_invoice_cr.settings');
-  $id_user = $settings->get('id');
-  $id_user = invoice_entity_set_size((string) $id_user, 12);
-  if (is_null($id_user)) {
-    invoice_entity_config_error();
-    return '0';
-  }
-  else {
-    $document_code = isset(InvoiceEntityInterface::DOCUMENTATIONINFO[$document]) ?
-      InvoiceEntityInterface::DOCUMENTATIONINFO[$document]['code'] : '01';
-
-    // Join the key.
-    $key = '506' . $day . $mouth . $year . $id_user . '00100001' . $document_code . $invoice_number . '1' . $secure_code;
-    return $key;
-  }
 }
 
 /**
@@ -425,17 +367,9 @@ function invoice_entity_cron() {
     foreach ($nids as $index => $item) {
       $entity = $entity_manager->getStorage('invoice_entity')->load($item);
       if ($entity->get('moderation_state')->value === 'draft') {
-        $key = $entity->get('field_clave_numerica')->value;
-        $communication = new Communication();
-        $result = $communication->validateDocument($key);
-        if ($result[2] === "rechazado") {
-          $entity->set('moderation_state', 'rejected');
-          $entity->save();
-        }
-        else {
-          $entity->set('moderation_state', 'published');
-          $entity->save();
-        }
+        /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
+        $invoice_service = \Drupal::service('invoice_entity.service');
+        $invoice_service->validateInvoiceEntity($entity);
         // Show a notification massage.
         drupal_set_message(t("The invoices have been verified during the cron process."), 'status');
       }

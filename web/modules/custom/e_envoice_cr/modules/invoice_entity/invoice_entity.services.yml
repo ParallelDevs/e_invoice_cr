@@ -1,0 +1,5 @@
+services:
+  invoice_entity.service:
+    class: Drupal\invoice_entity\InvoiceService
+    arguments: []
+
