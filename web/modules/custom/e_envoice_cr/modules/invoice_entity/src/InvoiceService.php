@@ -17,14 +17,13 @@ class InvoiceService implements InvoiceServiceInterface {
    * Constructs a new InvoiceService object.
    */
   public function __construct() {
-    $this->invoiceNumber = invoice_entity_get_variable('invoice_number');
-    $this->secureCode = invoice_entity_get_variable('secure_code');
+    $this->invoiceNumber = $this->getInvoiceVariable('invoice_number');
+    $this->secureCode = $this->getInvoiceVariable('secure_code');
 
     if (is_null($this->invoiceNumber) || is_null($this->secureCode)) {
       $this->invoiceNumber = '0000000001';
-      invoice_entity_set_variable('invoice_number', $this->invoiceNumber);
       $this->secureCode = '0000000001';
-      invoice_entity_set_variable('secure_code', $this->secureCode);
+      $this->updateValues();
     }
   }
 
@@ -52,8 +51,8 @@ class InvoiceService implements InvoiceServiceInterface {
   }
 
   public function updateValues() {
-    invoice_entity_set_variable('invoice_number', $this->invoiceNumber);
-    invoice_entity_set_variable('secure_code', $this->secureCode);
+    $this->setInvoiceVariable('invoice_number', $this->invoiceNumber);
+    $this->setInvoiceVariable('secure_code', $this->secureCode);
   }
 
   /**
@@ -137,6 +136,23 @@ class InvoiceService implements InvoiceServiceInterface {
     }
 
     return $current_key;
+  }
+
+  /**
+   * Sets variables.
+   */
+  function setInvoiceVariable($variable_name, $value) {
+    $config = \Drupal::service('config.factory')->getEditable('invoice_entity.settings');
+    $config->set($variable_name, $value)->save();
+  }
+
+  /**
+   * Gets variables.
+   */
+  function getInvoiceVariable($variable_name) {
+    $config = \Drupal::config('invoice_entity.settings');
+    $value = $config->get($variable_name);
+    return $value;
   }
 
 }
