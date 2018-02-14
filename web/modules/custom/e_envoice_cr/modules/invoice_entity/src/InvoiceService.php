@@ -64,12 +64,16 @@ class InvoiceService implements InvoiceServiceInterface {
           return FALSE;
     }
     else {
-      $messages = explode("\n-", $result[3]->DetalleMensaje);
-      $messages = array_filter($messages, function ($val) {
-        return substr($val, 0, 2) == '29';
-      });
+      if ($result[2] != 'aceptado') {
+        $messages = explode("\n-", $result[3]->DetalleMensaje);
+        $messages = array_filter($messages, function ($val) {
+          $code = substr($val, 0, 2);
+          return $code == '29' || $code == '99';
+        });
 
-      return !empty($messages);
+        return !empty($messages);
+      }
+      return TRUE;
     }
   }
 
@@ -83,7 +87,7 @@ class InvoiceService implements InvoiceServiceInterface {
     if (!is_null($result)) {
       $state = $result[2] === 'rechazado' ? 'rejected' : 'published';
       $entity->set('moderation_state', $state);
-    //  $entity->save();
+      $entity->save();
     }
 
     return [

@@ -87,6 +87,51 @@ class Communication implements CommunicationInterface {
   /**
    * {@inheritdoc}
    */
+  public function checkDocuments() {
+    $settings = \Drupal::config('e_invoice_cr.settings');
+    $options = $this->getAuthArray();
+    $environment = $this->getEnvironment();
+    $id_type = $settings->get('id_type');
+    $id = str_pad($settings->get('id'), 12, 0, STR_PAD_LEFT);
+
+    $params = [
+      'emisor' => $id_type . $id,
+      'receptor' => '01000115500105',
+    ];
+    $url = $environment . 'comprobantes/?' ;
+
+    foreach ($params as $key => $param) {
+      $url .= $key . '=' . $param . '&';
+    }
+
+    // Start the client.
+    $client = \Drupal::httpClient();
+
+    // Do the request.
+    try {
+      // Do the request.
+      $request = $client->get($url, $options);
+      $body_responce = \GuzzleHttp\json_decode($request->getBody()
+        ->getContents());
+      $result = [];
+      foreach ($body_responce as $index => $item) {
+        if ($index === "respuesta-xml") {
+          $item = simplexml_load_string(base64_decode($item));
+        }
+        $result[] = $item;
+      }
+      return $result;
+    }
+
+    catch (ClientException $e) {
+      return NULL;
+    }
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
   public function getEnvironment() {
     // Get the config info.
     $settings = \Drupal::config('e_invoice_cr.settings');
