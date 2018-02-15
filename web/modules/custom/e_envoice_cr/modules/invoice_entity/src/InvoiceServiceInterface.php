@@ -40,6 +40,16 @@ interface InvoiceServiceInterface {
    */
   public function generateInvoiceKey($type);
 
+  /**
+   * Generate the invoice consecutive number.
+   *
+   * @param string $type
+   *   Type of document.
+   *
+   * @return string
+   *   The consecutive number.
+   */
+  public function generateConsecutive($type);
 
   /**
    * Generate and check if the generated key is already used then, return

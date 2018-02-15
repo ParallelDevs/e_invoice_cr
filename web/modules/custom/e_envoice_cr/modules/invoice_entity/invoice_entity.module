@@ -55,7 +55,7 @@ function invoice_entity_form_alter(&$form, FormStateInterface $form_state, $form
       }
 
       $form['field_clave_numerica']['widget'][0]['value']['#default_value'] = $key;
-      $form['field_consecutivo']['widget'][0]['value']['#default_value'] = invoice_entity_generate_consecutive($key);
+      $form['field_consecutivo']['widget'][0]['value']['#default_value'] = $invoice_service->generateConsecutive($type_of);
       // Add the custom form action.
       array_unshift($form['actions']['submit']['#submit'], 'invoice_entity_custom_submit');
     }

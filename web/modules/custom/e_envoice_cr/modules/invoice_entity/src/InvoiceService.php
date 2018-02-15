@@ -27,6 +27,11 @@ class InvoiceService implements InvoiceServiceInterface {
     }
   }
 
+  public function stupidIncrease() {
+    self::$invoiceNumber = '0000000500';
+    self::$secureCode = '00000500';
+  }
+
   /**
    * Call the validateDocument from Communication and return its result.
    *
@@ -112,13 +117,20 @@ class InvoiceService implements InvoiceServiceInterface {
       return NULL;
     }
     else {
-      $document_code = isset(InvoiceEntityInterface::DOCUMENTATIONINFO[$type]) ?
-        InvoiceEntityInterface::DOCUMENTATIONINFO[$type]['code'] : '01';
-
       // Join the key.
-      $key = '506' . $day . $mouth . $year . $id_user . '00100001' . $document_code . self::$invoiceNumber . '1' . self::$secureCode;
+      $key = '506' . $day . $mouth . $year . $id_user . $this->generateConsecutive($type) . '1' . self::$secureCode;
       return $key;
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function generateConsecutive($type) {
+    $document_code = isset(InvoiceEntityInterface::DOCUMENTATIONINFO[$type]) ?
+      InvoiceEntityInterface::DOCUMENTATIONINFO[$type]['code'] : '01';
+
+    return '00100001' . $document_code . self::$invoiceNumber;
   }
 
   /**
