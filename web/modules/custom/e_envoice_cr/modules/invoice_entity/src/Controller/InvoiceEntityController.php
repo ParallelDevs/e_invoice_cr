@@ -8,7 +8,6 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
 use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Drupal\e_invoice_cr\Communication;
 
 /**
  * Class InvoiceEntityController.

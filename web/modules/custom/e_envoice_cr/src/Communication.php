@@ -96,9 +96,8 @@ class Communication implements CommunicationInterface {
 
     $params = [
       'emisor' => $id_type . $id,
-      // 'receptor' => '01000115500105',
     ];
-    $url = $environment . 'comprobantes/?' ;
+    $url = $environment . 'comprobantes/?';
 
     foreach ($params as $key => $param) {
       $url .= $key . '=' . $param . '&';
@@ -128,7 +127,6 @@ class Communication implements CommunicationInterface {
     }
   }
 
-
   /**
    * {@inheritdoc}
    */
@@ -157,7 +155,7 @@ class Communication implements CommunicationInterface {
         'Authorization' => 'Bearer ' . $token,
         'Content-type' => 'application/json',
       ],
-      // 'allow_redirects' => true,
+      // 'allow_redirects' => true.
     ];
   }
 

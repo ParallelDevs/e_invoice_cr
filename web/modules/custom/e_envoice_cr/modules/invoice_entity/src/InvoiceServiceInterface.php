@@ -2,6 +2,8 @@
 
 namespace Drupal\invoice_entity;
 
+use Drupal\invoice_entity\Entity\InvoiceEntity;
+
 /**
  * Interface InvoiceServiceInterface.
  */
@@ -10,7 +12,7 @@ interface InvoiceServiceInterface {
   /**
    * Check if the key is already used.
    *
-   * @param $key
+   * @param string $key
    *   The key to eval.
    *
    * @return bool
@@ -26,15 +28,14 @@ interface InvoiceServiceInterface {
    *
    * @return array
    *   Return an array with the operation result information.
-   *
    */
-  public function validateInvoiceEntity($entity);
+  public function validateInvoiceEntity(InvoiceEntity $entity);
 
   /**
    * Generate the invoice key and return it.
    *
    * @param string $type
-   *   The type of the invoice
+   *   The type of the invoice.
    *
    * @return string
    *   Return the generated key.
@@ -53,8 +54,7 @@ interface InvoiceServiceInterface {
   public function generateConsecutive($type);
 
   /**
-   * Generate and check if the generated key is already used then, return
-   *   an unique key for a new invoice.
+   * Generate and check if the generated key is already used.
    *
    * @param string $type
    *   The type of the invoice.
@@ -69,7 +69,6 @@ interface InvoiceServiceInterface {
    *
    * @param string $variable_name
    *   Variable machine name.
-   *
    * @param string $value
    *   New value for the variable.
    */

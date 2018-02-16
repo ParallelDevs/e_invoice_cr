@@ -31,9 +31,10 @@ class InvoiceService implements InvoiceServiceInterface {
    * Call the validateDocument from Communication and return its result.
    *
    * @param string $key
-   *  Key to eval.
+   *   Key to eval.
    *
    * @return array|null|string
+   *   Return the response from the api.
    */
   private function responseForKey($key) {
     $con = new Communication();
@@ -45,7 +46,7 @@ class InvoiceService implements InvoiceServiceInterface {
    */
   public function increaseValues() {
     self::$invoiceNumber = str_pad(intval(self::$invoiceNumber) + 1, 10, '0', STR_PAD_LEFT);
-    self::$secureCode = str_pad(intval(self::$secureCode) + 1, 8,'0', STR_PAD_LEFT);
+    self::$secureCode = str_pad(intval(self::$secureCode) + 1, 8, '0', STR_PAD_LEFT);
   }
 
   /**
@@ -53,7 +54,7 @@ class InvoiceService implements InvoiceServiceInterface {
    */
   public function decreaseValues() {
     self::$invoiceNumber = str_pad(intval(self::$invoiceNumber) - 1, 10, '0', STR_PAD_LEFT);
-    self::$secureCode = str_pad(intval(self::$secureCode) - 1, 8,'0', STR_PAD_LEFT);
+    self::$secureCode = str_pad(intval(self::$secureCode) - 1, 8, '0', STR_PAD_LEFT);
   }
 
   /**
@@ -70,7 +71,7 @@ class InvoiceService implements InvoiceServiceInterface {
   public function checkInvoiceKey($key) {
     $result = $this->responseForKey($key);
     if (is_null($result)) {
-          return FALSE;
+      return FALSE;
     }
     else {
       if ($result[2] != 'aceptado') {

@@ -50,7 +50,8 @@ function invoice_entity_form_alter(&$form, FormStateInterface $form_state, $form
       $key = $type_of ? $invoice_service->getUniqueInvoiceKey($type_of) : $invoice_service->getUniqueInvoiceKey();
       if ($key == NULL) {
         invoice_entity_config_error();
-      } else {
+      }
+      else {
         $invoice_service->updateValues();
       }
 
