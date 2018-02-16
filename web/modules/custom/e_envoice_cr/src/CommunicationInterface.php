@@ -23,4 +23,12 @@ interface CommunicationInterface {
    */
   public function validateDocument($key = NULL);
 
+  /**
+   * Get the environment url.
+   *
+   * @return string
+   *   Environment url.
+   */
+  public function getEnvironment();
+
 }
