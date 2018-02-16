@@ -4,6 +4,7 @@ namespace Drupal\invoice_entity\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\invoice_entity\InvoiceService;
 
 /**
  * Class InvoiceEntitySettingsForm.
@@ -32,6 +33,9 @@ class InvoiceEntitySettingsForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Empty implementation of the abstract submit class.
+    $value = $form_state->getValue('consecutive_number');
+    $value = str_pad($value, 10, '0', STR_PAD_LEFT);
+    InvoiceService::setInvoiceVariable('invoice_number', $value);
   }
 
   /**
@@ -47,6 +51,21 @@ class InvoiceEntitySettingsForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['invoiceentity_settings']['#markup'] = 'Settings form for Invoice entities. Manage field settings here.';
+
+    $form['consecutive_number'] = [
+      '#type' => 'number',
+      '#description' => t('The number of the next invoice.'),
+      '#default_value' => intval(InvoiceService::getInvoiceVariable('invoice_number')),
+    ];
+
+    $form['actions']['#type'] = 'actions';
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => t('Save configuration'),
+      '#button_type' => 'primary',
+    ];
+    $form['#theme'] = 'system_config_form';
+
     return $form;
   }
 

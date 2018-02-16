@@ -8,7 +8,6 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
 use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Drupal\e_invoice_cr\Communication;
 
 /**
  * Class InvoiceEntityController.
@@ -181,22 +180,20 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
    *   An array as expected by drupal_render().
    */
   public function validateInvoice($key, $id) {
+    /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
+    $invoice_service = \Drupal::service('invoice_entity.service');
     $entity = \Drupal::entityManager()->getStorage('invoice_entity')->load($id);
-    $con = new Communication();
-    $res = $con->validateDocument($key);
-    if (is_null($res)) {
+    $result = $invoice_service->validateInvoiceEntity($entity);
+
+    if (is_null($result['response'])) {
       drupal_set_message(t("Status Unknown. The state couldn't be validated."), 'error');
     }
     else {
-      if ($res[2] === "rechazado") {
-        $entity->set('moderation_state', 'rejected');
-        $entity->save();
-        drupal_set_message(t("Status Rejected. @text", ["@text" => $res[3]->DetalleMensaje]), 'error');
+      if ($result['state'] === "rejected") {
+        drupal_set_message(t("Status Rejected. @text", ["@text" => $result['response'][3]->DetalleMensaje]), 'error');
       }
-      elseif ($res[2] === "aceptado") {
-        $entity->set('moderation_state', 'published');
-        $entity->save();
-        drupal_set_message(t("Status Accepted. @text", ["@text" => $res[3]->DetalleMensaje]), 'status');
+      elseif ($result['response'] === "published") {
+        drupal_set_message(t("Status Accepted. @text", ["@text" => $result['response'][3]->DetalleMensaje]), 'status');
       }
       drupal_set_message(t('A validation request has been performed.'), 'status');
     }

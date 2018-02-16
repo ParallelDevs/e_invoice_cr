@@ -12,7 +12,7 @@ class XMLGenerator {
   /**
    * {@inheritdoc}
    */
-  public function generateInvoiceXml($general_data, $client, $emitter, $rows) {
+  public function generateInvoiceXml($general_data, $client, $emitter, $rows, $type = 'FE') {
     $client_zip_code = $client->field_direccion_->getValue();
     $settings = \Drupal::config('e_invoice_cr.settings');
     $currency = $settings->get('currency');
@@ -22,10 +22,12 @@ class XMLGenerator {
     $total_serv_without_tax = 0;
     $total_prod_with_tax = 0;
     $total_prod_without_tax = 0;
+    $tagname = $general_data['xml_tag'];
+    $xmlns = $general_data['xmlns'];
 
     // Build the xml code.
     $xml_doc = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
-    $xml_doc .= "<FacturaElectronica xmlns=\"https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">\n";
+    $xml_doc .= "<" . $tagname . " xmlns=\"" . $xmlns . "\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">\n";
     $xml_doc .= "\t<Clave>" . $general_data['key'] . "</Clave>\n";
     $xml_doc .= "\t<NumeroConsecutivo>" . $general_data['consecutive'] . "</NumeroConsecutivo>\n";
     $xml_doc .= "\t<FechaEmision>" . $general_data['date'] . "</FechaEmision>\n";
@@ -178,7 +180,7 @@ class XMLGenerator {
     $xml_doc .= "\t</ResumenFactura>\n";
     $xml_doc .= "\t<InformacionReferencia>\n";
     // 01 because it's an invoice.
-    $xml_doc .= "\t\t<TipoDoc>01</TipoDoc>\n";
+    $xml_doc .= "\t\t<TipoDoc>" . $general_data['type_doc'] . "</TipoDoc>\n";
     $xml_doc .= "\t\t<Numero>" . $general_data['key'] . "</Numero>\n";
     $xml_doc .= "\t\t<FechaEmision>" . $general_data['date'] . "</FechaEmision>\n";
     $xml_doc .= "\t\t<Codigo>02</Codigo>\n";
@@ -191,7 +193,7 @@ class XMLGenerator {
     $xml_doc .= "\t<Otros>\n";
     $xml_doc .= "\t\t<OtroTexto></OtroTexto>\n";
     $xml_doc .= "\t</Otros>\n";
-    $xml_doc .= "</FacturaElectronica>\n";
+    $xml_doc .= "</" . $tagname . ">\n";
 
     // Create the xml document.
     $doc = new DOMDocument();

@@ -8,3 +8,5 @@ invoice_entity.settings:
      type: string
    consecutive_code:
      type: string
+   type_of:
+      type: string
