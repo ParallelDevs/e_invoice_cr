@@ -283,14 +283,6 @@ function invoice_entity_generate_row_key() {
 }
 
 /**
- * Generate the consecutive key and saves it.
- */
-function invoice_entity_generate_consecutive($key) {
-  $consecutive_number = substr($key, -29, 20);
-  return $consecutive_number;
-}
-
-/**
  * Error messages.
  */
 function invoice_entity_config_error() {

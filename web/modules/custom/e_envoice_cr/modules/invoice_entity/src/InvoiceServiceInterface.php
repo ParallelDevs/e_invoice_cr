@@ -9,6 +9,7 @@ interface InvoiceServiceInterface {
 
   /**
    * Check if the key is already used.
+   *
    * @param $key
    *   The key to eval.
    *
@@ -62,5 +63,24 @@ interface InvoiceServiceInterface {
    *   Return the new unique key.
    */
   public function getUniqueInvoiceKey($type = 'FE');
+
+  /**
+   * Set variable value.
+   *
+   * @param string $variable_name
+   *   Variable machine name.
+   *
+   * @param string $value
+   *   New value for the variable.
+   */
+  public static function setInvoiceVariable($variable_name, $value);
+
+  /**
+   * Gets variables.
+   *
+   * @return string
+   *   Get value of the requested variable.
+   */
+  public static function getInvoiceVariable($variable_name);
 
 }

@@ -27,11 +27,6 @@ class InvoiceService implements InvoiceServiceInterface {
     }
   }
 
-  public function stupidIncrease() {
-    self::$invoiceNumber = '0000000500';
-    self::$secureCode = '00000500';
-  }
-
   /**
    * Call the validateDocument from Communication and return its result.
    *
@@ -45,16 +40,25 @@ class InvoiceService implements InvoiceServiceInterface {
     return $con->validateDocument($key);
   }
 
+  /**
+   * Increase the current values by one.
+   */
   public function increaseValues() {
     self::$invoiceNumber = str_pad(intval(self::$invoiceNumber) + 1, 10, '0', STR_PAD_LEFT);
     self::$secureCode = str_pad(intval(self::$secureCode) + 1, 8,'0', STR_PAD_LEFT);
   }
 
+  /**
+   * Decrease the current values by one.
+   */
   public function decreaseValues() {
     self::$invoiceNumber = str_pad(intval(self::$invoiceNumber) - 1, 10, '0', STR_PAD_LEFT);
     self::$secureCode = str_pad(intval(self::$secureCode) - 1, 8,'0', STR_PAD_LEFT);
   }
 
+  /**
+   * Update the configuration values.
+   */
   public function updateValues() {
     $this->setInvoiceVariable('invoice_number', self::$invoiceNumber);
     $this->setInvoiceVariable('secure_code', self::$secureCode);
@@ -155,17 +159,17 @@ class InvoiceService implements InvoiceServiceInterface {
   }
 
   /**
-   * Sets variables.
+   * {@inheritdoc}
    */
-  function setInvoiceVariable($variable_name, $value) {
+  public static function setInvoiceVariable($variable_name, $value) {
     $config = \Drupal::service('config.factory')->getEditable('invoice_entity.settings');
     $config->set($variable_name, $value)->save();
   }
 
   /**
-   * Gets variables.
+   * {@inheritdoc}
    */
-  function getInvoiceVariable($variable_name) {
+  public static function getInvoiceVariable($variable_name) {
     $config = \Drupal::config('invoice_entity.settings');
     $value = $config->get($variable_name);
     return $value;

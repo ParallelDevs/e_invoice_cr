@@ -96,7 +96,7 @@ class Communication implements CommunicationInterface {
 
     $params = [
       'emisor' => $id_type . $id,
-      'receptor' => '01000115500105',
+      // 'receptor' => '01000115500105',
     ];
     $url = $environment . 'comprobantes/?' ;
 
@@ -157,7 +157,7 @@ class Communication implements CommunicationInterface {
         'Authorization' => 'Bearer ' . $token,
         'Content-type' => 'application/json',
       ],
-     // 'allow_redirects' => false,
+      // 'allow_redirects' => true,
     ];
   }
 
