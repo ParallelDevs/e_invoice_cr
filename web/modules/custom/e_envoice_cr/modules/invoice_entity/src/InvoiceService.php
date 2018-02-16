@@ -3,6 +3,7 @@
 namespace Drupal\invoice_entity;
 
 use Drupal\e_invoice_cr\Communication;
+use Drupal\invoice_entity\Entity\InvoiceEntity;
 use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 
 /**
@@ -90,7 +91,7 @@ class InvoiceService implements InvoiceServiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function validateInvoiceEntity($entity) {
+  public function validateInvoiceEntity(InvoiceEntity $entity) {
     $key = $entity->get('field_clave_numerica')->value;
     $result = $this->responseForKey($key);
     $state = NULL;
