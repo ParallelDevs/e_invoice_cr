@@ -308,10 +308,6 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
     $fields['ex_date'] = BaseFieldDefinition::create('datetime')
       ->setLabel(t('Date'))
       ->setRevisionable(TRUE)
-      ->setSettings([
-        'datetime_type' => 'date',
-        'datetime_format' => 'd/m/Y',
-      ])
       ->setDisplayOptions('form', [
         'type' => 'datetime_default',
         'weight' => 14,
@@ -336,24 +332,6 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
-
-    /*
-     $fields['ex_amount'] = BaseFieldDefinition::create('float')
-      ->setLabel(t('Amount'))
-      ->setRequired(TRUE)
-      ->setRevisionable(TRUE)
-      ->setDisplayOptions('view', [
-        'label' => 'inline',
-        'type' => 'float',
-        'weight' => -8,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'number',
-        'weight' => 16,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-    */
 
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))

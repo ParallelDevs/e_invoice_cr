@@ -130,6 +130,10 @@ class XMLGenerator {
             $xml_doc .= "\t\t\t\t<Monto>" . $tax_mount . '</Monto>' . "\n";
             // Here exonerations data.
             $xml_doc .= "\t\t\t</Impuesto>\n";
+
+            if ($tax->get("exoneration")->value) {
+              $xml_doc .= $this->addExonerationXml($tax, $tax_mount);
+            }
           }
         }
         $xml_doc .= "\t\t\t<MontoTotalLinea>" . round($values['field_monto_total_linea'][0]['value'], 5) . "</MontoTotalLinea>\n";
@@ -199,6 +203,22 @@ class XMLGenerator {
     $doc = new DOMDocument();
     $doc->loadXML($xml_doc);
     return $doc;
+  }
+
+  private function addExonerationXml($tax, $tax_amount) {
+    $date_object = $tax->get('ex_date')->value;
+    $date = str_replace('+', '-', $date_object->format('c'));
+    $amount = round($tax_amount * ($tax->get('ex_percentage') / 100), 5);
+
+    $xml_text = str_repeat("\t", 3) . "<Exoneracion>\n";
+    $xml_text .= str_repeat("\t", 4) . "<TipoDocumento>" . $tax->get('ex_document_type')->value . "</TipoDocumento>\n";
+    $xml_text .= str_repeat("\t", 4) . "<NombreInstitucion>" . $tax->get('ex_institucion')->value . "</NombreInstitucion>\n";
+    $xml_text .= str_repeat("\t", 4) . "<FechaEmision>" . $date . "</FechaEmision>\n";
+    $xml_text .= str_repeat("\t", 4) . "<MontoImpuesto>" . $amount . "</MontoImpuesto>\n";
+    $xml_text .= str_repeat("\t", 4) . "<PorcentajeCompra>" . $tax->get('ex_percentage')->value . "</PorcentajeCompra>\n";
+    $xml_text .= str_repeat("\t", 3) . "</Exoneracion>\n";
+
+    return $xml_text;
   }
 
 }
