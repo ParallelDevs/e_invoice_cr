@@ -24,12 +24,11 @@
             var totalA = quantity * price;
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-montototal-0-value]').val(totalA);
             var tax_id = $('select[data-drupal-selector=edit-field-filas-' + i + '-subform-field-impuesto]').val();
-            var tax = parseFloat(searchTax(tax_id));
             var discount = totalA * (discount / 100);
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-row-discount-0-value]').val(discount);
             var subTotal = totalA - discount;
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-subtotal-0-value]').val(subTotal);
-            var totalWithTax = parseFloat(subTotal + ((tax/100)*subTotal));
+            var totalWithTax = moduleNumberFormat(subTotal + calcTax(tax_id, subTotal));
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-monto-total-linea-0-value]').val(totalWithTax);
           }
         }
@@ -54,31 +53,29 @@
             var totalA = quantity * price;
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-montototal-0-value]').val(totalA);
             var tax_id = $('select[data-drupal-selector=edit-field-filas-' + i + '-subform-field-impuesto]').val();
-            var tax = parseFloat(searchTax(tax_id));
             var discount = totalA * (discount / 100);
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-row-discount-0-value]').val(discount);
             var subTotal = totalA - discount;
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-subtotal-0-value]').val(subTotal);
-            var totalWithTax = parseFloat(subTotal + ((tax/100)*subTotal));
+            var totalWithTax = moduleNumberFormat(subTotal + calcTax(tax_id, subTotal));
             $('input[data-drupal-selector=edit-field-filas-' + i + '-subform-field-monto-total-linea-0-value]').val(totalWithTax);
           }
         }
         calculateRowsTotal();
       }
 
-      // Gets the tax percentage
-      function searchTax(id) {
-        if (id == '_none') {
-          return 0;
+      function calcTax(id, total) {
+        var tax = drupalSettings.taxsObject[id];
+        if (tax != null && tax != undefined) {
+          var totalT = total * (tax['tax_percentage'] / 100);
+
+          return Boolean(tax['exoneration']) ? (totalT * (tax['ex_percentage'] / 100)) : totalT;
         }
-        else {
-          var taxs = drupalSettings.taxsObject;
-          for (var i = 0; i < taxs.length; i++) {
-            if (taxs["" + i].id == id) {
-              return taxs["" + i].percentage;
-            }
-          }
-        }
+        return 0;
+      }
+
+      function moduleNumberFormat(value) {
+        return parseFloat(value).toFixed(5);
       }
 
       // Calculate the general rows totals.
@@ -91,9 +88,9 @@
         var totalSale = 0, totalDis = 0, totalTax = 0, totalInvoice = 0;
         for (var j = 0; j < rows; j++) {
           if ($(mt[j]).length > 0) {
-            totalSale = totalSale + (parseFloat($(mt[j]).val()) - parseFloat($(rd[j]).val()));
-            totalDis = totalDis + parseFloat($(rd[j]).val());
-            totalTax = totalTax + parseFloat($(mtl[j]).val() - $(st[j]).val());
+            totalSale = totalSale + (moduleNumberFormat($(mt[j]).val()) - moduleNumberFormat($(rd[j]).val()));
+            totalDis = totalDis + moduleNumberFormat($(rd[j]).val());
+            totalTax = totalTax + moduleNumberFormat($(mtl[j]).val() - $(st[j]).val());
           }
         }
         totalInvoice = totalSale + totalTax;

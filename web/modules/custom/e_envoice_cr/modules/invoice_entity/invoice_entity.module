@@ -102,20 +102,13 @@ function invoice_entity_form_alter(&$form, FormStateInterface $form_state, $form
         break;
       }
     }
+
     // The library.
     $form['#attached']['library'][] = 'invoice_entity/invoice-rows';
     $form['#attached']['library'][] = 'invoice_entity/invoice-rows-js';
     // Get all tax entities.
-    $query = \Drupal::entityQuery('tax_entity');
-    $tids = $query->execute();
-    $tax_info = [];
-    if (count($tids) > 0) {
-      $entity_manager = \Drupal::entityManager();
-      foreach ($tids as $index => $item) {
-        $tax = $entity_manager->getStorage('tax_entity')->load($item);
-        $tax_info[] = ['id' => $tax->id(), 'percentage' => $tax->get('field_tax_percentage')->value];
-      }
-    }
+    $tax_info = invoice_entity_get_tax_info();
+
     $form['#attached']['drupalSettings']['taxsObject'] = $tax_info;
   }
 }
@@ -352,4 +345,18 @@ function invoice_entity_preprocess_page(&$variables) {
   if (\Drupal::routeMatch()->getRouteName() === $route) {
     $variables['#attached']['library'][] = 'invoice_entity/invoice';
   }
+}
+
+function invoice_entity_get_tax_info() {
+  $entities = \Drupal\tax_entity\Entity\TaxEntity::loadMultiple();
+  $tax_info = [];
+  /** @var \Drupal\tax_entity\Entity\TaxEntity $tax */
+  foreach ($entities as $tax) {
+    $tax_info[$tax->id()] = [
+      'tax_percentage' => $tax->get('field_tax_percentage')->value,
+      'exoneration' => $tax->get('exoneration')->value,
+      'ex_percentage' => $tax->get('ex_percentage')->value,
+    ];
+  }
+  return $tax_info;
 }
