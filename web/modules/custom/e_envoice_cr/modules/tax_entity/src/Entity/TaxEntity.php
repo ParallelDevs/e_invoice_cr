@@ -308,6 +308,12 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
     $fields['ex_date'] = BaseFieldDefinition::create('datetime')
       ->setLabel(t('Date'))
       ->setRevisionable(TRUE)
+      /*
+      ->setSettings([
+        'datetime_type' => 'date',
+        'datetime_format' => 'd/m/Y',
+      ])
+      */
       ->setDisplayOptions('form', [
         'type' => 'datetime_default',
         'weight' => 14,

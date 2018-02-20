@@ -3,6 +3,7 @@
 namespace Drupal\e_invoice_cr;
 
 use DOMDocument;
+use Drupal\Core\Datetime\DateFormatter;
 
 /**
  * Generated a invoice XML document.
@@ -128,12 +129,13 @@ class XMLGenerator {
             $xml_doc .= "\t\t\t\t<Codigo>" . $tax->get('field_tax_type')->value . "</Codigo>\n";
             $xml_doc .= "\t\t\t\t<Tarifa>" . $tax->get('field_tax_percentage')->value . "</Tarifa>\n";
             $xml_doc .= "\t\t\t\t<Monto>" . $tax_mount . '</Monto>' . "\n";
-            // Here exonerations data.
-            $xml_doc .= "\t\t\t</Impuesto>\n";
 
             if ($tax->get("exoneration")->value) {
               $xml_doc .= $this->addExonerationXml($tax, $tax_mount);
             }
+
+            // Here exonerations data.
+            $xml_doc .= "\t\t\t</Impuesto>\n";
           }
         }
         $xml_doc .= "\t\t\t<MontoTotalLinea>" . round($values['field_monto_total_linea'][0]['value'], 5) . "</MontoTotalLinea>\n";
@@ -206,17 +208,17 @@ class XMLGenerator {
   }
 
   private function addExonerationXml($tax, $tax_amount) {
-    $date_object = $tax->get('ex_date')->value;
-    $date = str_replace('+', '-', $date_object->format('c'));
-    $amount = round($tax_amount * ($tax->get('ex_percentage') / 100), 5);
+    $date_object = strtotime($tax->get('ex_date')->value);
+    $date = \Drupal::service('date.formatter')->format($date_object, 'date_text', 'c');
+    $amount = $tax_amount * ($tax->get('ex_percentage')->value / 100);
 
-    $xml_text = str_repeat("\t", 3) . "<Exoneracion>\n";
-    $xml_text .= str_repeat("\t", 4) . "<TipoDocumento>" . $tax->get('ex_document_type')->value . "</TipoDocumento>\n";
-    $xml_text .= str_repeat("\t", 4) . "<NombreInstitucion>" . $tax->get('ex_institucion')->value . "</NombreInstitucion>\n";
-    $xml_text .= str_repeat("\t", 4) . "<FechaEmision>" . $date . "</FechaEmision>\n";
-    $xml_text .= str_repeat("\t", 4) . "<MontoImpuesto>" . $amount . "</MontoImpuesto>\n";
-    $xml_text .= str_repeat("\t", 4) . "<PorcentajeCompra>" . $tax->get('ex_percentage')->value . "</PorcentajeCompra>\n";
-    $xml_text .= str_repeat("\t", 3) . "</Exoneracion>\n";
+    $xml_text = str_repeat("\t", 4) . "<Exoneracion>\n";
+    $xml_text .= str_repeat("\t", 5) . "<TipoDocumento>" . $tax->get('ex_document_type')->value . "</TipoDocumento>\n";
+    $xml_text .= str_repeat("\t", 5) . "<NombreInstitucion>" . $tax->get('ex_institution')->value . "</NombreInstitucion>\n";
+    $xml_text .= str_repeat("\t", 5) . "<FechaEmision>" . $date . "</FechaEmision>\n";
+    $xml_text .= str_repeat("\t", 5) . "<MontoImpuesto>" . $amount . "</MontoImpuesto>\n";
+    $xml_text .= str_repeat("\t", 5) . "<PorcentajeCompra>" . $tax->get('ex_percentage')->value . "</PorcentajeCompra>\n";
+    $xml_text .= str_repeat("\t", 4) . "</Exoneracion>\n";
 
     return $xml_text;
   }
