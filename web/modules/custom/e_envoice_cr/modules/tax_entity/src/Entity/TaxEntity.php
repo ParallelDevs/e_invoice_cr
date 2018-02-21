@@ -234,7 +234,7 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
       ->setRevisionable(TRUE)
       ->setDefaultValue(FALSE)
       ->setDisplayOptions('form', [
-        'weight' => 10
+        'weight' => 10,
       ])
       ->setDisplayConfigurable('form', TRUE);
 
@@ -324,8 +324,8 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
     $fields['ex_percentage'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Exoneration percentage (%)'))
       ->setSettings([
-          'max_value' => 100,
-        ])
+        'max_value' => 100,
+      ])
       ->setRevisionable(TRUE)
       ->setDisplayOptions('view', [
         'label' => 'inline',

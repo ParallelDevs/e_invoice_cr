@@ -6,6 +6,7 @@ use DOMDocument;
 use Drupal\customer_entity\Entity\CustomerEntity;
 use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 use Drupal\tax_entity\Entity\TaxEntity;
+use Drupal\invoice_entity\Entity\InvoiceEntity;
 
 /**
  * Generated a invoice XML document.
@@ -15,13 +16,10 @@ class XMLGenerator {
   /**
    * Function to generate the xml document.
    *
-   * @param \Drupal\invoice_entity\Entity\InvoiceEntity $entity
-   *   The invoice entity which is going to send.
-   *
    * @return \DOMDocument
    *   The complete xml to send.
    */
-  public function generateXmlByEntity($entity) {
+  public function generateXmlByEntity(InvoiceEntity $entity) {
     $type_of = $entity->get('type_of')->value;
     $tagname = InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['xmltag'];
     $xmlns = InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['xmlns'];
@@ -45,11 +43,10 @@ class XMLGenerator {
   /**
    * Generate the header for the xml document like Hacienda ask for it.
    *
-   * @param \Drupal\invoice_entity\Entity\InvoiceEntity $entity
-   *
    * @return string
+   *   Return the header xml as a text.
    */
-  private function generateHeaderXml($entity) {
+  private function generateHeaderXml(InvoiceEntity $entity) {
     $xml_doc = "\t<Clave>" . $entity->get('field_clave_numerica')->value . "</Clave>\n";
     $xml_doc .= "\t<NumeroConsecutivo>" . $entity->get('field_consecutivo')->value . "</NumeroConsecutivo>\n";
     $xml_doc .= "\t<FechaEmision>" . $this->formatDateForXml($entity->get('field_fecha_emision')->value) . "</FechaEmision>\n";
@@ -70,11 +67,10 @@ class XMLGenerator {
   /**
    * Generate the detail part for the xml document like Hacienda ask for it.
    *
-   * @param \Drupal\invoice_entity\Entity\InvoiceEntity $entity
-   *
    * @return string
+   *   Return the detail xml as a text.
    */
-  private function generateDetailXml($entity) {
+  private function generateDetailXml(InvoiceEntity $entity) {
     $rows = $entity->get('field_filas')->getValue();
     $xml_doc = "\t<DetalleServicio>\n";
 
@@ -90,12 +86,11 @@ class XMLGenerator {
 
   /**
    * Generate the summary the xml document like Hacienda ask for it.
-
-   * @param \Drupal\invoice_entity\Entity\InvoiceEntity $entity
    *
    * @return string
+   *   Return the summary xml as a text.
    */
-  private function generateSummaryXml($entity) {
+  private function generateSummaryXml(InvoiceEntity $entity) {
     $settings = \Drupal::config('e_invoice_cr.settings');
     $currency = $settings->get('currency');
     $rows = $entity->get('field_filas')->getValue();
@@ -163,17 +158,16 @@ class XMLGenerator {
 
   /**
    * Generate the reference part for the xml document like Hacienda ask for it.
-
-   * @param \Drupal\invoice_entity\Entity\InvoiceEntity $entity
    *
    * @return string
+   *   Return the reference information xml section as a text.
    */
-  private function generateReferenceInfoXml($entity) {
+  private function generateReferenceInfoXml(InvoiceEntity $entity) {
     $type_of = $entity->get('type_of')->value;
 
     $xml_doc = "\t<InformacionReferencia>\n";
     $xml_doc .= "\t\t<TipoDoc>" . InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['code'] . "</TipoDoc>\n";
-    $xml_doc .= "\t\t<Numero>" . $entity->get('field_clave_numerica')->value  . "</Numero>\n";
+    $xml_doc .= "\t\t<Numero>" . $entity->get('field_clave_numerica')->value . "</Numero>\n";
     $xml_doc .= "\t\t<FechaEmision>" . $this->formatDateForXml($entity->get('field_fecha_emision')->value) . "</FechaEmision>\n";
     $xml_doc .= "\t\t<Codigo>02</Codigo>\n";
     $xml_doc .= "\t\t<Razon>a</Razon>\n";
@@ -186,6 +180,7 @@ class XMLGenerator {
    * Generate the regulation for the xml document like Hacienda ask for it.
    *
    * @return string
+   *   Return the current regulation xml section as a text.
    */
   private function generateCurrentRegulationXml() {
     $xml_doc = "\t<Normativa>\n";
@@ -203,6 +198,7 @@ class XMLGenerator {
    * Generate the "emisor" xml structure like Hacienda ask for it.
    *
    * @return string
+   *   Return the "emisor" in a string variable.
    */
   private function generateEmisorXml() {
     $settings = \Drupal::config('e_invoice_cr.settings');
@@ -249,11 +245,10 @@ class XMLGenerator {
   /**
    * Generate the "receptor" xml structure like Hacienda ask for it.
    *
-   * @param \Drupal\invoice_entity\Entity\InvoiceEntity $entity
-   *
    * @return string
+   *   Return the "receptor" in a string variable.
    */
-  private function generateReceptorXml($entity) {
+  private function generateReceptorXml(InvoiceEntity $entity) {
     $client_id = $entity->get('field_cliente')->target_id;
     $client = CustomerEntity::load($client_id);
     $client_zip_code = $client->field_direccion_->getValue();
@@ -293,10 +288,8 @@ class XMLGenerator {
   /**
    * Generate the xml structure for a invoice row.
    *
-   * @param string $index
-   * @param array $row
-   *
    * @return string
+   *   Return the xml text from a row line of the invoice.
    */
   private function generateRowXml($index, array $row) {
     $count = $index + 1;
@@ -350,12 +343,15 @@ class XMLGenerator {
   /**
    * Generate the xml structure for a exoneration.
    *
-   * @param TaxEntity $tax
-   * @param $tax_amount
+   * @param \Drupal\tax_entity\Entity\TaxEntity $tax
+   *   The tax entity whom own the exoneration.
+   * @param float $tax_amount
+   *   The taxonomy current amount.
    *
    * @return string
+   *   Return the exoneration xml structure.
    */
-  private function addExonerationXml($tax, $tax_amount) {
+  private function addExonerationXml(TaxEntity $tax, $tax_amount) {
     $amount = $tax_amount * ($tax->get('ex_percentage')->value / 100);
 
     $xml_text = str_repeat("\t", 4) . "<Exoneracion>\n";

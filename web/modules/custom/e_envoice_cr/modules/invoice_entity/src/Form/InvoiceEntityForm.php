@@ -5,7 +5,6 @@ namespace Drupal\invoice_entity\Form;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\customer_entity\Entity\CustomerEntity;
-use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 use Drupal\e_invoice_cr\Communication;
 use Drupal\e_invoice_cr\Signature;
 use Drupal\invoice_email\InvoiceEmailEvent;
@@ -84,6 +83,12 @@ class InvoiceEntityForm extends ContentEntityForm {
     }
   }
 
+  /**
+   * Generate the xml document, sign it and send it to it's validation.
+   *
+   * @return bool
+   *   Return true if did have no error.
+   */
   public function sendInvoice(array $form, FormStateInterface $form_state) {
     // Authentication.
     try {

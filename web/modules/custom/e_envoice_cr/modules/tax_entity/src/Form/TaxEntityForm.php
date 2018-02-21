@@ -90,9 +90,6 @@ class TaxEntityForm extends ContentEntityForm {
 
   /**
    * Function to check if all the data relate to exoneration was filled.
-   *
-   * @param array $form
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
    */
   private function checkExoneration(array $form, FormStateInterface $form_state) {
     if ($form_state->getValue('exoneration')['value']) {
@@ -101,7 +98,7 @@ class TaxEntityForm extends ContentEntityForm {
       $date = empty($form_state->getValue('ex_date')[0]['value']);
       $percentage = empty($form_state->getValue('ex_percentage')[0]['value']);
 
-      if ($type || $number || $date || $percentage ) {
+      if ($type || $number || $date || $percentage) {
         $form_state->setErrorByName('exoneration', t('If you check in "Add exoneration" you must fill all the fields relate with it.'));
       }
     }
