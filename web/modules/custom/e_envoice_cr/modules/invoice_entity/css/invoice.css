@@ -84,6 +84,7 @@
 .field--name-field-tipo {
   background: #f9f9f9;
 }
+.field--name-field-code-type,
 .field--name-field-tipo {
   width: 25%;
   float: left;

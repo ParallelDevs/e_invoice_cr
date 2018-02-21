@@ -50,9 +50,7 @@
   function calcTax(id, total) {
     var tax = drupalSettings.taxsObject[id];
     if (tax != null && tax != undefined) {
-      var totalT = total * (tax['tax_percentage'] / 100);
-
-      return tax['exoneration'] == true ? (totalT * (tax['ex_percentage'] / 100)) : totalT;
+      return total * (tax['tax_percentage'] / 100);
     }
     return 0;
   }

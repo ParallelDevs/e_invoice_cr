@@ -1,9 +1,12 @@
-.field--name-field-tipo,
+.field--name-field-code-type,
 .field--name-field-codigo,
 .field--name-field-cantidad,
 .field--name-field-preciounitario {
   display: inline-block;
-  width: 20%;
+  width: 25%;
+}
+.field--name-field-tipo {
+  display: inline-block;
 }
 .field--name-field-codigo {
   margin-right: 10%;
@@ -54,11 +57,11 @@
 .field--name-field-monto-total-linea label {
   display: inline-block;
 }
-
 .field--name-field-unit-measure {
+  display: inline-block;
+  width: 35%;
   margin-top: 15px;
 }
-
 .field--name-field-another-unit-measure,
 .field--name-field-discount-percentage {
   margin-bottom: 10px;
