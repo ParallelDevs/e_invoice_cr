@@ -1,5 +1,0 @@
-entity.exoneration_entity.add_form:
-  route_name: entity.exoneration_entity.add_form
-  title: 'Add Exoneration entity'
-  appears_on:
-    - entity.exoneration_entity.collection
