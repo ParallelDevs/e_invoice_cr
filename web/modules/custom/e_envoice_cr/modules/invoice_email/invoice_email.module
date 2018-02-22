@@ -6,8 +6,6 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Mail\MailManagerInterface;
-use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Component\Utility\Html;
 
 /**
@@ -30,13 +28,13 @@ function invoice_email_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_mail().
  */
 function invoice_email_mail($key, &$message, $params) {
-  $options = array(
+  $options = [
     'langcode' => $message['langcode'],
-  );
+  ];
   switch ($key) {
     case 'invoice_validated':
       $message['from'] = \Drupal::config('system.site')->get('mail');
-      $message['subject'] = t('Subject: @title', array('@title' => $params['title']), $options);
+      $message['subject'] = t('Subject: @title', ['@title' => $params['title']], $options);
       $message['body'][] = Html::escape($params['message']);
       break;
   }

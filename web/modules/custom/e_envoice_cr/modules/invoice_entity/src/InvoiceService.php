@@ -104,7 +104,8 @@ class InvoiceService implements InvoiceServiceInterface {
         // Load the Symfony event dispatcher object through services.
         $dispatcher = \Drupal::service('event_dispatcher');
         // Creating our event class object.
-        $event = new InvoiceEmailEvent("123123" , $entity->id());
+        $eid = "valid-" . $entity->id();
+        $event = new InvoiceEmailEvent($eid, $entity->id());
         // Dispatching the event through the ‘dispatch’  method,
         // Passing event name and event object ‘$event’ as parameters.
         $dispatcher->dispatch(InvoiceEmailEvent::SUBMIT, $event);
