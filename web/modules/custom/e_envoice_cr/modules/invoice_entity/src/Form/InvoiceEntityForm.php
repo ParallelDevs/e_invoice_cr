@@ -136,7 +136,7 @@ class InvoiceEntityForm extends ContentEntityForm {
 
       // Look for possibles errors.
       foreach ($response as $item) {
-        if ((strpos($item,'Error') !== false) ||(strpos($item,'Failed') !== false)) {
+        if ((strpos($item, 'Error') !== FALSE) || (strpos($item, 'Failed') !== FALSE)) {
           $message = t('There were errors during the signature process, the signature could be wrong.');
           drupal_set_message($message, 'warning');
         }
