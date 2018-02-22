@@ -20,12 +20,14 @@ class InvoiceEmailEvent extends Event {
    * @var string
    */
   protected $referenceID;
+  protected $entityID;
 
   /**
    * Constructs a new InvoiceEmailEvent object.
    */
-  public function __construct($referenceID) {
+  public function __construct($referenceID, $entityID) {
     $this->referenceID = $referenceID;
+    $this->entityID = $entityID;
   }
 
   /**
@@ -33,6 +35,13 @@ class InvoiceEmailEvent extends Event {
    */
   public function getReferenceId() {
     return $this->referenceID;
+  }
+
+  /**
+   * Gets the entity Id.
+   */
+  public function getEntityId() {
+    return $this->entityID;
   }
 
 }
