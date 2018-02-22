@@ -40,6 +40,16 @@ class InvoiceEntityForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $entity = parent::validateForm($form, $form_state);
+    $this->checkPaymentMethod($form_state);
+
+    return $entity;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function save(array $form, FormStateInterface $form_state) {
     $entity = &$this->entity;
 
@@ -104,6 +114,7 @@ class InvoiceEntityForm extends ContentEntityForm {
       drupal_set_message(t('Error getting the authentication token.'), 'error');
       $form_state->setRebuild();
       $form_state->setSubmitHandlers([]);
+      return FALSE;
     }
     else {
       /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
@@ -172,6 +183,7 @@ class InvoiceEntityForm extends ContentEntityForm {
           // Show a success message.
           $message = t('The electronic document was sent to its verification.');
           drupal_set_message($message, 'status');
+          $invoice_service->increaseValues();
         }
         $invoice_service->updateValues();
       }
@@ -181,6 +193,19 @@ class InvoiceEntityForm extends ContentEntityForm {
     }
 
     return TRUE;
+  }
+
+  /**
+   * Check if the payment method is needed for this type of entity.
+   */
+  private function checkPaymentMethod(FormStateInterface &$form_state) {
+    $type_of = $form_state->getValue('type_of')[0]['value'];
+    $payment_method = $form_state->getValue('field_medio_de_pago')[0]['value'];
+    $required_method = $type_of == 'FE' || $type_of == 'TE';
+
+    if ($required_method && ($payment_method == NULL && empty($payment_method))) {
+      $form_state->setErrorByName('field_medio_de_pago', t('If you document is a Electronic Bill or Electronic Ticket. You need to specify the payment method.'));
+    }
   }
 
 }

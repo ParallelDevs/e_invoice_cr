@@ -12,7 +12,7 @@ entity_type: invoice_entity
 bundle: invoice_entity
 label: 'Medio de pago'
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''

@@ -17,6 +17,7 @@
       $('input[id*="discount-percentage"]').on('keyup change', updateInvoiceValues);
       $('input[id*="field-adddis"]').on('keyup change', updateInvoiceValues);
       $('select[id*="subform-field-impuesto"]').on('keyup change', updateInvoiceValues);
+      $('#edit-type-of').on('change', checkPaymentMethodRequirement);
 
       // Calculate the fields needed.
       updateInvoiceValues();
@@ -88,6 +89,19 @@
       index++;
     }
     return index;
+  }
+
+  function checkPaymentMethodRequirement() {
+    var element = $('.form-item-field-medio-de-pago label');
+    var type = $('#edit-type-of').val();
+    var isRequired = type == 'FE' || type == 'TE';
+
+    if (isRequired && !element.hasClass('form-required')) {
+      element.addClass('form-required');
+    }
+    if (!isRequired && element.hasClass('form-required')) {
+      element.removeClass('form-required');
+    }
   }
 
 }(jQuery, drupalSettings));
