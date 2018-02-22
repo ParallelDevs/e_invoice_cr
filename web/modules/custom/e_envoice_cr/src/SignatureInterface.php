@@ -13,6 +13,6 @@ interface SignatureInterface {
    * @return bool
    *   The status.
    */
-  public function signDocument();
+  public function signDocument($doc_name = "");
 
 }

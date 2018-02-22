@@ -10,7 +10,7 @@ class Signature implements SignatureInterface {
   /**
    * {@inheritdoc}
    */
-  public function signDocument() {
+  public function signDocument($doc_name = "") {
     // Locate where is the jar.
     $res = chdir("modules/custom/e_envoice_cr/jar");
     if ($res) {
@@ -25,7 +25,7 @@ class Signature implements SignatureInterface {
         $doc_path = $base_path . "xml/";
         $signed_path = $base_path . "xml_signed/";
         // Build the java command.
-        $command = 'java -jar java-xades4j-signer.jar ' . $cert_path . ' "' . $pass . '" ' . $doc_path . ' ' . $signed_path . ' 2>&1';
+        $command = 'java -jar java-xades4j-signer.jar ' . $cert_path . ' "' . $pass . '" ' . $doc_path . ' ' . $signed_path . ' ' . $doc_name . ' 2>&1';
         // Execute the command.
         exec($command, $response);
         // Send the response.
