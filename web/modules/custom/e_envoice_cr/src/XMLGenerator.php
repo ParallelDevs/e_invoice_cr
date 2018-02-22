@@ -3,6 +3,10 @@
 namespace Drupal\e_invoice_cr;
 
 use DOMDocument;
+use Drupal\customer_entity\Entity\CustomerEntity;
+use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
+use Drupal\tax_entity\Entity\TaxEntity;
+use Drupal\invoice_entity\Entity\InvoiceEntity;
 
 /**
  * Generated a invoice XML document.
@@ -10,56 +14,246 @@ use DOMDocument;
 class XMLGenerator {
 
   /**
-   * {@inheritdoc}
+   * Function to generate the xml document.
+   *
+   * @return \DOMDocument
+   *   The complete xml to send.
    */
-  public function generateInvoiceXml($general_data, $client, $emitter, $rows, $type = 'FE') {
-    $client_zip_code = $client->field_direccion_->getValue();
+  public function generateXmlByEntity(InvoiceEntity $entity) {
+    $type_of = $entity->get('type_of')->value;
+    $tagname = InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['xmltag'];
+    $xmlns = InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['xmlns'];
+
+    $xml_text = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
+    $xml_text .= "<" . $tagname . " xmlns=\"" . $xmlns . "\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">\n";
+
+    $xml_text .= $this->generateHeaderXml($entity);
+    $xml_text .= $this->generateDetailXml($entity);
+    $xml_text .= $this->generateSummaryXml($entity);
+    $xml_text .= $this->generateReferenceInfoXml($entity);
+    $xml_text .= $this->generateCurrentRegulationXml();
+    $xml_text .= "</" . $tagname . ">\n";
+
+    // Create the xml document.
+    $doc = new DOMDocument();
+    $doc->loadXML($xml_text);
+    return $doc;
+  }
+
+  /**
+   * Generate the header for the xml document like Hacienda ask for it.
+   *
+   * @return string
+   *   Return the header xml as a text.
+   */
+  private function generateHeaderXml(InvoiceEntity $entity) {
+    $xml_doc = "\t<Clave>" . $entity->get('field_clave_numerica')->value . "</Clave>\n";
+    $xml_doc .= "\t<NumeroConsecutivo>" . $entity->get('field_consecutivo')->value . "</NumeroConsecutivo>\n";
+    $xml_doc .= "\t<FechaEmision>" . $this->formatDateForXml($entity->get('field_fecha_emision')->value) . "</FechaEmision>\n";
+
+    // Add the "emisor" information.
+    $xml_doc .= $this->generateEmisorXml();
+    // Add the "receptor" information.
+    $xml_doc .= $this->generateReceptorXml($entity);
+
+    // More header information.
+    $xml_doc .= "\t<CondicionVenta>" . $entity->get('field_condicion_venta')->value . "</CondicionVenta>\n";
+    $xml_doc .= "\t<PlazoCredito>" . $entity->get('field_plazo_credito')->value . "</PlazoCredito>\n";
+    $xml_doc .= "\t<MedioPago>" . $entity->get('field_medio_de_pago')->value . "</MedioPago>\n";
+
+    return $xml_doc;
+  }
+
+  /**
+   * Generate the detail part for the xml document like Hacienda ask for it.
+   *
+   * @return string
+   *   Return the detail xml as a text.
+   */
+  private function generateDetailXml(InvoiceEntity $entity) {
+    $rows = $entity->get('field_filas')->getValue();
+    $xml_doc = "\t<DetalleServicio>\n";
+
+    foreach ($rows as $index => $item) {
+      if (is_numeric($index)) {
+        $xml_doc .= $this->generateRowXml($index, $item);
+      }
+    }
+    $xml_doc .= "\t</DetalleServicio>\n";
+
+    return $xml_doc;
+  }
+
+  /**
+   * Generate the summary the xml document like Hacienda ask for it.
+   *
+   * @return string
+   *   Return the summary xml as a text.
+   */
+  private function generateSummaryXml(InvoiceEntity $entity) {
     $settings = \Drupal::config('e_invoice_cr.settings');
     $currency = $settings->get('currency');
+    $rows = $entity->get('field_filas')->getValue();
     $total_services = 0;
     $total_prod = 0;
     $total_serv_with_tax = 0;
     $total_serv_without_tax = 0;
     $total_prod_with_tax = 0;
     $total_prod_without_tax = 0;
-    $tagname = $general_data['xml_tag'];
-    $xmlns = $general_data['xmlns'];
 
-    // Build the xml code.
-    $xml_doc = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
-    $xml_doc .= "<" . $tagname . " xmlns=\"" . $xmlns . "\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">\n";
-    $xml_doc .= "\t<Clave>" . $general_data['key'] . "</Clave>\n";
-    $xml_doc .= "\t<NumeroConsecutivo>" . $general_data['consecutive'] . "</NumeroConsecutivo>\n";
-    $xml_doc .= "\t<FechaEmision>" . $general_data['date'] . "</FechaEmision>\n";
-    // Start 'Emisor'.
-    $xml_doc .= "\t<Emisor>\n";
-    $xml_doc .= "\t\t<Nombre>" . $emitter['name'] . "</Nombre>\n";
+    foreach ($rows as $row) {
+      $values = $row['subform'];
+      $tax_id = $values['field_impuesto'][0]['target_id'];
+      $tax = TaxEntity::load($tax_id);
+
+      if ($tax !== NULL) {
+        $tax_mount = ($tax->get('field_tax_percentage')->value / 100) * $values['field_subtotal'][0]['value'];
+      }
+      // Save the ones with tax.
+      if ($tax_mount !== "" && $tax_mount > 0 && $tax_mount !== NULL) {
+        if ($values['field_tipo'][0]['value'] === "01") {
+          $total_prod_with_tax = $total_prod_with_tax + (int) round($values['field_montototal'][0]['value'], 5);
+          $total_prod++;
+        }
+        else {
+          $total_serv_with_tax = $total_serv_with_tax + (int) round($values['field_montototal'][0]['value'], 5);
+          $total_services++;
+        }
+      }
+      else {
+        // Save the ones without tax.
+        if ($values['field_tipo'][0]['value'] === "01") {
+          $total_prod_without_tax = $total_prod_without_tax + (int) round($values['field_montototal'][0]['value'], 5);
+          $total_services++;
+        }
+        else {
+          $total_serv_without_tax = $total_serv_without_tax + (int) round($values['field_montototal'][0]['value'], 5);
+          $total_services++;
+        }
+      }
+    }
+    $total_with_tax = $total_serv_with_tax + $total_prod_with_tax;
+    $total_without_tax = $total_serv_without_tax + $total_prod_without_tax;
+    $total_sale = $total_with_tax + $total_without_tax;
+
+    $xml_doc = "\t<ResumenFactura>\n";
+    $xml_doc .= "\t\t<CodigoMoneda>" . strtoupper($currency) . "</CodigoMoneda>\n";
+    // No supported at the moment (*).
+    $xml_doc .= "\t\t<TipoCambio>0</TipoCambio>\n";
+    $xml_doc .= "\t\t<TotalServGravados>" . $total_serv_with_tax . "</TotalServGravados>\n";
+    $xml_doc .= "\t\t<TotalServExentos>" . $total_serv_without_tax . "</TotalServExentos>\n";
+    $xml_doc .= "\t\t<TotalMercanciasGravadas>" . $total_prod_with_tax . "</TotalMercanciasGravadas>\n";
+    $xml_doc .= "\t\t<TotalMercanciasExentas>" . $total_prod_without_tax . "</TotalMercanciasExentas>\n";
+    $xml_doc .= "\t\t<TotalGravado>" . $total_with_tax . "</TotalGravado>\n";
+    $xml_doc .= "\t\t<TotalExento>" . $total_without_tax . "</TotalExento>\n";
+    $xml_doc .= "\t\t<TotalVenta>" . $total_sale . "</TotalVenta>\n";
+    $xml_doc .= "\t\t<TotalDescuentos>" . $entity->get('field_total_discount')->value . "</TotalDescuentos>\n";
+    $xml_doc .= "\t\t<TotalVentaNeta>" . $entity->get('field_total_ventaneta')->value . "</TotalVentaNeta>\n";
+    $xml_doc .= "\t\t<TotalImpuesto>" . $entity->get('field_total_impuesto')->value . "</TotalImpuesto>\n";
+    $xml_doc .= "\t\t<TotalComprobante>" . $entity->get('field_totalcomprobante')->value . "</TotalComprobante>\n";
+    $xml_doc .= "\t</ResumenFactura>\n";
+
+    return $xml_doc;
+  }
+
+  /**
+   * Generate the reference part for the xml document like Hacienda ask for it.
+   *
+   * @return string
+   *   Return the reference information xml section as a text.
+   */
+  private function generateReferenceInfoXml(InvoiceEntity $entity) {
+    $type_of = $entity->get('type_of')->value;
+
+    $xml_doc = "\t<InformacionReferencia>\n";
+    $xml_doc .= "\t\t<TipoDoc>" . InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['code'] . "</TipoDoc>\n";
+    $xml_doc .= "\t\t<Numero>" . $entity->get('field_clave_numerica')->value . "</Numero>\n";
+    $xml_doc .= "\t\t<FechaEmision>" . $this->formatDateForXml($entity->get('field_fecha_emision')->value) . "</FechaEmision>\n";
+    $xml_doc .= "\t\t<Codigo>02</Codigo>\n";
+    $xml_doc .= "\t\t<Razon>a</Razon>\n";
+    $xml_doc .= "\t</InformacionReferencia>\n";
+
+    return $xml_doc;
+  }
+
+  /**
+   * Generate the regulation for the xml document like Hacienda ask for it.
+   *
+   * @return string
+   *   Return the current regulation xml section as a text.
+   */
+  private function generateCurrentRegulationXml() {
+    $xml_doc = "\t<Normativa>\n";
+    $xml_doc .= "\t\t<NumeroResolucion>DGT-R-48-2016</NumeroResolucion>\n";
+    $xml_doc .= "\t\t<FechaResolucion>12-12-2016 08:08:12</FechaResolucion>\n";
+    $xml_doc .= "\t</Normativa>\n";
+    $xml_doc .= "\t<Otros>\n";
+    $xml_doc .= "\t\t<OtroTexto></OtroTexto>\n";
+    $xml_doc .= "\t</Otros>\n";
+
+    return $xml_doc;
+  }
+
+  /**
+   * Generate the "emisor" xml structure like Hacienda ask for it.
+   *
+   * @return string
+   *   Return the "emisor" in a string variable.
+   */
+  private function generateEmisorXml() {
+    $settings = \Drupal::config('e_invoice_cr.settings');
+    $province_code = substr($settings->get('postal_code'), 0, 1);
+    $canton_code = substr($settings->get('postal_code'), 1, 2);
+    $district_code = substr($settings->get('postal_code'), 3, 5);
+    $town_code = '01';
+
+    $country_code = substr($settings->get('phone'), 0, 3);
+    $phone_number = substr($settings->get('phone'), 3);
+    $fax_code = substr($settings->get('fax'), 0, 3);
+    $fax_number = substr($settings->get('fax'), 3);
+
+    $xml_doc = "\t<Emisor>\n";
+    $xml_doc .= "\t\t<Nombre>" . $settings->get('name') . "</Nombre>\n";
     $xml_doc .= "\t\t<Identificacion>\n";
-    $xml_doc .= "\t\t\t<Tipo>" . $emitter['id']['type'] . "</Tipo>\n";
-    $xml_doc .= "\t\t\t<Numero>" . $emitter['id']['number'] . "</Numero>\n";
+    $xml_doc .= "\t\t\t<Tipo>" . $settings->get('id_type') . "</Tipo>\n";
+    $xml_doc .= "\t\t\t<Numero>" . $settings->get('id') . "</Numero>\n";
     $xml_doc .= "\t\t</Identificacion>\n";
-    $xml_doc .= "\t\t<NombreComercial>" . $emitter['commercialName'] . "</NombreComercial>\n";
+    $xml_doc .= "\t\t<NombreComercial>" . $settings->get('commercial_name') . "</NombreComercial>\n";
     $xml_doc .= "\t\t<Ubicacion>\n";
-    $xml_doc .= "\t\t\t<Provincia>" . $emitter['address']['data1'] . "</Provincia>\n";
-    $xml_doc .= "\t\t\t<Canton>" . $emitter['address']['data2'] . "</Canton>\n";
-    $xml_doc .= "\t\t\t<Distrito>" . $emitter['address']['data3'] . "</Distrito>\n";
-    $xml_doc .= "\t\t\t<Barrio>" . $emitter['address']['data4'] . "</Barrio>\n";
-    $xml_doc .= "\t\t\t<OtrasSenas>" . $emitter['address']['data5'] . "</OtrasSenas>\n";
+    $xml_doc .= "\t\t\t<Provincia>" . $province_code . "</Provincia>\n";
+    $xml_doc .= "\t\t\t<Canton>" . $canton_code . "</Canton>\n";
+    $xml_doc .= "\t\t\t<Distrito>" . $district_code . "</Distrito>\n";
+    $xml_doc .= "\t\t\t<Barrio>" . $town_code . "</Barrio>\n";
+    $xml_doc .= "\t\t\t<OtrasSenas>" . $settings->get('address') . "</OtrasSenas>\n";
     $xml_doc .= "\t\t</Ubicacion>\n";
     $xml_doc .= "\t\t<Telefono>\n";
-    $xml_doc .= "\t\t\t<CodigoPais>" . $emitter['phone']['code'] . "</CodigoPais>\n";
-    $xml_doc .= "\t\t\t<NumTelefono>" . $emitter['phone']['number'] . "</NumTelefono>\n";
+    $xml_doc .= "\t\t\t<CodigoPais>" . $country_code . "</CodigoPais>\n";
+    $xml_doc .= "\t\t\t<NumTelefono>" . $phone_number . "</NumTelefono>\n";
     $xml_doc .= "\t\t</Telefono>\n";
-    if (!is_null($emitter['fax']['code']) && $emitter['fax']['code'] !== "") {
+    if (!is_null($fax_code) && $fax_code !== "") {
       $xml_doc .= "\t\t<Fax>\n";
-      $xml_doc .= "\t\t\t<CodigoPais>" . $emitter['fax']['code'] . "</CodigoPais>\n";
-      $xml_doc .= "\t\t\t<NumTelefono>" . $emitter['fax']['number'] . "</NumTelefono>\n";
+      $xml_doc .= "\t\t\t<CodigoPais>" . $fax_code . "</CodigoPais>\n";
+      $xml_doc .= "\t\t\t<NumTelefono>" . $fax_number . "</NumTelefono>\n";
       $xml_doc .= "\t\t</Fax>\n";
     }
-    $xml_doc .= "\t\t<CorreoElectronico>" . $emitter['email'] . "</CorreoElectronico>\n";
+    $xml_doc .= "\t\t<CorreoElectronico>" . $settings->get('email') . "</CorreoElectronico>\n";
     $xml_doc .= "\t</Emisor>\n";
-    // Starts 'Receptor'.
-    $xml_doc .= "\t<Receptor>\n";
+
+    return $xml_doc;
+  }
+
+  /**
+   * Generate the "receptor" xml structure like Hacienda ask for it.
+   *
+   * @return string
+   *   Return the "receptor" in a string variable.
+   */
+  private function generateReceptorXml(InvoiceEntity $entity) {
+    $client_id = $entity->get('field_cliente')->target_id;
+    $client = CustomerEntity::load($client_id);
+    $client_zip_code = $client->field_direccion_->getValue();
+
+    $xml_doc = "\t<Receptor>\n";
     $xml_doc .= "\t\t<Nombre>" . $client->get('name')->value . "</Nombre>\n";
     $xml_doc .= "\t\t<Identificacion>\n";
     $xml_doc .= "\t\t\t<Tipo>" . $client->get('field_tipo_de_identificacion')->value . "</Tipo>\n";
@@ -87,118 +281,103 @@ class XMLGenerator {
     }
     $xml_doc .= "\t\t<CorreoElectronico>" . $client->get('field_correo_electronico')->value . "</CorreoElectronico>\n";
     $xml_doc .= "\t</Receptor>\n";
-    $xml_doc .= "\t<CondicionVenta>" . $general_data['condition'] . "</CondicionVenta>\n";
-    $xml_doc .= "\t<PlazoCredito>" . $general_data['p_credit'] . "</PlazoCredito>\n";
-    $xml_doc .= "\t<MedioPago>" . $general_data['pay_type'] . "</MedioPago>\n";
-    $xml_doc .= "\t<DetalleServicio>\n";
-    // Print the rows in here.
-    foreach ($rows as $index => $item) {
-      if (is_numeric($index)) {
-        $count = $index + 1;
-        $values = $item['subform'];
-        $discount = $values['field_add_discount']['value'] ? $values['field_row_discount'][0]['value'] : 0;
-        $discount_reason = $values['field_add_discount']['value'] ? $values['field_discount_reason'][0]['value'] : "";
-        $tax_id = $values['field_impuesto'][0]['target_id'];
-        $entity_manager = \Drupal::entityManager();
-        $tax = $entity_manager->getStorage('tax_entity')->load($tax_id);
-        if ($tax !== NULL) {
-          $tax_mount = ($tax->get('field_tax_percentage')->value / 100) * $values['field_subtotal'][0]['value'];
+
+    return $xml_doc;
+  }
+
+  /**
+   * Generate the xml structure for a invoice row.
+   *
+   * @return string
+   *   Return the xml text from a row line of the invoice.
+   */
+  private function generateRowXml($index, array $row) {
+    $count = $index + 1;
+    $values = $row['subform'];
+    $discount = $values['field_add_discount']['value'] ? $values['field_row_discount'][0]['value'] : 0;
+    $discount_reason = $values['field_add_discount']['value'] ? $values['field_discount_reason'][0]['value'] : "";
+    $tax_id = $values['field_impuesto'][0]['target_id'];
+    $entity_manager = \Drupal::entityManager();
+    $tax = $entity_manager->getStorage('tax_entity')->load($tax_id);
+    if ($tax !== NULL) {
+      $tax_mount = ($tax->get('field_tax_percentage')->value / 100) * $values['field_subtotal'][0]['value'];
+    }
+    // Continue building the xml.
+    $xml_doc = "\t\t<LineaDetalle>\n";
+    $xml_doc .= "\t\t\t<NumeroLinea>" . $count . "</NumeroLinea>\n";
+    $xml_doc .= "\t\t\t<Codigo>\n";
+    $xml_doc .= "\t\t\t\t<Tipo>" . $values['field_code_type'][0]['value'] . "</Tipo>\n";
+    $xml_doc .= "\t\t\t\t<Codigo>" . $values['field_codigo'][0]['value'] . "</Codigo>\n";
+    $xml_doc .= "\t\t\t</Codigo>\n";
+    $xml_doc .= "\t\t\t<Cantidad>" . $values['field_cantidad'][0]['value'] . "</Cantidad>\n";
+    $xml_doc .= "\t\t\t<UnidadMedida>" . $values['field_unit_measure'][0]['value'] . "</UnidadMedida>\n";
+    $xml_doc .= "\t\t\t<UnidadMedidaComercial>" . $values['field_another_unit_measure'][0]['value'] . "</UnidadMedidaComercial>\n";
+    $xml_doc .= "\t\t\t<Detalle>" . $values['field_detalle'][0]['value'] . "</Detalle>\n";
+    $xml_doc .= "\t\t\t<PrecioUnitario>" . $values['field_preciounitario'][0]['value'] . "</PrecioUnitario>\n";
+    $xml_doc .= "\t\t\t<MontoTotal>" . $values['field_montototal'][0]['value'] . "</MontoTotal>\n";
+    if (!is_null($discount) && $discount > 0) {
+      $xml_doc .= "\t\t\t<MontoDescuento>" . $discount . "</MontoDescuento>\n";
+      $xml_doc .= "\t\t\t<NaturalezaDescuento>" . $discount_reason . "</NaturalezaDescuento>\n";
+    }
+    $xml_doc .= "\t\t\t<SubTotal>" . round($values['field_subtotal'][0]['value'], 5) . "</SubTotal>\n";
+    if ($tax !== NULL) {
+      if ($tax->get('field_tax_percentage')->value > 0) {
+        $xml_doc .= "\t\t\t<Impuesto>\n";
+        $xml_doc .= "\t\t\t\t<Codigo>" . $tax->get('field_tax_type')->value . "</Codigo>\n";
+        $xml_doc .= "\t\t\t\t<Tarifa>" . $tax->get('field_tax_percentage')->value . "</Tarifa>\n";
+        $xml_doc .= "\t\t\t\t<Monto>" . $tax_mount . '</Monto>' . "\n";
+
+        // Here exonerations data.
+        if ($tax->get("exoneration")->value) {
+          $xml_doc .= $this->addExonerationXml($tax, $tax_mount);
         }
-        // Continue building the xml.
-        $xml_doc .= "\t\t<LineaDetalle>\n";
-        $xml_doc .= "\t\t\t<NumeroLinea>" . $count . "</NumeroLinea>\n";
-        $xml_doc .= "\t\t\t<Codigo>\n";
-        $xml_doc .= "\t\t\t\t<Tipo>" . $values['field_tipo'][0]['value'] . "</Tipo>\n";
-        $xml_doc .= "\t\t\t\t<Codigo>" . $values['field_codigo'][0]['value'] . "</Codigo>\n";
-        $xml_doc .= "\t\t\t</Codigo>\n";
-        $xml_doc .= "\t\t\t<Cantidad>" . $values['field_cantidad'][0]['value'] . "</Cantidad>\n";
-        $xml_doc .= "\t\t\t<UnidadMedida>" . $values['field_unit_measure'][0]['value'] . "</UnidadMedida>\n";
-        $xml_doc .= "\t\t\t<UnidadMedidaComercial>" . $values['field_another_unit_measure'][0]['value'] . "</UnidadMedidaComercial>\n";
-        $xml_doc .= "\t\t\t<Detalle>" . $values['field_detalle'][0]['value'] . "</Detalle>\n";
-        $xml_doc .= "\t\t\t<PrecioUnitario>" . $values['field_preciounitario'][0]['value'] . "</PrecioUnitario>\n";
-        $xml_doc .= "\t\t\t<MontoTotal>" . $values['field_montototal'][0]['value'] . "</MontoTotal>\n";
-        if (!is_null($discount) && $discount > 0) {
-          $xml_doc .= "\t\t\t<MontoDescuento>" . $discount . "</MontoDescuento>\n";
-          $xml_doc .= "\t\t\t<NaturalezaDescuento>" . $discount_reason . "</NaturalezaDescuento>\n";
-        }
-        $xml_doc .= "\t\t\t<SubTotal>" . round($values['field_subtotal'][0]['value'], 5) . "</SubTotal>\n";
-        if ($tax !== NULL) {
-          if ($tax->get('field_tax_percentage')->value > 0) {
-            $xml_doc .= "\t\t\t<Impuesto>\n";
-            $xml_doc .= "\t\t\t\t<Codigo>" . $tax->get('field_tax_type')->value . "</Codigo>\n";
-            $xml_doc .= "\t\t\t\t<Tarifa>" . $tax->get('field_tax_percentage')->value . "</Tarifa>\n";
-            $xml_doc .= "\t\t\t\t<Monto>" . $tax_mount . '</Monto>' . "\n";
-            // Here exonerations data.
-            $xml_doc .= "\t\t\t</Impuesto>\n";
-          }
-        }
-        $xml_doc .= "\t\t\t<MontoTotalLinea>" . round($values['field_monto_total_linea'][0]['value'], 5) . "</MontoTotalLinea>\n";
-        $xml_doc .= "\t\t</LineaDetalle>\n";
-        // Save the ones with tax.
-        if ($tax_mount !== "" && $tax_mount > 0 && $tax_mount !== NULL) {
-          if ($values['field_tipo'][0]['value'] === "01") {
-            $total_prod_with_tax = $total_prod_with_tax + (int) round($values['field_montototal'][0]['value'], 5);
-            $total_prod++;
-          }
-          else {
-            $total_serv_with_tax = $total_serv_with_tax + (int) round($values['field_montototal'][0]['value'], 5);
-            $total_services++;
-          }
-        }
-        else {
-          // Save the ones without tax.
-          if ($values['field_tipo'][0]['value'] === "01") {
-            $total_prod_without_tax = $total_prod_without_tax + (int) round($values['field_montototal'][0]['value'], 5);
-            $total_services++;
-          }
-          else {
-            $total_serv_without_tax = $total_serv_without_tax + (int) round($values['field_montototal'][0]['value'], 5);
-            $total_services++;
-          }
-        }
+        $xml_doc .= "\t\t\t</Impuesto>\n";
       }
     }
-    $total_with_tax = $total_serv_with_tax + $total_prod_with_tax;
-    $total_without_tax = $total_serv_without_tax + $total_prod_without_tax;
-    $total_sale = $total_with_tax + $total_without_tax;
-    $xml_doc .= "\t</DetalleServicio>\n";
-    $xml_doc .= "\t<ResumenFactura>\n";
-    $xml_doc .= "\t\t<CodigoMoneda>" . strtoupper($currency) . "</CodigoMoneda>\n";
-    // No supported at the moment (*).
-    $xml_doc .= "\t\t<TipoCambio>0</TipoCambio>\n";
-    $xml_doc .= "\t\t<TotalServGravados>" . $total_serv_with_tax . "</TotalServGravados>\n";
-    $xml_doc .= "\t\t<TotalServExentos>" . $total_serv_without_tax . "</TotalServExentos>\n";
-    $xml_doc .= "\t\t<TotalMercanciasGravadas>" . $total_prod_with_tax . "</TotalMercanciasGravadas>\n";
-    $xml_doc .= "\t\t<TotalMercanciasExentas>" . $total_prod_without_tax . "</TotalMercanciasExentas>\n";
-    $xml_doc .= "\t\t<TotalGravado>" . $total_with_tax . "</TotalGravado>\n";
-    $xml_doc .= "\t\t<TotalExento>" . $total_without_tax . "</TotalExento>\n";
-    $xml_doc .= "\t\t<TotalVenta>" . $total_sale . "</TotalVenta>\n";
-    $xml_doc .= "\t\t<TotalDescuentos>" . $general_data['t_discount'] . "</TotalDescuentos>\n";
-    $xml_doc .= "\t\t<TotalVentaNeta>" . $general_data['t_sale'] . "</TotalVentaNeta>\n";
-    $xml_doc .= "\t\t<TotalImpuesto>" . $general_data['t_tax'] . "</TotalImpuesto>\n";
-    $xml_doc .= "\t\t<TotalComprobante>" . $general_data['t_invoice'] . "</TotalComprobante>\n";
-    $xml_doc .= "\t</ResumenFactura>\n";
-    $xml_doc .= "\t<InformacionReferencia>\n";
-    // 01 because it's an invoice.
-    $xml_doc .= "\t\t<TipoDoc>" . $general_data['type_doc'] . "</TipoDoc>\n";
-    $xml_doc .= "\t\t<Numero>" . $general_data['key'] . "</Numero>\n";
-    $xml_doc .= "\t\t<FechaEmision>" . $general_data['date'] . "</FechaEmision>\n";
-    $xml_doc .= "\t\t<Codigo>02</Codigo>\n";
-    $xml_doc .= "\t\t<Razon>a</Razon>\n";
-    $xml_doc .= "\t</InformacionReferencia>\n";
-    $xml_doc .= "\t<Normativa>\n";
-    $xml_doc .= "\t\t<NumeroResolucion>DGT-R-48-2016</NumeroResolucion>\n";
-    $xml_doc .= "\t\t<FechaResolucion>12-12-2016 08:08:12</FechaResolucion>\n";
-    $xml_doc .= "\t</Normativa>\n";
-    $xml_doc .= "\t<Otros>\n";
-    $xml_doc .= "\t\t<OtroTexto></OtroTexto>\n";
-    $xml_doc .= "\t</Otros>\n";
-    $xml_doc .= "</" . $tagname . ">\n";
+    $xml_doc .= "\t\t\t<MontoTotalLinea>" . round($values['field_monto_total_linea'][0]['value'], 5) . "</MontoTotalLinea>\n";
+    $xml_doc .= "\t\t</LineaDetalle>\n";
 
-    // Create the xml document.
-    $doc = new DOMDocument();
-    $doc->loadXML($xml_doc);
-    return $doc;
+    return $xml_doc;
+  }
+
+  /**
+   * Generate the xml structure for a exoneration.
+   *
+   * @param \Drupal\tax_entity\Entity\TaxEntity $tax
+   *   The tax entity whom own the exoneration.
+   * @param float $tax_amount
+   *   The taxonomy current amount.
+   *
+   * @return string
+   *   Return the exoneration xml structure.
+   */
+  private function addExonerationXml(TaxEntity $tax, $tax_amount) {
+    $amount = $tax_amount * ($tax->get('ex_percentage')->value / 100);
+
+    $xml_text = str_repeat("\t", 4) . "<Exoneracion>\n";
+    $xml_text .= str_repeat("\t", 5) . "<TipoDocumento>" . $tax->get('ex_document_type')->value . "</TipoDocumento>\n";
+    $xml_text .= str_repeat("\t", 5) . "<NumeroDocumento>" . $tax->get('ex_document_number')->value . "</NumeroDocumento>\n";
+    $xml_text .= str_repeat("\t", 5) . "<NombreInstitucion>" . $tax->get('ex_institution')->value . "</NombreInstitucion>\n";
+    $xml_text .= str_repeat("\t", 5) . "<FechaEmision>" . $this->formatDateForXml($tax->get('ex_date')->value) . "</FechaEmision>\n";
+    $xml_text .= str_repeat("\t", 5) . "<MontoImpuesto>" . $amount . "</MontoImpuesto>\n";
+    $xml_text .= str_repeat("\t", 5) . "<PorcentajeCompra>" . $tax->get('ex_percentage')->value . "</PorcentajeCompra>\n";
+    $xml_text .= str_repeat("\t", 4) . "</Exoneracion>\n";
+
+    return $xml_text;
+  }
+
+  /**
+   * Function to return the date on the format that is hacienda asking for.
+   *
+   * @param string $date_text
+   *   String with the date.
+   *
+   * @return string
+   *   Return format date.
+   */
+  private function formatDateForXml($date_text) {
+    $date_object = strtotime($date_text);
+    return \Drupal::service('date.formatter')->format($date_object, 'date_text', 'c');
   }
 
 }

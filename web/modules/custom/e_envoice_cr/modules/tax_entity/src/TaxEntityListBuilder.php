@@ -19,6 +19,8 @@ class TaxEntityListBuilder extends EntityListBuilder {
   public function buildHeader() {
     $header['id'] = $this->t('Tax entity ID');
     $header['name'] = $this->t('Name');
+    $header['percentage'] = $this->t('Percentage (%)');
+    $header['ex_percentage'] = $this->t('Exoneration (%)');
     return $header + parent::buildHeader();
   }
 
@@ -33,6 +35,10 @@ class TaxEntityListBuilder extends EntityListBuilder {
       'entity.tax_entity.edit_form',
       ['tax_entity' => $entity->id()]
     );
+    $row['percentage'] = $entity->get('field_tax_percentage')->value . '%';
+    $row['ex_exoneration'] = !empty($entity->get('ex_percentage')->value) ?
+      $entity->get('ex_percentage')->value . '%' : 'N/A';
+
     return $row + parent::buildRow($entity);
   }
 

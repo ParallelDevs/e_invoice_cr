@@ -1,0 +1,36 @@
+uuid: 90e4a878-b37b-4ba9-9762-b7d4e4deceac
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_code_type
+field_name: field_code_type
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '01'
+      label: 'Código del producto del vendedor'
+    -
+      value: '02'
+      label: 'Código del producto del comprador'
+    -
+      value: '03'
+      label: 'Código del producto asignado por la industria'
+    -
+      value: '04'
+      label: 'Código uso interno'
+    -
+      value: '99'
+      label: Otros
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

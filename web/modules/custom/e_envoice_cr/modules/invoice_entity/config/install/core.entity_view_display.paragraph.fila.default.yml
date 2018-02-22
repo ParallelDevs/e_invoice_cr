@@ -1,3 +1,4 @@
+uuid: 8e6ec096-b107-4803-b414-5ac813427d2a
 langcode: en
 status: true
 dependencies:
@@ -5,6 +6,7 @@ dependencies:
     - field.field.paragraph.fila.field_add_discount
     - field.field.paragraph.fila.field_another_unit_measure
     - field.field.paragraph.fila.field_cantidad
+    - field.field.paragraph.fila.field_code_type
     - field.field.paragraph.fila.field_codigo
     - field.field.paragraph.fila.field_detalle
     - field.field.paragraph.fila.field_discount_percentage
@@ -18,21 +20,20 @@ dependencies:
     - field.field.paragraph.fila.field_tipo
     - field.field.paragraph.fila.field_unit_measure
     - paragraphs.paragraphs_type.fila
-  module:
-    - options
-    - invoice_entity
   enforced:
     module:
       - invoice_entity
+  module:
+    - options
 _core:
-  default_config_hash: 0qTiUO4VNVmhZoRYhLJF2Cpn0FvwWhBgLwN7-ioiFO0
+  default_config_hash: rzCrcBUkGBbgu0WlQCHRoaYhBJlj14OQQjCL4JcbRdw
 id: paragraph.fila.default
 targetEntityType: paragraph
 bundle: fila
 mode: default
 content:
   field_another_unit_measure:
-    weight: 3
+    weight: 4
     label: above
     settings:
       link_to_entity: false
@@ -48,6 +49,13 @@ content:
     third_party_settings: {  }
     type: number_integer
     region: content
+  field_code_type:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
   field_codigo:
     weight: 1
     label: above
@@ -57,7 +65,7 @@ content:
     type: string
     region: content
   field_detalle:
-    weight: 4
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -65,7 +73,7 @@ content:
     region: content
   field_discount_percentage:
     type: number_integer
-    weight: 5
+    weight: 7
     region: content
     label: above
     settings:
@@ -74,13 +82,13 @@ content:
     third_party_settings: {  }
   field_discount_reason:
     type: basic_string
-    weight: 5
+    weight: 8
     region: content
     label: above
     settings: {  }
     third_party_settings: {  }
   field_impuesto:
-    weight: 7
+    weight: 10
     label: above
     settings:
       link: true
@@ -88,7 +96,7 @@ content:
     type: entity_reference_label
     region: content
   field_monto_total_linea:
-    weight: 9
+    weight: 12
     label: above
     settings:
       thousand_separator: ''
@@ -99,7 +107,7 @@ content:
     type: number_decimal
     region: content
   field_montototal:
-    weight: 6
+    weight: 9
     label: above
     settings:
       thousand_separator: ''
@@ -110,7 +118,7 @@ content:
     type: number_decimal
     region: content
   field_preciounitario:
-    weight: 4
+    weight: 6
     label: above
     settings:
       thousand_separator: ''
@@ -121,7 +129,7 @@ content:
     type: number_decimal
     region: content
   field_subtotal:
-    weight: 8
+    weight: 11
     label: above
     settings:
       thousand_separator: ''
@@ -131,15 +139,8 @@ content:
     third_party_settings: {  }
     type: number_decimal
     region: content
-  field_tipo:
-    weight: 0
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
   field_unit_measure:
-    weight: 2
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -151,3 +152,4 @@ hidden:
   entity_print_view_word_docx: true
   field_add_discount: true
   field_row_discount: true
+  field_tipo: true

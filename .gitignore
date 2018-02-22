@@ -49,3 +49,6 @@ nbproject
 ._*
 .DS*
 *.tmp
+
+# Ignore sync configuration files.
+config/sync/*

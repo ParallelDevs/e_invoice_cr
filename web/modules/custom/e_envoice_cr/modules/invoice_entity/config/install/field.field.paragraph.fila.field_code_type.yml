@@ -1,0 +1,21 @@
+uuid: 5bd1f30a-dc92-4727-b325-edea882f2cbb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_code_type
+    - paragraphs.paragraphs_type.fila
+  module:
+    - options
+id: paragraph.fila.field_code_type
+field_name: field_code_type
+entity_type: paragraph
+bundle: fila
+label: 'Code Type'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
