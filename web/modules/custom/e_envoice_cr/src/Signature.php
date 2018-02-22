@@ -24,8 +24,9 @@ class Signature implements SignatureInterface {
         $pass = $settings->get('cert_password');
         $doc_path = $base_path . "xml/";
         $signed_path = $base_path . "xml_signed/";
+        $doc_name = "document";
         // Build the java command.
-        $command = 'java -jar java-xades4j-signer.jar ' . $cert_path . ' "' . $pass . '" ' . $doc_path . ' ' . $signed_path . ' 2>&1';
+        $command = 'java -jar java-xades4j-signer.jar ' . $cert_path . ' "' . $pass . '" ' . $doc_path . ' ' . $signed_path . ' ' . $doc_name . ' 2>&1';
         // Execute the command.
         exec($command, $response);
         // Send the response.
