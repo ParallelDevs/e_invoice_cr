@@ -9,7 +9,6 @@ use Drupal\e_invoice_cr\Communication;
 use Drupal\e_invoice_cr\Signature;
 use Drupal\invoice_email\InvoiceEmailEvent;
 use Drupal\e_invoice_cr\XMLGenerator;
-use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 
 /**
  * Form controller for Invoice edit forms.
@@ -198,6 +197,9 @@ class InvoiceEntityForm extends ContentEntityForm {
     return TRUE;
   }
 
+  /**
+   * Check if the payment method is needed for this type of entity.
+   */
   private function checkPaymentMethod(FormStateInterface &$form_state) {
     $type_of = $form_state->getValue('type_of')[0]['value'];
     $payment_method = $form_state->getValue('field_medio_de_pago')[0]['value'];
