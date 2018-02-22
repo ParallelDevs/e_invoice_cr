@@ -124,16 +124,22 @@ class InvoiceEntityForm extends ContentEntityForm {
       $xml->saveXML();
       // Create dir.
       $path = "public://xml/";
+      $user_current = \Drupal::currentUser();
+      $id_cons = $this->entity->get('field_consecutivo')->value;
+      $doc_name = "document-" . $user_current->id() . "-" . $id_cons;
       file_prepare_directory($path, FILE_CREATE_DIRECTORY);
-      $result = $xml->save('public://xml/document.xml', LIBXML_NOEMPTYTAG);
+      $result = $xml->save('public://xml/' . $doc_name . ".xml", LIBXML_NOEMPTYTAG);
 
       // Sign document.
       $signature = new Signature();
-      $response = $signature->signDocument();
+      $response = $signature->signDocument($doc_name);
 
-      if (strpos($response, "Error") !== FALSE || strpos($response, "Failed") !== FALSE) {
-        $message = t('There were errors during the signature process, the signature could be wrong.');
-        drupal_set_message($message, 'warning');
+      // Look for possibles errors.
+      foreach ($response as $item) {
+        if ((strpos($item,'Error') !== false) ||(strpos($item,'Failed') !== false)) {
+          $message = t('There were errors during the signature process, the signature could be wrong.');
+          drupal_set_message($message, 'warning');
+        }
       }
 
       // Send document to API.
@@ -147,7 +153,7 @@ class InvoiceEntityForm extends ContentEntityForm {
       ];
       $communication = new Communication();
       // Get the document.
-      $doc_uri = DRUPAL_ROOT . '/sites/default/files/xml_signed/xades_epes_segned.xml';
+      $doc_uri = DRUPAL_ROOT . '/sites/default/files/xml_signed/' . $doc_name . 'segned.xml';
       // Get the xml content.
       $document = file_get_contents($doc_uri);
       // Sent the document.
