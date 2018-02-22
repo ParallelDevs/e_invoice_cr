@@ -184,6 +184,7 @@ class InvoiceEntityForm extends ContentEntityForm {
           // Show a success message.
           $message = t('The electronic document was sent to its verification.');
           drupal_set_message($message, 'status');
+          $invoice_service->increaseValues();
         }
         $invoice_service->updateValues();
       }
