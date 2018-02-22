@@ -7,7 +7,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\customer_entity\Entity\CustomerEntity;
 use Drupal\e_invoice_cr\Communication;
 use Drupal\e_invoice_cr\Signature;
-use Drupal\invoice_email\InvoiceEmailEvent;
 use Drupal\e_invoice_cr\XMLGenerator;
 
 /**
@@ -174,14 +173,6 @@ class InvoiceEntityForm extends ContentEntityForm {
         return FALSE;
       }
     }
-
-    // Load the Symfony event dispatcher object through services.
-    $dispatcher = \Drupal::service('event_dispatcher');
-    // Creating our event class object.
-    $event = new InvoiceEmailEvent($form_state->getValue('name'));
-    // Dispatching the event through the ‘dispatch’  method,
-    // Passing event name and event object ‘$event’ as parameters.
-    $dispatcher->dispatch(InvoiceEmailEvent::SUBMIT, $event);
 
     return TRUE;
   }

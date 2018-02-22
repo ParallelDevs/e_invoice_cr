@@ -5,6 +5,7 @@ namespace Drupal\invoice_entity;
 use Drupal\e_invoice_cr\Communication;
 use Drupal\invoice_entity\Entity\InvoiceEntity;
 use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
+use Drupal\invoice_email\InvoiceEmailEvent;
 
 /**
  * Class InvoiceService.
@@ -99,6 +100,15 @@ class InvoiceService implements InvoiceServiceInterface {
       $state = $result[2] === 'rechazado' ? 'rejected' : 'published';
       $entity->set('moderation_state', $state);
       $entity->save();
+      if ($state === 'published') {
+        // Load the Symfony event dispatcher object through services.
+        $dispatcher = \Drupal::service('event_dispatcher');
+        // Creating our event class object.
+        $event = new InvoiceEmailEvent("123123" , $entity->id());
+        // Dispatching the event through the ‘dispatch’  method,
+        // Passing event name and event object ‘$event’ as parameters.
+        $dispatcher->dispatch(InvoiceEmailEvent::SUBMIT, $event);
+      }
     }
 
     return [
