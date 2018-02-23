@@ -124,9 +124,12 @@ content:
     region: content
   field_cliente:
     weight: 4
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: options_buttons
+    type: entity_reference_autocomplete
     region: content
   field_condicion_venta:
     weight: 3
