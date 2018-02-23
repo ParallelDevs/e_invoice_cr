@@ -17,7 +17,7 @@
       $('input[id*="discount-percentage"]').on('keyup change', updateInvoiceValues);
       $('input[id*="field-adddis"]').on('keyup change', updateInvoiceValues);
       $('select[id*="subform-field-impuesto"]').on('keyup change', updateInvoiceValues);
-      $('#edit-type-of').on('change', checkPaymentMethodRequirement);
+      $('#edit-type-of').on('change', checkFieldConditions);
 
       // Calculate the fields needed.
       updateInvoiceValues();
@@ -91,10 +91,20 @@
     return index;
   }
 
-  function checkPaymentMethodRequirement() {
-    var element = $('.form-item-field-medio-de-pago label');
+  function checkFieldConditions() {
+    checkDependentField('field-medio-de-pago', ['FE', 'TE']);
+    checkDependentField('ref-type-of', ['NC', 'ND']);
+    checkDependentField('ref-doc-key', ['NC', 'ND']);
+    checkDependentField('ref-date', ['NC', 'ND']);
+    checkDependentField('ref-code', ['NC', 'ND']);
+    checkDependentField('ref-reason', ['NC', 'ND']);
+  }
+
+  function checkDependentField(name, types) {
+    var classElement = '.field--name-' + name;
+    var element = $(classElement + ' label');
     var type = $('#edit-type-of').val();
-    var isRequired = type == 'FE' || type == 'TE';
+    var isRequired = types.includes(type);
 
     if (isRequired && !element.hasClass('form-required')) {
       element.addClass('form-required');

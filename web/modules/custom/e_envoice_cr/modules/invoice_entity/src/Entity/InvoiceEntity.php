@@ -259,6 +259,74 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    // Reference Information fields.
+    $fields['ref_type_of'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Type of document'))
+      ->setRevisionable(FALSE)
+      ->setTranslatable(FALSE)
+      ->setSettings([
+        'allowed_values' => [
+          'FE' => t('Electronic Bill'),
+          'TE' => t('Electronic Ticket'),
+          'NC' => t('Credit Note'),
+          'ND' => t('Debit Note'),
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['ref_doc_key'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Document Number'))
+      ->setRevisionable(FALSE)
+      ->setTranslatable(FALSE)
+      ->setSettings([
+        'max_length' => 50,
+        'text_processing' => 0,
+      ])
+      ->setDefaultValue('')
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['ref_date'] = BaseFieldDefinition::create('datetime')
+      ->setLabel(t('Date'))
+      ->setRevisionable(FALSE)
+      ->setTranslatable(FALSE)
+      ->setDefaultValue('')
+      ->setDisplayOptions('form', [
+        'date_date_element' => 'date',
+        'date_date_format' => 'd/m/Y',
+        'date_time_element' => 'none',
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['ref_code'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Type of reference'))
+      ->setRevisionable(FALSE)
+      ->setTranslatable(FALSE)
+      ->setSettings([
+        'allowed_values' => [
+          '01' => t('Anula Documento de Referencia'),
+          '02' => t('Corrige texto documento de referencia'),
+          '03' => t('Corrige monto'),
+          '04' => t('Referencia a otro documento'),
+          '05' => t('Sustituye comprobante provisional por contingencia.'),
+          '99' => t('Otros'),
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['ref_reason'] = BaseFieldDefinition::create('string_long')
+      ->setLabel('Reason')
+      ->setRevisionable(FALSE)
+      ->setTranslatable(FALSE)
+      ->setSettings([
+        'max_length' => 180,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))
       ->setDescription(t('A boolean indicating whether the Invoice is published.'))
