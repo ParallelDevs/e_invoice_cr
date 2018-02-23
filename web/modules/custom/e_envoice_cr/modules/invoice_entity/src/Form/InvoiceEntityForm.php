@@ -43,7 +43,12 @@ class InvoiceEntityForm extends ContentEntityForm {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $entity = parent::validateForm($form, $form_state);
-    $this->checkPaymentMethod($form_state);
+    $this->checkFieldConditionByTypes($form_state, 'field_metodo_pago', [
+      'FE',
+      'TE',
+    ], 'If you document is a Electronic Bill or Electronic Ticket. You need to specify the payment method.');
+
+    $this->checkReferenceInformationRequired($form_state);
 
     return $entity;
   }
@@ -205,15 +210,42 @@ class InvoiceEntityForm extends ContentEntityForm {
   }
 
   /**
-   * Check if the payment method is needed for this type of entity.
+   * Validate if the fields inside of the reference information are need.
    */
-  private function checkPaymentMethod(FormStateInterface &$form_state) {
-    $type_of = $form_state->getValue('type_of')[0]['value'];
-    $payment_method = $form_state->getValue('field_medio_de_pago')[0]['value'];
-    $required_method = $type_of == 'FE' || $type_of == 'TE';
+  private function checkReferenceInformationRequired(FormStateInterface $form_state) {
+    $message = t('If you document is an Credit Note or Debit Note. You need to fill all the fields in the Reference Information section.');
+    $require_in = ['NC', 'ND'];
+    $fields = [
+      'ref_type_of',
+      'ref_doc_key',
+      'ref_date',
+      'ref_code',
+      'ref_reason',
+    ];
 
-    if ($required_method && ($payment_method == NULL && empty($payment_method))) {
-      $form_state->setErrorByName('field_medio_de_pago', t('If you document is a Electronic Bill or Electronic Ticket. You need to specify the payment method.'));
+    foreach ($fields as $field) {
+      $this->checkFieldConditionByTypes($form_state, $field, $require_in, $message);
+    }
+  }
+
+  /**
+   * Check if the field is required regarding the type of the document.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param string $field
+   *   The field to check.
+   * @param array $types
+   *   The documents type where the field is required.
+   * @param string $error_message
+   *   The error message if the field is required and is not filled.
+   */
+  private function checkFieldConditionByTypes(FormStateInterface &$form_state, $field, array $types, $error_message) {
+    $type_of = $form_state->getValue('type_of')[0]['value'];
+    $required = in_array($type_of, $types);
+    $value = $form_state->getValue($field)[0]['value'];
+    if ($required && (is_null($value) || empty($value))) {
+      $form_state->setErrorByName($field, $error_message);
     }
   }
 

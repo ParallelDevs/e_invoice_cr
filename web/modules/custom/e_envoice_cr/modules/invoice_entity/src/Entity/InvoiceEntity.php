@@ -259,7 +259,7 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    // Reference Information fields
+    // Reference Information fields.
     $fields['ref_type_of'] = BaseFieldDefinition::create('list_string')
       ->setLabel(t('Type of document'))
       ->setRevisionable(FALSE)
@@ -293,9 +293,9 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
       ->setTranslatable(FALSE)
       ->setDefaultValue('')
       ->setDisplayOptions('form', [
-          'date_date_element' => 'date',
-          'date_date_format' => 'd/m/Y',
-          'date_time_element' => 'none',
+        'date_date_element' => 'date',
+        'date_date_format' => 'd/m/Y',
+        'date_time_element' => 'none',
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
