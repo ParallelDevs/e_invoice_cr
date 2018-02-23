@@ -204,3 +204,27 @@ function invoice_entity_get_tax_info() {
   }
   return $tax_info;
 }
+
+/**
+ * Implements hook_field_display_alter().
+ */
+function invoice_entity_preprocess_field(&$variables, $hook) {
+  if ($variables['entity_type'] === "invoice_entity" || $variables['entity_type'] === "paragraph") {
+    $name = $variables['field_name'];
+    $fields = [
+      "field_total_ventaneta",
+      "field_total_impuesto",
+      "field_totalcomprobante",
+      "field_total_discount",
+      "field_preciounitario",
+      "field_montototal",
+      "field_subtotal",
+      "field_monto_total_linea"
+    ];
+    if (in_array($name, $fields)) {
+      $settings = \Drupal::config('e_invoice_cr.settings');
+      $currency = $settings->get("currency") === "crc" ? " ₡" : " $";
+      $variables['label'] = $variables['label'] . $currency;
+    }
+  }
+}

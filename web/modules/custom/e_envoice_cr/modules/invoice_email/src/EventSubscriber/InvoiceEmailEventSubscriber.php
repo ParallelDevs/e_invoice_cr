@@ -48,7 +48,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
           $details = $detail . "\n";
         }
         global $base_url;
-        $pdfUrl = $base_url . "/print/pdf/invoice_entity/" . $entityId;
+        $pdfUrl = $base_url . "/print/pdf/invoice_entity/" . $entityId . "?orientation=landscape";
         $message = t("This is the confirmation of an invoice generated.\nInvoice details: \n@details\nTo see the complete pdf invoice go to: @url",
           ['@details' => $details, '@url' => $pdfUrl]);
 
