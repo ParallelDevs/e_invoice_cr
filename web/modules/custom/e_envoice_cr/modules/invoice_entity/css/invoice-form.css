@@ -74,3 +74,10 @@
   padding-top: 10px;
   border-top: 1px solid #b8b8b8;
 }
+
+.invoice-reference-information .field--name-ref-type-of,
+.invoice-reference-information .field--name-ref-doc-key,
+.invoice-reference-information .field--name-ref-date,
+.invoice-reference-information .field--name-ref-code {
+  display: inline-block;
+}
