@@ -168,16 +168,17 @@ class XMLGenerator {
    *   Return the reference information xml section as a text.
    */
   private function generateReferenceInfoXml(InvoiceEntity $entity) {
-    $type_of = $entity->get('type_of')->value;
-
-    $xml_doc = "\t<InformacionReferencia>\n";
-    $xml_doc .= "\t\t<TipoDoc>" . InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['code'] . "</TipoDoc>\n";
-    $xml_doc .= "\t\t<Numero>" . $entity->get('field_clave_numerica')->value . "</Numero>\n";
-    $xml_doc .= "\t\t<FechaEmision>" . $this->formatDateForXml($entity->get('field_fecha_emision')->value) . "</FechaEmision>\n";
-    $xml_doc .= "\t\t<Codigo>02</Codigo>\n";
-    $xml_doc .= "\t\t<Razon>a</Razon>\n";
-    $xml_doc .= "\t</InformacionReferencia>\n";
-
+    $type_of = $entity->get('ref_type_of')->value;
+    $xml_doc = "";
+    if ($type_of != NULL) {
+      $xml_doc .= "\t<InformacionReferencia>\n";
+      $xml_doc .= "\t\t<TipoDoc>" . InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['code'] . "</TipoDoc>\n";
+      $xml_doc .= "\t\t<Numero>" . $entity->get('ref_doc_key')->value . "</Numero>\n";
+      $xml_doc .= "\t\t<FechaEmision>" . $this->formatDateForXml($entity->get('ref_date')->value) . "</FechaEmision>\n";
+      $xml_doc .= "\t\t<Codigo>" . $entity->get('ref_code')->value . "</Codigo>\n";
+      $xml_doc .= "\t\t<Razon>" . $entity->get('ref_reason')->value . "</Razon>\n";
+      $xml_doc .= "\t</InformacionReferencia>\n";
+    }
     return $xml_doc;
   }
 
