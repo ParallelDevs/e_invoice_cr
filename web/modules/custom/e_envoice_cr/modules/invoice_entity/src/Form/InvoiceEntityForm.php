@@ -8,6 +8,7 @@ use Drupal\customer_entity\Entity\CustomerEntity;
 use Drupal\e_invoice_cr\Communication;
 use Drupal\e_invoice_cr\Signature;
 use Drupal\e_invoice_cr\XMLGenerator;
+use Drupal\tax_entity\Entity\TaxEntity;
 
 /**
  * Form controller for Invoice edit forms.
@@ -34,7 +35,80 @@ class InvoiceEntityForm extends ContentEntityForm {
 
     $entity = $this->entity;
 
+    $this->invoiceFormStructure($form, $form_state);
+
     return $form;
+  }
+
+  /**
+   * Give to the invoice form the structure need it.
+   */
+  private function invoiceFormStructure(array &$form, FormStateInterface $form_state) {
+    /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
+    $invoice_service = \Drupal::service('invoice_entity.service');
+
+    // The library.
+    $form['#attached']['library'][] = 'invoice_entity/invoice-rows';
+    $form['#attached']['library'][] = 'invoice_entity/invoice-rows-js';
+    // Get all tax entities.
+    $tax_info = $this->getMainTaxesInfo();
+
+    $form['#attached']['drupalSettings']['taxsObject'] = $tax_info;
+    // Get default currency.
+    $settings = \Drupal::config('e_invoice_cr.settings');
+    if (!isset($settings) && is_null($settings)) {
+      invoice_entity_config_error();
+      // Disable the submit button.
+      $form['actions']['submit']['#disabled'] = TRUE;
+    }
+
+    $form['field_clave_numerica']['#disabled'] = 'disabled';
+    $form['field_consecutivo']['#disabled'] = 'disabled';
+    if ($this->entity->isNew()) {
+      // Generate the invoice keys.
+      $type_of = $form_state->getUserInput()['type_of'];
+      $key = $type_of ? $invoice_service->getUniqueInvoiceKey($type_of) : $invoice_service->getUniqueInvoiceKey();
+      if ($key == NULL) {
+        invoice_entity_config_error();
+      }
+      else {
+        $invoice_service->updateValues();
+      }
+      $form['field_clave_numerica']['widget'][0]['value']['#default_value'] = $key;
+      $form['field_consecutivo']['widget'][0]['value']['#default_value'] = $invoice_service->generateConsecutive($type_of);
+    }
+    $this->formatField($form['field_total_discount']['widget'][0]['value'], TRUE, TRUE);
+    $this->formatField($form['field_total_ventaneta']['widget'][0]['value'], TRUE, TRUE);
+    $this->formatField($form['field_total_impuesto']['widget'][0]['value'], TRUE, TRUE);
+    $this->formatField($form['field_totalcomprobante']['widget'][0]['value'], TRUE, TRUE);
+    $this->formatField($form['field_total_impuesto']['widget'][0]['value'], FALSE, TRUE);
+    $visible = [
+      'select[id="edit-field-condicion-venta"]' => ['value' => '02'],
+    ];
+    $form['field_plazo_credito']['widget'][0]['value']['#states']['visible'] = $visible;
+    for ($i = 0; $i >= 0; $i++) {
+      if (array_key_exists($i, $form['field_filas']['widget'])) {
+        // Rows.
+        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_preciounitario']['widget'][0]['value'], TRUE, FALSE);
+        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_monto_total_linea']['widget'][0]['value'], FALSE, TRUE);
+        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_montototal']['widget'][0]['value'], FALSE, TRUE);
+        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_subtotal']['widget'][0]['value'], FALSE, TRUE);
+        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_row_discount']['widget'][0]['value'], FALSE, TRUE);
+        $visible_condition = [
+          ':input[id="field-adddis-' . $i . '"]' => ['checked' => TRUE],
+        ];
+        $form['field_filas']['widget'][$i]['subform']['field_add_discount']['widget']['value']['#attributes']['id'] = 'field-adddis-' . $i;
+        $form['field_filas']['widget'][$i]['subform']['field_discount_percentage']['widget'][0]['value']['#states']['visible'] = $visible_condition;
+        $form['field_filas']['widget'][$i]['subform']['field_discount_reason']['widget'][0]['value']['#states']['visible'] = $visible_condition;
+        $visible = [
+          'select[data-drupal-selector="edit-field-filas-' . $i . '-subform-field-unit-measure"]' => ['value' => 'Otros'],
+        ];
+        $form['field_filas']['widget'][$i]['subform']['field_another_unit_measure']['widget'][0]['value']['#states']['visible'] = $visible;
+      }
+      else {
+        break;
+      }
+    }
   }
 
   /**
@@ -124,6 +198,7 @@ class InvoiceEntityForm extends ContentEntityForm {
     else {
       /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
       $invoice_service = \Drupal::service('invoice_entity.service');
+
       $settings = \Drupal::config('e_invoice_cr.settings');
       $date_text = $this->entity->get('field_fecha_emision')->value;
       $date_object = strtotime($date_text);
@@ -204,7 +279,8 @@ class InvoiceEntityForm extends ContentEntityForm {
    * Validate if the fields inside of the reference information are need.
    */
   private function checkReferenceInformationRequired(FormStateInterface $form_state) {
-    $message = t('If you document is an Credit Note or Debit Note. You need to fill all the fields in the Reference Information section.');
+    $message_notes = t('If you document is an Credit Note or Debit Note. You need to fill all the fields in the Reference Information section.');
+    $message = t("If you're going to add a Reference please, fill all the fields in it.");
     $require_in = ['NC', 'ND'];
     $fields = [
       'ref_type_of',
@@ -213,9 +289,13 @@ class InvoiceEntityForm extends ContentEntityForm {
       'ref_code',
       'ref_reason',
     ];
-
+    $filledValues = 0;
     foreach ($fields as $field) {
-      $this->checkFieldConditionByTypes($form_state, $field, $require_in, $message);
+      $filledValues += !empty($form_state->getValue($field)[0]['value']) ? 1 : 0;
+      $this->checkFieldConditionByTypes($form_state, $field, $require_in, $message_notes);
+    }
+    if ($filledValues > 0 && $filledValues < count($fields)) {
+      $form_state->setErrorByName('ref_type_of', $message);
     }
   }
 
@@ -237,6 +317,47 @@ class InvoiceEntityForm extends ContentEntityForm {
     $value = $form_state->getValue($field)[0]['value'];
     if ($required && (is_null($value) || empty($value))) {
       $form_state->setErrorByName($field, $error_message);
+    }
+  }
+
+  /**
+   * Function that return an array with the basic information about taxes.
+   *
+   * @return array
+   *   Array with some information about the taxes.
+   */
+  private function getMainTaxesInfo() {
+    $entities = TaxEntity::loadMultiple();
+    $tax_info = [];
+    /** @var \Drupal\tax_entity\Entity\TaxEntity $tax */
+    foreach ($entities as $tax) {
+      $tax_info[$tax->id()] = [
+        'tax_percentage' => $tax->get('field_tax_percentage')->value,
+        'exoneration' => $tax->get('exoneration')->value,
+        'ex_percentage' => $tax->get('ex_percentage')->value,
+      ];
+    }
+    return $tax_info;
+  }
+
+  /**
+   * Add some settings to a specific field.
+   *
+   * @param array $field
+   *   The field that you want to change.
+   * @param bool $addCurrency
+   *   Add the currency symbol to the title.
+   * @param bool $addReadOnly
+   *   Add the read only property to the field.
+   */
+  private function formatField(array &$field, $addCurrency, $addReadOnly) {
+    $settings = \Drupal::config('e_invoice_cr.settings');
+    $currency = $settings->get('currency') === 'crc' ? '₡' : '$';
+    if ($addCurrency) {
+      $field['#title'] .= ' ' . $currency;
+    }
+    if ($addReadOnly) {
+      $field['#attributes'] = ['readonly' => 'readonly'];
     }
   }
 

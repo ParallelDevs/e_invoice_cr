@@ -281,6 +281,7 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
       ->setTranslatable(FALSE)
       ->setSettings([
         'max_length' => 50,
+        'min_length' => 50,
         'text_processing' => 0,
       ])
       ->setDefaultValue('')
@@ -289,6 +290,10 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
 
     $fields['ref_date'] = BaseFieldDefinition::create('datetime')
       ->setLabel(t('Date'))
+      ->setSettings([
+        'datetime_type' => 'date',
+        'datetime_format' => 'd/m/Y',
+      ])
       ->setRevisionable(FALSE)
       ->setTranslatable(FALSE)
       ->setDefaultValue('')
