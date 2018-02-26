@@ -104,7 +104,7 @@ class InvoiceEntityForm extends ContentEntityForm {
     $visible = [
       'select[id="edit-field-condicion-venta"]' => ['value' => '02'],
     ];
-    $form['field_plazo_credito']['widget'][0]['value']['#states']['visible'] = $visible;
+    $form['field_credit_term']['widget'][0]['value']['#states']['visible'] = $visible;
     for ($i = 0; $i >= 0; $i++) {
       if (array_key_exists($i, $form['field_rows']['widget'])) {
         // Rows.

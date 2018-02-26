@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - invoice_entity
-id: invoice_entity.field_plazo_credito
-field_name: field_plazo_credito
+id: invoice_entity.field_credit_term
+field_name: field_credit_term
 entity_type: invoice_entity
 type: string
 settings:

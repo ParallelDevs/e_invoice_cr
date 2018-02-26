@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.invoice_entity.field_plazo_credito
+    - field.storage.invoice_entity.field_credit_term
   module:
     - invoice_entity
-id: invoice_entity.invoice_entity.field_plazo_credito
-field_name: field_plazo_credito
+id: invoice_entity.invoice_entity.field_credit_term
+field_name: field_credit_term
 entity_type: invoice_entity
 bundle: invoice_entity
-label: 'Plazo Crédito'
+label: 'Credit Term'
 description: ''
 required: false
 translatable: false
