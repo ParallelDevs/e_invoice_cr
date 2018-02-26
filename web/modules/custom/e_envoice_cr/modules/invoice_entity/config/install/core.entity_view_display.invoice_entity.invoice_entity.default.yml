@@ -28,7 +28,7 @@ bundle: invoice_entity
 mode: default
 content:
   entity_print_view_pdf:
-    weight: 15
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -147,6 +147,51 @@ content:
     region: content
     settings:
       link_to_entity: false
+    third_party_settings: {  }
+  ref_code:
+    type: list_default
+    weight: 14
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  ref_date:
+    type: datetime_default
+    weight: 13
+    region: content
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+  ref_doc_key:
+    type: string
+    weight: 12
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  ref_reason:
+    type: basic_string
+    weight: 15
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  ref_type_of:
+    type: list_default
+    weight: 11
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  type_of:
+    label: inline
+    type: list_key
+    weight: 0
+    region: content
+    settings: {  }
     third_party_settings: {  }
   user_id:
     label: hidden
