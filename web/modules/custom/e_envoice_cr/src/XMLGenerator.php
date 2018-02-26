@@ -264,7 +264,7 @@ class XMLGenerator {
     $xml_doc .= "\t\t<Nombre>" . $client->get('name')->value . "</Nombre>\n";
     $xml_doc .= "\t\t<Identificacion>\n";
     $xml_doc .= "\t\t\t<Tipo>" . $client->get('field_tipo_de_identificacion')->value . "</Tipo>\n";
-    $xml_doc .= "\t\t\t<Numero>" . $client->get('field_intensificacion')->value . "</Numero>\n";
+    $xml_doc .= "\t\t\t<Numero>" . $client->get('field_customer_id')->value . "</Numero>\n";
     $xml_doc .= "\t\t</Identificacion>\n";
     $xml_doc .= "\t\t<IdentificacionExtranjero>" . $client->get('field_intensificacion_ex')->value . "</IdentificacionExtranjero>\n";
     $xml_doc .= "\t\t<NombreComercial>" . $client->get('field_nombrecomercial')->value . "</NombreComercial>\n";

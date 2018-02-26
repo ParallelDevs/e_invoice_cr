@@ -39,7 +39,7 @@ class CustomerEntityForm extends ContentEntityForm {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     // Fields to evaluate.
-    $id = 'field_intensificacion';
+    $id = 'field_customer_id';
     $foreign_id = 'field_intensificacion_ex';
     $phone = 'field_telefono';
 

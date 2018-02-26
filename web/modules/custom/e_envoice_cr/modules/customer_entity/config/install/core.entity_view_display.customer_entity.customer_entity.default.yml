@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.field.customer_entity.customer_entity.field_email
     - field.field.customer_entity.customer_entity.field_fax
-    - field.field.customer_entity.customer_entity.field_intensificacion
+    - field.field.customer_entity.customer_entity.field_customer_id
     - field.field.customer_entity.customer_entity.field_intensificacion_ex
     - field.field.customer_entity.customer_entity.field_nombrecomercial
     - field.field.customer_entity.customer_entity.field_telefono
@@ -47,7 +47,7 @@ content:
     third_party_settings: {  }
     type: telephone_link
     region: content
-  field_intensificacion:
+  field_customer_id:
     weight: 1
     label: above
     settings:

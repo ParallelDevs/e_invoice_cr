@@ -258,7 +258,7 @@ class InvoiceEntityForm extends ContentEntityForm {
         'e_type' => $settings->get('id_type'),
         'e_number' => $settings->get('id'),
         'c_type' => $client->get('field_tipo_de_identificacion')->value,
-        'c_number' => $client->get('field_intensificacion')->value,
+        'c_number' => $client->get('field_customer_id')->value,
       ];
       $communication = new Communication();
       // Get the document.
