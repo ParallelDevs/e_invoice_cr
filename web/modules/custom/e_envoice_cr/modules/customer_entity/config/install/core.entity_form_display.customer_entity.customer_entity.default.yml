@@ -28,7 +28,7 @@ third_party_settings:
         classes: ''
         description: ''
         required_fields: true
-      label: Ubicación
+      label: Location
 _core:
   default_config_hash: Nb8wyMqwQedKsBJJpPqbh-sB6pZhTKtvoiVlWHvYjYI
 id: customer_entity.customer_entity.default
