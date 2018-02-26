@@ -341,7 +341,7 @@ class XMLGenerator {
         $xml_doc .= "\t\t\t</Impuesto>\n";
       }
     }
-    $xml_doc .= "\t\t\t<MontoTotalLinea>" . round($values['field_monto_total_linea'][0]['value'], 5) . "</MontoTotalLinea>\n";
+    $xml_doc .= "\t\t\t<MontoTotalLinea>" . round($values['field_line_total_amount'][0]['value'], 5) . "</MontoTotalLinea>\n";
     $xml_doc .= "\t\t</LineaDetalle>\n";
 
     return $xml_doc;

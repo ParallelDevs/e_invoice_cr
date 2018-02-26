@@ -7,8 +7,8 @@ dependencies:
   enforced:
     module:
       - invoice_entity
-id: paragraph.field_monto_total_linea
-field_name: field_monto_total_linea
+id: paragraph.field_line_total_amount
+field_name: field_line_total_amount
 entity_type: paragraph
 type: decimal
 settings:

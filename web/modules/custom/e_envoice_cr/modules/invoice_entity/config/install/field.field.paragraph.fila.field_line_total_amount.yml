@@ -2,18 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_monto_total_linea
+    - field.storage.paragraph.field_line_total_amount
     - paragraphs.paragraphs_type.fila
   module:
     - invoice_entity
   enforced:
     module:
       - invoice_entity
-id: paragraph.fila.field_monto_total_linea
-field_name: field_monto_total_linea
+id: paragraph.fila.field_line_total_amount
+field_name: field_line_total_amount
 entity_type: paragraph
 bundle: fila
-label: 'Monto Total Linea'
+label: 'Line Total Amount'
 description: ''
 required: true
 translatable: false

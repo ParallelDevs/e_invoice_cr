@@ -11,7 +11,7 @@ dependencies:
     - field.field.paragraph.fila.field_discount_percentage
     - field.field.paragraph.fila.field_discount_reason
     - field.field.paragraph.fila.field_row_tax
-    - field.field.paragraph.fila.field_monto_total_linea
+    - field.field.paragraph.fila.field_line_total_amount
     - field.field.paragraph.fila.field_montototal
     - field.field.paragraph.fila.field_preciounitario
     - field.field.paragraph.fila.field_row_discount
@@ -94,7 +94,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_monto_total_linea:
+  field_line_total_amount:
     weight: 12
     label: above
     settings:
