@@ -5,8 +5,8 @@ dependencies:
     - customer_entity
 _core:
   default_config_hash: C1iJXVHyoPPt7wdE8yuAvzJoKVf0f-BitmmLUQp-VRg
-id: customer_entity.field_intensificacion_ex
-field_name: field_intensificacion_ex
+id: customer_entity.field_customer_foreign_id
+field_name: field_customer_foreign_id
 entity_type: customer_entity
 type: string
 settings:
