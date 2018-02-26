@@ -4,8 +4,8 @@ dependencies:
   module:
     - customer_entity
     - invoice_entity
-id: invoice_entity.field_cliente
-field_name: field_cliente
+id: invoice_entity.field_client
+field_name: field_client
 entity_type: invoice_entity
 type: entity_reference
 settings:

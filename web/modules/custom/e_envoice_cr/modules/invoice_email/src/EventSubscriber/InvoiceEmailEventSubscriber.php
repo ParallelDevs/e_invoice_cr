@@ -37,7 +37,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
       $entity = $em->getStorage("invoice_entity")->load($entityId);
       if (!is_null($entity)) {
         $rows = $entity->get("field_filas")->getValue();
-        $customerId = $entity->get("field_cliente")->getValue();
+        $customerId = $entity->get("field_client")->getValue();
         $customer = $em->getStorage("customer_entity")->load($customerId[0]['target_id']);
         $fieldEmail = $customer->get("field_email")->getValue();
         $customerEmail = $fieldEmail[0]['value'];
