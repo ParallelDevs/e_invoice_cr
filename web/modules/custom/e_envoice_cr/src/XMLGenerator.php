@@ -77,7 +77,7 @@ class XMLGenerator {
    *   Return the detail xml as a text.
    */
   private function generateDetailXml(InvoiceEntity $entity) {
-    $rows = $entity->get('field_filas')->getValue();
+    $rows = $entity->get('field_rows')->getValue();
     $xml_doc = "\t<DetalleServicio>\n";
 
     foreach ($rows as $index => $item) {
@@ -99,7 +99,7 @@ class XMLGenerator {
   private function generateSummaryXml(InvoiceEntity $entity) {
     $settings = \Drupal::config('e_invoice_cr.settings');
     $currency = $settings->get('currency');
-    $rows = $entity->get('field_filas')->getValue();
+    $rows = $entity->get('field_rows')->getValue();
     $total_services = 0;
     $total_prod = 0;
     $total_serv_with_tax = 0;

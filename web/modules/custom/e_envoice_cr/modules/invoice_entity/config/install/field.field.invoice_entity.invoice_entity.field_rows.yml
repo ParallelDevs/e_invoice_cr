@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.invoice_entity.field_filas
+    - field.storage.invoice_entity.field_rows
     - paragraphs.paragraphs_type.fila
   module:
     - entity_reference_revisions
     - invoice_entity
-id: invoice_entity.invoice_entity.field_filas
-field_name: field_filas
+id: invoice_entity.invoice_entity.field_rows
+field_name: field_rows
 entity_type: invoice_entity
 bundle: invoice_entity
-label: Filas
-description: 'Agregue las filas de productos o servicios a las facturas.'
+label: Rows
+description: 'Add rows in order to add a new product or service to the invoice.'
 required: true
 translatable: false
 default_value: {  }

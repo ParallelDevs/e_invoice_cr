@@ -106,23 +106,23 @@ class InvoiceEntityForm extends ContentEntityForm {
     ];
     $form['field_plazo_credito']['widget'][0]['value']['#states']['visible'] = $visible;
     for ($i = 0; $i >= 0; $i++) {
-      if (array_key_exists($i, $form['field_filas']['widget'])) {
+      if (array_key_exists($i, $form['field_rows']['widget'])) {
         // Rows.
-        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_preciounitario']['widget'][0]['value'], TRUE, FALSE);
-        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_monto_total_linea']['widget'][0]['value'], FALSE, TRUE);
-        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_montototal']['widget'][0]['value'], FALSE, TRUE);
-        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_subtotal']['widget'][0]['value'], FALSE, TRUE);
-        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_row_discount']['widget'][0]['value'], FALSE, TRUE);
+        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_preciounitario']['widget'][0]['value'], TRUE, FALSE);
+        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_monto_total_linea']['widget'][0]['value'], FALSE, TRUE);
+        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_montototal']['widget'][0]['value'], FALSE, TRUE);
+        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_subtotal']['widget'][0]['value'], FALSE, TRUE);
+        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_row_discount']['widget'][0]['value'], FALSE, TRUE);
         $visible_condition = [
           ':input[id="field-adddis-' . $i . '"]' => ['checked' => TRUE],
         ];
-        $form['field_filas']['widget'][$i]['subform']['field_add_discount']['widget']['value']['#attributes']['id'] = 'field-adddis-' . $i;
-        $form['field_filas']['widget'][$i]['subform']['field_discount_percentage']['widget'][0]['value']['#states']['visible'] = $visible_condition;
-        $form['field_filas']['widget'][$i]['subform']['field_discount_reason']['widget'][0]['value']['#states']['visible'] = $visible_condition;
+        $form['field_rows']['widget'][$i]['subform']['field_add_discount']['widget']['value']['#attributes']['id'] = 'field-adddis-' . $i;
+        $form['field_rows']['widget'][$i]['subform']['field_discount_percentage']['widget'][0]['value']['#states']['visible'] = $visible_condition;
+        $form['field_rows']['widget'][$i]['subform']['field_discount_reason']['widget'][0]['value']['#states']['visible'] = $visible_condition;
         $visible = [
           'select[data-drupal-selector="edit-field-filas-' . $i . '-subform-field-unit-measure"]' => ['value' => 'Otros'],
         ];
-        $form['field_filas']['widget'][$i]['subform']['field_another_unit_measure']['widget'][0]['value']['#states']['visible'] = $visible;
+        $form['field_rows']['widget'][$i]['subform']['field_another_unit_measure']['widget'][0]['value']['#states']['visible'] = $visible;
       }
       else {
         break;

@@ -5,8 +5,8 @@ dependencies:
     - entity_reference_revisions
     - invoice_entity
     - paragraphs
-id: invoice_entity.field_filas
-field_name: field_filas
+id: invoice_entity.field_rows
+field_name: field_rows
 entity_type: invoice_entity
 type: entity_reference_revisions
 settings:

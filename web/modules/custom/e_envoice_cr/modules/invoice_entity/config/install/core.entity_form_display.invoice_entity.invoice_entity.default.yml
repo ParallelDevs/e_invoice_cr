@@ -7,7 +7,7 @@ dependencies:
     - field.field.invoice_entity.invoice_entity.field_sale_condition
     - field.field.invoice_entity.invoice_entity.field_consecutive_number
     - field.field.invoice_entity.invoice_entity.field_invoice_date
-    - field.field.invoice_entity.invoice_entity.field_filas
+    - field.field.invoice_entity.invoice_entity.field_rows
     - field.field.invoice_entity.invoice_entity.field_medio_de_pago
     - field.field.invoice_entity.invoice_entity.field_plazo_credito
     - field.field.invoice_entity.invoice_entity.field_total_discount
@@ -53,7 +53,7 @@ third_party_settings:
       label: Pago
     group_cuerpo:
       children:
-        - field_filas
+        - field_rows
       parent_name: ''
       weight: 2
       format_type: fieldset
@@ -151,7 +151,7 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: content
-  field_filas:
+  field_rows:
     type: entity_reference_paragraphs
     weight: 26
     settings:
