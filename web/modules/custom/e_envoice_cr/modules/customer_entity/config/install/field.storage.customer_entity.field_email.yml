@@ -5,8 +5,8 @@ dependencies:
     - customer_entity
 _core:
   default_config_hash: TpCduInmZLryOL9hbjTOY7ZP9kfqwu-fAtWtZl8xng0
-id: customer_entity.field_correo_electronico
-field_name: field_correo_electronico
+id: customer_entity.field_email
+field_name: field_email
 entity_type: customer_entity
 type: email
 settings: {  }

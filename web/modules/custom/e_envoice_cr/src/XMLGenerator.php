@@ -286,7 +286,7 @@ class XMLGenerator {
       $xml_doc .= "\t\t\t<NumTelefono>" . substr($client->get('field_fax')->value, 3) . "</NumTelefono>\n";
       $xml_doc .= "\t\t</Fax>\n";
     }
-    $xml_doc .= "\t\t<CorreoElectronico>" . $client->get('field_correo_electronico')->value . "</CorreoElectronico>\n";
+    $xml_doc .= "\t\t<CorreoElectronico>" . $client->get('field_email')->value . "</CorreoElectronico>\n";
     $xml_doc .= "\t</Receptor>\n";
 
     return $xml_doc;

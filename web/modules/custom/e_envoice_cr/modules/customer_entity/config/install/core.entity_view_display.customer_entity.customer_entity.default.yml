@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.customer_entity.customer_entity.field_correo_electronico
+    - field.field.customer_entity.customer_entity.field_email
     - field.field.customer_entity.customer_entity.field_fax
     - field.field.customer_entity.customer_entity.field_intensificacion
     - field.field.customer_entity.customer_entity.field_intensificacion_ex
@@ -32,7 +32,7 @@ targetEntityType: customer_entity
 bundle: customer_entity
 mode: default
 content:
-  field_correo_electronico:
+  field_email:
     weight: 7
     label: above
     settings: {  }
