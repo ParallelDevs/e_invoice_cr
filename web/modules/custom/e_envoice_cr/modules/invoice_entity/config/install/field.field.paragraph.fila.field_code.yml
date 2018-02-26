@@ -2,18 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_codigo
+    - field.storage.paragraph.field_code
     - paragraphs.paragraphs_type.fila
   module:
     - invoice_entity
   enforced:
     module:
       - invoice_entity
-id: paragraph.fila.field_codigo
-field_name: field_codigo
+id: paragraph.fila.field_code
+field_name: field_code
 entity_type: paragraph
 bundle: fila
-label: Código
+label: Code
 description: ''
 required: true
 translatable: false

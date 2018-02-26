@@ -2,18 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_cantidad
+    - field.storage.paragraph.field_quantity
     - paragraphs.paragraphs_type.fila
   module:
     - invoice_entity
   enforced:
     module:
       - invoice_entity
-id: paragraph.fila.field_cantidad
-field_name: field_cantidad
+id: paragraph.fila.field_quantity
+field_name: field_quantity
 entity_type: paragraph
 bundle: fila
-label: Cantidad
+label: Quantity
 description: ''
 required: true
 translatable: false

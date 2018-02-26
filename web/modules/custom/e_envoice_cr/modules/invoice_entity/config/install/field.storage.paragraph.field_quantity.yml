@@ -7,8 +7,8 @@ dependencies:
   enforced:
     module:
       - invoice_entity
-id: paragraph.field_cantidad
-field_name: field_cantidad
+id: paragraph.field_quantity
+field_name: field_quantity
 entity_type: paragraph
 type: integer
 settings:

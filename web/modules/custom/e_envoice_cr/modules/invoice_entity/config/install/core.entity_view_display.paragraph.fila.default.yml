@@ -4,9 +4,9 @@ dependencies:
   config:
     - field.field.paragraph.fila.field_add_discount
     - field.field.paragraph.fila.field_another_unit_measure
-    - field.field.paragraph.fila.field_cantidad
+    - field.field.paragraph.fila.field_quantity
     - field.field.paragraph.fila.field_code_type
-    - field.field.paragraph.fila.field_codigo
+    - field.field.paragraph.fila.field_code
     - field.field.paragraph.fila.field_detalle
     - field.field.paragraph.fila.field_discount_percentage
     - field.field.paragraph.fila.field_discount_reason
@@ -39,7 +39,7 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_cantidad:
+  field_quantity:
     weight: 2
     label: above
     settings:
@@ -55,7 +55,7 @@ content:
     third_party_settings: {  }
     type: list_default
     region: content
-  field_codigo:
+  field_code:
     weight: 1
     label: above
     settings:
