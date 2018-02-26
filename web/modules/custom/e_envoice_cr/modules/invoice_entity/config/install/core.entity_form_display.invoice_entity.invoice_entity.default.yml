@@ -108,7 +108,7 @@ third_party_settings:
         classes: ''
       label: 'Reference Information Accordion'
 _core:
-  default_config_hash: iYb-2bUcoBO68ZGT5B64FtSHn5uL6GahGvzO6dlLEhQ
+  default_config_hash: p10F5U7WihOlos8puylHHSZIc9HkUlP2MdHXzwDFm1s
 id: invoice_entity.invoice_entity.default
 targetEntityType: invoice_entity
 bundle: invoice_entity
@@ -124,9 +124,12 @@ content:
     region: content
   field_cliente:
     weight: 4
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: options_select
+    type: entity_reference_autocomplete
     region: content
   field_condicion_venta:
     weight: 3
@@ -164,7 +167,7 @@ content:
     weight: 5
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: options_buttons
     region: content
   field_plazo_credito:
     weight: 4
