@@ -135,7 +135,7 @@ class InvoiceEntityForm extends ContentEntityForm {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $entity = parent::validateForm($form, $form_state);
-    $this->checkFieldConditionByTypes($form_state, 'field_medio_de_pago', [
+    $this->checkFieldConditionByTypes($form_state, 'field_payment_method', [
       'FE',
       'TE',
     ], 'If you document is a Electronic Bill or Electronic Ticket. You need to specify the payment method.');

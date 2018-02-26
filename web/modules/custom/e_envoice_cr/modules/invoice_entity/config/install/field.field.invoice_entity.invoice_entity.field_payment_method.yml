@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.invoice_entity.field_medio_de_pago
+    - field.storage.invoice_entity.field_payment_method
   module:
     - invoice_entity
     - options
-id: invoice_entity.invoice_entity.field_medio_de_pago
-field_name: field_medio_de_pago
+id: invoice_entity.invoice_entity.field_payment_method
+field_name: field_payment_method
 entity_type: invoice_entity
 bundle: invoice_entity
-label: 'Medio de pago'
+label: 'Payment Method'
 description: ''
 required: false
 translatable: false

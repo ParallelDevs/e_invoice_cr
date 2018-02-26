@@ -8,7 +8,7 @@ dependencies:
     - field.field.invoice_entity.invoice_entity.field_consecutive_number
     - field.field.invoice_entity.invoice_entity.field_invoice_date
     - field.field.invoice_entity.invoice_entity.field_rows
-    - field.field.invoice_entity.invoice_entity.field_medio_de_pago
+    - field.field.invoice_entity.invoice_entity.field_payment_method
     - field.field.invoice_entity.invoice_entity.field_plazo_credito
     - field.field.invoice_entity.invoice_entity.field_total_discount
     - field.field.invoice_entity.invoice_entity.field_total_impuesto
@@ -76,7 +76,7 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
-  field_medio_de_pago:
+  field_payment_method:
     weight: 6
     label: above
     settings: {  }
