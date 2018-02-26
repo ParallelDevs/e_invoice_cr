@@ -102,7 +102,8 @@
 
   function checkDependentField(name, types) {
     var classElement = '.field--name-' + name;
-    var element = $(classElement + ' label');
+    var parent = $(classElement);
+    var element = parent.hasClass('field--widget-options-buttons') ? parent.find('legend') : parent.find('label');
     var type = $('#edit-type-of').val();
     var isRequired = types.includes(type);
 

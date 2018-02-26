@@ -47,8 +47,7 @@ class XMLGenerator {
    *   Return the header xml as a text.
    */
   private function generateHeaderXml(InvoiceEntity $entity) {
-    $payment_method = $entity->get('field_medio_de_pago')->value;
-
+    $payment_method = $entity->get('field_medio_de_pago')->getValue();
     $xml_doc = "\t<Clave>" . $entity->get('field_clave_numerica')->value . "</Clave>\n";
     $xml_doc .= "\t<NumeroConsecutivo>" . $entity->get('field_consecutivo')->value . "</NumeroConsecutivo>\n";
     $xml_doc .= "\t<FechaEmision>" . $this->formatDateForXml($entity->get('field_fecha_emision')->value) . "</FechaEmision>\n";
@@ -63,7 +62,9 @@ class XMLGenerator {
     $xml_doc .= "\t<PlazoCredito>" . $entity->get('field_plazo_credito')->value . "</PlazoCredito>\n";
 
     if ($payment_method != NULL & !empty($payment_method)) {
-      $xml_doc .= "\t<MedioPago>" . $payment_method . "</MedioPago>\n";
+      foreach ($payment_method as $method) {
+        $xml_doc .= "\t<MedioPago>" . $method['value'] . "</MedioPago>\n";
+      }
     }
 
     return $xml_doc;
