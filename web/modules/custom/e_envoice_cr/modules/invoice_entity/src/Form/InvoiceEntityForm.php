@@ -31,12 +31,13 @@ class InvoiceEntityForm extends ContentEntityForm {
     if (!isset($settings) && is_null($settings)) {
       invoice_entity_config_error();
       $this->currency = NULL;
-    } else {
+    }
+    else {
       $this->currency = $settings->get('currency') === 'crc' ? '₡' : '$';
     }
   }
 
-    /**
+  /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
