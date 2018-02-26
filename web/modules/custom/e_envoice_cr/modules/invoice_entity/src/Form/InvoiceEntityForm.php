@@ -97,7 +97,7 @@ class InvoiceEntityForm extends ContentEntityForm {
       $form['field_consecutive_number']['widget'][0]['value']['#default_value'] = $invoice_service->generateConsecutive($type_of);
     }
     $this->formatField($form['field_total_discount']['widget'][0]['value'], TRUE, TRUE);
-    $this->formatField($form['field_total_ventaneta']['widget'][0]['value'], TRUE, TRUE);
+    $this->formatField($form['field_net_sale']['widget'][0]['value'], TRUE, TRUE);
     $this->formatField($form['field_total_tax']['widget'][0]['value'], TRUE, TRUE);
     $this->formatField($form['field_totalcomprobante']['widget'][0]['value'], TRUE, TRUE);
     $this->formatField($form['field_total_tax']['widget'][0]['value'], FALSE, TRUE);

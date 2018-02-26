@@ -12,7 +12,7 @@ dependencies:
     - field.field.invoice_entity.invoice_entity.field_credit_term
     - field.field.invoice_entity.invoice_entity.field_total_discount
     - field.field.invoice_entity.invoice_entity.field_total_tax
-    - field.field.invoice_entity.invoice_entity.field_total_ventaneta
+    - field.field.invoice_entity.invoice_entity.field_net_sale
     - field.field.invoice_entity.invoice_entity.field_totalcomprobante
   module:
     - datetime
@@ -113,7 +113,7 @@ content:
     third_party_settings: {  }
     type: number_decimal
     region: content
-  field_total_ventaneta:
+  field_net_sale:
     weight: 10
     label: above
     settings:
