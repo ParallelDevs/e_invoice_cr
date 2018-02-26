@@ -82,7 +82,7 @@ class InvoiceEntityForm extends ContentEntityForm {
     }
 
     $form['field_numeric_key']['#disabled'] = 'disabled';
-    $form['field_consecutivo']['#disabled'] = 'disabled';
+    $form['field_consecutive_number']['#disabled'] = 'disabled';
     if ($this->entity->isNew()) {
       // Generate the invoice keys.
       $type_of = $form_state->getUserInput()['type_of'];
@@ -94,7 +94,7 @@ class InvoiceEntityForm extends ContentEntityForm {
         $invoice_service->updateValues();
       }
       $form['field_numeric_key']['widget'][0]['value']['#default_value'] = $key;
-      $form['field_consecutivo']['widget'][0]['value']['#default_value'] = $invoice_service->generateConsecutive($type_of);
+      $form['field_consecutive_number']['widget'][0]['value']['#default_value'] = $invoice_service->generateConsecutive($type_of);
     }
     $this->formatField($form['field_total_discount']['widget'][0]['value'], TRUE, TRUE);
     $this->formatField($form['field_total_ventaneta']['widget'][0]['value'], TRUE, TRUE);
@@ -234,7 +234,7 @@ class InvoiceEntityForm extends ContentEntityForm {
       // Create dir.
       $path = "public://xml/";
       $user_current = \Drupal::currentUser();
-      $id_cons = $this->entity->get('field_consecutivo')->value;
+      $id_cons = $this->entity->get('field_consecutive_number')->value;
       $doc_name = "document-" . $user_current->id() . "-" . $id_cons;
       file_prepare_directory($path, FILE_CREATE_DIRECTORY);
       $result = $xml->save('public://xml/' . $doc_name . ".xml", LIBXML_NOEMPTYTAG);

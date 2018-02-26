@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.invoice_entity.field_consecutivo
+    - field.storage.invoice_entity.field_consecutive_number
   module:
     - invoice_entity
-id: invoice_entity.invoice_entity.field_consecutivo
-field_name: field_consecutivo
+id: invoice_entity.invoice_entity.field_consecutive_number
+field_name: field_consecutive_number
 entity_type: invoice_entity
 bundle: invoice_entity
-label: Consecutivo
-description: 'Numero consecutivo de la factura. '
+label: Consecutive Number
+description: 'The consecutive number of the invoice.'
 required: false
 translatable: false
 default_value: {  }
