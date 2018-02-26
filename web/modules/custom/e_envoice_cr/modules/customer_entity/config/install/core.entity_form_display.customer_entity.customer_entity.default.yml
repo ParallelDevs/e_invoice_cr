@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.customer_entity.customer_entity.email
+    - field.field.customer_entity.customer_entity.field_email
     - field.field.customer_entity.customer_entity.field_direccion_
     - field.field.customer_entity.customer_entity.field_fax
     - field.field.customer_entity.customer_entity.field_intensificacion
