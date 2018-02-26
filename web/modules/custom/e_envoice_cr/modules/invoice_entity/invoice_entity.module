@@ -93,7 +93,7 @@ function invoice_entity_preprocess_field(&$variables, $hook) {
       "field_preciounitario",
       "field_montototal",
       "field_subtotal",
-      "field_monto_total_linea"
+      "field_monto_total_linea",
     ];
     if (in_array($name, $fields)) {
       $settings = \Drupal::config('e_invoice_cr.settings');
