@@ -2,6 +2,9 @@
 
 namespace Drupal\invoice_entity\Form;
 
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\customer_entity\Entity\CustomerEntity;
@@ -16,6 +19,23 @@ use Drupal\tax_entity\Entity\TaxEntity;
  * @ingroup invoice_entity
  */
 class InvoiceEntityForm extends ContentEntityForm {
+
+  private $currency;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(EntityManagerInterface $entity_manager, EntityTypeBundleInfoInterface $entity_type_bundle_info = NULL, TimeInterface $time = NULL) {
+    parent::__construct($entity_manager, $entity_type_bundle_info, $time);
+    $settings = \Drupal::config('e_invoice_cr.settings');
+    if (!isset($settings) && is_null($settings)) {
+      invoice_entity_config_error();
+      $this->currency = NULL;
+    }
+    else {
+      $this->currency = $settings->get('currency') === 'crc' ? '₡' : '$';
+    }
+  }
 
   /**
    * {@inheritdoc}
@@ -55,8 +75,7 @@ class InvoiceEntityForm extends ContentEntityForm {
 
     $form['#attached']['drupalSettings']['taxsObject'] = $tax_info;
     // Get default currency.
-    $settings = \Drupal::config('e_invoice_cr.settings');
-    if (!isset($settings) && is_null($settings)) {
+    if (is_null($this->currency)) {
       invoice_entity_config_error();
       // Disable the submit button.
       $form['actions']['submit']['#disabled'] = TRUE;
@@ -351,10 +370,8 @@ class InvoiceEntityForm extends ContentEntityForm {
    *   Add the read only property to the field.
    */
   private function formatField(array &$field, $addCurrency, $addReadOnly) {
-    $settings = \Drupal::config('e_invoice_cr.settings');
-    $currency = $settings->get('currency') === 'crc' ? '₡' : '$';
     if ($addCurrency) {
-      $field['#title'] .= ' ' . $currency;
+      $field['#title'] .= ' ' . $this->currency;
     }
     if ($addReadOnly) {
       $field['#attributes'] = ['readonly' => 'readonly'];
