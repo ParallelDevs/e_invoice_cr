@@ -17,7 +17,7 @@ dependencies:
     - telephone
 third_party_settings:
   field_group:
-    group_ubicacion:
+    group_location:
       children:
         - field_address
       parent_name: ''
