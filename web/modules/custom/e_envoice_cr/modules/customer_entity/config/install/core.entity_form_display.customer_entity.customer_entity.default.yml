@@ -7,7 +7,7 @@ dependencies:
     - field.field.customer_entity.customer_entity.field_fax
     - field.field.customer_entity.customer_entity.field_customer_id
     - field.field.customer_entity.customer_entity.field_customer_foreign_id
-    - field.field.customer_entity.customer_entity.field_nombrecomercial
+    - field.field.customer_entity.customer_entity.field_commercial_name
     - field.field.customer_entity.customer_entity.field_telefono
     - field.field.customer_entity.customer_entity.field_tipo_de_identificacion
   module:
@@ -73,7 +73,7 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_nombrecomercial:
+  field_commercial_name:
     weight: 4
     settings:
       size: 60

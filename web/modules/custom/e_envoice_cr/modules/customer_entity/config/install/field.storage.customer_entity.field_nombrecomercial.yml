@@ -5,8 +5,8 @@ dependencies:
     - customer_entity
 _core:
   default_config_hash: uS_aOm9nPDPpPp1z6IrPPMWODRX5rsC72EGWIV3-eNA
-id: customer_entity.field_nombrecomercial
-field_name: field_nombrecomercial
+id: customer_entity.field_commercial_name
+field_name: field_commercial_name
 entity_type: customer_entity
 type: string
 settings:

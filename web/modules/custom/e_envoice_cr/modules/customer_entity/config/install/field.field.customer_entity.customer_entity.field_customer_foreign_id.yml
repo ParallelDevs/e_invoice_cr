@@ -11,7 +11,7 @@ id: customer_entity.customer_entity.field_customer_foreign_id
 field_name: field_customer_foreign_id
 entity_type: customer_entity
 bundle: customer_entity
-label: 'Identificación Extranjero'
+label: 'Foreign ID'
 description: ''
 required: false
 translatable: false
