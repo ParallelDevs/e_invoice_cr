@@ -3,17 +3,18 @@ status: true
 dependencies:
   module:
     - paragraphs
-    - tax_entity
     - invoice_entity
   enforced:
     module:
       - invoice_entity
-id: paragraph.field_impuesto
-field_name: field_impuesto
+_core:
+  default_config_hash: wkNf0ljgsJO6NdkH9PDR5k413XN6IdbH6qtUeiqIR1g
+id: paragraph.field_detail
+field_name: field_detail
 entity_type: paragraph
-type: entity_reference
+type: string_long
 settings:
-  target_type: tax_entity
+  case_sensitive: false
 module: core
 locked: false
 cardinality: 1

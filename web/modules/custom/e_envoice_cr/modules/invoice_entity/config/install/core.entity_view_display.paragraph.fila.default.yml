@@ -7,10 +7,10 @@ dependencies:
     - field.field.paragraph.fila.field_quantity
     - field.field.paragraph.fila.field_code_type
     - field.field.paragraph.fila.field_code
-    - field.field.paragraph.fila.field_detalle
+    - field.field.paragraph.fila.field_detail
     - field.field.paragraph.fila.field_discount_percentage
     - field.field.paragraph.fila.field_discount_reason
-    - field.field.paragraph.fila.field_impuesto
+    - field.field.paragraph.fila.field_row_tax
     - field.field.paragraph.fila.field_monto_total_linea
     - field.field.paragraph.fila.field_montototal
     - field.field.paragraph.fila.field_preciounitario
@@ -63,7 +63,7 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_detalle:
+  field_detail:
     weight: 5
     label: above
     settings: {  }
@@ -86,7 +86,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-  field_impuesto:
+  field_row_tax:
     weight: 10
     label: above
     settings:

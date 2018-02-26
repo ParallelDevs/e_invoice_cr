@@ -44,7 +44,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
         $details = "";
         foreach ($rows as $index => $item) {
           $paragraph = Paragraph::load($item['target_id']);
-          $detail = $paragraph->get('field_detalle')->value;
+          $detail = $paragraph->get('field_detail')->value;
           $details = $detail . "\n";
         }
         global $base_url;

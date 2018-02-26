@@ -109,7 +109,7 @@ class XMLGenerator {
 
     foreach ($rows as $row) {
       $values = $row['subform'];
-      $tax_id = $values['field_impuesto'][0]['target_id'];
+      $tax_id = $values['field_row_tax'][0]['target_id'];
       $tax = TaxEntity::load($tax_id);
 
       if ($tax !== NULL) {
@@ -303,7 +303,7 @@ class XMLGenerator {
     $values = $row['subform'];
     $discount = $values['field_add_discount']['value'] ? $values['field_row_discount'][0]['value'] : 0;
     $discount_reason = $values['field_add_discount']['value'] ? $values['field_discount_reason'][0]['value'] : "";
-    $tax_id = $values['field_impuesto'][0]['target_id'];
+    $tax_id = $values['field_row_tax'][0]['target_id'];
     $entity_manager = \Drupal::entityManager();
     $tax = $entity_manager->getStorage('tax_entity')->load($tax_id);
     if ($tax !== NULL) {
@@ -319,7 +319,7 @@ class XMLGenerator {
     $xml_doc .= "\t\t\t<Cantidad>" . $values['field_quantity'][0]['value'] . "</Cantidad>\n";
     $xml_doc .= "\t\t\t<UnidadMedida>" . $values['field_unit_measure'][0]['value'] . "</UnidadMedida>\n";
     $xml_doc .= "\t\t\t<UnidadMedidaComercial>" . $values['field_another_unit_measure'][0]['value'] . "</UnidadMedidaComercial>\n";
-    $xml_doc .= "\t\t\t<Detalle>" . $values['field_detalle'][0]['value'] . "</Detalle>\n";
+    $xml_doc .= "\t\t\t<Detalle>" . $values['field_detail'][0]['value'] . "</Detalle>\n";
     $xml_doc .= "\t\t\t<PrecioUnitario>" . $values['field_preciounitario'][0]['value'] . "</PrecioUnitario>\n";
     $xml_doc .= "\t\t\t<MontoTotal>" . $values['field_montototal'][0]['value'] . "</MontoTotal>\n";
     if (!is_null($discount) && $discount > 0) {
