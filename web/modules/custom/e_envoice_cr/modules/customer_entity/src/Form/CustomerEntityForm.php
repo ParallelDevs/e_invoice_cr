@@ -41,7 +41,7 @@ class CustomerEntityForm extends ContentEntityForm {
     // Fields to evaluate.
     $id = 'field_customer_id';
     $foreign_id = 'field_customer_foreign_id';
-    $phone = 'field_telefono';
+    $phone = 'field_phone';
 
     $type = $form_state->getValue('field_tipo_de_identificacion');
 

@@ -277,8 +277,8 @@ class XMLGenerator {
     $xml_doc .= "\t\t\t<OtrasSenas>" . $client_zip_code[0]['additionalinfo'] . "</OtrasSenas>\n";
     $xml_doc .= "\t\t</Ubicacion>\n";
     $xml_doc .= "\t\t<Telefono>\n";
-    $xml_doc .= "\t\t\t<CodigoPais>" . substr($client->get('field_telefono')->value, 0, 3) . "</CodigoPais>\n";
-    $xml_doc .= "\t\t\t<NumTelefono>" . substr($client->get('field_telefono')->value, 3) . "</NumTelefono>\n";
+    $xml_doc .= "\t\t\t<CodigoPais>" . substr($client->get('field_phone')->value, 0, 3) . "</CodigoPais>\n";
+    $xml_doc .= "\t\t\t<NumTelefono>" . substr($client->get('field_phone')->value, 3) . "</NumTelefono>\n";
     $xml_doc .= "\t\t</Telefono>\n";
     if (!is_null($client->get('field_fax')->value) && $client->get('field_fax')->value !== "") {
       $xml_doc .= "\t\t<Fax>\n";
