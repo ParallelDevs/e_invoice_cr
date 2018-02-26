@@ -58,7 +58,7 @@ class XMLGenerator {
     $xml_doc .= $this->generateReceptorXml($entity);
 
     // More header information.
-    $xml_doc .= "\t<CondicionVenta>" . $entity->get('field_condicion_venta')->value . "</CondicionVenta>\n";
+    $xml_doc .= "\t<CondicionVenta>" . $entity->get('field_sale_condition')->value . "</CondicionVenta>\n";
     $xml_doc .= "\t<PlazoCredito>" . $entity->get('field_plazo_credito')->value . "</PlazoCredito>\n";
 
     if ($payment_method != NULL & !empty($payment_method)) {

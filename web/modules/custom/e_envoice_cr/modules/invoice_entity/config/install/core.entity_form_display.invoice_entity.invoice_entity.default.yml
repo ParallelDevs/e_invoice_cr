@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.field.invoice_entity.invoice_entity.field_numeric_key
     - field.field.invoice_entity.invoice_entity.field_client
-    - field.field.invoice_entity.invoice_entity.field_condicion_venta
+    - field.field.invoice_entity.invoice_entity.field_sale_condition
     - field.field.invoice_entity.invoice_entity.field_consecutivo
     - field.field.invoice_entity.invoice_entity.field_fecha_emision
     - field.field.invoice_entity.invoice_entity.field_filas
@@ -39,7 +39,7 @@ third_party_settings:
       label: Encabezado
     group_pago:
       children:
-        - field_condicion_venta
+        - field_sale_condition
         - field_plazo_credito
         - field_medio_de_pago
       parent_name: ''
@@ -131,7 +131,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  field_condicion_venta:
+  field_sale_condition:
     weight: 3
     settings: {  }
     third_party_settings: {  }
