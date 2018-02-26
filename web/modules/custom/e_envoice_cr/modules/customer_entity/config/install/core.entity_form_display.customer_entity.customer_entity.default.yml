@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.customer_entity.customer_entity.field_email
-    - field.field.customer_entity.customer_entity.field_direccion_
+    - field.field.customer_entity.customer_entity.field_address
     - field.field.customer_entity.customer_entity.field_fax
     - field.field.customer_entity.customer_entity.field_intensificacion
     - field.field.customer_entity.customer_entity.field_intensificacion_ex
@@ -19,7 +19,7 @@ third_party_settings:
   field_group:
     group_ubicacion:
       children:
-        - field_direccion_
+        - field_address
       parent_name: ''
       weight: 8
       format_type: fieldset
@@ -44,7 +44,7 @@ content:
     third_party_settings: {  }
     type: email_default
     region: content
-  field_direccion_:
+  field_address:
     weight: 31
     settings: {  }
     third_party_settings: {  }

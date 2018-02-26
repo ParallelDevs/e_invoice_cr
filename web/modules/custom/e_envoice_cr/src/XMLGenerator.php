@@ -258,7 +258,7 @@ class XMLGenerator {
   private function generateReceptorXml(InvoiceEntity $entity) {
     $client_id = $entity->get('field_cliente')->target_id;
     $client = CustomerEntity::load($client_id);
-    $client_zip_code = $client->field_direccion_->getValue();
+    $client_zip_code = $client->field_address->getValue();
 
     $xml_doc = "\t<Receptor>\n";
     $xml_doc .= "\t\t<Nombre>" . $client->get('name')->value . "</Nombre>\n";
