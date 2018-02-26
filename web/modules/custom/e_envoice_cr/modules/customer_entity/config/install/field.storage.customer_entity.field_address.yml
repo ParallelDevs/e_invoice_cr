@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - addressfield_cr
+    - customer_entity
+id: customer_entity.field_address
+field_name: field_address
+entity_type: customer_entity
+type: address_cr
+settings: {  }
+module: addressfield_cr
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

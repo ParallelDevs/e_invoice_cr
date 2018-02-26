@@ -81,8 +81,8 @@ class InvoiceEntityForm extends ContentEntityForm {
       $form['actions']['submit']['#disabled'] = TRUE;
     }
 
-    $form['field_clave_numerica']['#disabled'] = 'disabled';
-    $form['field_consecutivo']['#disabled'] = 'disabled';
+    $form['field_numeric_key']['#disabled'] = 'disabled';
+    $form['field_consecutive_number']['#disabled'] = 'disabled';
     if ($this->entity->isNew()) {
       // Generate the invoice keys.
       $type_of = $form_state->getUserInput()['type_of'];
@@ -93,36 +93,36 @@ class InvoiceEntityForm extends ContentEntityForm {
       else {
         $invoice_service->updateValues();
       }
-      $form['field_clave_numerica']['widget'][0]['value']['#default_value'] = $key;
-      $form['field_consecutivo']['widget'][0]['value']['#default_value'] = $invoice_service->generateConsecutive($type_of);
+      $form['field_numeric_key']['widget'][0]['value']['#default_value'] = $key;
+      $form['field_consecutive_number']['widget'][0]['value']['#default_value'] = $invoice_service->generateConsecutive($type_of);
     }
     $this->formatField($form['field_total_discount']['widget'][0]['value'], TRUE, TRUE);
-    $this->formatField($form['field_total_ventaneta']['widget'][0]['value'], TRUE, TRUE);
-    $this->formatField($form['field_total_impuesto']['widget'][0]['value'], TRUE, TRUE);
-    $this->formatField($form['field_totalcomprobante']['widget'][0]['value'], TRUE, TRUE);
-    $this->formatField($form['field_total_impuesto']['widget'][0]['value'], FALSE, TRUE);
+    $this->formatField($form['field_net_sale']['widget'][0]['value'], TRUE, TRUE);
+    $this->formatField($form['field_total_tax']['widget'][0]['value'], TRUE, TRUE);
+    $this->formatField($form['field_total_invoice']['widget'][0]['value'], TRUE, TRUE);
+    $this->formatField($form['field_total_tax']['widget'][0]['value'], FALSE, TRUE);
     $visible = [
       'select[id="edit-field-condicion-venta"]' => ['value' => '02'],
     ];
-    $form['field_plazo_credito']['widget'][0]['value']['#states']['visible'] = $visible;
+    $form['field_credit_term']['widget'][0]['value']['#states']['visible'] = $visible;
     for ($i = 0; $i >= 0; $i++) {
-      if (array_key_exists($i, $form['field_filas']['widget'])) {
+      if (array_key_exists($i, $form['field_rows']['widget'])) {
         // Rows.
-        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_preciounitario']['widget'][0]['value'], TRUE, FALSE);
-        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_monto_total_linea']['widget'][0]['value'], FALSE, TRUE);
-        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_montototal']['widget'][0]['value'], FALSE, TRUE);
-        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_subtotal']['widget'][0]['value'], FALSE, TRUE);
-        $this->formatField($form['field_filas']['widget'][$i]['subform']['field_row_discount']['widget'][0]['value'], FALSE, TRUE);
+        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_preciounitario']['widget'][0]['value'], TRUE, FALSE);
+        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_line_total_amount']['widget'][0]['value'], FALSE, TRUE);
+        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_montototal']['widget'][0]['value'], FALSE, TRUE);
+        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_subtotal']['widget'][0]['value'], FALSE, TRUE);
+        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_row_discount']['widget'][0]['value'], FALSE, TRUE);
         $visible_condition = [
           ':input[id="field-adddis-' . $i . '"]' => ['checked' => TRUE],
         ];
-        $form['field_filas']['widget'][$i]['subform']['field_add_discount']['widget']['value']['#attributes']['id'] = 'field-adddis-' . $i;
-        $form['field_filas']['widget'][$i]['subform']['field_discount_percentage']['widget'][0]['value']['#states']['visible'] = $visible_condition;
-        $form['field_filas']['widget'][$i]['subform']['field_discount_reason']['widget'][0]['value']['#states']['visible'] = $visible_condition;
+        $form['field_rows']['widget'][$i]['subform']['field_add_discount']['widget']['value']['#attributes']['id'] = 'field-adddis-' . $i;
+        $form['field_rows']['widget'][$i]['subform']['field_discount_percentage']['widget'][0]['value']['#states']['visible'] = $visible_condition;
+        $form['field_rows']['widget'][$i]['subform']['field_discount_reason']['widget'][0]['value']['#states']['visible'] = $visible_condition;
         $visible = [
           'select[data-drupal-selector="edit-field-filas-' . $i . '-subform-field-unit-measure"]' => ['value' => 'Otros'],
         ];
-        $form['field_filas']['widget'][$i]['subform']['field_another_unit_measure']['widget'][0]['value']['#states']['visible'] = $visible;
+        $form['field_rows']['widget'][$i]['subform']['field_another_unit_measure']['widget'][0]['value']['#states']['visible'] = $visible;
       }
       else {
         break;
@@ -135,7 +135,7 @@ class InvoiceEntityForm extends ContentEntityForm {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $entity = parent::validateForm($form, $form_state);
-    $this->checkFieldConditionByTypes($form_state, 'field_medio_de_pago', [
+    $this->checkFieldConditionByTypes($form_state, 'field_payment_method', [
       'FE',
       'TE',
     ], 'If you document is a Electronic Bill or Electronic Ticket. You need to specify the payment method.');
@@ -219,10 +219,10 @@ class InvoiceEntityForm extends ContentEntityForm {
       $invoice_service = \Drupal::service('invoice_entity.service');
 
       $settings = \Drupal::config('e_invoice_cr.settings');
-      $date_text = $this->entity->get('field_fecha_emision')->value;
+      $date_text = $this->entity->get('field_invoice_date')->value;
       $date_object = strtotime($date_text);
       $date = \Drupal::service('date.formatter')->format($date_object, 'date_text', 'c');
-      $client_id = $this->entity->get('field_cliente')->target_id;
+      $client_id = $this->entity->get('field_client')->target_id;
       $client = CustomerEntity::load($client_id);
 
       // Create XML document.
@@ -234,7 +234,7 @@ class InvoiceEntityForm extends ContentEntityForm {
       // Create dir.
       $path = "public://xml/";
       $user_current = \Drupal::currentUser();
-      $id_cons = $this->entity->get('field_consecutivo')->value;
+      $id_cons = $this->entity->get('field_consecutive_number')->value;
       $doc_name = "document-" . $user_current->id() . "-" . $id_cons;
       file_prepare_directory($path, FILE_CREATE_DIRECTORY);
       $result = $xml->save('public://xml/' . $doc_name . ".xml", LIBXML_NOEMPTYTAG);
@@ -253,12 +253,12 @@ class InvoiceEntityForm extends ContentEntityForm {
 
       // Send document to API.
       $body_data = [
-        'key' => $this->entity->get('field_clave_numerica')->value,
+        'key' => $this->entity->get('field_numeric_key')->value,
         'date' => $date,
         'e_type' => $settings->get('id_type'),
         'e_number' => $settings->get('id'),
-        'c_type' => $client->get('field_tipo_de_identificacion')->value,
-        'c_number' => $client->get('field_intensificacion')->value,
+        'c_type' => $client->get('field_type_id')->value,
+        'c_number' => $client->get('field_customer_id')->value,
       ];
       $communication = new Communication();
       // Get the document.

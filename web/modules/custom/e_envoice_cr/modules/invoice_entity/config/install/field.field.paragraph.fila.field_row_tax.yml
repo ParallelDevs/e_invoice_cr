@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_row_tax
+    - paragraphs.paragraphs_type.fila
+  module:
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+id: paragraph.fila.field_row_tax
+field_name: field_row_tax
+entity_type: paragraph
+bundle: fila
+label: Tax
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:tax_entity'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

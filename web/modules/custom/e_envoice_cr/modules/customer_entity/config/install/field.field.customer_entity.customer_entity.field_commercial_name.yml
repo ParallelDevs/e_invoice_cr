@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.customer_entity.field_commercial_name
+  module:
+    - customer_entity
+_core:
+  default_config_hash: OGWJbsGUBSoEdmzzR-oO2BYe6jCyd58_9jOVQQ1plzk
+id: customer_entity.customer_entity.field_commercial_name
+field_name: field_commercial_name
+entity_type: customer_entity
+bundle: customer_entity
+label: 'Commercial Name'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

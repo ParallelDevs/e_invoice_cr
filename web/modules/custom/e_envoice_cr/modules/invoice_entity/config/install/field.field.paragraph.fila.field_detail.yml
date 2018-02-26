@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_detail
+    - paragraphs.paragraphs_type.fila
+  module:
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+_core:
+  default_config_hash: BQt_jk91uG03Kwj0CeKcfi6bdD2M85n_1LxGcY3qbG4
+id: paragraph.fila.field_detail
+field_name: field_detail
+entity_type: paragraph
+bundle: fila
+label: Detail
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

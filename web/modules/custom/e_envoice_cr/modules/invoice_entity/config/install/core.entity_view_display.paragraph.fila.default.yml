@@ -4,14 +4,14 @@ dependencies:
   config:
     - field.field.paragraph.fila.field_add_discount
     - field.field.paragraph.fila.field_another_unit_measure
-    - field.field.paragraph.fila.field_cantidad
+    - field.field.paragraph.fila.field_quantity
     - field.field.paragraph.fila.field_code_type
-    - field.field.paragraph.fila.field_codigo
-    - field.field.paragraph.fila.field_detalle
+    - field.field.paragraph.fila.field_code
+    - field.field.paragraph.fila.field_detail
     - field.field.paragraph.fila.field_discount_percentage
     - field.field.paragraph.fila.field_discount_reason
-    - field.field.paragraph.fila.field_impuesto
-    - field.field.paragraph.fila.field_monto_total_linea
+    - field.field.paragraph.fila.field_row_tax
+    - field.field.paragraph.fila.field_line_total_amount
     - field.field.paragraph.fila.field_montototal
     - field.field.paragraph.fila.field_preciounitario
     - field.field.paragraph.fila.field_row_discount
@@ -39,7 +39,7 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_cantidad:
+  field_quantity:
     weight: 2
     label: above
     settings:
@@ -55,7 +55,7 @@ content:
     third_party_settings: {  }
     type: list_default
     region: content
-  field_codigo:
+  field_code:
     weight: 1
     label: above
     settings:
@@ -63,7 +63,7 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_detalle:
+  field_detail:
     weight: 5
     label: above
     settings: {  }
@@ -86,7 +86,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-  field_impuesto:
+  field_row_tax:
     weight: 10
     label: above
     settings:
@@ -94,7 +94,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_monto_total_linea:
+  field_line_total_amount:
     weight: 12
     label: above
     settings:

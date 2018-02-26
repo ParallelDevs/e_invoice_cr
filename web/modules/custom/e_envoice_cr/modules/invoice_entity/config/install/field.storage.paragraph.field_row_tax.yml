@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - tax_entity
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+id: paragraph.field_row_tax
+field_name: field_row_tax
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: tax_entity
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
