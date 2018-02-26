@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - invoice_entity
-id: invoice_entity.field_totalcomprobante
-field_name: field_totalcomprobante
+id: invoice_entity.field_total_invoice
+field_name: field_total_invoice
 entity_type: invoice_entity
 type: decimal
 settings:

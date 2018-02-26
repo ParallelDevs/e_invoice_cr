@@ -156,7 +156,7 @@ class XMLGenerator {
     $xml_doc .= "\t\t<TotalDescuentos>" . $entity->get('field_total_discount')->value . "</TotalDescuentos>\n";
     $xml_doc .= "\t\t<TotalVentaNeta>" . $entity->get('field_net_sale')->value . "</TotalVentaNeta>\n";
     $xml_doc .= "\t\t<TotalImpuesto>" . $entity->get('field_total_tax')->value . "</TotalImpuesto>\n";
-    $xml_doc .= "\t\t<TotalComprobante>" . $entity->get('field_totalcomprobante')->value . "</TotalComprobante>\n";
+    $xml_doc .= "\t\t<TotalComprobante>" . $entity->get('field_total_invoice')->value . "</TotalComprobante>\n";
     $xml_doc .= "\t</ResumenFactura>\n";
 
     return $xml_doc;

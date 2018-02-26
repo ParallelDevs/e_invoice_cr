@@ -13,7 +13,7 @@ dependencies:
     - field.field.invoice_entity.invoice_entity.field_total_discount
     - field.field.invoice_entity.invoice_entity.field_total_tax
     - field.field.invoice_entity.invoice_entity.field_net_sale
-    - field.field.invoice_entity.invoice_entity.field_totalcomprobante
+    - field.field.invoice_entity.invoice_entity.field_total_invoice
   module:
     - datetime
     - field_group
@@ -68,7 +68,7 @@ third_party_settings:
         - field_total_discount
         - field_net_sale
         - field_total_tax
-        - field_totalcomprobante
+        - field_total_invoice
       parent_name: ''
       weight: 3
       format_type: fieldset
@@ -198,7 +198,7 @@ content:
     third_party_settings: {  }
     type: number
     region: content
-  field_totalcomprobante:
+  field_total_invoice:
     weight: 31
     settings:
       placeholder: ''
