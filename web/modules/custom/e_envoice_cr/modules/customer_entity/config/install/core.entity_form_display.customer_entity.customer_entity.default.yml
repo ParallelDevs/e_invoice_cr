@@ -9,7 +9,7 @@ dependencies:
     - field.field.customer_entity.customer_entity.field_customer_foreign_id
     - field.field.customer_entity.customer_entity.field_commercial_name
     - field.field.customer_entity.customer_entity.field_phone
-    - field.field.customer_entity.customer_entity.field_tipo_de_identificacion
+    - field.field.customer_entity.customer_entity.field_type_id
   module:
     - addressfield_cr
     - customer_entity
@@ -88,7 +88,7 @@ content:
     third_party_settings: {  }
     type: telephone_default
     region: content
-  field_tipo_de_identificacion:
+  field_type_id:
     weight: 0
     settings: {  }
     third_party_settings: {  }

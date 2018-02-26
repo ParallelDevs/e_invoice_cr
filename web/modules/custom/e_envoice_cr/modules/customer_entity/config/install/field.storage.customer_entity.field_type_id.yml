@@ -6,8 +6,8 @@ dependencies:
     - options
 _core:
   default_config_hash: aHBeYSSQWhNEsFHDQViElVhzCUKN6DX0zX0As27bBEg
-id: customer_entity.field_tipo_de_identificacion
-field_name: field_tipo_de_identificacion
+id: customer_entity.field_type_id
+field_name: field_type_id
 entity_type: customer_entity
 type: list_string
 settings:

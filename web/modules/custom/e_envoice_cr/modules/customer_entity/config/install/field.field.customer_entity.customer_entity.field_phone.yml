@@ -12,7 +12,7 @@ id: customer_entity.customer_entity.field_phone
 field_name: field_phone
 entity_type: customer_entity
 bundle: customer_entity
-label: Teléfono
+label: Phone
 description: ''
 required: true
 translatable: false

@@ -43,10 +43,10 @@ class CustomerEntityForm extends ContentEntityForm {
     $foreign_id = 'field_customer_foreign_id';
     $phone = 'field_phone';
 
-    $type = $form_state->getValue('field_tipo_de_identificacion');
+    $type = $form_state->getValue('field_type_id');
 
     // Validating id field regarding the identification type.
-    switch ($form_state->getValue('field_tipo_de_identificacion')[0]['value']) {
+    switch ($form_state->getValue('field_type_id')[0]['value']) {
       case "01":
         if (strlen($form_state->getValue($id)[0]['value']) !== 9) {
           $form_state->setErrorByName($id, $this->t("The id should have 9 characters, add zeros at the start if it\'s necessary."));
