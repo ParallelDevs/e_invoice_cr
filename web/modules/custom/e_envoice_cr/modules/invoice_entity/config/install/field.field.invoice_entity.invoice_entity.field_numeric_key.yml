@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.invoice_entity.field_clave_numerica
+    - field.storage.invoice_entity.field_numeric_key
   module:
     - invoice_entity
-id: invoice_entity.invoice_entity.field_clave_numerica
-field_name: field_clave_numerica
+id: invoice_entity.invoice_entity.field_numeric_key
+field_name: field_numeric_key
 entity_type: invoice_entity
 bundle: invoice_entity
-label: 'Clave numérica'
+label: 'Numeric Key'
 description: ''
 required: false
 translatable: false

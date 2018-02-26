@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.invoice_entity.invoice_entity.field_clave_numerica
+    - field.field.invoice_entity.invoice_entity.field_numeric_key
     - field.field.invoice_entity.invoice_entity.field_cliente
     - field.field.invoice_entity.invoice_entity.field_condicion_venta
     - field.field.invoice_entity.invoice_entity.field_consecutivo
@@ -27,7 +27,7 @@ targetEntityType: invoice_entity
 bundle: invoice_entity
 mode: default
 content:
-  field_clave_numerica:
+  field_numeric_key:
     weight: 2
     label: above
     settings:

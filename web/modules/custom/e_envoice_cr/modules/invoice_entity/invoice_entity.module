@@ -24,7 +24,7 @@ function invoice_entity_entity_operation(EntityInterface $entity) {
   if ($type->id() === "invoice_entity") {
     $status = $entity->get('moderation_state')->value;
     if ($status === "draft") {
-      $key = $entity->get('field_clave_numerica')->value;
+      $key = $entity->get('field_numeric_key')->value;
       $operations = [];
       $operations['validate'] = [
         'title' => t('Validate'),

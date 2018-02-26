@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.invoice_entity.invoice_entity.field_clave_numerica
+    - field.field.invoice_entity.invoice_entity.field_numeric_key
     - field.field.invoice_entity.invoice_entity.field_cliente
     - field.field.invoice_entity.invoice_entity.field_condicion_venta
     - field.field.invoice_entity.invoice_entity.field_consecutivo
@@ -23,7 +23,7 @@ third_party_settings:
   field_group:
     group_encabezado:
       children:
-        - field_clave_numerica
+        - field_numeric_key
         - field_consecutivo
         - field_fecha_emision
         - field_cliente
@@ -114,7 +114,7 @@ targetEntityType: invoice_entity
 bundle: invoice_entity
 mode: default
 content:
-  field_clave_numerica:
+  field_numeric_key:
     weight: 1
     settings:
       size: 60

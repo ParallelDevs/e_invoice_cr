@@ -81,7 +81,7 @@ class InvoiceEntityForm extends ContentEntityForm {
       $form['actions']['submit']['#disabled'] = TRUE;
     }
 
-    $form['field_clave_numerica']['#disabled'] = 'disabled';
+    $form['field_numeric_key']['#disabled'] = 'disabled';
     $form['field_consecutivo']['#disabled'] = 'disabled';
     if ($this->entity->isNew()) {
       // Generate the invoice keys.
@@ -93,7 +93,7 @@ class InvoiceEntityForm extends ContentEntityForm {
       else {
         $invoice_service->updateValues();
       }
-      $form['field_clave_numerica']['widget'][0]['value']['#default_value'] = $key;
+      $form['field_numeric_key']['widget'][0]['value']['#default_value'] = $key;
       $form['field_consecutivo']['widget'][0]['value']['#default_value'] = $invoice_service->generateConsecutive($type_of);
     }
     $this->formatField($form['field_total_discount']['widget'][0]['value'], TRUE, TRUE);
@@ -253,7 +253,7 @@ class InvoiceEntityForm extends ContentEntityForm {
 
       // Send document to API.
       $body_data = [
-        'key' => $this->entity->get('field_clave_numerica')->value,
+        'key' => $this->entity->get('field_numeric_key')->value,
         'date' => $date,
         'e_type' => $settings->get('id_type'),
         'e_number' => $settings->get('id'),
