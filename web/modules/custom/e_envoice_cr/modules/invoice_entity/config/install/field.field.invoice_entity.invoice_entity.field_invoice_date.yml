@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.invoice_entity.field_fecha_emision
+    - field.storage.invoice_entity.field_invoice_date
   module:
     - datetime
     - invoice_entity
-id: invoice_entity.invoice_entity.field_fecha_emision
-field_name: field_fecha_emision
+id: invoice_entity.invoice_entity.field_invoice_date
+field_name: field_invoice_date
 entity_type: invoice_entity
 bundle: invoice_entity
-label: 'Fecha Emisión'
+label: 'Date'
 description: ''
 required: true
 translatable: false

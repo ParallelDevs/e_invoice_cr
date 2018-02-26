@@ -6,7 +6,7 @@ dependencies:
     - field.field.invoice_entity.invoice_entity.field_client
     - field.field.invoice_entity.invoice_entity.field_sale_condition
     - field.field.invoice_entity.invoice_entity.field_consecutive_number
-    - field.field.invoice_entity.invoice_entity.field_fecha_emision
+    - field.field.invoice_entity.invoice_entity.field_invoice_date
     - field.field.invoice_entity.invoice_entity.field_filas
     - field.field.invoice_entity.invoice_entity.field_medio_de_pago
     - field.field.invoice_entity.invoice_entity.field_plazo_credito
@@ -58,7 +58,7 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_fecha_emision:
+  field_invoice_date:
     weight: 4
     label: above
     settings:

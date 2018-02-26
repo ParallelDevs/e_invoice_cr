@@ -6,7 +6,7 @@ dependencies:
     - field.field.invoice_entity.invoice_entity.field_client
     - field.field.invoice_entity.invoice_entity.field_sale_condition
     - field.field.invoice_entity.invoice_entity.field_consecutive_number
-    - field.field.invoice_entity.invoice_entity.field_fecha_emision
+    - field.field.invoice_entity.invoice_entity.field_invoice_date
     - field.field.invoice_entity.invoice_entity.field_filas
     - field.field.invoice_entity.invoice_entity.field_medio_de_pago
     - field.field.invoice_entity.invoice_entity.field_plazo_credito
@@ -25,7 +25,7 @@ third_party_settings:
       children:
         - field_numeric_key
         - field_consecutive_number
-        - field_fecha_emision
+        - field_invoice_date
         - field_client
         - user_id
       parent_name: ''
@@ -145,7 +145,7 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_fecha_emision:
+  field_invoice_date:
     weight: 3
     settings: {  }
     third_party_settings: {  }

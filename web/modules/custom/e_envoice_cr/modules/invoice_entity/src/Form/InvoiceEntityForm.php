@@ -219,7 +219,7 @@ class InvoiceEntityForm extends ContentEntityForm {
       $invoice_service = \Drupal::service('invoice_entity.service');
 
       $settings = \Drupal::config('e_invoice_cr.settings');
-      $date_text = $this->entity->get('field_fecha_emision')->value;
+      $date_text = $this->entity->get('field_invoice_date')->value;
       $date_object = strtotime($date_text);
       $date = \Drupal::service('date.formatter')->format($date_object, 'date_text', 'c');
       $client_id = $this->entity->get('field_client')->target_id;
