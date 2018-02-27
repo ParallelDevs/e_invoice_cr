@@ -292,7 +292,7 @@ class XMLGenerator {
       $xml_doc .= "\t\t</Fax>\n";
     }
 
-    $xml_doc .= "\t\t" . $this->simpleFieldTag("CorreoElectronico", $client->get('field_correo_electronico')->value,FALSE);
+    $xml_doc .= "\t\t" . $this->simpleFieldTag("CorreoElectronico", $client->get('field_correo_electronico')->value, FALSE);
     $xml_doc .= "\t</Receptor>\n";
 
     return $xml_doc;
@@ -400,7 +400,7 @@ class XMLGenerator {
    *   The xml text.
    * @param string $value
    *   The value between the xml tag.
-   * @param $isRequired
+   * @param bool $isRequired
    *   If the $value is required in the xml document.
    *
    * @return string
