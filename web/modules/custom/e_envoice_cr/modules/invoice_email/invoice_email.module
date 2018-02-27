@@ -80,4 +80,7 @@ function invoice_email_preprocess_entity_print(&$vars) {
       $vars['module_path'] = $module_path;
     }
   }
+  if (isset($vars['content'][0]['#invoice_entity'])) {
+    $vars['invoice_entity'] = TRUE;
+  }
 }

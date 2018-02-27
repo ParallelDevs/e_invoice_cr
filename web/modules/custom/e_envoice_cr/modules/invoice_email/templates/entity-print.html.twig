@@ -3,11 +3,17 @@
   <meta charset="utf-8">
   <title>{{ title }}</title>
   {{ entity_print_css }}
-  <link rel="stylesheet" type="text/css" href="/{{ module_path }}/css/pdf.css">
+  {% if invoice_entity %}
+    <link rel="stylesheet" type="text/css" href="/{{ module_path }}/css/pdf.css">
+  {% endif %}
 </head>
 <body>
 <div class="page">
-  {{ content }}
+  {% if invoice_entity %}
+    {% include  module_path ~ '/templates/invoice-entity-pdf.html.twig' with {'content': content} only %}
+  {% else %}
+    {{ content }}
+  {% endif %}
 </div>
 </body>
 </html>
