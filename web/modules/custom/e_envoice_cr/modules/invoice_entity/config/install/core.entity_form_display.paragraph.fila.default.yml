@@ -12,7 +12,7 @@ dependencies:
     - field.field.paragraph.fila.field_discount_reason
     - field.field.paragraph.fila.field_row_tax
     - field.field.paragraph.fila.field_line_total_amount
-    - field.field.paragraph.fila.field_montototal
+    - field.field.paragraph.fila.field_total_amount
     - field.field.paragraph.fila.field_preciounitario
     - field.field.paragraph.fila.field_row_discount
     - field.field.paragraph.fila.field_subtotal
@@ -103,7 +103,7 @@ content:
     third_party_settings: {  }
     type: number
     region: content
-  field_montototal:
+  field_total_amount:
     weight: 12
     settings:
       placeholder: ''

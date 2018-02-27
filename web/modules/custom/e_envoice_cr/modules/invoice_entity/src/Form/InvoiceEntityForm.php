@@ -110,7 +110,7 @@ class InvoiceEntityForm extends ContentEntityForm {
         // Rows.
         $this->formatField($form['field_rows']['widget'][$i]['subform']['field_preciounitario']['widget'][0]['value'], TRUE, FALSE);
         $this->formatField($form['field_rows']['widget'][$i]['subform']['field_line_total_amount']['widget'][0]['value'], FALSE, TRUE);
-        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_montototal']['widget'][0]['value'], FALSE, TRUE);
+        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_total_amount']['widget'][0]['value'], FALSE, TRUE);
         $this->formatField($form['field_rows']['widget'][$i]['subform']['field_subtotal']['widget'][0]['value'], FALSE, TRUE);
         $this->formatField($form['field_rows']['widget'][$i]['subform']['field_row_discount']['widget'][0]['value'], FALSE, TRUE);
         $visible_condition = [

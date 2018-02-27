@@ -118,22 +118,22 @@ class XMLGenerator {
       // Save the ones with tax.
       if ($tax_mount !== "" && $tax_mount > 0 && $tax_mount !== NULL) {
         if ($values['field_tipo'][0]['value'] === "01") {
-          $total_prod_with_tax = $total_prod_with_tax + (int) round($values['field_montototal'][0]['value'], 5);
+          $total_prod_with_tax = $total_prod_with_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_prod++;
         }
         else {
-          $total_serv_with_tax = $total_serv_with_tax + (int) round($values['field_montototal'][0]['value'], 5);
+          $total_serv_with_tax = $total_serv_with_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_services++;
         }
       }
       else {
         // Save the ones without tax.
         if ($values['field_tipo'][0]['value'] === "01") {
-          $total_prod_without_tax = $total_prod_without_tax + (int) round($values['field_montototal'][0]['value'], 5);
+          $total_prod_without_tax = $total_prod_without_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_services++;
         }
         else {
-          $total_serv_without_tax = $total_serv_without_tax + (int) round($values['field_montototal'][0]['value'], 5);
+          $total_serv_without_tax = $total_serv_without_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_services++;
         }
       }
@@ -321,7 +321,7 @@ class XMLGenerator {
     $xml_doc .= "\t\t\t<UnidadMedidaComercial>" . $values['field_another_unit_measure'][0]['value'] . "</UnidadMedidaComercial>\n";
     $xml_doc .= "\t\t\t<Detalle>" . $values['field_detail'][0]['value'] . "</Detalle>\n";
     $xml_doc .= "\t\t\t<PrecioUnitario>" . $values['field_preciounitario'][0]['value'] . "</PrecioUnitario>\n";
-    $xml_doc .= "\t\t\t<MontoTotal>" . $values['field_montototal'][0]['value'] . "</MontoTotal>\n";
+    $xml_doc .= "\t\t\t<MontoTotal>" . $values['field_total_amount'][0]['value'] . "</MontoTotal>\n";
     if (!is_null($discount) && $discount > 0) {
       $xml_doc .= "\t\t\t<MontoDescuento>" . $discount . "</MontoDescuento>\n";
       $xml_doc .= "\t\t\t<NaturalezaDescuento>" . $discount_reason . "</NaturalezaDescuento>\n";

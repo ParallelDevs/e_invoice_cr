@@ -91,7 +91,7 @@ function invoice_entity_preprocess_field(&$variables, $hook) {
       "field_totalcomprobante",
       "field_total_discount",
       "field_preciounitario",
-      "field_montototal",
+      "field_total_amount",
       "field_subtotal",
       "field_monto_total_linea"
     ];

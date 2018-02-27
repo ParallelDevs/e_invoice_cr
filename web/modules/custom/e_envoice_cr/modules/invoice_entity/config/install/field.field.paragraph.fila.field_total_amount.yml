@@ -2,18 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_montototal
+    - field.storage.paragraph.field_total_amount
     - paragraphs.paragraphs_type.fila
   module:
     - invoice_entity
   enforced:
     module:
       - invoice_entity
-id: paragraph.fila.field_montototal
-field_name: field_montototal
+id: paragraph.fila.field_total_amount
+field_name: field_total_amount
 entity_type: paragraph
 bundle: fila
-label: 'Monto Total'
+label: 'Total Amount'
 description: ''
 required: true
 translatable: false
