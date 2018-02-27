@@ -8,8 +8,8 @@ dependencies:
   enforced:
     module:
       - invoice_entity
-id: paragraph.field_tipo
-field_name: field_tipo
+id: paragraph.field_row_type
+field_name: field_row_type
 entity_type: paragraph
 type: list_string
 settings:

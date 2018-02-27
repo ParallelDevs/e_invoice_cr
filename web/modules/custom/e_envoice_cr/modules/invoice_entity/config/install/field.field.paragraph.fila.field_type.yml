@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_tipo
+    - field.storage.paragraph.field_row_type
     - paragraphs.paragraphs_type.fila
   module:
     - options
@@ -10,11 +10,11 @@ dependencies:
   enforced:
     module:
       - invoice_entity
-id: paragraph.fila.field_tipo
-field_name: field_tipo
+id: paragraph.fila.field_row_type
+field_name: field_row_type
 entity_type: paragraph
 bundle: fila
-label: Tipo
+label: Type
 description: ''
 required: true
 translatable: false

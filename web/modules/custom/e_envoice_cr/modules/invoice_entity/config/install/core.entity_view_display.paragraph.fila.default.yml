@@ -16,7 +16,7 @@ dependencies:
     - field.field.paragraph.fila.field_unit_price
     - field.field.paragraph.fila.field_row_discount
     - field.field.paragraph.fila.field_subtotal
-    - field.field.paragraph.fila.field_tipo
+    - field.field.paragraph.fila.field_row_type
     - field.field.paragraph.fila.field_unit_measure
     - paragraphs.paragraphs_type.fila
   enforced:
@@ -151,4 +151,4 @@ hidden:
   entity_print_view_word_docx: true
   field_add_discount: true
   field_row_discount: true
-  field_tipo: true
+  field_row_type: true

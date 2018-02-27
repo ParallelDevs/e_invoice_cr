@@ -117,7 +117,7 @@ class XMLGenerator {
       }
       // Save the ones with tax.
       if ($tax_mount !== "" && $tax_mount > 0 && $tax_mount !== NULL) {
-        if ($values['field_tipo'][0]['value'] === "01") {
+        if ($values['field_row_type'][0]['value'] === "01") {
           $total_prod_with_tax = $total_prod_with_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_prod++;
         }
@@ -128,7 +128,7 @@ class XMLGenerator {
       }
       else {
         // Save the ones without tax.
-        if ($values['field_tipo'][0]['value'] === "01") {
+        if ($values['field_row_type'][0]['value'] === "01") {
           $total_prod_without_tax = $total_prod_without_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_services++;
         }
