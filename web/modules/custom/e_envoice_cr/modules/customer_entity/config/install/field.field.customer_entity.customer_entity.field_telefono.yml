@@ -14,7 +14,7 @@ entity_type: customer_entity
 bundle: customer_entity
 label: Teléfono
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
