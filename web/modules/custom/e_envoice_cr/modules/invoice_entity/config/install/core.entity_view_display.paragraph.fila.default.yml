@@ -13,7 +13,7 @@ dependencies:
     - field.field.paragraph.fila.field_row_tax
     - field.field.paragraph.fila.field_line_total_amount
     - field.field.paragraph.fila.field_total_amount
-    - field.field.paragraph.fila.field_preciounitario
+    - field.field.paragraph.fila.field_unit_price
     - field.field.paragraph.fila.field_row_discount
     - field.field.paragraph.fila.field_subtotal
     - field.field.paragraph.fila.field_tipo
@@ -116,7 +116,7 @@ content:
     third_party_settings: {  }
     type: number_decimal
     region: content
-  field_preciounitario:
+  field_unit_price:
     weight: 6
     label: above
     settings:

@@ -108,7 +108,7 @@ class InvoiceEntityForm extends ContentEntityForm {
     for ($i = 0; $i >= 0; $i++) {
       if (array_key_exists($i, $form['field_rows']['widget'])) {
         // Rows.
-        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_preciounitario']['widget'][0]['value'], TRUE, FALSE);
+        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_unit_price']['widget'][0]['value'], TRUE, FALSE);
         $this->formatField($form['field_rows']['widget'][$i]['subform']['field_line_total_amount']['widget'][0]['value'], FALSE, TRUE);
         $this->formatField($form['field_rows']['widget'][$i]['subform']['field_total_amount']['widget'][0]['value'], FALSE, TRUE);
         $this->formatField($form['field_rows']['widget'][$i]['subform']['field_subtotal']['widget'][0]['value'], FALSE, TRUE);

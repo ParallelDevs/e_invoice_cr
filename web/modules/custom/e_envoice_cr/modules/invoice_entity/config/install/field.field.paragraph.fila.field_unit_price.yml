@@ -2,18 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_preciounitario
+    - field.storage.paragraph.field_unit_price
     - paragraphs.paragraphs_type.fila
   module:
     - invoice_entity
   enforced:
     module:
       - invoice_entity
-id: paragraph.fila.field_preciounitario
-field_name: field_preciounitario
+id: paragraph.fila.field_unit_price
+field_name: field_unit_price
 entity_type: paragraph
 bundle: fila
-label: 'Precio Unitario'
+label: 'Unit Price'
 description: ''
 required: true
 translatable: false

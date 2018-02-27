@@ -320,7 +320,7 @@ class XMLGenerator {
     $xml_doc .= "\t\t\t<UnidadMedida>" . $values['field_unit_measure'][0]['value'] . "</UnidadMedida>\n";
     $xml_doc .= "\t\t\t<UnidadMedidaComercial>" . $values['field_another_unit_measure'][0]['value'] . "</UnidadMedidaComercial>\n";
     $xml_doc .= "\t\t\t<Detalle>" . $values['field_detail'][0]['value'] . "</Detalle>\n";
-    $xml_doc .= "\t\t\t<PrecioUnitario>" . $values['field_preciounitario'][0]['value'] . "</PrecioUnitario>\n";
+    $xml_doc .= "\t\t\t<PrecioUnitario>" . $values['field_unit_price'][0]['value'] . "</PrecioUnitario>\n";
     $xml_doc .= "\t\t\t<MontoTotal>" . $values['field_total_amount'][0]['value'] . "</MontoTotal>\n";
     if (!is_null($discount) && $discount > 0) {
       $xml_doc .= "\t\t\t<MontoDescuento>" . $discount . "</MontoDescuento>\n";
