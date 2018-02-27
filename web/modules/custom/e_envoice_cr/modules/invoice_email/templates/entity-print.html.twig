@@ -9,11 +9,7 @@
 </head>
 <body>
 <div class="page">
-  {% if invoice_entity %}
-    {% include  module_path ~ '/templates/invoice-entity-pdf.html.twig' with {'content': content} only %}
-  {% else %}
-    {{ content }}
-  {% endif %}
+  {{ content }}
 </div>
 </body>
 </html>

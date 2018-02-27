@@ -8,6 +8,14 @@
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 
+function invoice_entity_theme() {
+  return [
+    'invoice_entity' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
 /**
  * Error messages.
  */
@@ -101,4 +109,12 @@ function invoice_entity_preprocess_field(&$variables, $hook) {
       $variables['label'] = $variables['label'] . $currency;
     }
   }
+}
+
+/**
+ * Implements hook_preprocess_invoice_entity().
+ */
+function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
+  $as = "";
+  $variables['as'] = "";
 }
