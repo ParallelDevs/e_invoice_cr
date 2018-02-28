@@ -141,8 +141,8 @@ function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
     if (!is_null($entity)) {
       $client_id = $entity->id();
       $client = CustomerEntity::load($client_id);
-      $customer['id'] = $client->get('	field_customer_id')->value;
-      $customer['id_label'] = $client->getFieldDefinition('	field_customer_id')->label();
+      $customer['id'] = $client->get('field_customer_id')->value;
+      $customer['id_label'] = $client->getFieldDefinition('field_customer_id')->label();
       $customer['name'] = $client->get('name')->value;
       $customer['email'] = $client->get('field_email')->value;
       $customer['email_label'] = $client->getFieldDefinition('field_email')->label();
