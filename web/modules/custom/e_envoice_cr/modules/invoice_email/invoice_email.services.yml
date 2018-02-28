@@ -4,7 +4,3 @@ services:
     arguments: []
     tags:
       - { name: event_subscriber }
-  invoice_email.entityprintconfig:
-      class: Drupal\invoice_email\EventSubscriber\EntityPrintSubscriber
-      tags:
-        - { name: event_subscriber }

@@ -98,10 +98,6 @@ table {
   margin-top: 30px;
   border-top: 2px solid #999999;
 }
-
-
-
-
 .sum-table .sum-field-label {
   text-align: right;
 }
@@ -129,7 +125,7 @@ table {
   border: 0;
 }
 .rows-table td {
-  color: #999999;
+  color: #3f3f3f;
   padding: 0 4px;
 }
 .sum-table {
@@ -137,7 +133,7 @@ table {
 }
 .sum-table td {
   margin-top: 20px;
-  color: #999999;
+  color: #3f3f3f;
 }
 .sum-field-label,
 .sum-field-value {
@@ -157,10 +153,9 @@ table {
 .field--name-field-filas > .field__label {
   display: none;
 }
-.invoice_entity h2{
+.invoice_entity h2 {
   color: #999999;
   margin: 28px 0;
   font-size: 16px;
   text-align: center;
 }
-

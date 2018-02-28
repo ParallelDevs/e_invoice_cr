@@ -68,9 +68,6 @@
 .pdf-only {
   display: none;
 }
-
-
-
 .sum-table .sum-field-label {
   text-align: right;
 }
@@ -86,10 +83,10 @@
   border-right: 4px solid;
 }
 .rows-table td {
-  color: #999999;
+  color: #3f3f3f;
 }
 .sum-table td {
-  color: #999999;
+  color: #3f3f3f;
 }
 
 .sum-field-label,

@@ -9,14 +9,17 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 use Drupal\customer_entity\Entity\CustomerEntity;
 
+/**
+ * Implements hook_theme().
+ */
 function invoice_entity_theme() {
   return [
     'invoice_entity' => [
       'render element' => 'elements',
     ],
-    'paragraph__fila' => array(
+    'paragraph__fila' => [
       'render element' => 'elements',
-    ),
+    ],
   ];
 }
 
@@ -139,9 +142,12 @@ function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
       $client_id = $entity->id();
       $client = CustomerEntity::load($client_id);
       $customer['id'] = $client->get('field_intensificacion')->value;
+      $customer['id_label'] = $client->getFieldDefinition('field_intensificacion')->label();
       $customer['name'] = $client->get('name')->value;
       $customer['email'] = $client->get('field_correo_electronico')->value;
+      $customer['email_label'] = $client->getFieldDefinition('field_correo_electronico')->label();
       $customer['phone'] = $client->get('field_telefono')->value;
+      $customer['phone_label'] = $client->getFieldDefinition('field_telefono')->label();
       $address = $client->get('field_direccion_')->getValue();
       $customer['address'] = $address[0]['province'] . ", " . $address[0]['canton'] . ", " . $address[0]['district'] . ".";
       $customer['zipcode'] = $address[0]['zipcode'];
@@ -156,7 +162,7 @@ function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
 }
 
 /**
- * Implements hook_preprocess_paragraph().
+ * Implements hook_preprocess_paragraph__fila().
  */
 function invoice_entity_preprocess_paragraph__fila(&$variables) {
   $config = \Drupal::config('e_invoice_cr.settings');

@@ -29,7 +29,7 @@
             <div class="company-info">
               <div class="main-name">{{ emitter.name }}</div>
               <div>{{ emitter.commercial_name }}</div>
-              <div>{{ "Id:"|t }} {{ emitter.id }}</div>
+              <div>{{ customer.id_label }}: {{ emitter.id }}</div>
               <div>{{ emitter.address }}, {{ emitter.postal_code }}</div>
             </div>
           </td>
@@ -53,9 +53,9 @@
             <div class="customer-info">
               <div class="title">{{ "Customer's information:"|t }}</div>
               <div class="customer-name">{{ customer.name }}</div>
-              <div>{{ "Id:"|t }} {{ customer.id }}</div>
-              <div>{{ "Phone:"|t }} {{ customer.phone }}</div>
-              <div>{{ "Email:"|t }} {{ customer.email }}</div>
+              <div>{{ customer.id_label }}: {{ customer.id }}</div>
+              <div>{{ customer.phone_label }}: {{ customer.phone }}</div>
+              <div>{{ customer.email_label }}: {{ customer.email }}</div>
               <div>{{ customer.address }} {{ customer.zipcode }}</div>
             </div>
           </td>
@@ -121,5 +121,3 @@
     <p>{{ "This invoice was generated according to the resolution DGT-R-48-2016 4.2."|t }}</p>
   </div>
 </div>
-
-
