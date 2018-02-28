@@ -36,19 +36,19 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
       $em = \Drupal::entityTypeManager();
       $entity = $em->getStorage("invoice_entity")->load($entityId);
       if (!is_null($entity)) {
-        $rows = $entity->get("field_filas")->getValue();
-        $customerId = $entity->get("field_cliente")->getValue();
+        $rows = $entity->get("field_rows")->getValue();
+        $customerId = $entity->get("field_client")->getValue();
         $customer = $em->getStorage("customer_entity")->load($customerId[0]['target_id']);
-        $fieldEmail = $customer->get("field_correo_electronico")->getValue();
+        $fieldEmail = $customer->get("field_email")->getValue();
         $customerEmail = $fieldEmail[0]['value'];
         $details = "";
         foreach ($rows as $index => $item) {
           $paragraph = Paragraph::load($item['target_id']);
-          $detail = $paragraph->get('field_detalle')->value;
+          $detail = $paragraph->get('field_detail')->value;
           $details = $detail . "\n";
         }
         global $base_url;
-        $pdfUrl = $base_url . "/print/pdf/invoice_entity/" . $entityId;
+        $pdfUrl = $base_url . "/print/pdf/invoice_entity/" . $entityId . "?orientation=landscape";
         $message = t("This is the confirmation of an invoice generated.\nInvoice details: \n@details\nTo see the complete pdf invoice go to: @url",
           ['@details' => $details, '@url' => $pdfUrl]);
 

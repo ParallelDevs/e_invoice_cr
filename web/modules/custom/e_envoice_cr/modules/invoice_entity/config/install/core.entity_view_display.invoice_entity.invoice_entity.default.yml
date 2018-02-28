@@ -2,18 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.invoice_entity.invoice_entity.field_clave_numerica
-    - field.field.invoice_entity.invoice_entity.field_cliente
-    - field.field.invoice_entity.invoice_entity.field_condicion_venta
-    - field.field.invoice_entity.invoice_entity.field_consecutivo
-    - field.field.invoice_entity.invoice_entity.field_fecha_emision
-    - field.field.invoice_entity.invoice_entity.field_filas
-    - field.field.invoice_entity.invoice_entity.field_medio_de_pago
-    - field.field.invoice_entity.invoice_entity.field_plazo_credito
+    - field.field.invoice_entity.invoice_entity.field_numeric_key
+    - field.field.invoice_entity.invoice_entity.field_client
+    - field.field.invoice_entity.invoice_entity.field_sale_condition
+    - field.field.invoice_entity.invoice_entity.field_consecutive_number
+    - field.field.invoice_entity.invoice_entity.field_invoice_date
+    - field.field.invoice_entity.invoice_entity.field_rows
+    - field.field.invoice_entity.invoice_entity.field_payment_method
+    - field.field.invoice_entity.invoice_entity.field_credit_term
     - field.field.invoice_entity.invoice_entity.field_total_discount
-    - field.field.invoice_entity.invoice_entity.field_total_impuesto
-    - field.field.invoice_entity.invoice_entity.field_total_ventaneta
-    - field.field.invoice_entity.invoice_entity.field_totalcomprobante
+    - field.field.invoice_entity.invoice_entity.field_total_tax
+    - field.field.invoice_entity.invoice_entity.field_net_sale
+    - field.field.invoice_entity.invoice_entity.field_total_invoice
   module:
     - datetime
     - entity_reference_revisions
@@ -27,7 +27,7 @@ targetEntityType: invoice_entity
 bundle: invoice_entity
 mode: default
 content:
-  field_clave_numerica:
+  field_numeric_key:
     weight: 2
     label: above
     settings:
@@ -35,7 +35,7 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_cliente:
+  field_client:
     weight: 5
     label: above
     settings:
@@ -43,14 +43,14 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  field_condicion_venta:
+  field_sale_condition:
     weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
-  field_consecutivo:
+  field_consecutive_number:
     weight: 3
     label: above
     settings:
@@ -58,7 +58,7 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_fecha_emision:
+  field_invoice_date:
     weight: 4
     label: above
     settings:
@@ -67,7 +67,7 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: content
-  field_filas:
+  field_rows:
     type: entity_reference_revisions_entity_view
     weight: 9
     label: above
@@ -76,14 +76,14 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
-  field_medio_de_pago:
+  field_payment_method:
     weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
-  field_plazo_credito:
+  field_credit_term:
     weight: 8
     label: above
     settings:
@@ -102,7 +102,7 @@ content:
     third_party_settings: {  }
     type: number_decimal
     region: content
-  field_total_impuesto:
+  field_total_tax:
     weight: 11
     label: above
     settings:
@@ -113,7 +113,7 @@ content:
     third_party_settings: {  }
     type: number_decimal
     region: content
-  field_total_ventaneta:
+  field_net_sale:
     weight: 10
     label: above
     settings:
@@ -124,7 +124,7 @@ content:
     third_party_settings: {  }
     type: number_decimal
     region: content
-  field_totalcomprobante:
+  field_total_invoice:
     weight: 12
     label: above
     settings:

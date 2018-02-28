@@ -39,3 +39,32 @@ function invoice_email_mail($key, &$message, $params) {
       break;
   }
 }
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function invoice_email_theme_registry_alter(&$theme_registry) {
+  // Change the default template.
+  $theme_registry['entity_print']['path'] = drupal_get_path('module', 'invoice_email') . '/templates';
+}
+
+/**
+ * Implements hook_link_alter().
+ */
+function invoice_email_link_alter(&$variables) {
+  $url = $variables['url'];
+  $external = $url->isExternal();
+  if ($external == FALSE) {
+    $name = $url->getRouteName();
+    if ($name === "entity_print.view") {
+      $param = $url->getRouteParameters();
+      if ($param['entity_type'] === "invoice_entity") {
+        // Add a query parameter to the url.
+        $url->setRouteParameter('orientation', "landscape");
+        $query['orientation'] = "landscape";
+        $url->setOption('query', $query);
+        $variables['url'] = $url;
+      }
+    }
+  }
+}

@@ -47,10 +47,10 @@ class XMLGenerator {
    *   Return the header xml as a text.
    */
   private function generateHeaderXml(InvoiceEntity $entity) {
-    $payment_method = $entity->get('field_medio_de_pago')->getValue();
-    $xml_doc = "\t<Clave>" . $entity->get('field_clave_numerica')->value . "</Clave>\n";
-    $xml_doc .= "\t<NumeroConsecutivo>" . $entity->get('field_consecutivo')->value . "</NumeroConsecutivo>\n";
-    $xml_doc .= "\t<FechaEmision>" . $this->formatDateForXml($entity->get('field_fecha_emision')->value) . "</FechaEmision>\n";
+    $payment_method = $entity->get('field_payment_method')->getValue();
+    $xml_doc = "\t<Clave>" . $entity->get('field_numeric_key')->value . "</Clave>\n";
+    $xml_doc .= "\t<NumeroConsecutivo>" . $entity->get('field_consecutive_number')->value . "</NumeroConsecutivo>\n";
+    $xml_doc .= "\t<FechaEmision>" . $this->formatDateForXml($entity->get('field_invoice_date')->value) . "</FechaEmision>\n";
 
     // Add the "emisor" information.
     $xml_doc .= $this->generateEmisorXml();
@@ -58,8 +58,8 @@ class XMLGenerator {
     $xml_doc .= $this->generateReceptorXml($entity);
 
     // More header information.
-    $xml_doc .= "\t<CondicionVenta>" . $entity->get('field_condicion_venta')->value . "</CondicionVenta>\n";
-    $xml_doc .= "\t<PlazoCredito>" . $entity->get('field_plazo_credito')->value . "</PlazoCredito>\n";
+    $xml_doc .= "\t<CondicionVenta>" . $entity->get('field_sale_condition')->value . "</CondicionVenta>\n";
+    $xml_doc .= "\t<PlazoCredito>" . $entity->get('field_credit_term')->value . "</PlazoCredito>\n";
 
     if ($payment_method != NULL & !empty($payment_method)) {
       foreach ($payment_method as $method) {
@@ -77,7 +77,7 @@ class XMLGenerator {
    *   Return the detail xml as a text.
    */
   private function generateDetailXml(InvoiceEntity $entity) {
-    $rows = $entity->get('field_filas')->getValue();
+    $rows = $entity->get('field_rows')->getValue();
     $xml_doc = "\t<DetalleServicio>\n";
 
     foreach ($rows as $index => $item) {
@@ -99,7 +99,7 @@ class XMLGenerator {
   private function generateSummaryXml(InvoiceEntity $entity) {
     $settings = \Drupal::config('e_invoice_cr.settings');
     $currency = $settings->get('currency');
-    $rows = $entity->get('field_filas')->getValue();
+    $rows = $entity->get('field_rows')->getValue();
     $total_services = 0;
     $total_prod = 0;
     $total_serv_with_tax = 0;
@@ -109,7 +109,7 @@ class XMLGenerator {
 
     foreach ($rows as $row) {
       $values = $row['subform'];
-      $tax_id = $values['field_impuesto'][0]['target_id'];
+      $tax_id = $values['field_row_tax'][0]['target_id'];
       $tax = TaxEntity::load($tax_id);
 
       if ($tax !== NULL) {
@@ -117,23 +117,23 @@ class XMLGenerator {
       }
       // Save the ones with tax.
       if ($tax_mount !== "" && $tax_mount > 0 && $tax_mount !== NULL) {
-        if ($values['field_tipo'][0]['value'] === "01") {
-          $total_prod_with_tax = $total_prod_with_tax + (int) round($values['field_montototal'][0]['value'], 5);
+        if ($values['field_row_type'][0]['value'] === "01") {
+          $total_prod_with_tax = $total_prod_with_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_prod++;
         }
         else {
-          $total_serv_with_tax = $total_serv_with_tax + (int) round($values['field_montototal'][0]['value'], 5);
+          $total_serv_with_tax = $total_serv_with_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_services++;
         }
       }
       else {
         // Save the ones without tax.
-        if ($values['field_tipo'][0]['value'] === "01") {
-          $total_prod_without_tax = $total_prod_without_tax + (int) round($values['field_montototal'][0]['value'], 5);
+        if ($values['field_row_type'][0]['value'] === "01") {
+          $total_prod_without_tax = $total_prod_without_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_services++;
         }
         else {
-          $total_serv_without_tax = $total_serv_without_tax + (int) round($values['field_montototal'][0]['value'], 5);
+          $total_serv_without_tax = $total_serv_without_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_services++;
         }
       }
@@ -154,9 +154,9 @@ class XMLGenerator {
     $xml_doc .= "\t\t<TotalExento>" . $total_without_tax . "</TotalExento>\n";
     $xml_doc .= "\t\t<TotalVenta>" . $total_sale . "</TotalVenta>\n";
     $xml_doc .= "\t\t<TotalDescuentos>" . $entity->get('field_total_discount')->value . "</TotalDescuentos>\n";
-    $xml_doc .= "\t\t<TotalVentaNeta>" . $entity->get('field_total_ventaneta')->value . "</TotalVentaNeta>\n";
-    $xml_doc .= "\t\t<TotalImpuesto>" . $entity->get('field_total_impuesto')->value . "</TotalImpuesto>\n";
-    $xml_doc .= "\t\t<TotalComprobante>" . $entity->get('field_totalcomprobante')->value . "</TotalComprobante>\n";
+    $xml_doc .= "\t\t<TotalVentaNeta>" . $entity->get('field_net_sale')->value . "</TotalVentaNeta>\n";
+    $xml_doc .= "\t\t<TotalImpuesto>" . $entity->get('field_total_tax')->value . "</TotalImpuesto>\n";
+    $xml_doc .= "\t\t<TotalComprobante>" . $entity->get('field_total_invoice')->value . "</TotalComprobante>\n";
     $xml_doc .= "\t</ResumenFactura>\n";
 
     return $xml_doc;
@@ -256,19 +256,19 @@ class XMLGenerator {
    *   Return the "receptor" in a string variable.
    */
   private function generateReceptorXml(InvoiceEntity $entity) {
-    $client_id = $entity->get('field_cliente')->target_id;
+    $client_id = $entity->get('field_client')->target_id;
     $client = CustomerEntity::load($client_id);
-    $client_zip_code = $client->field_direccion_->getValue();
-    $telephone = $client->get('field_telefono')->value;
+    $client_zip_code = $client->field_address->getValue();
+    $telephone = $client->get('field_phone')->value;
 
     $xml_doc = "\t<Receptor>\n";
     $xml_doc .= "\t\t<Nombre>" . $client->get('name')->value . "</Nombre>\n";
     $xml_doc .= "\t\t<Identificacion>\n";
-    $xml_doc .= "\t\t\t<Tipo>" . $client->get('field_tipo_de_identificacion')->value . "</Tipo>\n";
-    $xml_doc .= "\t\t\t<Numero>" . $client->get('field_intensificacion')->value . "</Numero>\n";
+    $xml_doc .= "\t\t\t<Tipo>" . $client->get('field_type_id')->value . "</Tipo>\n";
+    $xml_doc .= "\t\t\t<Numero>" . $client->get('field_customer_id')->value . "</Numero>\n";
     $xml_doc .= "\t\t</Identificacion>\n";
-    $xml_doc .= "\t\t<IdentificacionExtranjero>" . $client->get('field_intensificacion_ex')->value . "</IdentificacionExtranjero>\n";
-    $xml_doc .= "\t\t<NombreComercial>" . $client->get('field_nombrecomercial')->value . "</NombreComercial>\n";
+    $xml_doc .= "\t\t<IdentificacionExtranjero>" . $client->get('field_customer_foreign_id')->value . "</IdentificacionExtranjero>\n";
+    $xml_doc .= "\t\t<NombreComercial>" . $client->get('field_commercial_name')->value . "</NombreComercial>\n";
     if (!empty($client_zip_code[0]['zipcode'])) {
       $xml_doc .= "\t\t<Ubicacion>\n";
       $xml_doc .= "\t\t\t<Provincia>" . substr($client_zip_code[0]['zipcode'], 0, 1) . "</Provincia>\n";
@@ -281,8 +281,8 @@ class XMLGenerator {
     }
     if ($telephone != NULL || !empty($telephone)) {
       $xml_doc .= "\t\t<Telefono>\n";
-      $xml_doc .= "\t\t\t<CodigoPais>" . substr($client->get('field_telefono')->value, 0, 3) . "</CodigoPais>\n";
-      $xml_doc .= "\t\t\t<NumTelefono>" . substr($client->get('field_telefono')->value, 3) . "</NumTelefono>\n";
+      $xml_doc .= "\t\t\t<CodigoPais>" . substr($telephone, 0, 3) . "</CodigoPais>\n";
+      $xml_doc .= "\t\t\t<NumTelefono>" . substr($telephone, 3) . "</NumTelefono>\n";
       $xml_doc .= "\t\t</Telefono>\n";
     }
     if (!is_null($client->get('field_fax')->value) && $client->get('field_fax')->value !== "") {
@@ -291,8 +291,7 @@ class XMLGenerator {
       $xml_doc .= "\t\t\t<NumTelefono>" . substr($client->get('field_fax')->value, 3) . "</NumTelefono>\n";
       $xml_doc .= "\t\t</Fax>\n";
     }
-
-    $xml_doc .= "\t\t" . $this->simpleFieldTag("CorreoElectronico", $client->get('field_correo_electronico')->value, FALSE);
+    $xml_doc .= "\t\t" . $this->simpleFieldTag("CorreoElectronico", $client->get('field_email')->value, FALSE);
     $xml_doc .= "\t</Receptor>\n";
 
     return $xml_doc;
@@ -309,7 +308,7 @@ class XMLGenerator {
     $values = $row['subform'];
     $discount = $values['field_add_discount']['value'] ? $values['field_row_discount'][0]['value'] : 0;
     $discount_reason = $values['field_add_discount']['value'] ? $values['field_discount_reason'][0]['value'] : "";
-    $tax_id = $values['field_impuesto'][0]['target_id'];
+    $tax_id = $values['field_row_tax'][0]['target_id'];
     $entity_manager = \Drupal::entityManager();
     $tax = $entity_manager->getStorage('tax_entity')->load($tax_id);
     if ($tax !== NULL) {
@@ -320,14 +319,14 @@ class XMLGenerator {
     $xml_doc .= "\t\t\t<NumeroLinea>" . $count . "</NumeroLinea>\n";
     $xml_doc .= "\t\t\t<Codigo>\n";
     $xml_doc .= "\t\t\t\t<Tipo>" . $values['field_code_type'][0]['value'] . "</Tipo>\n";
-    $xml_doc .= "\t\t\t\t<Codigo>" . $values['field_codigo'][0]['value'] . "</Codigo>\n";
+    $xml_doc .= "\t\t\t\t<Codigo>" . $values['field_code'][0]['value'] . "</Codigo>\n";
     $xml_doc .= "\t\t\t</Codigo>\n";
-    $xml_doc .= "\t\t\t<Cantidad>" . $values['field_cantidad'][0]['value'] . "</Cantidad>\n";
+    $xml_doc .= "\t\t\t<Cantidad>" . $values['field_quantity'][0]['value'] . "</Cantidad>\n";
     $xml_doc .= "\t\t\t<UnidadMedida>" . $values['field_unit_measure'][0]['value'] . "</UnidadMedida>\n";
     $xml_doc .= "\t\t\t<UnidadMedidaComercial>" . $values['field_another_unit_measure'][0]['value'] . "</UnidadMedidaComercial>\n";
-    $xml_doc .= "\t\t\t<Detalle>" . $values['field_detalle'][0]['value'] . "</Detalle>\n";
-    $xml_doc .= "\t\t\t<PrecioUnitario>" . $values['field_preciounitario'][0]['value'] . "</PrecioUnitario>\n";
-    $xml_doc .= "\t\t\t<MontoTotal>" . $values['field_montototal'][0]['value'] . "</MontoTotal>\n";
+    $xml_doc .= "\t\t\t<Detalle>" . $values['field_detail'][0]['value'] . "</Detalle>\n";
+    $xml_doc .= "\t\t\t<PrecioUnitario>" . $values['field_unit_price'][0]['value'] . "</PrecioUnitario>\n";
+    $xml_doc .= "\t\t\t<MontoTotal>" . $values['field_total_amount'][0]['value'] . "</MontoTotal>\n";
     if (!is_null($discount) && $discount > 0) {
       $xml_doc .= "\t\t\t<MontoDescuento>" . $discount . "</MontoDescuento>\n";
       $xml_doc .= "\t\t\t<NaturalezaDescuento>" . $discount_reason . "</NaturalezaDescuento>\n";
@@ -347,7 +346,7 @@ class XMLGenerator {
         $xml_doc .= "\t\t\t</Impuesto>\n";
       }
     }
-    $xml_doc .= "\t\t\t<MontoTotalLinea>" . round($values['field_monto_total_linea'][0]['value'], 5) . "</MontoTotalLinea>\n";
+    $xml_doc .= "\t\t\t<MontoTotalLinea>" . round($values['field_line_total_amount'][0]['value'], 5) . "</MontoTotalLinea>\n";
     $xml_doc .= "\t\t</LineaDetalle>\n";
 
     return $xml_doc;

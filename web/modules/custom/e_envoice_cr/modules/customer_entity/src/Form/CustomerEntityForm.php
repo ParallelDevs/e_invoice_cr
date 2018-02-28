@@ -39,14 +39,14 @@ class CustomerEntityForm extends ContentEntityForm {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     // Fields to evaluate.
-    $id = 'field_intensificacion';
-    $foreign_id = 'field_intensificacion_ex';
-    $phone = 'field_telefono';
+    $id = 'field_customer_id';
+    $foreign_id = 'field_customer_foreign_id';
+    $phone = 'field_phone';
     $address = 'field_direccion_';
-    $type = $form_state->getValue('field_tipo_de_identificacion');
+    $type = $form_state->getValue('field_type_id');
 
     // Validating id field regarding the identification type.
-    switch ($form_state->getValue('field_tipo_de_identificacion')[0]['value']) {
+    switch ($form_state->getValue('field_type_id')[0]['value']) {
       case "01":
         if (strlen($form_state->getValue($id)[0]['value']) !== 9) {
           $form_state->setErrorByName($id, $this->t("The id should have 9 characters, add zeros at the start if it\'s necessary."));

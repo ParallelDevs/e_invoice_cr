@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.customer_entity.field_customer_foreign_id
+  module:
+    - customer_entity
+_core:
+  default_config_hash: XMRGVZY7FrQZV2e6SiFMPdaJuUip5SrHRKQTzbAxqkk
+id: customer_entity.customer_entity.field_customer_foreign_id
+field_name: field_customer_foreign_id
+entity_type: customer_entity
+bundle: customer_entity
+label: 'Foreign ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

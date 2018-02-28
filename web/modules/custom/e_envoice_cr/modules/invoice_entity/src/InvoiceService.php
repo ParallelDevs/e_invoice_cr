@@ -93,7 +93,7 @@ class InvoiceService implements InvoiceServiceInterface {
    * {@inheritdoc}
    */
   public function validateInvoiceEntity(InvoiceEntity $entity) {
-    $key = $entity->get('field_clave_numerica')->value;
+    $key = $entity->get('field_numeric_key')->value;
     $result = $this->responseForKey($key);
     $state = NULL;
     if (!is_null($result)) {
