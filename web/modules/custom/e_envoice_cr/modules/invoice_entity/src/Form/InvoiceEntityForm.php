@@ -102,7 +102,7 @@ class InvoiceEntityForm extends ContentEntityForm {
     $this->formatField($form['field_total_invoice']['widget'][0]['value'], TRUE, TRUE);
     $this->formatField($form['field_total_tax']['widget'][0]['value'], FALSE, TRUE);
     $visible = [
-      'select[id="edit-field-condicion-venta"]' => ['value' => '02'],
+      'select[id="edit-field-sale-condition"]' => ['value' => '02'],
     ];
     $form['field_credit_term']['widget'][0]['value']['#states']['visible'] = $visible;
     for ($i = 0; $i >= 0; $i++) {
@@ -120,7 +120,7 @@ class InvoiceEntityForm extends ContentEntityForm {
         $form['field_rows']['widget'][$i]['subform']['field_discount_percentage']['widget'][0]['value']['#states']['visible'] = $visible_condition;
         $form['field_rows']['widget'][$i]['subform']['field_discount_reason']['widget'][0]['value']['#states']['visible'] = $visible_condition;
         $visible = [
-          'select[data-drupal-selector="edit-field-filas-' . $i . '-subform-field-unit-measure"]' => ['value' => 'Otros'],
+          'select[data-drupal-selector="edit-field-rows-' . $i . '-subform-field-unit-measure"]' => ['value' => 'Otros'],
         ];
         $form['field_rows']['widget'][$i]['subform']['field_another_unit_measure']['widget'][0]['value']['#states']['visible'] = $visible;
       }

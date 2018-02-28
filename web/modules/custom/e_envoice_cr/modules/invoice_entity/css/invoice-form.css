@@ -1,33 +1,33 @@
 .field--name-field-code-type,
-.field--name-field-codigo,
-.field--name-field-cantidad,
-.field--name-field-preciounitario {
+.field--name-field-code,
+.field--name-field-quantity,
+.field--name-field-unit-price {
   display: inline-block;
   width: 25%;
 }
-.field--name-field-tipo {
+.field--name-field-row-type {
   display: inline-block;
 }
-.field--name-field-codigo {
+.field--name-field-code {
   margin-right: 10%;
 }
-.field--name-field-detalle {
+.field--name-field-detail {
   margin-bottom: 10px;
 }
-.field--name-field-montototal,
-.field--name-field-impuesto,
+.field--name-field-total-amount,
+.field--name-field-row-tax,
 .field--name-field-subtotal,
-.field--name-field-monto-total-linea,
+.field--name-field-line-total-amount,
 .field--name-field-row-discount {
   width: 54%;
   float: right;
   margin-bottom: 10px;
   text-align: right;
 }
-.field--name-field-montototal div {
+.field--name-field-total-amount div {
   float: right;
 }
-.field--name-field-descuento div {
+.field--name-field-discount div {
   float: right;
 }
 .field--name-field-row-discount div {
@@ -36,16 +36,16 @@
 .field--name-field-subtotal div {
   float: right;
 }
-.field--name-field-monto-total-linea div {
+.field--name-field-line-total-amount div {
   float: right;
 }
-.field--name-field-montototal label {
+.field--name-field-total-amount label {
   display: inline-block;
 }
-.field--name-field-impuesto label {
+.field--name-field-row-tax label {
   display: inline-block;
 }
-.field--name-field-impuesto select {
+.field--name-field-row-tax select {
   width: 179px;
 }
 .field--name-field-row-discount label {
@@ -54,7 +54,7 @@
 .field--name-field-subtotal label {
   display: inline-block;
 }
-.field--name-field-monto-total-linea label {
+.field--name-field-line-total-amount label {
   display: inline-block;
 }
 .field--name-field-unit-measure {
