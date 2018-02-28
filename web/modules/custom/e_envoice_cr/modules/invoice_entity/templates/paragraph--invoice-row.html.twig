@@ -51,40 +51,38 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
       <table class="rows-table" border="0" cellspacing="0" cellpadding="0">
         <thead>
         <tr>
-          <th class="field-label">{{ elements.field_codigo|field_label }}</th>
+          <th class="field-label">{{ elements.field_code|field_label }}</th>
           <th class="field-label">{{ elements.field_unit_measure|field_label }}</th>
-          {# <th class="field-label">{{ elements.field_code_type|field_label }}</th> #}
-          <th class="field-label">{{ elements.field_detalle|field_label }}</th>
-          <th class="field-label">{{ elements.field_cantidad|field_label }}</th>
-          <th class="field-label">{{ elements.field_preciounitario|field_label }}</th>
-          <th class="field-label">{{ elements.field_monto_total_linea|field_label }}</th>
+          <th class="field-label">{{ elements.field_detail|field_label }}</th>
+          <th class="field-label">{{ elements.field_quantity|field_label }}</th>
+          <th class="field-label">{{ elements.field_unit_price|field_label }}</th>
+          <th class="field-label">{{ elements.field_total_amount|field_label }}</th>
           {% if elements.field_discount_percentage|field_value != "" %}
             <th class="field-label">{{ elements.field_discount_percentage|field_label }}</th>
           {% endif %}
           {% if elements.field_impuesto|field_value != "" %}
-            <th class="field-label">{{ elements.field_impuesto|field_label }}</th>
+            <th class="field-label">{{ elements.field_row_tax|field_label }}</th>
           {% endif %}
           <th class="field-label">{{ elements.field_subtotal|field_label }}</th>
-          <th class="field-label">{{ elements.field_montototal|field_label }}</th>
+          <th class="field-label">{{ elements.field_line_total_amount|field_label }}</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td class="field-value">{{ elements.field_codigo|field_value }}</td>
+          <td class="field-value">{{ elements.field_code|field_value }}</td>
           <td class="field-value">{{ elements.field_unit_measure|field_value }}</td>
-          {# <td class="field-value">{{ elements.field_code_type|field_value }}</td> #}
-          <td class="field-value">{{ elements.field_detalle|field_value }}</td>
-          <td class="field-value">{{ elements.field_cantidad|field_value }}</td>
-          <td class="field-value">{{ currency }} {{ elements.field_preciounitario|field_value }}</td>
-          <td class="field-value">{{ currency }} {{ elements.field_monto_total_linea|field_value }}</td>
+          <td class="field-value">{{ elements.field_detail|field_value }}</td>
+          <td class="field-value">{{ elements.field_quantity|field_value }}</td>
+          <td class="field-value">{{ currency }} {{ elements.field_unit_price|field_value }}</td>
+          <td class="field-value">{{ currency }} {{ elements.field_total_amount|field_value }}</td>
           {% if elements.field_discount_percentage|field_value != "" %}
             <td class="field-value">{{ elements.field_discount_percentage|field_value }}%</td>
           {% endif %}
           {% if elements.field_impuesto|field_value != "" %}
-            <td class="field-value">{{ elements.field_impuesto|field_value }}</td>
+            <td class="field-value">{{ elements.field_row_tax|field_value }}</td>
           {% endif %}
           <td class="field-value">{{ currency }} {{ elements.field_subtotal|field_value }}</td>
-          <td class="field-value">{{ currency }} {{ elements.field_montototal|field_value }}</td>
+          <td class="field-value">{{ currency }} {{ elements.field_line_total_amount|field_value }}</td>
         </tr>
       </tbody>
     </table>

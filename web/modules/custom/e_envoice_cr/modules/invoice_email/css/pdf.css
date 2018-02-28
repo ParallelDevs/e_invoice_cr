@@ -150,7 +150,7 @@ table {
   font-size: 17px;
   color: black;
 }
-.field--name-field-filas > .field__label {
+.field--name-field-rows > .field__label {
   display: none;
 }
 .invoice_entity h2 {

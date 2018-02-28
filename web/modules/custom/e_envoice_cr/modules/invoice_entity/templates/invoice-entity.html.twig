@@ -62,30 +62,30 @@
           <td align="right">
             <div class="invoice-info">
               <div class="field-group invoice-num">
-                <div class="field-label">{{ elements.field_consecutivo|field_label }}:</div>
-                <div class="field-value">{{ elements.field_consecutivo|field_value }}</div>
+                <div class="field-label">{{ elements.field_consecutive_number|field_label }}:</div>
+                <div class="field-value">{{ elements.field_consecutive_number|field_value }}</div>
               </div>
               <div class="field-group">
-                <div class="field-label">{{ elements.field_clave_numerica|field_label }}:</div>
-                <div class="field-value">{{ elements.field_clave_numerica|field_value }}</div>
+                <div class="field-label">{{ elements.field_numeric_key|field_label }}:</div>
+                <div class="field-value">{{ elements.field_numeric_key|field_value }}</div>
               </div>
               <div class="field-group">
-                <div class="field-label">{{ elements.field_fecha_emision|field_label }}:</div>
-                <div class="field-value">{{ elements.field_fecha_emision|field_value }}</div>
+                <div class="field-label">{{ elements.field_invoice_date|field_label }}:</div>
+                <div class="field-value">{{ elements.field_invoice_date|field_value }}</div>
               </div>
               <div class="field-group">
-                <div class="field-label">{{ elements.field_condicion_venta|field_label }}:</div>
-                <div class="field-value">{{ elements.field_condicion_venta|field_value }}</div>
+                <div class="field-label">{{ elements.field_sale_condition|field_label }}:</div>
+                <div class="field-value">{{ elements.field_sale_condition|field_value }}</div>
               </div>
-              {% if elements.field_plazo_credito|field_value != "" %}
+              {% if elements.field_credit_term|field_value != "" %}
                 <div class="field-group">
-                  <div class="field-label">{{ elements.field_plazo_credito|field_label }}:</div>
-                  <div class="field-value">{{ elements.field_plazo_credito|field_value }}</div>
+                  <div class="field-label">{{ elements.field_credit_term|field_label }}:</div>
+                  <div class="field-value">{{ elements.field_credit_term|field_value }}</div>
                 </div>
               {% endif %}
               <div class="field-group">
-                <div class="field-label">{{ elements.field_medio_de_pago|field_label }}:</div>
-                <div class="field-value">{{ elements.field_medio_de_pago|field_value }}</div>
+                <div class="field-label">{{ elements.field_payment_method|field_label }}:</div>
+                <div class="field-value">{{ elements.field_payment_method|field_value }}</div>
               </div>
             </div>
           </td>
@@ -93,25 +93,25 @@
       </tbody>
     </table>
 
-    {{ elements.field_filas }}
+    {{ elements.field_rows }}
     {# Invoice summary. #}
     <table class="sum-table" border="0" cellspacing="0" cellpadding="0">
       <tbody>
         <tr>
-          <td class="sum-field-label">{{ elements.field_total_ventaneta|field_label }}:</td>
-          <td class="sum-field-value">{{ currency }} {{ elements.field_total_ventaneta|field_value }}</td>
+          <td class="sum-field-label">{{ elements.field_net_sale|field_label }}:</td>
+          <td class="sum-field-value">{{ currency }} {{ elements.field_net_sale|field_value }}</td>
         </tr>
         <tr class="small-text">
           <td class="sum-field-label">{{ elements.field_total_discount|field_label }}:</td>
           <td class="sum-field-value">{{ currency }} {{ elements.field_total_discount|field_value }}</td>
         </tr>
         <tr class="small-text">
-          <td class="sum-field-label">{{ elements.field_total_impuesto|field_label }}:</td>
-          <td class="sum-field-value">{{ currency }} {{ elements.field_total_impuesto|field_value }}</td>
+          <td class="sum-field-label">{{ elements.field_total_tax|field_label }}:</td>
+          <td class="sum-field-value">{{ currency }} {{ elements.field_total_tax|field_value }}</td>
         </tr>
         <tr class="big-text">
-          <td class="sum-field-label">{{ elements.field_totalcomprobante|field_label }}:</td>
-          <td class="sum-field-value">{{ currency }} {{ elements.field_totalcomprobante|field_value }}</td>
+          <td class="sum-field-label">{{ elements.field_total_invoice|field_label }}:</td>
+          <td class="sum-field-value">{{ currency }} {{ elements.field_total_invoice|field_value }}</td>
         </tr>
       </tbody>
     </table>
