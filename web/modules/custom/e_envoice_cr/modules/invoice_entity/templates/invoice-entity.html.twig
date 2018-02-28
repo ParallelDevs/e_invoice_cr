@@ -15,27 +15,111 @@
  * @ingroup themeable
  */
 #}
+
 <div{{ attributes.addClass('invoice_entity') }}>
-  mauuuu
   {% if elements %}
-    {{- elements -}}
-    <table border="0" cellspacing="0" cellpadding="0">
-      <thead>
-        <tr>
-          <th class="desc">Descripción</th>
-          <th class="qty">Cantidad</th>
-          <th class="unit">Precio Unitario</th>
-          <th class="total">Total</th>
+    {% set currency = emitter.currency %}
+    <h2>{{ "Electronic receipt"|t }}</h2>
+    {# General data. #}
+    <table class="first-table" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr class="tr-row">
+          <td>
+            <div class="company-icon"></div>
+            <div class="company-info">
+              <div class="main-name">{{ emitter.name }}</div>
+              <div>{{ emitter.commercial_name }}</div>
+              <div>{{ "Id:"|t }} {{ emitter.id }}</div>
+              <div>{{ emitter.address }}, {{ emitter.postal_code }}</div>
+            </div>
+          </td>
+          <td align="right">
+            <div class="contact-info">
+              <div class="background-gray">
+                <div>
+                  <span class="circle"><img src="/{{ base_path }}/images/phone-icon.svg"></span>
+                  {{ emitter.phone }}
+                </div>
+                <div>
+                  <span class="circle"><img src="/{{ base_path }}/images/email-icon.svg"></span>
+                  {{ emitter.email }}
+                </div>
+              </div>
+            </div>
+          </td>
         </tr>
-      </thead>
+        <tr class="tr-row">
+          <td>
+            <div class="customer-info">
+              <div class="title">{{ "Customer's information:"|t }}</div>
+              <div class="customer-name">{{ customer.name }}</div>
+              <div>{{ "Id:"|t }} {{ customer.id }}</div>
+              <div>{{ "Phone:"|t }} {{ customer.phone }}</div>
+              <div>{{ "Email:"|t }} {{ customer.email }}</div>
+              <div>{{ customer.address }} {{ customer.zipcode }}</div>
+            </div>
+          </td>
+          <td align="right">
+            <div class="invoice-info">
+              <div class="field-group invoice-num">
+                <div class="field-label">{{ elements.field_consecutivo|field_label }}:</div>
+                <div class="field-value">{{ elements.field_consecutivo|field_value }}</div>
+              </div>
+              <div class="field-group">
+                <div class="field-label">{{ elements.field_clave_numerica|field_label }}:</div>
+                <div class="field-value">{{ elements.field_clave_numerica|field_value }}</div>
+              </div>
+              <div class="field-group">
+                <div class="field-label">{{ elements.field_fecha_emision|field_label }}:</div>
+                <div class="field-value">{{ elements.field_fecha_emision|field_value }}</div>
+              </div>
+              <div class="field-group">
+                <div class="field-label">{{ elements.field_condicion_venta|field_label }}:</div>
+                <div class="field-value">{{ elements.field_condicion_venta|field_value }}</div>
+              </div>
+              {% if elements.field_plazo_credito|field_value != "" %}
+                <div class="field-group">
+                  <div class="field-label">{{ elements.field_plazo_credito|field_label }}:</div>
+                  <div class="field-value">{{ elements.field_plazo_credito|field_value }}</div>
+                </div>
+              {% endif %}
+              <div class="field-group">
+                <div class="field-label">{{ elements.field_medio_de_pago|field_label }}:</div>
+                <div class="field-value">{{ elements.field_medio_de_pago|field_value }}</div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    {{ elements.field_filas }}
+    {# Invoice summary. #}
+    <table class="sum-table" border="0" cellspacing="0" cellpadding="0">
       <tbody>
         <tr>
-          <td class="desc"><h3>Website Design</h3>Creating a recognizable design solution based on the company's existing visual identity</td>
-          <td class="qty">30</td>
-          <td class="unit">$40.00</td>
-          <td class="total">$1,200.00</td>
+          <td class="sum-field-label">{{ elements.field_total_ventaneta|field_label }}:</td>
+          <td class="sum-field-value">{{ currency }} {{ elements.field_total_ventaneta|field_value }}</td>
+        </tr>
+        <tr class="small-text">
+          <td class="sum-field-label">{{ elements.field_total_discount|field_label }}:</td>
+          <td class="sum-field-value">{{ currency }} {{ elements.field_total_discount|field_value }}</td>
+        </tr>
+        <tr class="small-text">
+          <td class="sum-field-label">{{ elements.field_total_impuesto|field_label }}:</td>
+          <td class="sum-field-value">{{ currency }} {{ elements.field_total_impuesto|field_value }}</td>
+        </tr>
+        <tr class="big-text">
+          <td class="sum-field-label">{{ elements.field_totalcomprobante|field_label }}:</td>
+          <td class="sum-field-value">{{ currency }} {{ elements.field_totalcomprobante|field_value }}</td>
         </tr>
       </tbody>
     </table>
   {% endif %}
+  {{ elements.entity_print_view_pdf }}
+  <div class="pdf-only">
+    <p>{{ "This invoice was generated according to the resolution DGT-R-48-2016 4.2."|t }}</p>
+  </div>
 </div>
+
+

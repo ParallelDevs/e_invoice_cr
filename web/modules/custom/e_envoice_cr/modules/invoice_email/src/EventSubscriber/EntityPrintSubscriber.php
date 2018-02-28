@@ -17,12 +17,12 @@ class EntityPrintSubscriber implements EventSubscriberInterface {
    */
   public function alterConfiguration(GenericEvent $event) {
     // Check the url /print/pdf/entity_type/entity_id?orientation=portrait.
-    $request = \Drupal::request()->query->get('orientation');
-    if (!empty($request) && ($request == PrintEngineBase::PORTRAIT || $request == PrintEngineBase::LANDSCAPE)) {
-      $configuration = $event->getArgument('configuration');
-      $configuration['orientation'] = $request;
-      $event->setArgument('configuration', $configuration);
-    }
+//    $request = \Drupal::request()->query->get('orientation');
+//    if (!empty($request) && ($request == PrintEngineBase::PORTRAIT || $request == PrintEngineBase::LANDSCAPE)) {
+//      $configuration = $event->getArgument('configuration');
+//      $configuration['orientation'] = $request;
+//      $event->setArgument('configuration', $configuration);
+//    }
   }
 
   /**

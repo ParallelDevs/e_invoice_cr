@@ -1,238 +1,166 @@
-div {
+div,
+table {
   font-family: "Lucida Grande","Lucida Sans Unicode","DejaVu Sans","Lucida Sans", sans-serif;
-}
-.field .field__label {
-  font-weight: bold;
-}
-.field--name-type-of .field__label {
-  display: inline-block;
-  font-size: 10px;
   font-size: 10px;
 }
-.field--name-type-of .field__item {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-type-of .field__label:after {
-  content: ':';
-}
-.field--name-field-clave-numerica {
-  width: 53.3%;
-  float: left;
-  font-size: 10px;
-}
-.field--name-field-consecutivo {
-  width: 23.3%;
-  float: left;
-  font-size: 10px;
-}
-.field--name-field-fecha-emision {
-  width: 23.3%;
-  float: left;
-  font-size: 10px;
-}
-.field--name-field-cliente {
-  border-top: 1px solid #b8b8b8;
-  width: 100%;
-  margin-top: 10px;
-  padding-top: 10px;
-  margin-top: 50px;
-  font-size: 10px;
-}
-.field--name-field-cliente a {
-  cursor: default;
-  color: black;
-  text-decoration: none;
-}
-.field--name-field-condicion-venta {
-  width: 100%;
-  float: left;
-  font-size: 10px;
-}
-.field--name-field-plazo-credito {
-  margin-bottom: 10px;
-  font-size: 10px;
-}
-.field--name-field-cliente .field__label {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-medio-de-pago .field__label {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-condicion-venta .field__label {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-plazo-credito .field__label {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-cliente .field__label:after {
-  content: ':';
-}
-.field--name-field-medio-de-pago .field__label:after {
-  content: ':';
-}
-.field--name-field-condicion-venta .field__label:after {
-  content: ':';
-}
-.field--name-field-plazo-credito .field__label:after {
-  content: ':';
-}
-.field--name-field-cliente .field__item {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-medio-de-pago .field__items {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-condicion-venta .field__item {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-plazo-credito .field__item {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-filas {
-  width: 100%;
-  margin-top: 25px;
-  border-top: 1px solid #b8b8b8;
-  border-bottom: 1px solid #b8b8b8;
-  margin-bottom: 15px;
-  font-size: 20px;
-}
-.field--name-field-filas > .field__label {
-  background: #f5f5f5;
-  font-size: 22px;
-  text-align: center;
-  padding: 10px;
-  font-size: 10px;
-}
-
-.field--name-field-filas .field__item {
-  background: #f9f9f9;
-  margin-bottom: 10px;
-  padding: 15px;
-  clear: both;
-  min-height: 228px;
-  font-size: 10px;
-}
-.field--name-field-tipo {
-  background: #f9f9f9;
-  font-size: 10px;
-}
-.field--name-field-code-type,
-.field--name-field-tipo {
-  width: 22%;
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-codigo {
-  width: 22%;
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-cantidad {
-  width: 22%;
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-unit-measure {
-  width: 22%;
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-detalle {
-  float: left;
-  width: 100%;
-  margin: 20px 0;
-  font-size: 10px;
-}
-.field--name-field-preciounitario {
-  margin-bottom: 15px;
-}
-.field--name-field-impuesto a {
-  cursor: default;
-  color: black;
-  text-decoration: none;
-}
-.field--name-field-impuesto,
-.field--name-field-subtotal,
-.field--name-field-monto-total-linea {
-  width: 33%;
-  display:inline-block;
-  font-size: 10px;
-}
-.field--name-field-montototal {
-  display: block;
-  width: 100%;
-  border-top: 1px solid  #b8b8b8;
-}
-.field--name-field-filas .field__item .field__item {
-  background: transparent;
-  padding: 0;
-  min-height: unset;
-  font-size: 10px;
-}
-.field--name-field-total-ventaneta .field__label {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-total-impuesto .field__label {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-totalcomprobante .field__label {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-total-discount .field__label {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-total-ventaneta .field__label:after {
-  content: ':';
-}
-.field--name-field-total-impuesto .field__label:after {
-  content: ':';
-}
-.field--name-field-totalcomprobante .field__label:after {
-  content: ':';
-}
-.field--name-field-total-discount .field__label:after {
-  content: ':';
-}
-.field--name-field-total-ventaneta .field__item {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-total-impuesto .field__item {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-totalcomprobante .field__item {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-total-discount .field__item {
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-discount-percentage {
-  width: 15%;
-  display: inline-block;
-  font-size: 10px;
-}
-.field--name-field-discount-reason {
-  width: 30%;
-  display: inline-block;
-  font-size: 10px;
-}
-.print__wrapper--pdf,
-.field--name-user-id {
+.print__wrapper--pdf {
   display: none;
 }
+.first-table {
+  width: 100%;
+}
+.first-table td {
+  color: #999999;
+}
+.first-table tr {
+  border-bottom: 0;
+  height: 200px;
+}
+.first-table td.right-col {
+  text-align: right;
+}
+.invoice-info {
+  text-align: right;
+  display: block;
+}
+.contact-info {
+  text-align: right;
+  display: block;
+}
+.background-gray {
+  color: #999999;
+}
+.contact-info div {
+  display: inline;
+  padding: 5px;
+  text-align: right;
+}
+.contact-info div div {
+  padding: 0 5px;
+}
+.contact-info .circle {
+  margin-right: 5px;
+  padding: 5px;
+  background-color: white;
+  border-bottom-left-radius: 5px;
+  text-align: center;
+}
+.contact-info .circle img {
+  max-width: 18px;
+  height: 15px;
+  vertical-align: text-bottom;
+}
+.content-right {
+  text-align: right;
+}
+.company-info {
+  color: #3f3f3f;
+  font-weight: 200;
+  font-size: 12px;
+}
+.company-info .main-name {
+  color: #999999;
+  font-weight: 400;
+  font-size: 16px;
+  max-width: 180px;
+}
+.customer-info {
+  margin-top: 20px;
+  color: #3f3f3f;
+  font-size: 12px;
+}
+.customer-info .customer-name {
+  color: #999999;
+}
+.field-group {
+  text-align: right;
+  display: block;
+}
+.field-group .field-label,
+.field-group .field-value {
+  display: inline;
+  color: #3f3f3f;
+  font-size: 10px;
+  text-align: right;
+}
+.invoice-num .field-label {
+  font-size: 16px;
+  color: #999999;
+}
+.invoice-num .field-value {
+  font-size: 16px;
+  color: #df0707;
+}
+.pdf-only {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  border-top: 2px solid #999999;
+}
+
+
+
+
+.sum-table .sum-field-label {
+  text-align: right;
+}
+.sum-table .sum-field-value {
+  text-align: right;
+  width: 130px;
+  text-align: right;
+  padding-right: 46px;
+}
+.rows-table {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.rows-table th {
+  background: #999999;
+  color: #ffffff;
+  padding: 2px 5px;
+  border-right: 4px solid;
+  border-top: 0;
+}
+.rows-table tr,
+.rows-table thead {
+  width: 100%;
+  border: 0;
+}
+.rows-table td {
+  color: #999999;
+  padding: 0 4px;
+}
+.sum-table {
+  width: 100%;
+}
+.sum-table td {
+  margin-top: 20px;
+  color: #999999;
+}
+.sum-field-label,
+.sum-field-value {
+  font-size: 13px;
+  text-align: right;
+  text-transform: uppercase;
+}
+.small-text .sum-field-label,
+.small-text .sum-field-value {
+  font-size: 11px;
+}
+.big-text .sum-field-label,
+.big-text .sum-field-value {
+  font-size: 17px;
+  color: black;
+}
+.field--name-field-filas > .field__label {
+  display: none;
+}
+.invoice_entity h2{
+  color: #999999;
+  margin: 28px 0;
+  font-size: 16px;
+  text-align: center;
+}
+
