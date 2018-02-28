@@ -1,164 +1,114 @@
-.field--name-field-clave-numerica {
-  width: 33.3%;
-  float: left;
+.first-table td {
+  color: #999999;
 }
-.field--name-field-consecutivo {
-  width: 33.3%;
-  float: left;
+.first-table tr {
+  border-bottom: 0;
+  height: 160px;
 }
-.field--name-field-fecha-emision {
-  width: 33.3%;
-  float: left;
+.invoice-info {
+  text-align: right;
 }
-.field--name-field-cliente {
-  border-top: 1px solid #b8b8b8;
-  width: 100%;
-  margin-top: 10px;
-  padding-top: 10px;
-  float: left;
+.contact-info {
+  text-align: right;
 }
-.field--name-field-condicion-venta {
-  width: 100%;
-  float: left;
+.background-gray {
+  background: #999999;
+  color: #ffffff;
 }
-.field--name-field-plazo-credito {
-  margin-bottom: 10px;
-}
-.field--name-field-cliente .field__label {
+.contact-info div {
   display: inline-block;
-}
-.field--name-field-medio-de-pago .field__label {
-  display: inline-block;
-}
-.field--name-field-condicion-venta .field__label {
-  display: inline-block;
-}
-.field--name-field-plazo-credito .field__label {
-  display: inline-block;
-}
-.field--name-field-cliente .field__label:after {
-  content: ':';
-}
-.field--name-field-medio-de-pago .field__label:after {
-  content: ':';
-}
-.field--name-field-condicion-venta .field__label:after {
-  content: ':';
-}
-.field--name-field-plazo-credito .field__label:after {
-  content: ':';
-}
-.field--name-field-cliente .field__item {
-  display: inline-block;
-}
-.field--name-field-medio-de-pago .field__item {
-  display: inline-block;
-}
-.field--name-field-condicion-venta .field__item {
-  display: inline-block;
-}
-.field--name-field-plazo-credito .field__item {
-  display: inline-block;
-}
-.field--name-field-filas {
-  width: 100%;
-  float: left;
-  border-top: 1px solid #b8b8b8;
-  border-bottom: 1px solid #b8b8b8;
-  margin-bottom: 15px;
-}
-.field--name-field-filas > .field__label {
-  background: #f5f5f5;
-  font-size: 16px;
-  text-align: center;
   padding: 10px;
 }
+.contact-info .circle {
+  margin-right: 5px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 50%;
+  text-align: center;
+}
+.contact-info .circle img {
+  max-width: 18px;
+  height: 15px;
+  vertical-align: text-bottom;
+}
+.content-right {
+  text-align: right;
+}
+.company-info {
+  color: #3f3f3f;
+  font-weight: 200;
+  font-size: 12px;
+}
+.company-info .main-name {
+  color: #999999;
+  font-weight: 400;
+  font-size: 18px;
+}
+.customer-info {
+  color: #3f3f3f;
+  font-size: 12px;
+}
+.customer-info .customer-name {
+  color: #999999;
+}
+.field-group .field-label,
+.field-group .field-value {
+  display: inline-block;
+  color: #3f3f3f;
+  font-size: 12px;
+}
+.invoice-num .field-label {
+  font-size: 20px;
+  color: #999999;
+}
+.invoice-num .field-value {
+  font-size: 20px;
+  color: #df0707;
+}
+.pdf-only {
+  display: none;
+}
+.sum-table .sum-field-label {
+  text-align: right;
+}
+.sum-table .sum-field-value {
+  text-align: right;
+  width: 130px;
+  text-align: right;
+}
+.rows-table th {
+  background: #999999;
+  color: #ffffff;
+  padding: 2px 10px;
+  border-right: 4px solid;
+}
+.rows-table td {
+  color: #3f3f3f;
+}
+.sum-table td {
+  color: #3f3f3f;
+}
 
-.field--name-field-filas .field__item {
-  background: #f9f9f9;
-  margin-bottom: 10px;
-  padding: 15px;
-  clear: both;
-  min-height: 228px;
+.sum-field-label,
+.sum-field-value {
+  font-size: 16px;
+  text-transform: uppercase;
 }
-.field--name-field-tipo {
-  background: #f9f9f9;
+.small-text .sum-field-label,
+.small-text .sum-field-value {
+  font-size: 14px;
 }
-.field--name-field-code-type,
-.field--name-field-tipo {
-  width: 25%;
-  float: left;
+.big-text .sum-field-label,
+.big-text .sum-field-value {
+  font-size: 20px;
+  color: black;
 }
-.field--name-field-codigo {
-  width: 25%;
-  float: left;
+.field--name-field-rows > .field__label {
+  display: none;
 }
-.field--name-field-cantidad {
-  width: 25%;
-  float: left;
-}
-.field--name-field-unit-measure {
-  width: 25%;
-  float: left;
-}
-.field--name-field-detalle {
-  float: left;
-  width: 100%;
-  margin: 20px 0;
-}
-.field--name-field-montototal,
-.field--name-field-impuesto,
-.field--name-field-subtotal,
-.field--name-field-monto-total-linea {
-  float: right;
-  margin-left: 15px;
-}
-.field--name-field-filas .field__item .field__item {
-  background: transparent;
-  padding: 0;
-  min-height: unset;
-}
-.field--name-field-total-ventaneta .field__label {
-  display: inline-block;
-}
-.field--name-field-total-impuesto .field__label {
-  display: inline-block;
-}
-.field--name-field-totalcomprobante .field__label {
-  display: inline-block;
-}
-.field--name-field-total-discount .field__label {
-  display: inline-block;
-}
-.field--name-field-total-ventaneta .field__label:after {
-  content: ':';
-}
-.field--name-field-total-impuesto .field__label:after {
-  content: ':';
-}
-.field--name-field-totalcomprobante .field__label:after {
-  content: ':';
-}
-.field--name-field-total-discount .field__label:after {
-  content: ':';
-}
-.field--name-field-total-ventaneta .field__item {
-  display: inline-block;
-}
-.field--name-field-total-impuesto .field__item {
-  display: inline-block;
-}
-.field--name-field-totalcomprobante .field__item {
-  display: inline-block;
-}
-.field--name-field-total-discount .field__item {
-  display: inline-block;
-}
-.field--name-field-discount-percentage {
-  width: 15%;
-  display: inline-block;
-}
-.field--name-field-discount-reason {
-  width: 30%;
-  display: inline-block;
+.invoice_entity h2 {
+  color: #999999;
+  margin: 28px 0;
+  font-size: 24px;
+  text-align: center;
 }

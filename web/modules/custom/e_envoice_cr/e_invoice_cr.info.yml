@@ -10,3 +10,4 @@ dependencies:
   - paragraphs
   - entity_print
   - content_moderation
+  - twig_field_value

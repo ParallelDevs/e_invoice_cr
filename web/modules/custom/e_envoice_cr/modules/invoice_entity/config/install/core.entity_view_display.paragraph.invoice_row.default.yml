@@ -32,7 +32,7 @@ bundle: invoice_row
 mode: default
 content:
   field_another_unit_measure:
-    weight: 4
+    weight: 5
     label: above
     settings:
       link_to_entity: false
@@ -64,7 +64,7 @@ content:
     type: string
     region: content
   field_detail:
-    weight: 5
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -117,7 +117,7 @@ content:
     type: number_decimal
     region: content
   field_unit_price:
-    weight: 6
+    weight: 3
     label: above
     settings:
       thousand_separator: ''
@@ -139,7 +139,7 @@ content:
     type: number_decimal
     region: content
   field_unit_measure:
-    weight: 3
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }

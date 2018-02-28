@@ -1,0 +1,123 @@
+{#
+/**
+ * @file invoice_entity.html.twig
+ * Default theme implementation to present Invoice data.
+ *
+ * This template is used when viewing Invoice pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_invoice_entity()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div{{ attributes.addClass('invoice_entity') }}>
+  {% if elements %}
+    {% set currency = emitter.currency %}
+    <h2>{{ "Electronic receipt"|t }}</h2>
+    {# General data. #}
+    <table class="first-table" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr class="tr-row">
+          <td>
+            <div class="company-icon"></div>
+            <div class="company-info">
+              <div class="main-name">{{ emitter.name }}</div>
+              <div>{{ emitter.commercial_name }}</div>
+              <div>{{ customer.id_label }}: {{ emitter.id }}</div>
+              <div>{{ emitter.address }}, {{ emitter.postal_code }}</div>
+            </div>
+          </td>
+          <td align="right">
+            <div class="contact-info">
+              <div class="background-gray">
+                <div>
+                  <span class="circle"><img src="/{{ base_path }}/images/phone-icon.svg"></span>
+                  {{ emitter.phone }}
+                </div>
+                <div>
+                  <span class="circle"><img src="/{{ base_path }}/images/email-icon.svg"></span>
+                  {{ emitter.email }}
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr class="tr-row">
+          <td>
+            <div class="customer-info">
+              <div class="title">{{ "Customer's information:"|t }}</div>
+              <div class="customer-name">{{ customer.name }}</div>
+              <div>{{ customer.id_label }}: {{ customer.id }}</div>
+              <div>{{ customer.phone_label }}: {{ customer.phone }}</div>
+              <div>{{ customer.email_label }}: {{ customer.email }}</div>
+              <div>{{ customer.address }} {{ customer.zipcode }}</div>
+            </div>
+          </td>
+          <td align="right">
+            <div class="invoice-info">
+              <div class="field-group invoice-num">
+                <div class="field-label">{{ elements.field_consecutive_number|field_label }}:</div>
+                <div class="field-value">{{ elements.field_consecutive_number|field_value }}</div>
+              </div>
+              <div class="field-group">
+                <div class="field-label">{{ elements.field_numeric_key|field_label }}:</div>
+                <div class="field-value">{{ elements.field_numeric_key|field_value }}</div>
+              </div>
+              <div class="field-group">
+                <div class="field-label">{{ elements.field_invoice_date|field_label }}:</div>
+                <div class="field-value">{{ elements.field_invoice_date|field_value }}</div>
+              </div>
+              <div class="field-group">
+                <div class="field-label">{{ elements.field_sale_condition|field_label }}:</div>
+                <div class="field-value">{{ elements.field_sale_condition|field_value }}</div>
+              </div>
+              {% if elements.field_credit_term|field_value != "" %}
+                <div class="field-group">
+                  <div class="field-label">{{ elements.field_credit_term|field_label }}:</div>
+                  <div class="field-value">{{ elements.field_credit_term|field_value }}</div>
+                </div>
+              {% endif %}
+              <div class="field-group">
+                <div class="field-label">{{ elements.field_payment_method|field_label }}:</div>
+                <div class="field-value">{{ elements.field_payment_method|field_value }}</div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    {{ elements.field_rows }}
+    {# Invoice summary. #}
+    <table class="sum-table" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td class="sum-field-label">{{ elements.field_net_sale|field_label }}:</td>
+          <td class="sum-field-value">{{ currency }} {{ elements.field_net_sale|field_value }}</td>
+        </tr>
+        <tr class="small-text">
+          <td class="sum-field-label">{{ elements.field_total_discount|field_label }}:</td>
+          <td class="sum-field-value">{{ currency }} {{ elements.field_total_discount|field_value }}</td>
+        </tr>
+        <tr class="small-text">
+          <td class="sum-field-label">{{ elements.field_total_tax|field_label }}:</td>
+          <td class="sum-field-value">{{ currency }} {{ elements.field_total_tax|field_value }}</td>
+        </tr>
+        <tr class="big-text">
+          <td class="sum-field-label">{{ elements.field_total_invoice|field_label }}:</td>
+          <td class="sum-field-value">{{ currency }} {{ elements.field_total_invoice|field_value }}</td>
+        </tr>
+      </tbody>
+    </table>
+  {% endif %}
+  {{ elements.entity_print_view_pdf }}
+  <div class="pdf-only">
+    <p>{{ "This invoice was generated according to the resolution DGT-R-48-2016 4.2."|t }}</p>
+  </div>
+</div>

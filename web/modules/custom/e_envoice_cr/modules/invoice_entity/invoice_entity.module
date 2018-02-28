@@ -7,6 +7,21 @@
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
+use Drupal\customer_entity\Entity\CustomerEntity;
+
+/**
+ * Implements hook_theme().
+ */
+function invoice_entity_theme() {
+  return [
+    'invoice_entity' => [
+      'render element' => 'elements',
+    ],
+    'paragraph__invoice_row' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
 
 /**
  * Error messages.
@@ -86,14 +101,14 @@ function invoice_entity_preprocess_field(&$variables, $hook) {
   if ($variables['entity_type'] === "invoice_entity" || $variables['entity_type'] === "paragraph") {
     $name = $variables['field_name'];
     $fields = [
-      "field_total_ventaneta",
-      "field_total_impuesto",
-      "field_totalcomprobante",
+      "field_total_invoice",
       "field_total_discount",
+      "field_net_sale",
+      "field_total_tax",
       "field_unit_price",
       "field_total_amount",
       "field_subtotal",
-      "field_monto_total_linea",
+      "field_line_total_amount",
     ];
     if (in_array($name, $fields)) {
       $settings = \Drupal::config('e_invoice_cr.settings');
@@ -101,4 +116,55 @@ function invoice_entity_preprocess_field(&$variables, $hook) {
       $variables['label'] = $variables['label'] . $currency;
     }
   }
+}
+
+/**
+ * Implements hook_preprocess_invoice_entity().
+ */
+function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
+  // Emitter data.
+  $emitter = [];
+  $customer = [];
+  $config = \Drupal::config('e_invoice_cr.settings');
+  $emitter['name'] = $config->get('name');
+  $emitter['commercial_name'] = $config->get('commercial_name');
+  $emitter['id'] = $config->get('id');
+  $emitter['email'] = $config->get('email');
+  $emitter['phone'] = $config->get('phone');
+  $emitter['fax'] = $config->get('fax');
+  $emitter['postal_code'] = $config->get('postal_code');
+  $emitter['address'] = $config->get('address');
+  $emitter['currency'] = $config->get('currency') === 'crc' ? '₡' : '$';
+  // Client data.
+  if (isset($variables['elements']['field_client'][0]['#options']['entity'])) {
+    $entity = $variables['elements']['field_client'][0]['#options']['entity'];
+    if (!is_null($entity)) {
+      $client_id = $entity->id();
+      $client = CustomerEntity::load($client_id);
+      $customer['id'] = $client->get('field_customer_id')->value;
+      $customer['id_label'] = $client->getFieldDefinition('field_customer_id')->label();
+      $customer['name'] = $client->get('name')->value;
+      $customer['email'] = $client->get('field_email')->value;
+      $customer['email_label'] = $client->getFieldDefinition('field_email')->label();
+      $customer['phone'] = $client->get('field_phone')->value;
+      $customer['phone_label'] = $client->getFieldDefinition('field_phone')->label();
+      $address = $client->get('field_address')->getValue();
+      $customer['address'] = $address[0]['province'] . ", " . $address[0]['canton'] . ", " . $address[0]['district'] . ".";
+      $customer['zipcode'] = $address[0]['zipcode'];
+    }
+  }
+  $module_handler = \Drupal::service('module_handler');
+  $moduel_path = $module_handler->getModule('invoice_entity')->getPath();
+  // Send the data.
+  $variables['emitter'] = $emitter;
+  $variables['customer'] = $customer;
+  $variables['base_path'] = $moduel_path;
+}
+
+/**
+ * Implements hook_preprocess_paragraph__fila().
+ */
+function invoice_entity_preprocess_paragraph__invoice_row(&$variables) {
+  $config = \Drupal::config('e_invoice_cr.settings');
+  $variables['currency'] = $config->get('currency') === 'crc' ? '₡' : '$';
 }
