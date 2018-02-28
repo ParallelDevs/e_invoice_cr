@@ -42,7 +42,7 @@ class CustomerEntityForm extends ContentEntityForm {
     $id = 'field_customer_id';
     $foreign_id = 'field_customer_foreign_id';
     $phone = 'field_phone';
-
+    $address = 'field_direccion_';
     $type = $form_state->getValue('field_type_id');
 
     // Validating id field regarding the identification type.
@@ -91,8 +91,18 @@ class CustomerEntityForm extends ContentEntityForm {
     }
 
     // Validating telephone field.
-    if (!is_numeric($form_state->getValue($phone)[0]['value'])) {
+    $phone = $form_state->getValue($phone)[0]['value'];
+    if (!empty($phone) && !is_numeric($phone)) {
       $form_state->setErrorByName($phone, $this->t("The telephone number should only have numbers. No spaces or special characters."));
+    }
+
+    $filled_fields = array_filter($form_state->getValue($address)[0], function ($value) {
+      return !empty($value);
+    });
+
+    $count = count($filled_fields);
+    if ($count > 0 && $count < 5) {
+      $form_state->setErrorByName($address, $this->t('If you are going to add the address information, please fill all the fields relate it.'));
     }
     parent::validateForm($form, $form_state);
   }

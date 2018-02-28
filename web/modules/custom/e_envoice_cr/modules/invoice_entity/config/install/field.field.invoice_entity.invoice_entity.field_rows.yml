@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.invoice_entity.field_rows
-    - paragraphs.paragraphs_type.fila
+    - paragraphs.paragraphs_type.invoice_row
   module:
     - entity_reference_revisions
     - invoice_entity
@@ -22,9 +22,9 @@ settings:
   handler_settings:
     negate: 0
     target_bundles:
-      fila: fila
+      invoice_row: invoice_row
     target_bundles_drag_drop:
-      fila:
+      invoice_row:
         enabled: true
         weight: 2
 field_type: entity_reference_revisions

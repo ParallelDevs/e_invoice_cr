@@ -2,18 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_preciounitario
-    - paragraphs.paragraphs_type.fila
+    - field.storage.paragraph.field_quantity
+    - paragraphs.paragraphs_type.invoice_row
   module:
     - invoice_entity
   enforced:
     module:
       - invoice_entity
-id: paragraph.fila.field_preciounitario
-field_name: field_preciounitario
+id: paragraph.invoice_row.field_quantity
+field_name: field_quantity
 entity_type: paragraph
-bundle: fila
-label: 'Precio Unitario'
+bundle: invoice_row
+label: Quantity
 description: ''
 required: true
 translatable: false
@@ -24,4 +24,4 @@ settings:
   max: null
   prefix: ''
   suffix: ''
-field_type: decimal
+field_type: integer

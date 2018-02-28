@@ -2,22 +2,22 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_discount_reason
-    - paragraphs.paragraphs_type.fila
+    - field.storage.paragraph.field_code
+    - paragraphs.paragraphs_type.invoice_row
   module:
     - invoice_entity
   enforced:
     module:
       - invoice_entity
-id: paragraph.fila.field_discount_reason
-field_name: field_discount_reason
+id: paragraph.invoice_row.field_code
+field_name: field_code
 entity_type: paragraph
-bundle: fila
-label: 'Discount reason'
+bundle: invoice_row
+label: Code
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string_long
+field_type: string

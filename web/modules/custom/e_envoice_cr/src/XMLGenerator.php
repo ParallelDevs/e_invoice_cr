@@ -117,23 +117,23 @@ class XMLGenerator {
       }
       // Save the ones with tax.
       if ($tax_mount !== "" && $tax_mount > 0 && $tax_mount !== NULL) {
-        if ($values['field_tipo'][0]['value'] === "01") {
-          $total_prod_with_tax = $total_prod_with_tax + (int) round($values['field_montototal'][0]['value'], 5);
+        if ($values['field_row_type'][0]['value'] === "01") {
+          $total_prod_with_tax = $total_prod_with_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_prod++;
         }
         else {
-          $total_serv_with_tax = $total_serv_with_tax + (int) round($values['field_montototal'][0]['value'], 5);
+          $total_serv_with_tax = $total_serv_with_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_services++;
         }
       }
       else {
         // Save the ones without tax.
-        if ($values['field_tipo'][0]['value'] === "01") {
-          $total_prod_without_tax = $total_prod_without_tax + (int) round($values['field_montototal'][0]['value'], 5);
+        if ($values['field_row_type'][0]['value'] === "01") {
+          $total_prod_without_tax = $total_prod_without_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_services++;
         }
         else {
-          $total_serv_without_tax = $total_serv_without_tax + (int) round($values['field_montototal'][0]['value'], 5);
+          $total_serv_without_tax = $total_serv_without_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_services++;
         }
       }
@@ -259,6 +259,7 @@ class XMLGenerator {
     $client_id = $entity->get('field_client')->target_id;
     $client = CustomerEntity::load($client_id);
     $client_zip_code = $client->field_address->getValue();
+    $telephone = $client->get('field_phone')->value;
 
     $xml_doc = "\t<Receptor>\n";
     $xml_doc .= "\t\t<Nombre>" . $client->get('name')->value . "</Nombre>\n";
@@ -268,25 +269,29 @@ class XMLGenerator {
     $xml_doc .= "\t\t</Identificacion>\n";
     $xml_doc .= "\t\t<IdentificacionExtranjero>" . $client->get('field_customer_foreign_id')->value . "</IdentificacionExtranjero>\n";
     $xml_doc .= "\t\t<NombreComercial>" . $client->get('field_commercial_name')->value . "</NombreComercial>\n";
-    $xml_doc .= "\t\t<Ubicacion>\n";
-    $xml_doc .= "\t\t\t<Provincia>" . substr($client_zip_code[0]['zipcode'], 0, 1) . "</Provincia>\n";
-    $xml_doc .= "\t\t\t<Canton>" . substr($client_zip_code[0]['zipcode'], 1, 2) . "</Canton>\n";
-    $xml_doc .= "\t\t\t<Distrito>" . substr($client_zip_code[0]['zipcode'], 3, 5) . "</Distrito>\n";
-    // No supported at the moment (*)
-    $xml_doc .= "\t\t\t<Barrio>01</Barrio>\n";
-    $xml_doc .= "\t\t\t<OtrasSenas>" . $client_zip_code[0]['additionalinfo'] . "</OtrasSenas>\n";
-    $xml_doc .= "\t\t</Ubicacion>\n";
-    $xml_doc .= "\t\t<Telefono>\n";
-    $xml_doc .= "\t\t\t<CodigoPais>" . substr($client->get('field_phone')->value, 0, 3) . "</CodigoPais>\n";
-    $xml_doc .= "\t\t\t<NumTelefono>" . substr($client->get('field_phone')->value, 3) . "</NumTelefono>\n";
-    $xml_doc .= "\t\t</Telefono>\n";
+    if (!empty($client_zip_code[0]['zipcode'])) {
+      $xml_doc .= "\t\t<Ubicacion>\n";
+      $xml_doc .= "\t\t\t<Provincia>" . substr($client_zip_code[0]['zipcode'], 0, 1) . "</Provincia>\n";
+      $xml_doc .= "\t\t\t<Canton>" . substr($client_zip_code[0]['zipcode'], 1, 2) . "</Canton>\n";
+      $xml_doc .= "\t\t\t<Distrito>" . substr($client_zip_code[0]['zipcode'], 3, 5) . "</Distrito>\n";
+      // No supported at the moment (*)
+      $xml_doc .= "\t\t\t<Barrio>01</Barrio>\n";
+      $xml_doc .= "\t\t\t<OtrasSenas>" . $client_zip_code[0]['additionalinfo'] . "</OtrasSenas>\n";
+      $xml_doc .= "\t\t</Ubicacion>\n";
+    }
+    if ($telephone != NULL || !empty($telephone)) {
+      $xml_doc .= "\t\t<Telefono>\n";
+      $xml_doc .= "\t\t\t<CodigoPais>" . substr($telephone, 0, 3) . "</CodigoPais>\n";
+      $xml_doc .= "\t\t\t<NumTelefono>" . substr($telephone, 3) . "</NumTelefono>\n";
+      $xml_doc .= "\t\t</Telefono>\n";
+    }
     if (!is_null($client->get('field_fax')->value) && $client->get('field_fax')->value !== "") {
       $xml_doc .= "\t\t<Fax>\n";
       $xml_doc .= "\t\t\t<CodigoPais>" . substr($client->get('field_fax')->value, 0, 3) . "</CodigoPais>\n";
       $xml_doc .= "\t\t\t<NumTelefono>" . substr($client->get('field_fax')->value, 3) . "</NumTelefono>\n";
       $xml_doc .= "\t\t</Fax>\n";
     }
-    $xml_doc .= "\t\t<CorreoElectronico>" . $client->get('field_email')->value . "</CorreoElectronico>\n";
+    $xml_doc .= "\t\t" . $this->simpleFieldTag("CorreoElectronico", $client->get('field_email')->value, FALSE);
     $xml_doc .= "\t</Receptor>\n";
 
     return $xml_doc;
@@ -320,8 +325,8 @@ class XMLGenerator {
     $xml_doc .= "\t\t\t<UnidadMedida>" . $values['field_unit_measure'][0]['value'] . "</UnidadMedida>\n";
     $xml_doc .= "\t\t\t<UnidadMedidaComercial>" . $values['field_another_unit_measure'][0]['value'] . "</UnidadMedidaComercial>\n";
     $xml_doc .= "\t\t\t<Detalle>" . $values['field_detail'][0]['value'] . "</Detalle>\n";
-    $xml_doc .= "\t\t\t<PrecioUnitario>" . $values['field_preciounitario'][0]['value'] . "</PrecioUnitario>\n";
-    $xml_doc .= "\t\t\t<MontoTotal>" . $values['field_montototal'][0]['value'] . "</MontoTotal>\n";
+    $xml_doc .= "\t\t\t<PrecioUnitario>" . $values['field_unit_price'][0]['value'] . "</PrecioUnitario>\n";
+    $xml_doc .= "\t\t\t<MontoTotal>" . $values['field_total_amount'][0]['value'] . "</MontoTotal>\n";
     if (!is_null($discount) && $discount > 0) {
       $xml_doc .= "\t\t\t<MontoDescuento>" . $discount . "</MontoDescuento>\n";
       $xml_doc .= "\t\t\t<NaturalezaDescuento>" . $discount_reason . "</NaturalezaDescuento>\n";
@@ -385,6 +390,24 @@ class XMLGenerator {
   private function formatDateForXml($date_text) {
     $date_object = strtotime($date_text);
     return \Drupal::service('date.formatter')->format($date_object, 'date_text', 'c');
+  }
+
+  /**
+   * Work in progress: Function to return formated simple fields in the xml.
+   *
+   * @param string $tag
+   *   The xml text.
+   * @param string $value
+   *   The value between the xml tag.
+   * @param bool $isRequired
+   *   If the $value is required in the xml document.
+   *
+   * @return string
+   *   The xml tag with the value.
+   */
+  private function simpleFieldTag($tag, $value, $isRequired) {
+    $val = $value != NULL ? $value : '';
+    return !$isRequired ? '' : '<' . $tag . '>' . $val . '</' . $tag . '>';
   }
 
 }

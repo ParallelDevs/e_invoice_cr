@@ -7,8 +7,8 @@ dependencies:
   enforced:
     module:
       - invoice_entity
-id: paragraph.field_montototal
-field_name: field_montototal
+id: paragraph.field_unit_price
+field_name: field_unit_price
 entity_type: paragraph
 type: decimal
 settings:

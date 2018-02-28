@@ -3,16 +3,16 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_subtotal
-    - paragraphs.paragraphs_type.fila
+    - paragraphs.paragraphs_type.invoice_row
   module:
     - invoice_entity
   enforced:
     module:
       - invoice_entity
-id: paragraph.fila.field_subtotal
+id: paragraph.invoice_row.field_subtotal
 field_name: field_subtotal
 entity_type: paragraph
-bundle: fila
+bundle: invoice_row
 label: SubTotal
 description: ''
 required: true

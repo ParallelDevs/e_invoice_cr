@@ -2,18 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_line_total_amount
-    - paragraphs.paragraphs_type.fila
+    - field.storage.paragraph.field_row_discount
+    - paragraphs.paragraphs_type.invoice_row
   module:
     - invoice_entity
   enforced:
     module:
       - invoice_entity
-id: paragraph.fila.field_line_total_amount
-field_name: field_line_total_amount
+id: paragraph.invoice_row.field_row_discount
+field_name: field_row_discount
 entity_type: paragraph
-bundle: fila
-label: 'Line Total Amount'
+bundle: invoice_row
+label: Discount
 description: ''
 required: true
 translatable: false

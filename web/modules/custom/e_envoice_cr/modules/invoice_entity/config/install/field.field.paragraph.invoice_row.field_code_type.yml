@@ -3,13 +3,13 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_code_type
-    - paragraphs.paragraphs_type.fila
+    - paragraphs.paragraphs_type.invoice_row
   module:
     - options
-id: paragraph.fila.field_code_type
+id: paragraph.invoice_row.field_code_type
 field_name: field_code_type
 entity_type: paragraph
-bundle: fila
+bundle: invoice_row
 label: 'Code Type'
 description: ''
 required: true

@@ -2,18 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_quantity
-    - paragraphs.paragraphs_type.fila
+    - field.storage.paragraph.field_total_amount
+    - paragraphs.paragraphs_type.invoice_row
   module:
     - invoice_entity
   enforced:
     module:
       - invoice_entity
-id: paragraph.fila.field_quantity
-field_name: field_quantity
+id: paragraph.invoice_row.field_total_amount
+field_name: field_total_amount
 entity_type: paragraph
-bundle: fila
-label: Quantity
+bundle: invoice_row
+label: 'Total Amount'
 description: ''
 required: true
 translatable: false
@@ -24,4 +24,4 @@ settings:
   max: null
   prefix: ''
   suffix: ''
-field_type: integer
+field_type: decimal

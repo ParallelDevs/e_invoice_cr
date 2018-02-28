@@ -102,15 +102,15 @@ class InvoiceEntityForm extends ContentEntityForm {
     $this->formatField($form['field_total_invoice']['widget'][0]['value'], TRUE, TRUE);
     $this->formatField($form['field_total_tax']['widget'][0]['value'], FALSE, TRUE);
     $visible = [
-      'select[id="edit-field-condicion-venta"]' => ['value' => '02'],
+      'select[id="edit-field-sale-condition"]' => ['value' => '02'],
     ];
     $form['field_credit_term']['widget'][0]['value']['#states']['visible'] = $visible;
     for ($i = 0; $i >= 0; $i++) {
       if (array_key_exists($i, $form['field_rows']['widget'])) {
         // Rows.
-        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_preciounitario']['widget'][0]['value'], TRUE, FALSE);
+        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_unit_price']['widget'][0]['value'], TRUE, FALSE);
         $this->formatField($form['field_rows']['widget'][$i]['subform']['field_line_total_amount']['widget'][0]['value'], FALSE, TRUE);
-        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_montototal']['widget'][0]['value'], FALSE, TRUE);
+        $this->formatField($form['field_rows']['widget'][$i]['subform']['field_total_amount']['widget'][0]['value'], FALSE, TRUE);
         $this->formatField($form['field_rows']['widget'][$i]['subform']['field_subtotal']['widget'][0]['value'], FALSE, TRUE);
         $this->formatField($form['field_rows']['widget'][$i]['subform']['field_row_discount']['widget'][0]['value'], FALSE, TRUE);
         $visible_condition = [
@@ -120,7 +120,7 @@ class InvoiceEntityForm extends ContentEntityForm {
         $form['field_rows']['widget'][$i]['subform']['field_discount_percentage']['widget'][0]['value']['#states']['visible'] = $visible_condition;
         $form['field_rows']['widget'][$i]['subform']['field_discount_reason']['widget'][0]['value']['#states']['visible'] = $visible_condition;
         $visible = [
-          'select[data-drupal-selector="edit-field-filas-' . $i . '-subform-field-unit-measure"]' => ['value' => 'Otros'],
+          'select[data-drupal-selector="edit-field-rows-' . $i . '-subform-field-unit-measure"]' => ['value' => 'Otros'],
         ];
         $form['field_rows']['widget'][$i]['subform']['field_another_unit_measure']['widget'][0]['value']['#states']['visible'] = $visible;
       }

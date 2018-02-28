@@ -7,8 +7,8 @@ dependencies:
   enforced:
     module:
       - invoice_entity
-id: paragraph.field_preciounitario
-field_name: field_preciounitario
+id: paragraph.field_total_amount
+field_name: field_total_amount
 entity_type: paragraph
 type: decimal
 settings:
