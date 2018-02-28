@@ -6,8 +6,8 @@ dependencies:
   enforced:
     module:
       - invoice_entity
-id: fila
-label: Fila
+id: invoice_row
+label: Row
 icon_uuid: null
 description: ''
 behavior_plugins: {  }

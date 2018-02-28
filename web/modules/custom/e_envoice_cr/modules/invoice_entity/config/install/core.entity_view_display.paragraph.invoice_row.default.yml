@@ -2,23 +2,23 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.fila.field_add_discount
-    - field.field.paragraph.fila.field_another_unit_measure
-    - field.field.paragraph.fila.field_quantity
-    - field.field.paragraph.fila.field_code_type
-    - field.field.paragraph.fila.field_code
-    - field.field.paragraph.fila.field_detail
-    - field.field.paragraph.fila.field_discount_percentage
-    - field.field.paragraph.fila.field_discount_reason
-    - field.field.paragraph.fila.field_row_tax
-    - field.field.paragraph.fila.field_line_total_amount
-    - field.field.paragraph.fila.field_total_amount
-    - field.field.paragraph.fila.field_unit_price
-    - field.field.paragraph.fila.field_row_discount
-    - field.field.paragraph.fila.field_subtotal
-    - field.field.paragraph.fila.field_row_type
-    - field.field.paragraph.fila.field_unit_measure
-    - paragraphs.paragraphs_type.fila
+    - field.field.paragraph.invoice_row.field_add_discount
+    - field.field.paragraph.invoice_row.field_another_unit_measure
+    - field.field.paragraph.invoice_row.field_quantity
+    - field.field.paragraph.invoice_row.field_code_type
+    - field.field.paragraph.invoice_row.field_code
+    - field.field.paragraph.invoice_row.field_detail
+    - field.field.paragraph.invoice_row.field_discount_percentage
+    - field.field.paragraph.invoice_row.field_discount_reason
+    - field.field.paragraph.invoice_row.field_row_tax
+    - field.field.paragraph.invoice_row.field_line_total_amount
+    - field.field.paragraph.invoice_row.field_total_amount
+    - field.field.paragraph.invoice_row.field_unit_price
+    - field.field.paragraph.invoice_row.field_row_discount
+    - field.field.paragraph.invoice_row.field_subtotal
+    - field.field.paragraph.invoice_row.field_row_type
+    - field.field.paragraph.invoice_row.field_unit_measure
+    - paragraphs.paragraphs_type.invoice_row
   enforced:
     module:
       - invoice_entity
@@ -26,9 +26,9 @@ dependencies:
     - options
 _core:
   default_config_hash: rzCrcBUkGBbgu0WlQCHRoaYhBJlj14OQQjCL4JcbRdw
-id: paragraph.fila.default
+id: paragraph.invoice_row.default
 targetEntityType: paragraph
-bundle: fila
+bundle: invoice_row
 mode: default
 content:
   field_another_unit_measure:

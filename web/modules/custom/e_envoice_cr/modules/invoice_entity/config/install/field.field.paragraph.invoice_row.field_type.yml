@@ -3,17 +3,17 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_row_type
-    - paragraphs.paragraphs_type.fila
+    - paragraphs.paragraphs_type.invoice_row
   module:
     - options
     - invoice_entity
   enforced:
     module:
       - invoice_entity
-id: paragraph.fila.field_row_type
+id: paragraph.invoice_row.field_row_type
 field_name: field_row_type
 entity_type: paragraph
-bundle: fila
+bundle: invoice_row
 label: Type
 description: ''
 required: true
