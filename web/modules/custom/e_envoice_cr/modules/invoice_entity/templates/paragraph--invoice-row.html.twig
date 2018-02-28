@@ -60,7 +60,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
           {% if elements.field_discount_percentage|field_value != "" %}
             <th class="field-label">{{ elements.field_discount_percentage|field_label }}</th>
           {% endif %}
-          {% if elements.field_impuesto|field_value != "" %}
+          {% if elements.field_row_tax|field_value != "" %}
             <th class="field-label">{{ elements.field_row_tax|field_label }}</th>
           {% endif %}
           <th class="field-label">{{ elements.field_subtotal|field_label }}</th>
@@ -78,7 +78,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
           {% if elements.field_discount_percentage|field_value != "" %}
             <td class="field-value">{{ elements.field_discount_percentage|field_value }}%</td>
           {% endif %}
-          {% if elements.field_impuesto|field_value != "" %}
+          {% if elements.field_row_tax|field_value != "" %}
             <td class="field-value">{{ elements.field_row_tax|field_value }}</td>
           {% endif %}
           <td class="field-value">{{ currency }} {{ elements.field_subtotal|field_value }}</td>
