@@ -48,9 +48,25 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
           $details = $detail . "\n";
         }
         global $base_url;
-        $pdfUrl = $base_url . "/print/pdf/invoice_entity/" . $entityId;
-        $message = t("This is the confirmation of an invoice generated.\nInvoice details: \n@details\nTo see the complete pdf electronic receipt go to: @url",
-          ['@details' => $details, '@url' => $pdfUrl]);
+        $pdf_url = $base_url . "/print/pdf/invoice_entity/" . $entityId;
+        $message = t("This is the confirmation of an invoice generated.\nInvoice details: \n@details\n Attached you'll find the electronic receipt.\nAlso You can download it going to @url",
+          ['@details' => $details, '@url' => $pdf_url]);
+
+        // Generate pdf file.
+        $path = "public://pdf_invoice/";
+        $file_name = "invoice_" . $entityId;
+        file_prepare_directory($path, FILE_CREATE_DIRECTORY);
+        $result = $this->generatePdfFile($path, $file_name, $entity);
+        if ($result === FALSE || $result === 0) {
+          $message = t('Email error. There was a problem attaching the pdf invoice.');
+          drupal_set_message($message, 'error');
+          \Drupal::logger('mail-log')->error($message);
+        }
+        // Set up the email attachment.
+        $file  = new \stdClass();
+        $file->uri = $path . $file_name . ".pdf";
+        $file->filename = $file_name . ".pdf";
+        $file->filemime = 'application/pdf';
 
         // Set the email parameters.
         $mailManager = \Drupal::service('plugin.manager.mail');
@@ -59,6 +75,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
         $to = $customerEmail;
         $params['message'] = $message;
         $params['title'] = "Electronic invoice.";
+        $params['files'][] = $file;
         $langcode = \Drupal::currentUser()->getPreferredLangcode();
         $send = TRUE;
 
@@ -79,6 +96,19 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
         }
       }
     }
+  }
+
+  /**
+   * Generates a pdf file.
+   */
+  public function generatePdfFile($path, $file_name, $entity) {
+    $print_engine = \Drupal::service('plugin.manager.entity_print.print_engine')->createSelectedInstance('pdf');
+    $html = \Drupal::service('entity_print.print_builder')->printHtml($entity, TRUE, FALSE);
+    $print_engine->addPage($html);
+    $output = $print_engine->getBlob();
+    $file_name = $file_name . ".pdf";
+    $result = file_put_contents($path . $file_name, $output);
+    return $result;
   }
 
 }
