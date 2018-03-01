@@ -25,7 +25,11 @@
       <tbody>
         <tr class="tr-row">
           <td>
-            <div class="company-icon"></div>
+            <div class="company-icon">
+              {% if emitter.logo_url %}
+                <img src="{{ emitter.logo_url }}">
+              {% endif %}
+            </div>
             <div class="company-info">
               <div class="main-name">{{ emitter.name }}</div>
               <div>{{ emitter.commercial_name }}</div>

@@ -54,6 +54,9 @@ table {
   text-align: right;
 }
 .company-info {
+  display: inline-block;
+  position: static;
+  margin-right: 10px;
   color: #3f3f3f;
   font-weight: 200;
   font-size: 12px;
@@ -158,4 +161,13 @@ table {
   margin: 28px 0;
   font-size: 16px;
   text-align: center;
+}
+.company-icon {
+  max-width: 75px;
+  display: inline;
+  margin-right: 5px;
+  height: auto;
+}
+.company-icon img {
+  max-width: 75px;
 }

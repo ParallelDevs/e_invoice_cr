@@ -187,7 +187,7 @@ class InvoiceSettingsForm extends ConfigFormBase {
       '#description' => $this->t('Add a company logo that it will be print on the invoice documents.'),
       '#upload_validators' => [
         'file_validate_extensions' => ['png jpg jpeg'],
-        'file_validate_image_resolution' => ["", "300x300"],
+        'file_validate_image_resolution' => ["300x300", ""],
       ],
       '#default_value' => $logo_file,
       '#theme' => 'image_widget',
