@@ -4,7 +4,6 @@ namespace Drupal\invoice_email\EventSubscriber;
 
 use Drupal\invoice_email\InvoiceEmailEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Class InvoiceEmailEventSubscriber.
@@ -36,34 +35,43 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
       $em = \Drupal::entityTypeManager();
       $entity = $em->getStorage("invoice_entity")->load($entityId);
       if (!is_null($entity)) {
-        $rows = $entity->get("field_rows")->getValue();
+        // Define some required data.
+        $invoice_id = $entity->get("field_numeric_key")->getValue()[0]['value'];
+        $invoice_date = $entity->get("field_invoice_date")->getValue()[0]['value'];
+        $date_object = strtotime($invoice_date);
+        $date = \Drupal::service('date.formatter')->format($date_object, 'custom', 'Y-m-d');
+        $hour = \Drupal::service('date.formatter')->format($date_object, 'custom', 'H:i:s');
         $customerId = $entity->get("field_client")->getValue();
         $customer = $em->getStorage("customer_entity")->load($customerId[0]['target_id']);
         $fieldEmail = $customer->get("field_email")->getValue();
         $customerEmail = $fieldEmail[0]['value'];
-        $details = "";
-        foreach ($rows as $index => $item) {
-          $paragraph = Paragraph::load($item['target_id']);
-          $detail = $paragraph->get('field_detail')->value;
-          $details = $detail . "\n";
-        }
         global $base_url;
+        // Invoice pdf url.
         $pdf_url = $base_url . "/print/pdf/invoice_entity/" . $entityId;
-        $message = t("This is the confirmation of an invoice generated.\nInvoice details: \n@details\n Attached you'll find the electronic receipt.\nAlso You can download it going to @url",
-          ['@details' => $details, '@url' => $pdf_url]);
-
+        // Get data from configuration form.
+        $settings = \Drupal::config('e_invoice_cr.settings');
+        $company = $settings->get('name');
+        $email_text = $settings->get('email_text');
+        $email_subject = $settings->get('email_subject');
+        str_replace("@company", $company, $email_subject);
+        // Build the message.
+        str_replace("@invoice_id", $invoice_id, $email_text);
+        str_replace("@company", $company, $email_text);
+        str_replace("@date", $date, $email_text);
+        str_replace("@hour", $hour, $email_text);
+        str_replace("@url", $pdf_url, $email_text);
         // Generate pdf file.
         $path = "public://pdf_invoice/";
         $file_name = "invoice_" . $entityId;
         file_prepare_directory($path, FILE_CREATE_DIRECTORY);
         $result = $this->generatePdfFile($path, $file_name, $entity);
         if ($result === FALSE || $result === 0) {
-          $message = t('Email error. There was a problem attaching the pdf invoice.');
-          drupal_set_message($message, 'error');
-          \Drupal::logger('mail-log')->error($message);
+          $e_message = t('Email error. There was a problem attaching the pdf invoice.');
+          drupal_set_message($e_message, 'error');
+          \Drupal::logger('mail-log')->error($e_message);
         }
         // Set up the email attachment.
-        $file  = new \stdClass();
+        $file = new \stdClass();
         $file->uri = $path . $file_name . ".pdf";
         $file->filename = $file_name . ".pdf";
         $file->filemime = 'application/pdf';
@@ -73,8 +81,8 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
         $module = 'invoice_email';
         $key = 'invoice_validated';
         $to = $customerEmail;
-        $params['message'] = $message;
-        $params['title'] = "Electronic invoice.";
+        $params['message'] = $email_text;
+        $params['title'] = $email_subject;
         $params['files'][] = $file;
         $langcode = \Drupal::currentUser()->getPreferredLangcode();
         $send = TRUE;
