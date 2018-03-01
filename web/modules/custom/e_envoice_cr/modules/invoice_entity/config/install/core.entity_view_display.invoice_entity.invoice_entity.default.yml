@@ -27,6 +27,11 @@ targetEntityType: invoice_entity
 bundle: invoice_entity
 mode: default
 content:
+  entity_print_view_pdf:
+    weight: 20
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_numeric_key:
     weight: 2
     label: above
@@ -143,6 +148,51 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+  ref_code:
+    type: list_default
+    weight: 14
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  ref_date:
+    type: datetime_default
+    weight: 13
+    region: content
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+  ref_doc_key:
+    type: string
+    weight: 12
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  ref_reason:
+    type: basic_string
+    weight: 15
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  ref_type_of:
+    type: list_default
+    weight: 11
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  type_of:
+    label: inline
+    type: list_key
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   user_id:
     label: hidden
     type: author
@@ -152,3 +202,5 @@ content:
     third_party_settings: {  }
 hidden:
   content_moderation_control: true
+  entity_print_view_epub: true
+  entity_print_view_word_docx: true

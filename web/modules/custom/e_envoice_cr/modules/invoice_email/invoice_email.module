@@ -68,3 +68,19 @@ function invoice_email_link_alter(&$variables) {
     }
   }
 }
+
+/**
+ * Implements hook_preprocess_entity_print().
+ */
+function invoice_email_preprocess_entity_print(&$vars) {
+  $module_handler = \Drupal::service('module_handler');
+  if (!is_null($module_handler)) {
+    $module_path = $module_handler->getModule('invoice_email')->getPath();
+    if ($module_path !== "") {
+      $vars['module_path'] = $module_path;
+    }
+  }
+  if (isset($vars['content'][0]['#invoice_entity'])) {
+    $vars['invoice_entity'] = TRUE;
+  }
+}

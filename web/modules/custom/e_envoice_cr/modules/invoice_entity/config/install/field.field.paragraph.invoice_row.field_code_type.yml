@@ -6,6 +6,9 @@ dependencies:
     - paragraphs.paragraphs_type.invoice_row
   module:
     - options
+  enforced:
+    module:
+      - invoice_entity
 id: paragraph.invoice_row.field_code_type
 field_name: field_code_type
 entity_type: paragraph
