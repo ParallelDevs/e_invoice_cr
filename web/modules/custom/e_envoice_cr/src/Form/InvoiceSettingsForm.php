@@ -176,6 +176,7 @@ class InvoiceSettingsForm extends ConfigFormBase {
     $form['company_logo_fieldset']['invoice_logo_file'] = [
       '#title' => $this->t('Company Logo'),
       '#type' => 'managed_file',
+      '#description' => $this->t('Add a company logo that it will be printed on the invoice documents.'),
       '#upload_validators' => [
         'file_validate_extensions' => ['png jpg jpeg'],
         'file_validate_image_resolution' => ["", "300x300"],
