@@ -53,13 +53,13 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
         $company = $settings->get('name');
         $email_text = $settings->get('email_text');
         $email_subject = $settings->get('email_subject');
-        str_replace("@company", $company, $email_subject);
+        $email_subject = str_replace("@company", $company, $email_subject);
         // Build the message.
-        str_replace("@invoice_id", $invoice_id, $email_text);
-        str_replace("@company", $company, $email_text);
-        str_replace("@date", $date, $email_text);
-        str_replace("@hour", $hour, $email_text);
-        str_replace("@url", $pdf_url, $email_text);
+        $email_text = str_replace("@invoice_id", $invoice_id, $email_text);
+        $email_text = str_replace("@company", $company, $email_text);
+        $email_text = str_replace("@date", $date, $email_text);
+        $email_text = str_replace("@hour", $hour, $email_text);
+        $email_text = str_replace("@url", $pdf_url, $email_text);
         // Generate pdf file.
         $path = "public://pdf_invoice/";
         $file_name = "invoice_" . $entityId;
