@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  enfored:
+    module:
+      - invoice_entity
+name: invoice_company_logo
+label: 'Invoice Company Logo'
+effects:
+  0bc32995-ab4e-498d-a3ba-4a2f94a501cb:
+    uuid: 0bc32995-ab4e-498d-a3ba-4a2f94a501cb
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 300
+      height: 300
