@@ -53,6 +53,7 @@ class InvoiceSettingsForm extends ConfigFormBase {
     $postal_code = $settings->get('postal_code');
     $address = $settings->get('address');
     $currency = $settings->get('currency');
+    $logo_file = $settings->get('invoice_logo_file');
     $p12_cert = $settings->get('p12_cert');
     $cert_password = $settings->get('cert_password');
 
@@ -167,6 +168,25 @@ class InvoiceSettingsForm extends ConfigFormBase {
       '#validated' => TRUE,
     ];
 
+    $form['company_logo_fieldset'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Logo.'),
+    ];
+
+    $form['company_logo_fieldset']['invoice_logo_file'] = [
+      '#title' => $this->t('Company Logo'),
+      '#type' => 'managed_file',
+      '#description' => $this->t('Add a company logo that it will be printed on the invoice documents.'),
+      '#upload_validators' => [
+        'file_validate_extensions' => ['png jpg jpeg'],
+        'file_validate_image_resolution' => ["", "300x300"],
+      ],
+      '#theme' => 'image_widget',
+      '#preview_image_style' => 'medium',
+      '#upload_location' => 'public://',
+      '#required' => FALSE,
+    ];
+
     $form['cert_fieldset'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Certificate information.'),
@@ -264,7 +284,9 @@ class InvoiceSettingsForm extends ConfigFormBase {
       ->set('currency', $form_state->getValue('currency'))
       ->set('p12_cert', $form_state->getValue('p12_cert'))
       ->set('cert_password', $form_state->getValue('cert_password'))
-      ->save();
+      ->set('invoice_logo_file', $form_state->getValue('invoice_logo_file'))
+      ->set('invoice_logo_file_crop', $form_state->getValue('image_invoice_crop'))
+      ->save('file', $form_state->get('invoice_logo_file'));
     $fid = $form_state->getValue('p12_cert');
     $file_object = file_load($fid[0], $reset = FALSE);
     // Make copies and change the file names.
