@@ -15,10 +15,10 @@ msgid "Type of document"
 msgstr "Tipo de documento"
 
 msgid "Electronic Bill"
-msgstr "Factura Electronica"
+msgstr "Factura Electrónica"
 
 msgid "Electronic Ticket"
-msgstr "Tiquete Electronica"
+msgstr "Tiquete Electrónica"
 
 msgid "Credit Note"
 msgstr "Nota de Crédito"
@@ -59,9 +59,13 @@ msgstr "Información de Referencia"
 msgid "Payment"
 msgstr "Pago"
 
-# Configuration
-msgid "The number of the next invoice."
-msgstr "El número de la siguiente factura."
+# Messages
+msgid "Error getting the authentication token."
+msgstr "Error obteniendo el token de autotentificación"
 
 msgid "Current invoice number updated."
 msgstr "El número de la factura actual actualizado."
+
+# Configuration
+msgid "The number of the next invoice."
+msgstr "El número de la siguiente factura."
