@@ -14,10 +14,10 @@ settings:
   allowed_values:
     -
       value: '01'
-      label: 'Cédula Física'
+      label: 'Physical '
     -
       value: '02'
-      label: 'Cédula Jurídica'
+      label: 'Company id'
     -
       value: '03'
       label: DIMEX

@@ -1,0 +1,29 @@
+settings:
+  allowed_values:
+    -
+      value: '01'
+      label: 'Impuesto General sobre las Ventas'
+    -
+      value: '02'
+      label: 'Impuesto Selectivo de Consumo'
+    -
+      value: '03'
+      label: 'Impuesto Único a los combustibles'
+    -
+      value: '04'
+      label: 'Impuesto específico de Bebidas Alcohólicas'
+    -
+      value: '05'
+      label: 'Impuesto Específico sobre las bebidas envasadas sin contenido alcohólico y jabones de tocador'
+    -
+      value: '06'
+      label: 'Impuesto a los Productos de Tabaco'
+    -
+      value: '07'
+      label: Servicio
+    -
+      value: '12'
+      label: 'Impuesto Especifico al Cemento'
+    -
+      value: '98'
+      label: Otros

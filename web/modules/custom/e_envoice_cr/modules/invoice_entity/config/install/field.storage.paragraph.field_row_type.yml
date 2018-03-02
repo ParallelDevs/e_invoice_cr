@@ -16,10 +16,10 @@ settings:
   allowed_values:
     -
       value: '01'
-      label: Producto
+      label: Product
     -
       value: '02'
-      label: Servicio
+      label: Service
   allowed_values_function: ''
 module: options
 locked: false

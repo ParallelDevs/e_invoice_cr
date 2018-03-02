@@ -1,0 +1,12 @@
+settings:
+  allowed_values:
+    -
+      label: 'Código del producto del vendedor'
+    -
+      label: 'Código del producto del comprador'
+    -
+      label: 'Código del producto asignado por la industria'
+    -
+      label: 'Código uso interno'
+    -
+      label: Otros

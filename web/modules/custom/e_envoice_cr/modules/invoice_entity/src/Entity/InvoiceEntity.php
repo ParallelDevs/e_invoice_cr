@@ -311,12 +311,12 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
       ->setTranslatable(FALSE)
       ->setSettings([
         'allowed_values' => [
-          '01' => t('Anula Documento de Referencia'),
-          '02' => t('Corrige texto documento de referencia'),
-          '03' => t('Corrige monto'),
-          '04' => t('Referencia a otro documento'),
-          '05' => t('Sustituye comprobante provisional por contingencia.'),
-          '99' => t('Otros'),
+          '01' => t('Cancel Reference Document'),
+          '02' => t('Corrects text reference document'),
+          '03' => t('Corrects amount'),
+          '04' => t('Reference to another document'),
+          '05' => t('Replaces provisional voucher for contingency'),
+          '99' => t('Other'),
         ],
       ])
       ->setDisplayConfigurable('form', TRUE)
