@@ -1,6 +1,6 @@
 settings:
   allowed_values:
--
+    -
       value: '01'
       label: Contado
     -
