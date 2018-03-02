@@ -28,7 +28,8 @@ class InvoiceEntityForm extends ContentEntityForm {
   public function __construct(EntityManagerInterface $entity_manager, EntityTypeBundleInfoInterface $entity_type_bundle_info = NULL, TimeInterface $time = NULL) {
     parent::__construct($entity_manager, $entity_type_bundle_info, $time);
     $settings = \Drupal::config('e_invoice_cr.settings');
-    if (!isset($settings) && is_null($settings)) {
+    $empty = $settings->isNew();
+    if ($empty || is_null($settings)) {
       invoice_entity_config_error();
       $this->currency = NULL;
     }

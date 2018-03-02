@@ -25,7 +25,11 @@
       <tbody>
         <tr class="tr-row">
           <td>
-            <div class="company-icon"></div>
+            <div class="company-icon">
+              {% if emitter.logo_url %}
+                <img src="{{ emitter.logo_url }}">
+              {% endif %}
+            </div>
             <div class="company-info">
               <div class="main-name">{{ emitter.name }}</div>
               <div>{{ emitter.commercial_name }}</div>
@@ -56,7 +60,9 @@
               <div>{{ customer.id_label }}: {{ customer.id }}</div>
               <div>{{ customer.phone_label }}: {{ customer.phone }}</div>
               <div>{{ customer.email_label }}: {{ customer.email }}</div>
-              <div>{{ customer.address }} {{ customer.zipcode }}</div>
+              {% if customer.address %}
+                <div>{{ customer.address }} {{ customer.zipcode }}</div>
+              {% endif %}
             </div>
           </td>
           <td align="right">
