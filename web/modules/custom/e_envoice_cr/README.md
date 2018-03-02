@@ -9,7 +9,8 @@ email integrations, customer management, and taxes management.
 
 * Composer
 
-Important: You need to set up Swiftmailer module in order to have the invoice email module working properly.
+Important: You need to set up Swiftmailer module in order to have the invoice 
+email module working properly.
 
 # INSTALLATION
 
