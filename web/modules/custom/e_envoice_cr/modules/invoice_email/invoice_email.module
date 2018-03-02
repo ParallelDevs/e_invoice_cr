@@ -36,7 +36,9 @@ function invoice_email_mail($key, &$message, $params) {
       $message['from'] = \Drupal::config('system.site')->get('mail');
       $message['subject'] = t('Subject: @title', ['@title' => $params['title']], $options);
       $message['body'][] = Html::escape($params['message']);
-      $message['params']['files'] = $params['files'];
+      if (count($params['files']) !== 0 && !is_null($params['files'])) {
+        $message['params']['files'] = $params['files'];
+      }
       break;
   }
 }

@@ -1,7 +1,7 @@
 langcode: en
 status: true
 dependencies:
-  enfored:
+  enforced:
     module:
       - invoice_entity
 name: invoice_company_logo
