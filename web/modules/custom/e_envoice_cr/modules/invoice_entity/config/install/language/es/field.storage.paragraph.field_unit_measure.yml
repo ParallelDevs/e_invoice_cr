@@ -200,7 +200,7 @@ settings:
       label: hora
     -
       value: d
-      label: día
+      label: d
     -
       value: º
       label: grado

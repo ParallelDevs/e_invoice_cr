@@ -1,14 +1,14 @@
 settings:
   allowed_values:
-    -
+-
       value: '01'
-      label: Cash
+      label: Contado
     -
       value: '02'
-      label: Credit
+      label: Crédito
     -
       value: '03'
-      label: Consignment
+      label: Consignación
     -
       value: '04'
       label: Apartado

@@ -58,3 +58,10 @@ msgstr "Información de Referencia"
 
 msgid "Payment"
 msgstr "Pago"
+
+# Configuration
+msgid "The number of the next invoice."
+msgstr "El número de la siguiente factura."
+
+msgid "Current invoice number updated."
+msgstr "El número de la factura actual actualizado."
