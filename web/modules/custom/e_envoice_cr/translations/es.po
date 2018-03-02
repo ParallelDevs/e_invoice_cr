@@ -1,0 +1,92 @@
+# Invoice Settings Form.
+msgid ""
+msgstr ""
+
+msgid "Invoice Settings"
+msgstr "Configuración de Facturación"
+
+msgid "Production"
+msgstr "Producción"
+
+msgid "Sandbox"
+msgstr "Pruebas"
+
+msgid "Select \"Production\" to set the production mode or \"Sandbox\" to set the tests mode."
+msgstr "Seleccione \"Producción\" para cambiarlo al modo de producción o \"Sandbox\" para el ambiente de pruebas."
+
+msgid "API login information."
+msgstr "API información de ingreso."
+
+msgid "Username:"
+msgstr "Nombre de usuario:"
+
+msgid "Password:"
+msgstr "Contraseña"
+
+msgid "Taxpayer information."
+msgstr "Información del contribuyente."
+
+msgid "Id type."
+msgstr "Tipo de identificación."
+
+msgid "Id number:"
+msgstr "Número de identificación."
+
+msgid "Name:"
+msgstr "Nombre:"
+
+msgid "Tradename:"
+msgstr "Nombre Comercial:"
+
+msgid "Phone number:"
+msgstr "Número telefónico:"
+
+msgid "Fax number:"
+msgstr "Número de Fax"
+
+msgid "Please add the country code to the beginning. This field should only have numbers. No spaces or special characters."
+msgstr "Por favor añada el código del país al inicio. Este campo solo debe tener números. Sin espacios o caracteres especiales."
+
+msgid "Zip code:"
+msgstr "Código postal:"
+
+msgid "Others:"
+msgstr "Otros:"
+
+msgid "Select the taxpayer's id type."
+msgstr "Seleccione el tipo de identificación del contribuyente."
+
+msgid "Company Logo"
+msgstr "Logo de la compañia"
+
+msgid "Add a company logo that it will be printed on the invoice documents."
+msgstr "Agregué el logo de la compañia que se va imprimir en los documentos."
+
+msgid "Default currency."
+msgstr "Moneda por defecto."
+
+msgid "Select the environment."
+msgstr "Seleccione el ambiente."
+
+msgid "Location."
+msgstr "Ubicación."
+
+msgid "Physical person id"
+msgstr "Cédula física"
+
+msgid "Company id"
+msgstr "Cédula jurídica"
+
+msgid "Certificate information."
+msgstr "Información del certificado"
+
+msgid "Certificate p12."
+msgstr "Certificado p12"
+
+msgid "Load the authentication certificate p12 to create the signature."
+msgstr "Suba el archivo de certificado de autentificación p12 para crear la firma."
+
+# General
+
+msgid "Management"
+msgstr "Administración"

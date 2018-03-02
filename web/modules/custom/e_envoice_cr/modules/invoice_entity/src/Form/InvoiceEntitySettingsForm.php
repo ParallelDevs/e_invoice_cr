@@ -36,6 +36,7 @@ class InvoiceEntitySettingsForm extends FormBase {
     $value = $form_state->getValue('consecutive_number');
     $value = str_pad($value, 10, '0', STR_PAD_LEFT);
     InvoiceService::setInvoiceVariable('invoice_number', $value);
+    drupal_set_message('Current invoice number updated.');
   }
 
   /**

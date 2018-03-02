@@ -10,27 +10,27 @@ entity_type: invoice_entity
 type: list_string
 settings:
   allowed_values:
-    -
-      value: '01'
-      label: Contado
-    -
-      value: '02'
-      label: Crédito
-    -
-      value: '03'
-      label: Consignación
-    -
-      value: '04'
-      label: Apartado
-    -
-      value: '05'
-      label: 'Arrendamiento con opción de compra'
-    -
-      value: '06'
-      label: 'Arrendamiento en función financiera'
-    -
-      value: '99'
-      label: 'Otros (se debe indicar la condición de la venta)'
+      -
+        value: '01'
+        label: Cash
+      -
+        value: '02'
+        label: Credit
+      -
+        value: '03'
+        label: Consingment
+      -
+        value: '04'
+        label: Set - Pulled Apart
+      -
+        value: '05'
+        label: 'Lease with option to buy'
+      -
+        value: '06'
+        label: 'Financial Lease'
+      -
+        value: '99'
+        label: 'Other (you must indicate the sale condition)'
   allowed_values_function: ''
 module: options
 locked: false

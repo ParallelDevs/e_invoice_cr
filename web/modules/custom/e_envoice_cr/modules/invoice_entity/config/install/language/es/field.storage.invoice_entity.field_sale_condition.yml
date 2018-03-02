@@ -1,0 +1,23 @@
+settings:
+  allowed_values:
+-
+      value: '01'
+      label: Contado
+    -
+      value: '02'
+      label: Crédito
+    -
+      value: '03'
+      label: Consignación
+    -
+      value: '04'
+      label: Apartado
+    -
+      value: '05'
+      label: 'Arrendamiento con opción de compra'
+    -
+      value: '06'
+      label: 'Arrendamiento en función financiera'
+    -
+      value: '99'
+      label: 'Otros (se debe indicar la condición de la venta)'

@@ -1,0 +1,67 @@
+# Invoice Entity.
+msgid ""
+msgstr ""
+
+msgid "Invoice Entity"
+msgstr "Entidad Factura"
+
+msgid "Add Invoice"
+msgstr "Agregar Factura"
+
+msgid "Add invoice"
+msgstr "Agregar Factura"
+
+msgid "Type of document"
+msgstr "Tipo de documento"
+
+msgid "Electronic Bill"
+msgstr "Factura Electronica"
+
+msgid "Electronic Ticket"
+msgstr "Tiquete Electronica"
+
+msgid "Credit Note"
+msgstr "Nota de Crédito"
+
+msgid "Debit Note"
+msgstr "Nota de Débito"
+
+msgid "Type of document"
+msgstr "Tipo de documento"
+
+msgid "Document Number"
+msgstr "Número de documento"
+
+msgid "Type of reference"
+msgstr "Tipo de referencia"
+
+msgid "Reason"
+msgstr "Razón"
+
+msgid "Cancel Reference Document"
+msgstr "Anula Documento de Referencia"
+
+msgid "Corrects text reference document"
+msgstr "Corrige texto documento de referencia"
+
+msgid "Corrects amount"
+msgstr "Corrige monto"
+
+msgid "Reference to another document"
+msgstr "Referencia a otro documento"
+
+msgid "Replaces provisional voucher for contingency"
+msgstr "Sustituye comprobante provisional por contingencia"
+
+msgid "Reference Information"
+msgstr "Información de Referencia"
+
+msgid "Payment"
+msgstr "Pago"
+
+# Configuration
+msgid "The number of the next invoice."
+msgstr "El número de la siguiente factura."
+
+msgid "Current invoice number updated."
+msgstr "El número de la factura actual actualizado."

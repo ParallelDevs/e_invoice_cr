@@ -31,12 +31,15 @@ class InvoiceSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $base_url = $host = \Drupal::request()->getHost();
-    $options_env = ["1" => "Production", "2" => "Sandbox"];
+    $options_env = [
+      "1" => $this->t("Production"),
+      "2" => $this->t("Sandbox"),
+    ];
     $options_id_type = [
-      "01" => "Physical person id",
-      "02" => "Company id",
-      "03" => "DIMEX",
-      "04" => "NITE",
+      "01" => $this->t("Physical person id"),
+      "02" => $this->t("Company id"),
+      "03" => $this->t("DIMEX"),
+      "04" => $this->t("NITE"),
     ];
     $settings = \Drupal::config('e_invoice_cr.settings');
     // Get default values.
@@ -308,7 +311,6 @@ class InvoiceSettingsForm extends ConfigFormBase {
       ->set('p12_cert', $form_state->getValue('p12_cert'))
       ->set('cert_password', $form_state->getValue('cert_password'))
       ->set('invoice_logo_file', $form_state->getValue('invoice_logo_file'))
-      ->set('invoice_logo_file_crop', $form_state->getValue('image_invoice_crop'))
       ->set('email_text', $form_state->getValue('email_text'))
       ->set('email_subject', $form_state->getValue('email_subject'))
       ->save('file', $form_state->get('invoice_logo_file'));

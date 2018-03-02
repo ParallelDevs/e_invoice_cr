@@ -15,19 +15,19 @@ settings:
   allowed_values:
     -
       value: '01'
-      label: 'Código del producto del vendedor'
+      label: "Seller's product code"
     -
       value: '02'
-      label: 'Código del producto del comprador'
+      label: "Buyer's product code"
     -
       value: '03'
-      label: 'Código del producto asignado por la industria'
+      label: 'Product code assigned by the industry'
     -
       value: '04'
-      label: 'Código uso interno'
+      label: 'Internal use code'
     -
       value: '99'
-      label: Otros
+      label: Other
   allowed_values_function: ''
 module: options
 locked: false
