@@ -3,6 +3,8 @@ type: module
 description: This module provides the invoice entity for e-invoice.
 core: 8.x
 package: other
+interface translation project: invoice_entity
+interface translation server pattern: modules/custom/e_envoice_cr/modules/invoice_entity/translations/%language.po
 dependencies:
   - e_invoice_cr
   - workflows

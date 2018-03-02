@@ -12,22 +12,22 @@ settings:
   allowed_values:
     -
       value: '01'
-      label: Efectivo
+      label: Cash
     -
       value: '02'
-      label: Tarjeta
+      label: Card
     -
       value: '03'
-      label: Cheque
+      label: Check
     -
       value: '04'
-      label: 'Transferencia – depósito bancario'
+      label: 'Transfer - bank deposit'
     -
       value: '05'
-      label: 'Recaudado por terceros'
+      label: 'Collected by third parties'
     -
       value: '99'
-      label: 'Otros (se debe indicar el medio de pago)'
+      label: 'Other (you must indicate the payment method)'
   allowed_values_function: ''
 module: options
 locked: false

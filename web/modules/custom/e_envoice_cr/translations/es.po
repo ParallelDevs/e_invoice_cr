@@ -1,9 +1,9 @@
 # Invoice Settings Form.
-msgid "Invoice Entity"
-msgstr "Entidad Factura"
+msgid ""
+msgstr ""
 
-msgid "Customer Entity"
-msgstr "Entidad de Cliente"
+msgid "Invoice Settings"
+msgstr "Configuración de Facturación"
 
 msgid "Production"
 msgstr "Producción"
