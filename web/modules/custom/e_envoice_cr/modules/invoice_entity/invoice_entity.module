@@ -128,7 +128,7 @@ function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
   $customer = [];
   $config = \Drupal::config('e_invoice_cr.settings');
   $file = $config->get('invoice_logo_file');
-  if (!is_null($file)) {
+  if (!is_null($file) && sizeof($file) !== 0) {
     $file_uri = File::load($file[0])->getFileUri();
     $logo_path = file_url_transform_relative(file_create_url($file_uri));
     $emitter['logo_url'] = $logo_path;
@@ -156,7 +156,9 @@ function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
       $customer['phone'] = $client->get('field_phone')->value;
       $customer['phone_label'] = $client->getFieldDefinition('field_phone')->label();
       $address = $client->get('field_address')->getValue();
-      $customer['address'] = $address[0]['province'] . ", " . $address[0]['canton'] . ", " . $address[0]['district'] . ".";
+      if (sizeof($address) !== 0) {
+        $customer['address'] = $address[0]['province'] . ", " . $address[0]['canton'] . ", " . $address[0]['district'] . ".";
+      }
       $customer['zipcode'] = $address[0]['zipcode'];
     }
   }
@@ -169,7 +171,7 @@ function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
 }
 
 /**
- * Implements hook_preprocess_paragraph__fila().
+ * Implements hook_preprocess_paragraph__row().
  */
 function invoice_entity_preprocess_paragraph__invoice_row(&$variables) {
   $config = \Drupal::config('e_invoice_cr.settings');

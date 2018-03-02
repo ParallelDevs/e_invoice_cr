@@ -60,7 +60,9 @@
               <div>{{ customer.id_label }}: {{ customer.id }}</div>
               <div>{{ customer.phone_label }}: {{ customer.phone }}</div>
               <div>{{ customer.email_label }}: {{ customer.email }}</div>
-              <div>{{ customer.address }} {{ customer.zipcode }}</div>
+              {% if customer.address %}
+                <div>{{ customer.address }} {{ customer.zipcode }}</div>
+              {% endif %}
             </div>
           </td>
           <td align="right">
