@@ -26,6 +26,7 @@
         "drupal/entity_print": "2.x",
         "drupal/field_group": "^1.0",
         "drupal/paragraphs": "^1.2",
+        "drupal/swiftmailer": "^1.0@beta",
         "drupal/twig_field_value": "^1.1",
         "drush/drush": "~8.0|^9.0.0-beta8",
         "webflo/drupal-finder": "^1.0.0",

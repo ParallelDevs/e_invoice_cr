@@ -8,6 +8,7 @@
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 use Drupal\customer_entity\Entity\CustomerEntity;
+use Drupal\file\Entity\File;
 
 /**
  * Implements hook_theme().
@@ -126,6 +127,12 @@ function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
   $emitter = [];
   $customer = [];
   $config = \Drupal::config('e_invoice_cr.settings');
+  $file = $config->get('invoice_logo_file');
+  if (!is_null($file)) {
+    $file_uri = File::load($file[0])->getFileUri();
+    $logo_path = file_url_transform_relative(file_create_url($file_uri));
+    $emitter['logo_url'] = $logo_path;
+  }
   $emitter['name'] = $config->get('name');
   $emitter['commercial_name'] = $config->get('commercial_name');
   $emitter['id'] = $config->get('id');

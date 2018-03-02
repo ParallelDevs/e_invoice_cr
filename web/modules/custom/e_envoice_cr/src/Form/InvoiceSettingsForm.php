@@ -56,6 +56,14 @@ class InvoiceSettingsForm extends ConfigFormBase {
     $logo_file = $settings->get('invoice_logo_file');
     $p12_cert = $settings->get('p12_cert');
     $cert_password = $settings->get('cert_password');
+    $email_text = $settings->get('email_text');
+    $email_subject = $settings->get('email_subject');
+    if (is_null($email_text)) {
+      $email_text = "Find attached an Electronic Invoice with Key Number @invoice_id issued by @company on @date at @hour.\nYou can also download it at @url\n\nThis is an automatic notification, please do not reply this email.";
+    }
+    if (is_null($email_subject)) {
+      $email_subject = "Electronic invoice issued by @company.";
+    }
 
     $form['environment'] = [
       '#type' => 'select',
@@ -168,24 +176,38 @@ class InvoiceSettingsForm extends ConfigFormBase {
       '#validated' => TRUE,
     ];
 
-    $form['company_logo_fieldset'] = [
+    $form['email_text_fieldset'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Logo.'),
+      '#title' => $this->t('Email notifications.'),
     ];
 
-    $form['company_logo_fieldset']['invoice_logo_file'] = [
+    $form['email_text_fieldset']['invoice_logo_file'] = [
       '#title' => $this->t('Company Logo'),
       '#type' => 'managed_file',
       '#description' => $this->t('Add a company logo that it will be print on the invoice documents.'),
       '#upload_validators' => [
         'file_validate_extensions' => ['png jpg jpeg'],
-        'file_validate_image_resolution' => ["", "300x300"],
+        'file_validate_image_resolution' => ["300x300", ""],
       ],
       '#default_value' => $logo_file,
       '#theme' => 'image_widget',
       '#preview_image_style' => 'medium',
       '#upload_location' => 'public://',
       '#required' => FALSE,
+    ];
+    $form['email_text_fieldset']['email_subject'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Email subject'),
+      '#description' => "Add a subject text that it will be printed on the email invoice notifications. Use @company to print your company name.",
+      '#default_value' => $email_subject,
+      '#required' => TRUE,
+    ];
+    $form['email_text_fieldset']['email_text'] = [
+      '#title' => $this->t('Email notifications text'),
+      '#type' => 'textarea',
+      '#description' => $this->t("Add a text that it will be printed on the email invoice notifications sent to the clients.\nUse @company to print your company name, @invoice_id to print the invoice id, @date to print the invoice date, @hour to print the hour and @url to print the pdf invoice link."),
+      '#default_value' => $email_text,
+      '#required' => TRUE,
     ];
 
     $form['cert_fieldset'] = [
@@ -287,7 +309,10 @@ class InvoiceSettingsForm extends ConfigFormBase {
       ->set('cert_password', $form_state->getValue('cert_password'))
       ->set('invoice_logo_file', $form_state->getValue('invoice_logo_file'))
       ->set('invoice_logo_file_crop', $form_state->getValue('image_invoice_crop'))
+      ->set('email_text', $form_state->getValue('email_text'))
+      ->set('email_subject', $form_state->getValue('email_subject'))
       ->save('file', $form_state->get('invoice_logo_file'));
+
     $fid = $form_state->getValue('p12_cert');
     $file_object = file_load($fid[0], $reset = FALSE);
     // Make copies and change the file names.
