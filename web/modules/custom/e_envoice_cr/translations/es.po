@@ -69,7 +69,7 @@ msgid "Select the environment."
 msgstr "Seleccione el ambiente."
 
 msgid "Location."
-msgstr "Ubicación"
+msgstr "Ubicación."
 
 msgid "Physical person id"
 msgstr "Cédula física"
@@ -85,3 +85,8 @@ msgstr "Certificado p12"
 
 msgid "Load the authentication certificate p12 to create the signature."
 msgstr "Suba el archivo de certificado de autentificación p12 para crear la firma."
+
+# General
+
+msgid "Management"
+msgstr "Administración"

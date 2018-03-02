@@ -12,31 +12,31 @@ settings:
   allowed_values:
     -
       value: '01'
-      label: 'Impuesto General sobre las Ventas'
+      label: 'General Sales Tax'
     -
       value: '02'
-      label: 'Impuesto Selectivo de Consumo'
+      label: 'Consumer Selective Tax'
     -
       value: '03'
-      label: 'Impuesto Único a los combustibles'
+      label: 'Unique Fuel Tax'
     -
       value: '04'
-      label: 'Impuesto específico de Bebidas Alcohólicas'
+      label: 'Alcoholic Beverages Specific Tax'
     -
       value: '05'
-      label: 'Impuesto Específico sobre las bebidas envasadas sin contenido alcohólico y jabones de tocador'
+      label: 'Non-alcoholic bottled beverages and body soap Specific tax'
     -
       value: '06'
-      label: 'Impuesto a los Productos de Tabaco'
+      label: 'Tobacco Products tax'
     -
       value: '07'
-      label: Servicio
+      label: Service
     -
       value: '12'
-      label: 'Impuesto Especifico al Cemento'
+      label: 'Concrete Specific Tax'
     -
       value: '98'
-      label: Otros
+      label: Other
   allowed_values_function: ''
 module: options
 locked: false

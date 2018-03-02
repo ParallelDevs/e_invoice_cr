@@ -1,4 +1,4 @@
-# Invoice Settings Form.
+# Invoice Entity.
 msgid ""
 msgstr ""
 
@@ -8,8 +8,8 @@ msgstr "Entidad Factura"
 msgid "Add Invoice"
 msgstr "Agregar Factura"
 
-msgid "Management"
-msgstr "Administración"
+msgid "Add invoice"
+msgstr "Agregar Factura"
 
 msgid "Type of document"
 msgstr "Tipo de documento"

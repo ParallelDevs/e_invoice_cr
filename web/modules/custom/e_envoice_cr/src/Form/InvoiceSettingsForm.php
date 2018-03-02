@@ -288,7 +288,6 @@ class InvoiceSettingsForm extends ConfigFormBase {
       ->set('p12_cert', $form_state->getValue('p12_cert'))
       ->set('cert_password', $form_state->getValue('cert_password'))
       ->set('invoice_logo_file', $form_state->getValue('invoice_logo_file'))
-      ->set('invoice_logo_file_crop', $form_state->getValue('image_invoice_crop'))
       ->save('file', $form_state->get('invoice_logo_file'));
     $fid = $form_state->getValue('p12_cert');
     $file_object = file_load($fid[0], $reset = FALSE);
