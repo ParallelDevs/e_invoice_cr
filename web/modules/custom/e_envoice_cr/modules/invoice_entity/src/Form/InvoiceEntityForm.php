@@ -107,7 +107,7 @@ class InvoiceEntityForm extends ContentEntityForm {
     ];
     $form['field_credit_term']['widget'][0]['value']['#states']['visible'] = $visible;
     for ($i = 0; $i >= 0; $i++) {
-      if (array_key_exists($i, $form['field_rows']['widget'])) {
+      if (array_key_exists($i, $form['field_rows']['widget']) && isset($form['field_rows']['widget'][$i])) {
         // Rows.
         $this->formatField($form['field_rows']['widget'][$i]['subform']['field_unit_price']['widget'][0]['value'], TRUE, FALSE);
         $this->formatField($form['field_rows']['widget'][$i]['subform']['field_line_total_amount']['widget'][0]['value'], FALSE, TRUE);
