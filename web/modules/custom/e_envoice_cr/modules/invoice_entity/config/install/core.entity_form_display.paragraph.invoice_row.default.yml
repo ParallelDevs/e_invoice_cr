@@ -70,10 +70,10 @@ content:
   field_detail:
     weight: 7
     settings:
-      rows: 5
+      size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textarea
+    type: string_textfield
     region: content
   field_discount_percentage:
     type: number
@@ -83,13 +83,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_discount_reason:
-    type: string_textarea
     weight: 11
-    region: content
     settings:
-      rows: 5
+      size: 60
       placeholder: ''
     third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_row_tax:
     weight: 10
     settings: {  }

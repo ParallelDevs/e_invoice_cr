@@ -7,13 +7,13 @@ dependencies:
   enforced:
     module:
       - invoice_entity
-_core:
-  default_config_hash: wkNf0ljgsJO6NdkH9PDR5k413XN6IdbH6qtUeiqIR1g
 id: paragraph.field_detail
 field_name: field_detail
 entity_type: paragraph
-type: string_long
+type: string
 settings:
+  max_length: 160
+  is_ascii: false
   case_sensitive: false
 module: core
 locked: false
