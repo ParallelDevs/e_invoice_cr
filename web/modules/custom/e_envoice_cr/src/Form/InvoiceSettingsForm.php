@@ -33,7 +33,7 @@ class InvoiceSettingsForm extends ConfigFormBase {
     $base_url = $host = \Drupal::request()->getHost();
     $options_env = [
       "1" => $this->t("Production"),
-      "2" => $this->t("Sandbox")
+      "2" => $this->t("Sandbox"),
     ];
     $options_id_type = [
       "01" => $this->t("Physical person id"),
