@@ -67,6 +67,14 @@ class InvoiceEntityForm extends ContentEntityForm {
   private function invoiceFormStructure(array &$form, FormStateInterface $form_state) {
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
     $invoice_service = \Drupal::service('invoice_entity.service');
+    // If it's null try to get it again.
+    if (is_null($this->currency)) {
+      $settings = \Drupal::config('e_invoice_cr.settings');
+      $currency = $settings->get('currency') === 'crc' ? '₡' : '$';
+      if (!is_null($currency) && $currency !== "") {
+        $this->currency = $settings->get('currency') === 'crc' ? '₡' : '$';
+      }
+    }
 
     // The library.
     $form['#attached']['library'][] = 'invoice_entity/invoice-rows';
@@ -107,7 +115,7 @@ class InvoiceEntityForm extends ContentEntityForm {
     ];
     $form['field_credit_term']['widget'][0]['value']['#states']['visible'] = $visible;
     for ($i = 0; $i >= 0; $i++) {
-      if (array_key_exists($i, $form['field_rows']['widget'])) {
+      if (array_key_exists($i, $form['field_rows']['widget']) && isset($form['field_rows']['widget'][$i]['subform']['field_code'])) {
         // Rows.
         $this->formatField($form['field_rows']['widget'][$i]['subform']['field_unit_price']['widget'][0]['value'], TRUE, FALSE);
         $this->formatField($form['field_rows']['widget'][$i]['subform']['field_line_total_amount']['widget'][0]['value'], FALSE, TRUE);

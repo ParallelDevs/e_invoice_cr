@@ -60,14 +60,7 @@ function invoice_email_link_alter(&$variables) {
   if ($external == FALSE) {
     $name = $url->getRouteName();
     if ($name === "entity_print.view") {
-      $param = $url->getRouteParameters();
-      if ($param['entity_type'] === "invoice_entity") {
-        // Add a query parameter to the url.
-        $url->setRouteParameter('orientation', "landscape");
-        $query['orientation'] = "landscape";
-        $url->setOption('query', $query);
-        $variables['url'] = $url;
-      }
+      $variables['options']['attributes']['class'][] = "button";
     }
   }
 }
