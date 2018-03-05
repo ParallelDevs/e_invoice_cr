@@ -315,11 +315,10 @@ class InvoiceEntityForm extends ContentEntityForm {
   }
 
   /**
-   * Function that checks all the fields that are dependent on the document type.
+   * Function that checks all fields that are dependent on the document type.
    */
   private function typeDocumentDependentFields(FormStateInterface &$form_state) {
-    foreach (InvoiceEntityForm::DEPENDENT_FIELDS as $field => $dependencies)
-    {
+    foreach (InvoiceEntityForm::DEPENDENT_FIELDS as $field => $dependencies) {
       $labels = array_map(function ($value) {
         return InvoiceEntityInterface::DOCUMENTATIONINFO[$value]['label'];
       }, $dependencies);
