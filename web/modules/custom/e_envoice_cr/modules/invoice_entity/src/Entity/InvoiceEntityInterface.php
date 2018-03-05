@@ -44,15 +44,15 @@ interface InvoiceEntityInterface extends RevisionableInterface, RevisionLogInter
   public const AVAILABLE_CURRENCY = [
     'CRC' => [
       'name' => 'Colones',
-      'symbol' => '₡'
+      'symbol' => '₡',
     ],
     'USD' => [
       'name' => 'Dolares',
-      'symbol' => '$'
+      'symbol' => '$',
     ],
     'EUR' => [
       'name' => 'Euro',
-      'symbol' => '€'
+      'symbol' => '€',
     ],
   ];
 
