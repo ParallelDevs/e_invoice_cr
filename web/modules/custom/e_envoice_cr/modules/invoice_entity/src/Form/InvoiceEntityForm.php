@@ -11,6 +11,7 @@ use Drupal\customer_entity\Entity\CustomerEntity;
 use Drupal\e_invoice_cr\Communication;
 use Drupal\e_invoice_cr\Signature;
 use Drupal\e_invoice_cr\XMLGenerator;
+use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 use Drupal\tax_entity\Entity\TaxEntity;
 
 /**
@@ -19,8 +20,6 @@ use Drupal\tax_entity\Entity\TaxEntity;
  * @ingroup invoice_entity
  */
 class InvoiceEntityForm extends ContentEntityForm {
-
-  private $currency;
 
   /**
    * {@inheritdoc}
@@ -31,10 +30,6 @@ class InvoiceEntityForm extends ContentEntityForm {
     $empty = $settings->isNew();
     if ($empty || is_null($settings)) {
       invoice_entity_config_error();
-      $this->currency = NULL;
-    }
-    else {
-      $this->currency = $settings->get('currency') === 'crc' ? '₡' : '$';
     }
   }
 
@@ -67,14 +62,6 @@ class InvoiceEntityForm extends ContentEntityForm {
   private function invoiceFormStructure(array &$form, FormStateInterface $form_state) {
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
     $invoice_service = \Drupal::service('invoice_entity.service');
-    // If it's null try to get it again.
-    if (is_null($this->currency)) {
-      $settings = \Drupal::config('e_invoice_cr.settings');
-      $currency = $settings->get('currency') === 'crc' ? '₡' : '$';
-      if (!is_null($currency) && $currency !== "") {
-        $this->currency = $settings->get('currency') === 'crc' ? '₡' : '$';
-      }
-    }
 
     // The library.
     $form['#attached']['library'][] = 'invoice_entity/invoice-rows';
@@ -82,13 +69,9 @@ class InvoiceEntityForm extends ContentEntityForm {
     // Get all tax entities.
     $tax_info = $this->getMainTaxesInfo();
 
+    // Pass to javascript currency code and tax info.
+    $form['#attached']['drupalSettings']['currencyInfo'] = InvoiceEntityInterface::AVAILABLE_CURRENCY;
     $form['#attached']['drupalSettings']['taxsObject'] = $tax_info;
-    // Get default currency.
-    if (is_null($this->currency)) {
-      invoice_entity_config_error();
-      // Disable the submit button.
-      $form['actions']['submit']['#disabled'] = TRUE;
-    }
 
     $form['field_numeric_key']['#disabled'] = 'disabled';
     $form['field_consecutive_number']['#disabled'] = 'disabled';

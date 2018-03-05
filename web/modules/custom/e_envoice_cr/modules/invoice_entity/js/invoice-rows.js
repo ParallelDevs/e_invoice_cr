@@ -18,6 +18,7 @@
       $('input[id*="field-adddis"]').on('keyup change', updateInvoiceValues);
       $('select[id*="subform-field-row-tax"]').on('keyup change', updateInvoiceValues);
       $('#edit-type-of').on('change', checkFieldConditions);
+      $('#edit-field-currency').on('change', updateCurrencySuffixes);
 
       // Calculate the fields needed.
       updateInvoiceValues();
@@ -76,7 +77,6 @@
       }
     }
     totalInvoice = totalSale + totalTax;
-    console.log(`Total Sale: ${totalSale}, TotalDis ${totalDis}, TotalTax: ${totalTax}, TotalInvoice: ${totalInvoice}`);
     $('#edit-field-net-sale-0-value').val(totalSale);
     $('#edit-field-total-discount-0-value').val(totalDis);
     $('#edit-field-total-tax-0-value').val(totalTax);
@@ -114,6 +114,29 @@
     if (!isRequired && element.hasClass('form-required')) {
       element.removeClass('form-required');
     }
+  }
+
+  function updateCurrencySuffixes() {
+    var currency = $('#edit-field-currency').val();
+    var symbol = drupalSettings.currencyInfo[currency]['symbol'];
+    var symbolChecked = false;
+    $('input[type="number"]:not([data-drupal-selector*=subform-field-quantity], [data-drupal-selector*=subform-field-discount-percentage])').each(
+      function () {
+        var element = $(this).siblings('label');
+        var current = element.text();
+        var original = hasCurrency(element) ? current.substr(0, current.length - 2) : current;
+        element.text(original + ' ' + symbol);
+      }
+    );
+  }
+
+  function hasCurrency(element) {
+    var hasIt = false;
+    var char = element.text().slice(-1);
+    Object.keys(drupalSettings.currencyInfo).forEach(function (key) {
+      hasIt = hasIt || char == drupalSettings.currencyInfo[key].symbol;
+    });
+    return hasIt;
   }
 
 }(jQuery, drupalSettings));
