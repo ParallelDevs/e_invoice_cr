@@ -15,7 +15,7 @@ settings:
       value: CRC
       label: 'Colón (CRC)'
     -
-      value: UDS
+      value: USD
       label: 'Dolar (USA)'
     -
       value: EUR

@@ -55,7 +55,6 @@ class InvoiceSettingsForm extends ConfigFormBase {
     $email = $settings->get('email');
     $postal_code = $settings->get('postal_code');
     $address = $settings->get('address');
-    $currency = $settings->get('currency');
     $logo_file = $settings->get('invoice_logo_file');
     $p12_cert = $settings->get('p12_cert');
     $cert_password = $settings->get('cert_password');
@@ -168,15 +167,6 @@ class InvoiceSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Others:'),
       '#default_value' => $address,
       '#required' => TRUE,
-    ];
-    $form['taxpayer_fieldset']['currency'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Default currency.'),
-      '#default_value' => $currency,
-      '#required' => TRUE,
-      '#options' => ['crc' => 'Colones', 'usd' => 'Dolar (USA)'],
-      '#description' => $this->t('Select the default currency to use on this module.'),
-      '#validated' => TRUE,
     ];
 
     $form['email_text_fieldset'] = [
@@ -307,7 +297,6 @@ class InvoiceSettingsForm extends ConfigFormBase {
       ->set('email', $form_state->getValue('email'))
       ->set('postal_code', $form_state->getValue('postal_code'))
       ->set('address', $form_state->getValue('address'))
-      ->set('currency', $form_state->getValue('currency'))
       ->set('p12_cert', $form_state->getValue('p12_cert'))
       ->set('cert_password', $form_state->getValue('cert_password'))
       ->set('invoice_logo_file', $form_state->getValue('invoice_logo_file'))
