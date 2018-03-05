@@ -98,7 +98,6 @@ class XMLGenerator {
    */
   private function generateSummaryXml(InvoiceEntity $entity) {
     $settings = \Drupal::config('e_invoice_cr.settings');
-    $currency = $settings->get('currency');
     $rows = $entity->get('field_rows')->getValue();
     $total_services = 0;
     $total_prod = 0;
@@ -143,7 +142,7 @@ class XMLGenerator {
     $total_sale = $total_with_tax + $total_without_tax;
 
     $xml_doc = "\t<ResumenFactura>\n";
-    $xml_doc .= "\t\t<CodigoMoneda>" . strtoupper($currency) . "</CodigoMoneda>\n";
+    $xml_doc .= "\t\t<CodigoMoneda>" . $entity->get('field_currency')->value . "</CodigoMoneda>\n";
     // No supported at the moment (*).
     $xml_doc .= "\t\t<TipoCambio>0</TipoCambio>\n";
     $xml_doc .= "\t\t<TotalServGravados>" . $total_serv_with_tax . "</TotalServGravados>\n";

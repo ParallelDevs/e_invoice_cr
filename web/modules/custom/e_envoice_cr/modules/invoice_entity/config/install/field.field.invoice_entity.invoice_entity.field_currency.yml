@@ -2,20 +2,20 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_code_type
-    - paragraphs.paragraphs_type.invoice_row
+    - field.storage.invoice_entity.field_currency
   module:
+    - invoice_entity
     - options
   enforced:
     module:
       - invoice_entity
-id: paragraph.invoice_row.field_code_type
-field_name: field_code_type
-entity_type: paragraph
-bundle: invoice_row
-label: 'Code Type'
+id: invoice_entity.invoice_entity.field_currency
+field_name: field_currency
+entity_type: invoice_entity
+bundle: invoice_entity
+label: Currency
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''

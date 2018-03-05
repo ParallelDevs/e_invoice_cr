@@ -2,6 +2,9 @@
 msgid ""
 msgstr ""
 
+msgid "Invoice CR"
+msgstr "Facturación CR"
+
 msgid "Invoice Settings"
 msgstr "Configuración de Facturación"
 
@@ -12,7 +15,7 @@ msgid "Sandbox"
 msgstr "Pruebas"
 
 msgid "Select \"Production\" to set the production mode or \"Sandbox\" to set the tests mode."
-msgstr "Seleccione \"Producción\" para cambiarlo al modo de producción o \"Sandbox\" para el ambiente de pruebas."
+msgstr "Seleccione \"Producción\" para cambiarlo al modo de producción o \"Pruebas\" para el ambiente de pruebas."
 
 msgid "API login information."
 msgstr "API información de ingreso."
@@ -85,6 +88,27 @@ msgstr "Certificado p12"
 
 msgid "Load the authentication certificate p12 to create the signature."
 msgstr "Suba el archivo de certificado de autentificación p12 para crear la firma."
+
+msgid "Select the default currency to use on this module."
+msgstr "Seleccion la moneda por defecto."
+
+msgid "Add a company logo that it will be print on the invoice documents."
+msgstr "Añada el logo de la compañia que se va imprimir en las facturas."
+
+msgid "Email notifications."
+msgstr "Notificaciones por correo electrónico."
+
+msgid "Email subject"
+msgstr "Asunto correo electrónico"
+
+msgid "Email notifications text"
+msgstr "Texto de notificación correo electrónico"
+
+msgid "Add a subject text that it will be printed on the email invoice notifications. Use @company to print your company name."
+msgstr "Añada el asunto con el que se enviara el correo de notificación de la factura. Use @company para imprimir el nombre de su compañia/"
+
+msgid "Add a text that it will be printed on the email invoice notifications sent to the clients.\nUse @company to print your company name, @invoice_id to print the invoice id, @date to print the invoice date, @hour to print the hour and @url to print the pdf invoice link."
+msgstr "Añada el texto que va a ser imprimido en el correo de la notificación, el cual se le enviará a los clientes.\nUse @company para imprimir el nombre de tu compañia, @invoice_id para imprimir la identifación de la factura, @date para imprimir la fecha de la factura, @hour para imprimir la hora y @url para imprimir el enlace de la factura."
 
 # General
 

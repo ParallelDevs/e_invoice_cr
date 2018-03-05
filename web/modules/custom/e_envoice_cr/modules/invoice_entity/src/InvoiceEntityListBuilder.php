@@ -4,6 +4,7 @@ namespace Drupal\invoice_entity;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
+use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 
 /**
  * Defines a class to build a listing of Invoice entities.
@@ -44,7 +45,7 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
 
     }
     $row['id'] = $entity->id();
-    $row['type_of'] = $entity->getInvoiceType();
+    $row['type_of'] = InvoiceEntityInterface::DOCUMENTATIONINFO[$entity->getInvoiceType()]['label'];
     $row['status'] = $state_label;
     return $row + parent::buildRow($entity);
   }

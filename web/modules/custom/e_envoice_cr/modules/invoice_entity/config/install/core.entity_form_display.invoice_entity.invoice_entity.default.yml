@@ -2,18 +2,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.invoice_entity.invoice_entity.field_numeric_key
     - field.field.invoice_entity.invoice_entity.field_client
-    - field.field.invoice_entity.invoice_entity.field_sale_condition
     - field.field.invoice_entity.invoice_entity.field_consecutive_number
-    - field.field.invoice_entity.invoice_entity.field_invoice_date
-    - field.field.invoice_entity.invoice_entity.field_rows
-    - field.field.invoice_entity.invoice_entity.field_payment_method
     - field.field.invoice_entity.invoice_entity.field_credit_term
-    - field.field.invoice_entity.invoice_entity.field_total_discount
-    - field.field.invoice_entity.invoice_entity.field_total_tax
+    - field.field.invoice_entity.invoice_entity.field_currency
+    - field.field.invoice_entity.invoice_entity.field_invoice_date
     - field.field.invoice_entity.invoice_entity.field_net_sale
+    - field.field.invoice_entity.invoice_entity.field_numeric_key
+    - field.field.invoice_entity.invoice_entity.field_payment_method
+    - field.field.invoice_entity.invoice_entity.field_rows
+    - field.field.invoice_entity.invoice_entity.field_sale_condition
+    - field.field.invoice_entity.invoice_entity.field_total_discount
     - field.field.invoice_entity.invoice_entity.field_total_invoice
+    - field.field.invoice_entity.invoice_entity.field_total_tax
   module:
     - datetime
     - field_group
@@ -27,6 +28,7 @@ third_party_settings:
         - field_consecutive_number
         - field_invoice_date
         - field_client
+        - field_currency
         - user_id
       parent_name: ''
       weight: 0
@@ -86,7 +88,7 @@ third_party_settings:
         - ref_code
         - ref_reason
       parent_name: group_r
-      weight: 20
+      weight: 33
       format_type: accordion_item
       format_settings:
         id: ''
@@ -108,20 +110,12 @@ third_party_settings:
         classes: ''
       label: 'Reference Information Accordion'
 _core:
-  default_config_hash: p10F5U7WihOlos8puylHHSZIc9HkUlP2MdHXzwDFm1s
+  default_config_hash: 5JRc9Z41yuq4jH50fAgBo5KGFtYDYnqmGu6xS6dcemY
 id: invoice_entity.invoice_entity.default
 targetEntityType: invoice_entity
 bundle: invoice_entity
 mode: default
 content:
-  field_numeric_key:
-    weight: 1
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_client:
     weight: 4
     settings:
@@ -131,12 +125,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  field_sale_condition:
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
   field_consecutive_number:
     weight: 2
     settings:
@@ -145,11 +133,46 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_credit_term:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_currency:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_invoice_date:
     weight: 3
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
+    region: content
+  field_net_sale:
+    weight: 29
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_numeric_key:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_payment_method:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
     region: content
   field_rows:
     type: entity_reference_paragraphs
@@ -163,36 +186,14 @@ content:
       default_paragraph_type: ''
     third_party_settings: {  }
     region: content
-  field_payment_method:
-    weight: 5
+  field_sale_condition:
+    weight: 3
     settings: {  }
     third_party_settings: {  }
-    type: options_buttons
-    region: content
-  field_credit_term:
-    weight: 4
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
+    type: options_select
     region: content
   field_total_discount:
     weight: 28
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
-  field_total_tax:
-    weight: 30
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
-  field_net_sale:
-    weight: 29
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -205,6 +206,20 @@ content:
     third_party_settings: {  }
     type: number
     region: content
+  field_total_tax:
+    weight: 30
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
   ref_code:
     type: options_select
     weight: 7
@@ -247,7 +262,7 @@ content:
     third_party_settings: {  }
   user_id:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 6
     settings:
       match_operator: CONTAINS
       size: 60

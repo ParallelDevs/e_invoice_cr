@@ -201,7 +201,7 @@ class InvoiceSettingsForm extends ConfigFormBase {
     $form['email_text_fieldset']['email_subject'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Email subject'),
-      '#description' => "Add a subject text that it will be printed on the email invoice notifications. Use @company to print your company name.",
+      '#description' => $this->t("Add a subject text that it will be printed on the email invoice notifications. Use @company to print your company name."),
       '#default_value' => $email_subject,
       '#required' => TRUE,
     ];
