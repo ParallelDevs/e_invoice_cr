@@ -256,8 +256,8 @@ class InvoiceEntityForm extends ContentEntityForm {
         'date' => $date,
         'e_type' => $settings->get('id_type'),
         'e_number' => $settings->get('id'),
-        'c_type' => $client->get('field_type_id')->value,
-        'c_number' => $client->get('field_customer_id')->value,
+        'c_type' => $client != NULL ? $client->get('field_type_id')->value : '',
+        'c_number' => $client != NULL ? $client->get('field_customer_id')->value : '',
       ];
       $communication = new Communication();
       // Get the document.
@@ -346,7 +346,8 @@ class InvoiceEntityForm extends ContentEntityForm {
     $type_of = $form_state->getValue('type_of')[0]['value'];
     $required = in_array($type_of, $types);
     $value = $form_state->getValue($field);
-    if ($required && (is_null($value) || empty($value))) {
+    $hasValue = empty($value) ? FALSE : !is_null(current($value[0])) && !empty(current($value[0]));
+    if ($required && (is_null($value) || !$hasValue)) {
       $form_state->setErrorByName($field, $error_message);
     }
   }
