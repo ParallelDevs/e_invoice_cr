@@ -34,7 +34,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
     if (!is_null($entityId)) {
       $em = \Drupal::entityTypeManager();
       $entity = $em->getStorage("invoice_entity")->load($entityId);
-      if (!is_null($entity)) {
+      if (!is_null($entity) && !empty($entity->get("field_client")->getValue())) {
         // Define some required data.
         $invoice_id = $entity->get("field_numeric_key")->getValue()[0]['value'];
         $invoice_date = $entity->get("field_invoice_date")->getValue()[0]['value'];

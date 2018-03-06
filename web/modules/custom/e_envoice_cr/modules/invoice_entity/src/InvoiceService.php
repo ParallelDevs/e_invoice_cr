@@ -101,6 +101,7 @@ class InvoiceService implements InvoiceServiceInterface {
       $entity->set('moderation_state', $state);
       $entity->save();
       if ($state === 'published') {
+
         // Load the Symfony event dispatcher object through services.
         $dispatcher = \Drupal::service('event_dispatcher');
         // Creating our event class object.

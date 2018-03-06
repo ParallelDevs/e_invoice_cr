@@ -55,8 +55,11 @@ class XMLGenerator {
     // Add the "emisor" information.
     $xml_doc .= $this->generateEmisorXml();
     // Add the "receptor" information.
-    $xml_doc .= $this->generateReceptorXml($entity);
-
+    $client_id = $entity->get('field_client')->target_id;
+    if ($client_id != NULL) {
+      $client = CustomerEntity::load($client_id);
+      $xml_doc .= $this->generateReceptorXml($client);
+    }
     // More header information.
     $xml_doc .= "\t<CondicionVenta>" . $entity->get('field_sale_condition')->value . "</CondicionVenta>\n";
     $xml_doc .= "\t<PlazoCredito>" . $entity->get('field_credit_term')->value . "</PlazoCredito>\n";
@@ -97,7 +100,6 @@ class XMLGenerator {
    *   Return the summary xml as a text.
    */
   private function generateSummaryXml(InvoiceEntity $entity) {
-    $settings = \Drupal::config('e_invoice_cr.settings');
     $rows = $entity->get('field_rows')->getValue();
     $total_services = 0;
     $total_prod = 0;
@@ -254,9 +256,7 @@ class XMLGenerator {
    * @return string
    *   Return the "receptor" in a string variable.
    */
-  private function generateReceptorXml(InvoiceEntity $entity) {
-    $client_id = $entity->get('field_client')->target_id;
-    $client = CustomerEntity::load($client_id);
+  private function generateReceptorXml(CustomerEntity $client) {
     $client_zip_code = $client->field_address->getValue();
     $telephone = $client->get('field_phone')->value;
 
