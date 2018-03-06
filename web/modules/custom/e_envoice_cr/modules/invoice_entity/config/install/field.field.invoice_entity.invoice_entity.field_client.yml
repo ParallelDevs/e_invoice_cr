@@ -11,7 +11,7 @@ entity_type: invoice_entity
 bundle: invoice_entity
 label: Client
 description: 'Please select a client.'
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
