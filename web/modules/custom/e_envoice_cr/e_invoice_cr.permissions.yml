@@ -1,0 +1,5 @@
+
+access invoice settings:
+  title: 'Access Invoice Settings'
+  description: 'Allow access to the invoice module settings page.'
+  restrict access: true
