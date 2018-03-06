@@ -76,7 +76,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_discount_reason:
-    weight: 11
+    weight: 10
     settings:
       size: 60
       placeholder: ''
@@ -105,7 +105,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_row_tax:
-    weight: 10
+    weight: 11
     settings: {  }
     third_party_settings: {  }
     type: options_select

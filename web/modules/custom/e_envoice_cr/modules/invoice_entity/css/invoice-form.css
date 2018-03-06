@@ -1,16 +1,48 @@
-.field--name-field-code-type,
+.field--name-field-row-type,
+.field--name-field-code-type {
+  display: block;
+  width: 50%;
+  min-width: 165px;
+  margin-bottom: 10px;
+}
+.field--name-field-code-type {
+  margin-bottom: 35px;
+}
 .field--name-field-code,
 .field--name-field-quantity,
 .field--name-field-unit-price,
 .field--name-field-unit-measure,
-.field--name-field-another-unit-measure,
 .field--name-field-quantity,
 .field--name-field-unit-price,
 .field--name-field-detail {
   display: inline-block;
-  width: 14%;
+  width: 13%;
+  min-width: 165px;
+}
+.field--name-field-detail {
+  width: 35%;
+}
+.field--name-field-code {
+  min-width: 127px;
+}
+.field--name-field-quantity {
+  min-width: 114px;
+}
+.field--name-field-unit-price {
+  min-width: 114px;
+}
+.field--name-field-another-unit-measure {
+  width: auto;
+  display: inline-block;
+}
+.field--name-field-another-unit-measure .form-item {
+  width: 176px;
   min-width: 14%;
 }
+.field--name-field-discount-reason {
+  margin-bottom: 10px;
+}
+.field--name-field-row-type select,
 .field--name-field-code-type select,
 .field--name-field-code input,
 .field--name-field-quantity input,
@@ -25,50 +57,47 @@
 .field--name-field-row-type {
   display: inline-block;
 }
-.field--name-field-discount-reason,
-.field--name-field-total-amount,
 .field--name-field-row-tax,
 .field--name-field-subtotal,
 .field--name-field-line-total-amount,
 .field--name-field-row-discount {
-  width: 14%;
+  width: 100%;
   display: inline-block;
   margin-bottom: 10px;
+  min-width: 165px;
 }
-.field--name-field-discount-reason input,
-.field--name-field-total-amount input,
-.field--name-field-row-tax select,
+.field--name-field-row-tax input,
 .field--name-field-subtotal input,
 .field--name-field-line-total-amount input,
 .field--name-field-row-discount input {
-  width: 100%;
+  width: 50%;
+  display: inline-block;
 }
-
+.field--name-field-row-tax label {
+  display: inline-block;
+  min-width: 138px;
+}
 .field--name-field-total-amount label {
   display: inline-block;
+  min-width: 138px;
 }
 .field--name-field-row-tax select {
   width: 179px;
 }
 .field--name-field-row-discount label {
   display: inline-block;
+  min-width: 138px;
 }
 .field--name-field-subtotal label {
   display: inline-block;
+  min-width: 138px;
 }
 .field--name-field-line-total-amount label {
   display: inline-block;
+  min-width: 138px;
 }
 .field--name-field-discount-percentage {
   margin-bottom: 10px;
-}
-.field--name-field-discount-reason {
-  float: left;
-}
-.field--name-field-add-discount {
-  margin-top: 15px;
-  padding-top: 10px;
-  border-top: 1px solid #b8b8b8;
 }
 
 .invoice-reference-information .field--name-ref-type-of,
@@ -76,4 +105,30 @@
 .invoice-reference-information .field--name-ref-date,
 .invoice-reference-information .field--name-ref-code {
   display: inline-block;
+}
+.field--name-field-rows fieldset.group-first {
+  width: 68%;
+  min-height: 240px;
+  float: left;
+}
+.field--name-field-rows fieldset.group-second {
+  width: 26%;
+  padding-bottom: 5px;
+  float: right;
+}
+.field--name-field-rows fieldset.group-third {
+  width: 26%;
+  padding-top: 14px;
+  border-top: 1px solid #e6e4df;
+  float: right;
+}
+.field--name-field-rows fieldset {
+  background: transparent;
+  border: 0;
+}
+.field--name-field-rows fieldset legend {
+  display: none;
+}
+.field--name-field-total-amount {
+  display: none;
 }
