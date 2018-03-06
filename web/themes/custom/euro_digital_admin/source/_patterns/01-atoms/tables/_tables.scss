@@ -1,0 +1,43 @@
+table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+
+  > thead {
+    tr {
+      th {
+        border-bottom: 2px solid $c-gray--lightest;
+        padding: 8px;
+        line-height: 1.42857143;
+        text-align: left;
+        @include breakpoint($bp--medium-down){
+          vertical-align: baseline;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      &:nth-child(odd) {
+        background-color: $c-grey-table;
+      }
+      td {
+        border-bottom: 2px solid $c-gray--lightest;
+        padding: 8px;
+        line-height: 1.42857143;
+        @include breakpoint($bp--medium-down){
+          vertical-align: baseline;
+        }
+      }
+    }
+  }
+
+}
+
+#edit-table {
+  thead {
+    display: none;
+  }
+}

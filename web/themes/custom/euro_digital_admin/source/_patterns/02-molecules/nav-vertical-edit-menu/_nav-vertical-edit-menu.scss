@@ -1,0 +1,40 @@
+.vertical-tabs {
+  @include container-border($cb-green, 3px, 3px);
+  padding: $spacing--m;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.vertical-tabs__menu {
+  display: inline-block;
+  width: 30%;
+  margin-right: 2%;
+  padding: 0 $spacing--s $spacing--s;
+  li {
+    border-bottom: solid 1px $c-gray--lightest;
+    border-radius: 3px;
+    padding: 1rem;
+  }
+  strong {
+    display: block;
+  }
+  a {
+    display: block;
+  }
+}
+
+.vertical-tabs__panes {
+  display: inline-block;
+  width: 65%;
+  vertical-align: top;
+}
+
+.is-selected {
+  background: $cb-green;
+  a {
+    color: $c-white;
+  }
+  .vertical-tabs__menu-item-summary {
+    display: block;
+  }
+}

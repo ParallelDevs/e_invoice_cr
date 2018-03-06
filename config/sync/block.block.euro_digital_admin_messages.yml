@@ -1,0 +1,22 @@
+uuid: 311e82a3-0253-486d-8c03-2accaa0e0a6b
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - euro_digital_admin
+_core:
+  default_config_hash: KHQIJ7Vfl25lTjzIc7qIvnuistt-Mw2O0kG4jCofmkI
+id: euro_digital_admin_messages
+theme: euro_digital_admin
+region: pre_content
+weight: -6
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

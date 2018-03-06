@@ -1,0 +1,30 @@
+{%
+set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  ]
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+      <div class="row">
+        <div class="c-table-body">
+          <div class="col-xs-3">
+            <p>{{ cantidad }}</p>
+          </div>
+          <div class="col-xs-4">
+            <p>{{ descripcion }}</p>
+          </div>
+          <div class="col-xs-3">
+            <p>{{ precio_unitario }}</p>
+          </div>
+          <div class="col-xs-2">
+            <p>{{ sub_total }}</p>
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

@@ -1,0 +1,38 @@
+.field-multiple-table {
+  @include container-border($c-teal, 3px, 3px);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  thead {
+    border-bottom: solid 1px $c-gray--lightest;
+  }
+  tbody {
+    tr {
+      td {
+      }
+      &:nth-child(odd) {
+        background-color: $c-white;
+      }
+    }
+  }
+  .draggable {
+    .tabledrag-handle {
+      overflow: visible;
+    }
+  }
+  .handle {
+    &:before {
+      font-family: $ff--icons;
+    }
+  }
+}
+
+.js {
+  .field--widget-entity-reference-paragraphs {
+    .field-multiple-drag {
+      padding: 10px;
+    }
+    td {
+      padding: 10px;
+      vertical-align: baseline;
+    }
+  }
+}

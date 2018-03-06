@@ -1,0 +1,200 @@
+/// Mixin - Fluid Type
+/// PRECISE CONTROL OVER RESPONSIVE TYPOGRAPHY FOR SASS
+/// Indrek Paas @indrekpaas
+/// Inspired by Mike Riethmuller's Precise control over responsive typography
+/// @link http://madebymike.com.au/writing/precise-control-responsive-typography/
+/// @param $properties
+/// @param $min-vw
+/// @param $max-vw
+/// @param $min-value
+/// @param $max-value
+@mixin fluid-type ($properties, $min-vw, $max-vw, $min-value, $max-value) {
+  @each $property in $properties {
+    #{$property}: $min-value;
+  }
+
+  @media screen and (min-width: $min-vw) {
+    @each $property in $properties {
+      #{$property}: calc(#{$min-value} + #{strip-unit($max-value - $min-value)} * (100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)});
+    }
+  }
+
+  @media screen and (min-width: $max-vw) {
+    @each $property in $properties {
+      #{$property}: $max-value;
+    }
+  }
+}
+
+/// Strip unit
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+/// Center.
+/// Center an element vertically or horizontally in its container,
+/// and optionally horizontally. Option to undo.
+/// @param $horizonally-center - center horizontally
+/// @param $vertically-center - center vertically
+/// @param $absolute-positioning - position absolutely, rather than relatively
+/// @param $undo - undo vertical centering on an element it was previously applied to
+@mixin center($horizontally: true, $vertically: true, $absolute: false, $undo: false) {
+  display: inline-block;
+  @if ($absolute) {
+    position: absolute;
+  } @else {
+    position: relative;
+  }
+  @if ($horizontally == true and $vertically == true) {
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  @if ($vertically == true and $horizontally == false) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  @if ($horizontally == true and $vertically == false) {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @if ($undo) {
+    position: static;
+    left: auto;
+    transform: none;
+  }
+}
+
+/// Mixin - Local Base
+/// Set HTML font sizing base for global/local sizing (rem/em).
+/// @link https://css-tricks.com/rem-global-em-local/
+@mixin local-base() {
+  font-size: 1rem; // 16px (default)
+}
+
+.local-base {
+  @include local-base();
+}
+
+/// Word Wrap fix for long spaceless strings
+/// @link https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
+@mixin word-wrap() {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/// Ellipsis fix for long spaceless strings
+/// @link https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
+@mixin ellipsis() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin input-style($focus: false) {
+  display: block;
+  width: 100%;
+  height: 34px;
+  border-radius: 0;
+  padding: ($spacing--xs + 1) ($spacing--xs + 1 * 2);
+  line-height: 1.4;
+  font-size: $fs--s;
+  color: $c-grey-input;
+  background-color: $c-white;
+  border: 1px solid $c-gray--lighter;
+  @if $focus {
+    outline: none;
+    border-color: $c-primary;
+  }
+  //@include breakpoint($bp--medium) {
+  //  width: auto;
+  //}
+}
+
+@mixin disabled() {
+  background: $c-input-disabled;
+  cursor: not-allowed;
+}
+
+@mixin container-border($color, $size, $radius){
+  border-top: solid $color $size;
+  border-bottom-left-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+@mixin invoice-format($color, $bg, $radius){
+  color: $color;
+  background: $bg;
+  border-radius: $radius;
+  padding: 7px 15px 7px;
+  //text-align: center;
+}
+
+input[type=text],
+input[type=password],
+input[type=number],
+input[type=time],
+input[type=date],
+input[type=datetime],
+input[type=search],
+input[type=file],
+.cke_editor_edit-body-0-value {
+  @include input-style();
+  &:focus {
+    @include input-style($focus: true)
+  }
+}
+
+textarea {
+  @include input-style();
+  max-width: 400px;
+  resize: none;
+  &:focus {
+    @include input-style($focus: true);
+  }
+}
+
+
+fieldset {
+  legend {
+    margin-bottom: 5px;
+    border: none;
+    font-weight: $fw--700;
+    font-size: 14px;
+  }
+}
+
+label {
+  &.form-required {
+    &:after {
+      content: "\002a";
+      margin-left: 5px;
+      color: $c-danger;
+      font-family: $ff--icons;
+      font-size: 9px;
+    }
+  }
+}
+
+.field-multiple-drag {
+  .tabledrag-changed {
+    color: rgba(255, 0, 0, 0);
+    &:after {
+      content: "\002a";
+      margin-left: 5px;
+      color: $c-danger;
+      font-family: $ff--icons;
+      font-size: 9px;
+    }
+  }
+}
+
+abbr[title],
+abbr[data-original-title] {
+  border: none;
+}

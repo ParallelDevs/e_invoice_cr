@@ -1,0 +1,24 @@
+uuid: 558d4613-f161-4eb0-89db-83a3d4b8cbd1
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_user
+  theme:
+    - euro_digital_admin
+id: userinfoblock
+theme: euro_digital_admin
+region: header
+weight: -6
+provider: null
+plugin: block_user_info
+settings:
+  id: block_user_info
+  label: 'User Info Block'
+  provider: block_user
+  label_display: '0'
+  target: current
+  view_mode: compact
+  user: null
+  class: ''
+visibility: {  }

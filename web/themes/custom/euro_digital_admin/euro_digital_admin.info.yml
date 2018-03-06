@@ -1,0 +1,98 @@
+name: Euro Digital Admin Theme
+type: theme
+description: A admin theme build in Pattern Labs
+core: 8.x
+libraries:
+  - euro_digital_admin/core
+  - euro_digital_admin/select2
+package: Entity Print
+entity_print:
+  node:
+    all: euro_digital_admin/all-nodes
+resources:
+  pattern-lab: /themes/custom/euro_digital_admin/pattern-lab/public/
+  sassdoc: /themes/custom/euro_digital_admin/dest/sassdoc/
+stylesheets-remove:
+  - core/themes/stable/css/update/update.admin.theme.css
+  - core/themes/stable/css/views_ui/views_ui.admin.theme.css
+  - core/themes/stable/css/core/vertical-tabs.css
+  - core/themes/stable/css/system/components/container-inline.module.css
+  - core/assets/vendor/jquery.ui/themes/base/theme.css
+  - core/assets/vendor/jquery.ui/themes/base/dialog.css
+  - core/assets/vendor/jquery.ui/themes/base/button.css
+  - core/themes/stable/css/system/components/system-status-counter.css
+  - core/themes/stable/css/system/components/system-status-report-counters.css
+  - >-
+    core/themes/stable/css/system/components/system-status-report-general-info.css
+regions:
+  header: Header
+  pre_content: Pre-content
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  content: Content
+  page_top: Page top
+  page_bottom: Page bottom
+  sidebar_first: First sidebar
+  sidebar_second: Second sidebar
+  footer: Footer
+component-libraries:
+  svgs:
+    paths:
+      - images/svgs
+  base:
+    paths:
+      - source/_patterns/00-base
+      - source/_patterns/00-base/05-colors
+      - source/_patterns/00-base/10-spacing
+      - source/_patterns/00-base/15-typography/fonts
+      - source/_patterns/00-base/15-typography/headings
+      - source/_patterns/00-base/15-typography/lists
+      - source/_patterns/00-base/15-typography/text
+      - source/_patterns/00-base/animations/01-transitions
+      - source/_patterns/00-base/breakpoints
+      - source/_patterns/00-base/grids
+      - source/_patterns/00-base/utilities/borders
+  atoms:
+    paths:
+      - source/_patterns/01-atoms
+      - source/_patterns/01-atoms/buttons
+      - source/_patterns/01-atoms/form-elements/checkbox
+      - source/_patterns/01-atoms/form-elements/date
+      - source/_patterns/01-atoms/form-elements/fieldset
+      - source/_patterns/01-atoms/form-elements/input-disabled
+      - source/_patterns/01-atoms/form-elements/input-file
+      - source/_patterns/01-atoms/form-elements/input-text
+      - source/_patterns/01-atoms/form-elements/radio
+      - source/_patterns/01-atoms/form-elements/select
+      - source/_patterns/01-atoms/form-elements/textarea-disabled
+      - source/_patterns/01-atoms/form-elements/textarea
+      - source/_patterns/01-atoms/images
+      - source/_patterns/01-atoms/tables
+  molecules:
+    paths:
+      - source/_patterns/02-molecules
+      - source/_patterns/02-molecules/adv-forms/search
+      - source/_patterns/02-molecules/branding
+      - source/_patterns/02-molecules/breadcrumbs
+      - source/_patterns/02-molecules/caption-block
+      - source/_patterns/02-molecules/nav-local-task
+      - source/_patterns/02-molecules/status-msgs
+  organisms:
+    paths:
+      - source/_patterns/03-organisms
+      - source/_patterns/03-organisms/grids/accordion
+      - source/_patterns/03-organisms/grids/caption-grid-block
+      - source/_patterns/03-organisms/grids/collapsible-block
+      - source/_patterns/03-organisms/grids/products
+      - source/_patterns/03-organisms/site/site-footer
+      - source/_patterns/03-organisms/site/site-header
+  templates:
+    paths:
+      - source/_patterns/04-templates
+      - source/_patterns/04-templates/00-site
+      - source/_patterns/04-templates/content-types
+      - source/_patterns/04-templates/content-types/cotizacion/content
+  pages:
+    paths:
+      - source/_patterns/05-pages

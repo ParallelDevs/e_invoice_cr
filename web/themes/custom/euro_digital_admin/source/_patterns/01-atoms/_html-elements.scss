@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+fieldset {
+  border: solid 1px $c-gray--lighter;
+}
+
+// IE 11 fix ~ http://stackoverflow.com/a/26207036
+main {
+  display: block;
+}
+
+input,
+.icheck-item,
+textarea,
+.tabledrag-toggle-weight-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.select2-container {
+  margin-bottom: 1rem !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.description {
+  color: $c-description-help;
+}
+
+details {
+  margin-bottom: 1rem;
+}
+
+
