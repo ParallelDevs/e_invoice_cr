@@ -28,12 +28,16 @@ class Communication implements CommunicationInterface {
         'tipoIdentificacion' => $body['e_type'],
         'numeroIdentificacion' => $body['e_number'],
       ],
-      'receptor' => [
-        'tipoIdentificacion' => $body['c_type'],
-        'numeroIdentificacion' => $body['c_number'],
-      ],
       'comprobanteXml' => base64_encode($doc),
     ];
+
+    // Add the "receptor" if there is the information.
+    if (!empty($body['c_type']) && !empty($body['c_number'])) {
+      $body['receptor'] = [
+        'tipoIdentificacion' => $body['c_type'],
+        'numeroIdentificacion' => $body['c_number'],
+      ];
+    }
 
     // Set the headers and body data.
     $options["body"] = json_encode($body);

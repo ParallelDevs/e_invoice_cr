@@ -21,6 +21,16 @@ use Drupal\tax_entity\Entity\TaxEntity;
  */
 class InvoiceEntityForm extends ContentEntityForm {
 
+  private const DEPENDENT_FIELDS = [
+    'field_payment_method' => ['FE', 'TE'],
+    'field_client' => ['FE', 'NC', 'ND'],
+    'ref_type_of' => ['NC', 'ND'],
+    'ref_doc_key' => ['NC', 'ND'],
+    'ref_date' => ['NC', 'ND'],
+    'ref_code' => ['NC', 'ND'],
+    'ref_reason' => ['NC', 'ND'],
+  ];
+
   /**
    * {@inheritdoc}
    */
@@ -71,6 +81,7 @@ class InvoiceEntityForm extends ContentEntityForm {
 
     // Pass to javascript currency code and tax info.
     $form['#attached']['drupalSettings']['currencyInfo'] = InvoiceEntityInterface::AVAILABLE_CURRENCY;
+    $form['#attached']['drupalSettings']['dependentFields'] = InvoiceEntityForm::DEPENDENT_FIELDS;
     $form['#attached']['drupalSettings']['taxsObject'] = $tax_info;
 
     $form['field_numeric_key']['#disabled'] = 'disabled';
@@ -127,11 +138,7 @@ class InvoiceEntityForm extends ContentEntityForm {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $entity = parent::validateForm($form, $form_state);
-    $this->checkFieldConditionByTypes($form_state, 'field_payment_method', [
-      'FE',
-      'TE',
-    ], 'If you document is a Electronic Bill or Electronic Ticket. You need to specify the payment method.');
-
+    $this->typeDocumentDependentFields($form_state);
     $this->checkReferenceInformationRequired($form_state);
 
     return $entity;
@@ -249,8 +256,8 @@ class InvoiceEntityForm extends ContentEntityForm {
         'date' => $date,
         'e_type' => $settings->get('id_type'),
         'e_number' => $settings->get('id'),
-        'c_type' => $client->get('field_type_id')->value,
-        'c_number' => $client->get('field_customer_id')->value,
+        'c_type' => $client != NULL ? $client->get('field_type_id')->value : '',
+        'c_number' => $client != NULL ? $client->get('field_customer_id')->value : '',
       ];
       $communication = new Communication();
       // Get the document.
@@ -290,9 +297,7 @@ class InvoiceEntityForm extends ContentEntityForm {
    * Validate if the fields inside of the reference information are need.
    */
   private function checkReferenceInformationRequired(FormStateInterface $form_state) {
-    $message_notes = t('If you document is an Credit Note or Debit Note. You need to fill all the fields in the Reference Information section.');
     $message = t("If you're going to add a Reference please, fill all the fields in it.");
-    $require_in = ['NC', 'ND'];
     $fields = [
       'ref_type_of',
       'ref_doc_key',
@@ -303,10 +308,25 @@ class InvoiceEntityForm extends ContentEntityForm {
     $filledValues = 0;
     foreach ($fields as $field) {
       $filledValues += !empty($form_state->getValue($field)[0]['value']) ? 1 : 0;
-      $this->checkFieldConditionByTypes($form_state, $field, $require_in, $message_notes);
     }
     if ($filledValues > 0 && $filledValues < count($fields)) {
       $form_state->setErrorByName('ref_type_of', $message);
+    }
+  }
+
+  /**
+   * Function that checks all fields that are dependent on the document type.
+   */
+  private function typeDocumentDependentFields(FormStateInterface &$form_state) {
+    foreach (InvoiceEntityForm::DEPENDENT_FIELDS as $field => $dependencies) {
+      $labels = array_map(function ($value) {
+        return InvoiceEntityInterface::DOCUMENTATIONINFO[$value]['label'];
+      }, $dependencies);
+      $message = $this->t('The field @field is required for following types of document: @types', [
+        '@field' => $field,
+        '@types' => implode(', ', $labels),
+      ]);
+      $this->checkFieldConditionByTypes($form_state, $field, $dependencies, $message);
     }
   }
 
@@ -325,8 +345,9 @@ class InvoiceEntityForm extends ContentEntityForm {
   private function checkFieldConditionByTypes(FormStateInterface &$form_state, $field, array $types, $error_message) {
     $type_of = $form_state->getValue('type_of')[0]['value'];
     $required = in_array($type_of, $types);
-    $value = $form_state->getValue($field)[0]['value'];
-    if ($required && (is_null($value) || empty($value))) {
+    $value = $form_state->getValue($field);
+    $hasValue = empty($value) ? FALSE : !is_null(current($value[0])) && !empty(current($value[0]));
+    if ($required && (is_null($value) || !$hasValue)) {
       $form_state->setErrorByName($field, $error_message);
     }
   }

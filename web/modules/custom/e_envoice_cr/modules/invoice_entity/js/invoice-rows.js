@@ -93,12 +93,9 @@
   }
 
   function checkFieldConditions() {
-    checkDependentField('field-payment-method', ['FE', 'TE']);
-    checkDependentField('ref-type-of', ['NC', 'ND']);
-    checkDependentField('ref-doc-key', ['NC', 'ND']);
-    checkDependentField('ref-date', ['NC', 'ND']);
-    checkDependentField('ref-code', ['NC', 'ND']);
-    checkDependentField('ref-reason', ['NC', 'ND']);
+    Object.keys(drupalSettings.dependentFields).forEach(function (field) {
+      checkDependentField(field.replace(/_/g, '-'), drupalSettings.dependentFields[field]);
+    });
   }
 
   function checkDependentField(name, types) {
@@ -119,7 +116,6 @@
   function updateCurrencySuffixes() {
     var currency = $('#edit-field-currency').val();
     var symbol = drupalSettings.currencyInfo[currency]['symbol'];
-    var symbolChecked = false;
     $('input[type="number"]:not([data-drupal-selector*=subform-field-quantity], [data-drupal-selector*=subform-field-discount-percentage])').each(
       function () {
         var element = $(this).siblings('label');
