@@ -1,0 +1,23 @@
+uuid: a8844692-4ca4-448f-a444-34f911f85579
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_sale_condition
+  module:
+    - invoice_entity
+    - options
+_core:
+  default_config_hash: BMHn2apm1VkJBwh5WZ_vZRMCuocDAXhv6L9B-Gdb-X8
+id: invoice_entity.invoice_entity.field_sale_condition
+field_name: field_sale_condition
+entity_type: invoice_entity
+bundle: invoice_entity
+label: 'Sale Condition'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

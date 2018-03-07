@@ -1,16 +1,16 @@
-uuid: 45ada6c0-58db-4dfe-bc52-ea605b19acf8
+uuid: 8c0a3065-e90d-4bef-bf40-138c23145972
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.customer_entity.customer_entity.field_correo_electronico
-    - field.field.customer_entity.customer_entity.field_direccion_
+    - field.field.customer_entity.customer_entity.field_address
+    - field.field.customer_entity.customer_entity.field_commercial_name
+    - field.field.customer_entity.customer_entity.field_customer_foreign_id
+    - field.field.customer_entity.customer_entity.field_customer_id
+    - field.field.customer_entity.customer_entity.field_email
     - field.field.customer_entity.customer_entity.field_fax
-    - field.field.customer_entity.customer_entity.field_intensificacion
-    - field.field.customer_entity.customer_entity.field_intensificacion_ex
-    - field.field.customer_entity.customer_entity.field_nombrecomercial
-    - field.field.customer_entity.customer_entity.field_telefono
-    - field.field.customer_entity.customer_entity.field_tipo_de_identificacion
+    - field.field.customer_entity.customer_entity.field_phone
+    - field.field.customer_entity.customer_entity.field_type_id
   module:
     - customer_entity
     - field_group
@@ -30,13 +30,37 @@ third_party_settings:
         description: ''
       label: Ubicación
 _core:
-  default_config_hash: 3M_uyi2dgS5ECJA4nPps-WMLDNAYDjwK1Z7Ndi-qetQ
+  default_config_hash: iJ3eaJLCrYBAT-3LMa1j8nHint4IyRfxx28HS417pMs
 id: customer_entity.customer_entity.default
 targetEntityType: customer_entity
 bundle: customer_entity
 mode: default
 content:
-  field_correo_electronico:
+  field_commercial_name:
+    weight: 4
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_customer_foreign_id:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_customer_id:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_email:
     weight: 7
     label: above
     settings: {  }
@@ -51,31 +75,7 @@ content:
     third_party_settings: {  }
     type: telephone_link
     region: content
-  field_intensificacion:
-    weight: 1
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_intensificacion_ex:
-    weight: 2
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_nombrecomercial:
-    weight: 4
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_telefono:
+  field_phone:
     weight: 5
     label: above
     settings:
@@ -83,7 +83,7 @@ content:
     third_party_settings: {  }
     type: telephone_link
     region: content
-  field_tipo_de_identificacion:
+  field_type_id:
     weight: 0
     label: above
     settings: {  }
@@ -109,4 +109,4 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  field_direccion_: true
+  field_address: true

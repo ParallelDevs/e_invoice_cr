@@ -1,0 +1,23 @@
+uuid: d068ef98-61fa-43b0-b2da-804fca653045
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.customer_entity.field_phone
+  module:
+    - customer_entity
+    - telephone
+_core:
+  default_config_hash: g3ns9IVmKZOzrLstXJ8yLLItAv56-NNNA2b52uBRkJI
+id: customer_entity.customer_entity.field_phone
+field_name: field_phone
+entity_type: customer_entity
+bundle: customer_entity
+label: Phone
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

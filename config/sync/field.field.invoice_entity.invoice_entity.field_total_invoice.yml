@@ -1,0 +1,26 @@
+uuid: 6ad4e513-401d-4837-b654-83579249d11d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_total_invoice
+  module:
+    - invoice_entity
+_core:
+  default_config_hash: YdoRysAVQsJiIfDa0SrAju961MGbd_6i5qeUZbGPbRw
+id: invoice_entity.invoice_entity.field_total_invoice
+field_name: field_total_invoice
+entity_type: invoice_entity
+bundle: invoice_entity
+label: Total
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

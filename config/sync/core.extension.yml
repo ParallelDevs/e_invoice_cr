@@ -1,7 +1,6 @@
 module:
   addressfield_cr: 0
   admin_toolbar: 0
-  admin_toolbar_tools: 0
   automated_cron: 0
   block: 0
   block_content: 0
@@ -20,6 +19,7 @@ module:
   e_invoice_cr: 0
   editor: 0
   entity_print: 0
+  entity_reference: 0
   entity_reference_revisions: 0
   field: 0
   field_group: 0
@@ -32,6 +32,7 @@ module:
   invoice_email: 0
   invoice_entity: 0
   link: 0
+  mailsystem: 0
   menu_ui: 0
   node: 0
   options: 0
@@ -41,6 +42,7 @@ module:
   rdf: 0
   search: 0
   shortcut: 0
+  swiftmailer: 0
   system: 0
   tax_entity: 0
   taxonomy: 0
@@ -48,6 +50,8 @@ module:
   text: 0
   toolbar: 0
   tour: 0
+  twig_field_value: 0
+  twig_tweak: 0
   update: 0
   user: 0
   views_ui: 0

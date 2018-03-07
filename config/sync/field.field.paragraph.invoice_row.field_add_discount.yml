@@ -1,0 +1,28 @@
+uuid: d94f08cb-9d58-416b-91d9-8b8f407528e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_add_discount
+    - paragraphs.paragraphs_type.invoice_row
+  enforced:
+    module:
+      - invoice_entity
+_core:
+  default_config_hash: VUjQw-YTEAkSNLOF4oMzR3eugDHfcZ0-OqN9Mwy4VZw
+id: paragraph.invoice_row.field_add_discount
+field_name: field_add_discount
+entity_type: paragraph
+bundle: invoice_row
+label: 'Add discount'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,35 @@
+uuid: e59ab6c5-3fef-4132-ba46-f8e65f1cd0a9
+langcode: en
+status: true
+dependencies:
+  module:
+    - customer_entity
+    - options
+_core:
+  default_config_hash: tmg2Ou62w9A3vhYEKyc_OdH0npcRoTCpkO17Quy5zZE
+id: customer_entity.field_type_id
+field_name: field_type_id
+entity_type: customer_entity
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '01'
+      label: 'Physical '
+    -
+      value: '02'
+      label: 'Company id'
+    -
+      value: '03'
+      label: DIMEX
+    -
+      value: '04'
+      label: NITE
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

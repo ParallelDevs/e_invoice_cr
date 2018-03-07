@@ -1,0 +1,210 @@
+uuid: 6ad427e3-570f-4211-bdef-5431860e589a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.invoice_row.field_add_discount
+    - field.field.paragraph.invoice_row.field_another_unit_measure
+    - field.field.paragraph.invoice_row.field_code
+    - field.field.paragraph.invoice_row.field_code_type
+    - field.field.paragraph.invoice_row.field_detail
+    - field.field.paragraph.invoice_row.field_discount_percentage
+    - field.field.paragraph.invoice_row.field_discount_reason
+    - field.field.paragraph.invoice_row.field_line_total_amount
+    - field.field.paragraph.invoice_row.field_quantity
+    - field.field.paragraph.invoice_row.field_row_discount
+    - field.field.paragraph.invoice_row.field_row_tax
+    - field.field.paragraph.invoice_row.field_row_type
+    - field.field.paragraph.invoice_row.field_subtotal
+    - field.field.paragraph.invoice_row.field_total_amount
+    - field.field.paragraph.invoice_row.field_unit_measure
+    - field.field.paragraph.invoice_row.field_unit_price
+    - paragraphs.paragraphs_type.invoice_row
+  enforced:
+    module:
+      - invoice_entity
+  module:
+    - content_moderation
+    - field_group
+third_party_settings:
+  field_group:
+    group_group_1:
+      children:
+        - field_row_type
+        - field_code_type
+        - field_code
+        - field_detail
+        - field_unit_measure
+        - field_another_unit_measure
+        - field_quantity
+        - field_unit_price
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        label: 'Group 1'
+        description: ''
+        required_fields: true
+        id: ''
+        classes: 'group-first use-ajax'
+      label: 'Group 1'
+    group_g:
+      children:
+        - field_add_discount
+        - field_discount_percentage
+        - field_discount_reason
+        - field_row_tax
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: group-second
+        description: ''
+        required_fields: true
+      label: 'Group 2'
+    group_group_3:
+      children:
+        - field_total_amount
+        - field_row_discount
+        - field_subtotal
+        - field_line_total_amount
+        - moderation_state
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: group-third
+        description: ''
+        required_fields: true
+      label: 'Group 3'
+_core:
+  default_config_hash: XXRyUIPmS0w2UzQIXXCWzBVwHr_MgiqGEwH6apRIMrg
+id: paragraph.invoice_row.default
+targetEntityType: paragraph
+bundle: invoice_row
+mode: default
+content:
+  field_add_discount:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_another_unit_measure:
+    weight: 6
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_code:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_code_type:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_detail:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_discount_percentage:
+    type: number
+    weight: 5
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_discount_reason:
+    weight: 6
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_line_total_amount:
+    weight: 6
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_quantity:
+    weight: 7
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_row_discount:
+    type: number
+    weight: 4
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_row_tax:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_row_type:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_subtotal:
+    weight: 5
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_total_amount:
+    weight: 3
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_unit_measure:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_unit_price:
+    weight: 8
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 7
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
+  uid: true

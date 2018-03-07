@@ -1,0 +1,21 @@
+uuid: 67bbc790-1ed9-4c82-b62e-c489ae46d7ad
+langcode: en
+status: true
+dependencies:
+  module:
+    - customer_entity
+    - telephone
+_core:
+  default_config_hash: 0M4N299Xc_osTUeL-tk1LDYPrsX1teO_T6UwDEsO8sQ
+id: customer_entity.field_phone
+field_name: field_phone
+entity_type: customer_entity
+type: telephone
+settings: {  }
+module: telephone
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

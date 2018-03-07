@@ -1,0 +1,41 @@
+uuid: 7e2d6bdd-cf72-49f2-90ab-129aef5c3be4
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_entity
+    - options
+_core:
+  default_config_hash: AupGCLoWiYseaF5BBh2aTLYDFCETy4AYh6j_w1D1Y20
+id: invoice_entity.field_payment_method
+field_name: field_payment_method
+entity_type: invoice_entity
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '01'
+      label: Cash
+    -
+      value: '02'
+      label: Card
+    -
+      value: '03'
+      label: Check
+    -
+      value: '04'
+      label: 'Transfer - bank deposit'
+    -
+      value: '05'
+      label: 'Collected by third parties'
+    -
+      value: '99'
+      label: 'Other (you must indicate the payment method)'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 4
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

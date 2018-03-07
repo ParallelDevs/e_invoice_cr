@@ -1,0 +1,22 @@
+uuid: eca93a4f-68c0-4b5d-a0e2-a6230f75ed93
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_entity
+_core:
+  default_config_hash: b3gesXBvA6gh2mVwLy_thYIWUlwOyNBRkT0zpRoZdLg
+id: invoice_entity.field_total_invoice
+field_name: field_total_invoice
+entity_type: invoice_entity
+type: decimal
+settings:
+  precision: 32
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

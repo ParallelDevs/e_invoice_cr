@@ -1,4 +1,4 @@
-uuid: 5a48fbc5-0ece-4608-b36d-256869e87fb4
+uuid: 2d9ab128-ce26-45b8-a1ec-2a3a2093c516
 langcode: en
 status: true
 dependencies:
@@ -8,12 +8,14 @@ dependencies:
   module:
     - paragraphs
 _core:
-  default_config_hash: zSu2v5kf0uMc9zAhGe0lOl9M9xtNQRzgEYgZ7VI3bFM
+  default_config_hash: wzccVkOt0Q88bxThYKrpH5joYq1qlI-8rY6yHYp9dzo
 id: paragraph.field_discount_reason
 field_name: field_discount_reason
 entity_type: paragraph
-type: string_long
+type: string
 settings:
+  max_length: 80
+  is_ascii: false
   case_sensitive: false
 module: core
 locked: false

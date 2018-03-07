@@ -1,0 +1,23 @@
+uuid: 68638698-991d-49a1-90c8-5cb87e5caf9f
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_reference_revisions
+    - invoice_entity
+    - paragraphs
+_core:
+  default_config_hash: poNTObO3WuBaBLDACJlli2sWV_leK47znuxHvTvKEYo
+id: invoice_entity.field_rows
+field_name: field_rows
+entity_type: invoice_entity
+type: entity_reference_revisions
+settings:
+  target_type: paragraph
+module: entity_reference_revisions
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

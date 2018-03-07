@@ -1,4 +1,4 @@
-uuid: ecc46823-e13b-43d4-b974-89bb49e3bb01
+uuid: ffdcc7a3-e09e-4ee2-ab60-2a43055b548d
 langcode: en
 status: true
 dependencies:
@@ -9,7 +9,7 @@ dependencies:
     - options
     - paragraphs
 _core:
-  default_config_hash: oyqGqPm-9Bmh3cKdG5C3mytIDgsnOXMM8rw34vqreHY
+  default_config_hash: 718sPBZ1MjJwFMvFGH-lkarYkNxaUa47V14GRBU-Gfc
 id: paragraph.field_unit_measure
 field_name: field_unit_measure
 entity_type: paragraph
@@ -18,16 +18,16 @@ settings:
   allowed_values:
     -
       value: Sp
-      label: 'Servicios Profesionales'
+      label: 'Professional Services'
     -
       value: m
-      label: Metro
+      label: Meter
     -
       value: kg
-      label: Kilogramo
+      label: Kilogram
     -
       value: s
-      label: Segundo
+      label: Second
     -
       value: A
       label: Ampere
@@ -42,43 +42,43 @@ settings:
       label: Candela
     -
       value: m²
-      label: 'metro cuadrado'
+      label: 'Square meter'
     -
       value: m³
-      label: 'metro cúbico'
+      label: 'Cubic meter'
     -
       value: m/s
-      label: 'metro por segundo'
+      label: 'Meter per second'
     -
       value: m/s²
-      label: 'metro por segundo cuadrado'
+      label: 'Meter per second square'
     -
       value: 1/m
-      label: '1 por metro'
+      label: '1 per meter'
     -
       value: kg/m³
-      label: 'kilogramo por metro cúbico'
+      label: 'kilogram per cubic meter'
     -
       value: A/m²
-      label: 'ampere por metro cuadrado'
+      label: 'ampere per square meter'
     -
       value: A/m
-      label: 'ampere por metro'
+      label: 'ampere per meter'
     -
       value: mol/m³
-      label: 'mol por metro cúbico'
+      label: 'mol per cubic meter'
     -
       value: cd/m²
-      label: 'candela por metro cuadrado'
+      label: 'candela per square meter'
     -
       value: '1'
-      label: 'uno (indice de refracción)'
+      label: 'one (refractive index)'
     -
       value: rad
       label: radián
     -
       value: sr
-      label: estereorradián
+      label: steradian
     -
       value: Hz
       label: hertz
@@ -120,7 +120,7 @@ settings:
       label: henry
     -
       value: °C
-      label: 'grado Celsius'
+      label: 'Celsius degree'
     -
       value: lm
       label: lumen
@@ -141,25 +141,25 @@ settings:
       label: katal
     -
       value: Pa·s
-      label: 'pascal segundo'
+      label: 'Second Pascal'
     -
       value: N·m
-      label: 'newton metro'
+      label: 'newton meter'
     -
       value: N/m
-      label: 'newton por metro'
+      label: 'newton per meter'
     -
       value: rad/s
-      label: 'radián por segundo'
+      label: 'radian per second'
     -
       value: rad/s²
-      label: 'radián por segundo cuadrado'
+      label: 'radian per second square'
     -
       value: W/m²
-      label: 'watt por metro cuadrado'
+      label: 'watt per square meter'
     -
       value: J/K
-      label: 'joule por kelvin'
+      label: 'joule by kelvin'
     -
       value: J/(kg·K)
       label: 'joule por kilogramo kelvin'
@@ -210,28 +210,28 @@ settings:
       label: 'katal por metro cúbico'
     -
       value: min
-      label: minuto
+      label: minute
     -
       value: h
-      label: hora
+      label: hour
     -
       value: d
-      label: día
+      label: day
     -
       value: º
-      label: grado
+      label: degree
     -
       value: ´
-      label: minuto
+      label: minute
     -
       value: ´´
-      label: segundo
+      label: second
     -
       value: L
-      label: litro
+      label: liter
     -
       value: t
-      label: tonelada
+      label: ton
     -
       value: Np
       label: neper
@@ -249,34 +249,34 @@ settings:
       label: 'unidad astronómica'
     -
       value: Unid
-      label: Unidad
+      label: Unit
     -
       value: Gal
-      label: Galón
+      label: Gallon
     -
       value: g
-      label: Gramo
+      label: Gram
     -
       value: Km
-      label: Kilometro
+      label: Kilometer
     -
       value: ln
-      label: pulgada
+      label: Inch
     -
       value: cm
-      label: centímetro
+      label: Centimeter
     -
       value: mL
-      label: mililitro
+      label: Milliliter
     -
       value: mm
-      label: Milímetro
+      label: Millimeter
     -
       value: Oz
       label: Onzas
     -
       value: Otros
-      label: Otros
+      label: Other
   allowed_values_function: ''
 module: options
 locked: false

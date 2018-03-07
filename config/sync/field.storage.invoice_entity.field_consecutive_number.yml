@@ -1,0 +1,23 @@
+uuid: 3ccd7bae-70a7-47fc-b88f-f42a7e864196
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_entity
+_core:
+  default_config_hash: B0FOc3ZiNB-jnRke_Kb5wQ2uqFpTdzuwuSwDkQeyvO0
+id: invoice_entity.field_consecutive_number
+field_name: field_consecutive_number
+entity_type: invoice_entity
+type: string
+settings:
+  max_length: 20
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

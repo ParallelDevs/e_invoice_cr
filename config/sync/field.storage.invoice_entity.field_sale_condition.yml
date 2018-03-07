@@ -1,0 +1,44 @@
+uuid: bf13b760-23d3-4c8e-8d76-25a8f1d00f5c
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_entity
+    - options
+_core:
+  default_config_hash: Wwar5GsOE7gsUmwvLC5u4JbO4eBCEsmF5KfF1X6cAKY
+id: invoice_entity.field_sale_condition
+field_name: field_sale_condition
+entity_type: invoice_entity
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '01'
+      label: Cash
+    -
+      value: '02'
+      label: Credit
+    -
+      value: '03'
+      label: Consingment
+    -
+      value: '04'
+      label: 'Set - Pulled Apart'
+    -
+      value: '05'
+      label: 'Lease with option to buy'
+    -
+      value: '06'
+      label: 'Financial Lease'
+    -
+      value: '99'
+      label: 'Other (you must indicate the sale condition)'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

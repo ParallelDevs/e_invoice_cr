@@ -1,0 +1,25 @@
+uuid: 060ead4a-8203-469b-8304-7d956867fe72
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - invoice_entity
+  module:
+    - paragraphs
+_core:
+  default_config_hash: ZsXT_ZxBJA8kWVPTPQneVWiqfalJx2EorRlvAaIB5lE
+id: paragraph.field_line_total_amount
+field_name: field_line_total_amount
+entity_type: paragraph
+type: decimal
+settings:
+  precision: 32
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

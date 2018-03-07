@@ -1,0 +1,26 @@
+uuid: 5c79cda0-8d56-48f1-88db-7f60fd2f569f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_net_sale
+  module:
+    - invoice_entity
+_core:
+  default_config_hash: 2GVMyPqxcwcwnY6UBiUK1YotQTW_coU7joqXQFEYOKY
+id: invoice_entity.invoice_entity.field_net_sale
+field_name: field_net_sale
+entity_type: invoice_entity
+bundle: invoice_entity
+label: 'Total Net Sale'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

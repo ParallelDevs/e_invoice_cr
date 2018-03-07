@@ -1,0 +1,14 @@
+transport: smtp
+smtp_host: smtp.gmail.com
+smtp_port: 465
+smtp_encryption: ssl
+smtp_credential_provider: swiftmailer
+smtp_credentials:
+  swiftmailer:
+    username: m.navarro@paralleldevs.com
+    password: Mauricio.123
+sendmail_path: /usr/sbin/sendmail
+sendmail_mode: bs
+spool_directory: ''
+_core:
+  default_config_hash: 0dJfQivKgyEp-S8D6gSRTBbpRFApE3VkpltnPMBQ5OY

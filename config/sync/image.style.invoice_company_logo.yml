@@ -1,0 +1,19 @@
+uuid: ad270234-8da1-46a5-a37e-c610ad465f5a
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - invoice_entity
+_core:
+  default_config_hash: l55Qy15KGzwPJz2obnKTJW-FdvOfvc7okAjIYx7gREI
+name: invoice_company_logo
+label: 'Invoice Company Logo'
+effects:
+  0bc32995-ab4e-498d-a3ba-4a2f94a501cb:
+    uuid: 0bc32995-ab4e-498d-a3ba-4a2f94a501cb
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 300
+      height: 300

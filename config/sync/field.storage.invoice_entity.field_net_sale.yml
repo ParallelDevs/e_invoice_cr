@@ -1,0 +1,22 @@
+uuid: e7a64256-4eb9-4306-b278-6c156b76f857
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_entity
+_core:
+  default_config_hash: uGXBTMM8qFOxTn1chuanKDtqakDB_AZiyj6hYLBZIrc
+id: invoice_entity.field_net_sale
+field_name: field_net_sale
+entity_type: invoice_entity
+type: decimal
+settings:
+  precision: 32
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

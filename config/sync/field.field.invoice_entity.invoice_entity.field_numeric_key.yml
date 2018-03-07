@@ -1,0 +1,22 @@
+uuid: 2df7e09d-1283-492a-a842-6e35af5ee026
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_numeric_key
+  module:
+    - invoice_entity
+_core:
+  default_config_hash: oevCwN66qlCHRsXzRVPWp58RwsHqTxWR3CPVvBm9VGU
+id: invoice_entity.invoice_entity.field_numeric_key
+field_name: field_numeric_key
+entity_type: invoice_entity
+bundle: invoice_entity
+label: 'Numeric Key'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

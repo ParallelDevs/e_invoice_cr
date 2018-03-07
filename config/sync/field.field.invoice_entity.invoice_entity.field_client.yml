@@ -1,0 +1,28 @@
+uuid: 37975102-744a-4074-aff1-e636b4111544
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_client
+  module:
+    - invoice_entity
+_core:
+  default_config_hash: xv_alpCMoNXyMDkDKX_Z_8khz1KPbFpyedO1CX3KlVU
+id: invoice_entity.invoice_entity.field_client
+field_name: field_client
+entity_type: invoice_entity
+bundle: invoice_entity
+label: Client
+description: 'Please select a client.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:customer_entity'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

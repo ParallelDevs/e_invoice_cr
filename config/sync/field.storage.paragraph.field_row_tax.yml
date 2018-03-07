@@ -1,0 +1,25 @@
+uuid: dd4699b1-7322-47bc-9060-83dcb772102d
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - invoice_entity
+  module:
+    - paragraphs
+    - tax_entity
+_core:
+  default_config_hash: gyH_KGmJvPicCWQJLgOs5ny8LV3YbI9AnhshL3edtpc
+id: paragraph.field_row_tax
+field_name: field_row_tax
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: tax_entity
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

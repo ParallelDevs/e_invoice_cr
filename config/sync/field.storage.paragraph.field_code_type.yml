@@ -1,12 +1,15 @@
-uuid: 42f1e106-3873-41ab-a676-e96dd2f3a04b
+uuid: cba9c1c3-72e3-42b4-9aad-1a0b386b0164
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - invoice_entity
   module:
     - options
     - paragraphs
 _core:
-  default_config_hash: 48_p_lq8U5LDAWiu-u5YEl17sxmXANrC6pCn5GUERVs
+  default_config_hash: 6wwDTzSdkvDr5VS__Qqsr4eA8Cv2K3IAr6elMSXfljY
 id: paragraph.field_code_type
 field_name: field_code_type
 entity_type: paragraph
@@ -15,19 +18,19 @@ settings:
   allowed_values:
     -
       value: '01'
-      label: 'Código del producto del vendedor'
+      label: 'Seller''s product code'
     -
       value: '02'
-      label: 'Código del producto del comprador'
+      label: 'Buyer''s product code'
     -
       value: '03'
-      label: 'Código del producto asignado por la industria'
+      label: 'Product code assigned by the industry'
     -
       value: '04'
-      label: 'Código uso interno'
+      label: 'Internal use code'
     -
       value: '99'
-      label: Otros
+      label: Other
   allowed_values_function: ''
 module: options
 locked: false

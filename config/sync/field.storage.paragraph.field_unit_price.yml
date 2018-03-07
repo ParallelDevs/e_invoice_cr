@@ -1,0 +1,25 @@
+uuid: 298a31ce-2a32-4256-940e-f8cb6348000e
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - invoice_entity
+  module:
+    - paragraphs
+_core:
+  default_config_hash: 4PYLx_vxei0d6MyIeZN1dkNLhvmke2tMl8vduwYIXEE
+id: paragraph.field_unit_price
+field_name: field_unit_price
+entity_type: paragraph
+type: decimal
+settings:
+  precision: 32
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

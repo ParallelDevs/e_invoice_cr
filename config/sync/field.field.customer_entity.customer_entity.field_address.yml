@@ -1,0 +1,23 @@
+uuid: 369bb24b-b588-4336-b2cc-b7d183b17ed6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.customer_entity.field_address
+  module:
+    - addressfield_cr
+    - customer_entity
+_core:
+  default_config_hash: FlJX9GxqdCDD0rEfwgtK9OMG9qqeck0JQx1wwCtw4t4
+id: customer_entity.customer_entity.field_address
+field_name: field_address
+entity_type: customer_entity
+bundle: customer_entity
+label: Address
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: address_cr

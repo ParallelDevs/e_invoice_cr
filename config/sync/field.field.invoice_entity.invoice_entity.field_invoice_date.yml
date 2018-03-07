@@ -1,0 +1,26 @@
+uuid: b887a479-0f0d-485d-af59-1da65261a0dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_invoice_date
+  module:
+    - datetime
+    - invoice_entity
+_core:
+  default_config_hash: T1A74dEmNKvKwkfp7s_PaRNATdlkT5boPswikpm8asU
+id: invoice_entity.invoice_entity.field_invoice_date
+field_name: field_invoice_date
+entity_type: invoice_entity
+bundle: invoice_entity
+label: Date
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,22 @@
+uuid: f773508b-9002-4ae9-9734-f856b2a09ee4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.customer_entity.field_email
+  module:
+    - customer_entity
+_core:
+  default_config_hash: mA2Mf-VZLLxBJKmj5RfL3TYQlXO1F1kAGsIkGG_szUc
+id: customer_entity.customer_entity.field_email
+field_name: field_email
+entity_type: customer_entity
+bundle: customer_entity
+label: Email
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

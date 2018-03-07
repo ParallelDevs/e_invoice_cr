@@ -1,0 +1,28 @@
+uuid: e3640e8f-3755-4866-819a-af6dd71a3f59
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_total_amount
+    - paragraphs.paragraphs_type.invoice_row
+  enforced:
+    module:
+      - invoice_entity
+_core:
+  default_config_hash: eM8oIrOdT5vAwGivKjoJ_ufHKSEVc7tHYV0pM7vpVGg
+id: paragraph.invoice_row.field_total_amount
+field_name: field_total_amount
+entity_type: paragraph
+bundle: invoice_row
+label: 'Total Amount'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

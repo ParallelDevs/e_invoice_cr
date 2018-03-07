@@ -1,0 +1,33 @@
+uuid: dea11905-588f-4aa7-bed8-5edf22eb963e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_rows
+    - paragraphs.paragraphs_type.invoice_row
+  module:
+    - entity_reference_revisions
+    - invoice_entity
+_core:
+  default_config_hash: 1tRIS5EdXDbrp6QQaIQDQ2-_7hZpFwdJxk5XJbAdHeo
+id: invoice_entity.invoice_entity.field_rows
+field_name: field_rows
+entity_type: invoice_entity
+bundle: invoice_entity
+label: Rows
+description: 'Add rows in order to add a new product or service to the invoice.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      invoice_row: invoice_row
+    target_bundles_drag_drop:
+      invoice_row:
+        enabled: true
+        weight: 2
+field_type: entity_reference_revisions

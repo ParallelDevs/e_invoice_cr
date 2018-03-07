@@ -1,0 +1,24 @@
+uuid: 100173e2-e434-47cb-b3ec-dc0c9babe892
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_discount_reason
+    - paragraphs.paragraphs_type.invoice_row
+  enforced:
+    module:
+      - invoice_entity
+_core:
+  default_config_hash: 4KZQNNEynxJQFeFwBRXOIqAFt7IorBoqP1PVAo28tps
+id: paragraph.invoice_row.field_discount_reason
+field_name: field_discount_reason
+entity_type: paragraph
+bundle: invoice_row
+label: 'Discount reason'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
