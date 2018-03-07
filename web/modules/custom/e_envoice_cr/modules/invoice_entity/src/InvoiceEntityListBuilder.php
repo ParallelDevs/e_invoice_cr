@@ -4,7 +4,6 @@ namespace Drupal\invoice_entity;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 
 /**
  * Defines a class to build a listing of Invoice entities.
