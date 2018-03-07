@@ -8,6 +8,9 @@ msgstr "Facturación CR"
 msgid "Invoice Settings"
 msgstr "Configuración de Facturación"
 
+msgid "This module does the API login through the Oauth 2.0 token."
+msgstr "Este módulo se conecta al API por medio de un token generado bajo el estandar Oauth 2.0."
+
 msgid "Production"
 msgstr "Producción"
 

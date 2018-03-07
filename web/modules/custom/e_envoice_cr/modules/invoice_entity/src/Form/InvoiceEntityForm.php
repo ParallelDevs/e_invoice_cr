@@ -319,13 +319,15 @@ class InvoiceEntityForm extends ContentEntityForm {
    */
   private function typeDocumentDependentFields(FormStateInterface &$form_state) {
     foreach (InvoiceEntityForm::DEPENDENT_FIELDS as $field => $dependencies) {
-      $labels = array_map(function ($value) {
-        return InvoiceEntityInterface::DOCUMENTATIONINFO[$value]['label'];
+      $options = $form_state->getCompleteForm()['type_of']['widget']['#options'];
+      $labels = array_map(function ($value) use ($options) {
+        return $options[$value];
       }, $dependencies);
       $message = $this->t('The field @field is required for following types of document: @types', [
-        '@field' => $field,
+        '@field' => $this->entity->get($field)->getFieldDefinition()->getLabel(),
         '@types' => implode(', ', $labels),
       ]);
+
       $this->checkFieldConditionByTypes($form_state, $field, $dependencies, $message);
     }
   }
