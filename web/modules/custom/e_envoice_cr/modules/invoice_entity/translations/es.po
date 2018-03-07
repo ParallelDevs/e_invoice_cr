@@ -60,11 +60,17 @@ msgid "Payment"
 msgstr "Pago"
 
 # Messages
+msgid "The document key could not be generated because there are not configuration data yet, to set those go to /admin/e-invoice-cr/settings."
+msgstr "La llave del documento no se puede generar correctamente ya que no se ha ingresado los datos de configuración, para hacerlo debe dirigirse a /admin/e-invoice-cr/settings."
+
 msgid "Error getting the authentication token."
 msgstr "Error obteniendo el token de autotentificación"
 
 msgid "Current invoice number updated."
 msgstr "El número de la factura actual actualizado."
+
+msgid "The field @field is required for following types of document: @types"
+msgstr "El campo @field es requerido por los siguientes tipos de documento: @types."
 
 # Configuration
 msgid "The number of the next invoice."

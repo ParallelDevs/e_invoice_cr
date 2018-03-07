@@ -44,8 +44,11 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
         break;
 
     }
+    /** @var \Drupal\Core\Field\BaseFieldDefinition $fd */
+    $fd = $entity->getFieldDefinition('type_of');
+    $options = $fd->getSetting('allowed_values');
     $row['id'] = $entity->id();
-    $row['type_of'] = InvoiceEntityInterface::DOCUMENTATIONINFO[$entity->getInvoiceType()]['label'];
+    $row['type_of'] = $options[$entity->getInvoiceType()];
     $row['status'] = $state_label;
     return $row + parent::buildRow($entity);
   }

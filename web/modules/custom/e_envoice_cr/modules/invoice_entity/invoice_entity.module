@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 use Drupal\customer_entity\Entity\CustomerEntity;
 use Drupal\file\Entity\File;
+use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 
 /**
  * Implements hook_theme().
@@ -141,7 +142,8 @@ function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
   $emitter['fax'] = $config->get('fax');
   $emitter['postal_code'] = $config->get('postal_code');
   $emitter['address'] = $config->get('address');
-  $emitter['currency'] = $config->get('currency') === 'crc' ? '₡' : '$';
+  $currency_code = $variables['elements']['field_currency'][0]['#markup'];
+  $emitter['currency'] = InvoiceEntityInterface::AVAILABLE_CURRENCY[$currency_code]['symbol'];
   // Client data.
   if (isset($variables['elements']['field_client'][0]['#options']['entity'])) {
     $entity = $variables['elements']['field_client'][0]['#options']['entity'];
@@ -174,6 +176,8 @@ function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
  * Implements hook_preprocess_paragraph__row().
  */
 function invoice_entity_preprocess_paragraph__invoice_row(&$variables) {
-  $config = \Drupal::config('e_invoice_cr.settings');
-  $variables['currency'] = $config->get('currency') === 'crc' ? '₡' : '$';
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['elements']['#paragraph'];
+  $parent = $paragraph->getParentEntity();
+  $variables['currency'] = InvoiceEntityInterface::AVAILABLE_CURRENCY[$parent->get('field_currency')->value]['symbol'];
 }

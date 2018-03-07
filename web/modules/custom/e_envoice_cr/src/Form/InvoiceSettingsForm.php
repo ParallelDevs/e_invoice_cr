@@ -115,7 +115,6 @@ class InvoiceSettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Id number:'),
       '#default_value' => $id,
-      '#description' => $this->t("The id number must have 12 characters, add zeros at the start if it's necessary."),
       '#required' => TRUE,
       '#size' => 12,
       '#maxlength' => 12,

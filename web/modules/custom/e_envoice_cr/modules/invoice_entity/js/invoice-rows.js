@@ -23,6 +23,7 @@
       // Calculate the fields needed.
       updateInvoiceValues();
       calculateRowsTotal();
+      checkFieldConditions();
     }
   };
 
