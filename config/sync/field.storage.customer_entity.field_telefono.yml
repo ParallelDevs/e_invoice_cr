@@ -1,0 +1,21 @@
+uuid: 98223721-d3dd-42f2-88d1-129fbc7cdc8d
+langcode: en
+status: true
+dependencies:
+  module:
+    - customer_entity
+    - telephone
+_core:
+  default_config_hash: bk1k-AkaoNi6RcB8HddO8Um5AUsZnxP7jBNEcAsv-lg
+id: customer_entity.field_telefono
+field_name: field_telefono
+entity_type: customer_entity
+type: telephone
+settings: {  }
+module: telephone
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,24 @@
+uuid: 5bcde302-25e9-4b01-854d-ea644001d963
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_detalle
+    - paragraphs.paragraphs_type.fila
+  enforced:
+    module:
+      - invoice_entity
+_core:
+  default_config_hash: ZeUzvP7OsUu4xdeJ_Ru-g2VZQGsJij_SxfzZXWD6eHI
+id: paragraph.fila.field_detalle
+field_name: field_detalle
+entity_type: paragraph
+bundle: fila
+label: Detalle
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,28 @@
+uuid: 3880c33c-d586-4e63-9bcf-f4b53ffae4c7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_subtotal
+    - paragraphs.paragraphs_type.fila
+  enforced:
+    module:
+      - invoice_entity
+_core:
+  default_config_hash: Ue24ZvA9f-jygFWgMgXc6cMCA7RzINAtt52AB_NYaGc
+id: paragraph.fila.field_subtotal
+field_name: field_subtotal
+entity_type: paragraph
+bundle: fila
+label: SubTotal
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

@@ -1,0 +1,26 @@
+uuid: 89f7749f-0609-4b09-8e94-7828e43b6c2a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_total_discount
+  module:
+    - invoice_entity
+_core:
+  default_config_hash: N92NZyJDmLv4N5ATPtlstWo_imp3HbkDMG2Sb8aD9no
+id: invoice_entity.invoice_entity.field_total_discount
+field_name: field_total_discount
+entity_type: invoice_entity
+bundle: invoice_entity
+label: 'Total Discount'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

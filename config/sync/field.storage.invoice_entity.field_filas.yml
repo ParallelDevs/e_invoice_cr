@@ -1,0 +1,23 @@
+uuid: b982b8f0-d20f-42a7-b251-8ac9d9d63b2d
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_reference_revisions
+    - invoice_entity
+    - paragraphs
+_core:
+  default_config_hash: TQwlgQbs9YGy7zjk_ctL0v3qaduY3AOva1WyE4xBLm4
+id: invoice_entity.field_filas
+field_name: field_filas
+entity_type: invoice_entity
+type: entity_reference_revisions
+settings:
+  target_type: paragraph
+module: entity_reference_revisions
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

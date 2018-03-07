@@ -1,0 +1,22 @@
+uuid: e700e70f-fc5a-4c55-a740-cca1898c47ed
+langcode: en
+status: true
+dependencies:
+  module:
+    - tax_entity
+_core:
+  default_config_hash: aouQ_2DZlZ1vGpT4nSzHwRMdzS46AecF5JAw7BVFd9k
+id: tax_entity.field_tax_percentage
+field_name: field_tax_percentage
+entity_type: tax_entity
+type: decimal
+settings:
+  precision: 10
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

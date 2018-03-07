@@ -1,0 +1,26 @@
+uuid: b2fa53cf-cc45-4894-a57a-a85d95a94c13
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - invoice_entity
+  module:
+    - paragraphs
+_core:
+  default_config_hash: I4o3lQZUj0NwMpun_WIKHzN5XtRM9DA2qyd8X15_cPo
+id: paragraph.field_codigo
+field_name: field_codigo
+entity_type: paragraph
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

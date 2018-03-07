@@ -1,0 +1,24 @@
+uuid: 62f48872-5f6b-4a56-9ba2-a94f5e33af7b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_codigo
+    - paragraphs.paragraphs_type.fila
+  enforced:
+    module:
+      - invoice_entity
+_core:
+  default_config_hash: _G1fj30bJTCK2-mQEt_Hdnq8Ou9CSS5i2V-0pjOlcjQ
+id: paragraph.fila.field_codigo
+field_name: field_codigo
+entity_type: paragraph
+bundle: fila
+label: Código
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

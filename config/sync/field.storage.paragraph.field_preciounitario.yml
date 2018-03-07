@@ -1,0 +1,25 @@
+uuid: 2aada460-8f87-41ce-ae3a-fa5a3b740953
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - invoice_entity
+  module:
+    - paragraphs
+_core:
+  default_config_hash: AzhXSvrvxATIURxfa8jsgEY1Bt6pnesyltuL-JptmTY
+id: paragraph.field_preciounitario
+field_name: field_preciounitario
+entity_type: paragraph
+type: decimal
+settings:
+  precision: 32
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

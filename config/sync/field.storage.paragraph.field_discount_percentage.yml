@@ -1,0 +1,25 @@
+uuid: 260f8791-80e9-4a36-bb78-66bb3a980a05
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - invoice_entity
+  module:
+    - paragraphs
+_core:
+  default_config_hash: 0raYoI1e815HTlWyUHBPISqci-2pplcyHhYDEZQefKY
+id: paragraph.field_discount_percentage
+field_name: field_discount_percentage
+entity_type: paragraph
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

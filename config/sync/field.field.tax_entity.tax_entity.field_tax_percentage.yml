@@ -1,0 +1,26 @@
+uuid: 7ce5284d-8fce-4497-870f-7782f4133d8a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.tax_entity.field_tax_percentage
+  module:
+    - tax_entity
+_core:
+  default_config_hash: pjwW7Hx3vZ9mXheh8KbheRT9lpKBt54Yp1hfrms8kas
+id: tax_entity.tax_entity.field_tax_percentage
+field_name: field_tax_percentage
+entity_type: tax_entity
+bundle: tax_entity
+label: 'Tax percentage'
+description: 'It is the quantity in percent of the tax.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

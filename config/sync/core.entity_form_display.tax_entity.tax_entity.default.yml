@@ -1,0 +1,91 @@
+uuid: 16d89f58-8663-468e-81d4-149589ef9f8d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.tax_entity.tax_entity.field_tax_percentage
+    - field.field.tax_entity.tax_entity.field_tax_type
+  module:
+    - datetime
+    - tax_entity
+_core:
+  default_config_hash: r0OEgeC0bHfonJWybRB-cx3CGMAAhghoXedFX01XFqA
+id: tax_entity.tax_entity.default
+targetEntityType: tax_entity
+bundle: tax_entity
+mode: default
+content:
+  ex_date:
+    type: datetime_default
+    weight: 14
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  ex_document_number:
+    type: string_textfield
+    weight: 12
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  ex_document_type:
+    type: options_select
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  ex_institution:
+    type: string_textfield
+    weight: 13
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  ex_percentage:
+    type: number
+    weight: 15
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  exoneration:
+    weight: 10
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_tax_percentage:
+    weight: 2
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_tax_type:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 10
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+hidden:
+  moderation_state: true

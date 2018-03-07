@@ -1,0 +1,22 @@
+uuid: 77052674-39bd-46a3-9ffa-9e89df81a04e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.customer_entity.field_intensificacion_ex
+  module:
+    - customer_entity
+_core:
+  default_config_hash: '-xcAv0xZcy-8FyjiYK_Kef-jKQH_SYlALT2AmaZya2o'
+id: customer_entity.customer_entity.field_intensificacion_ex
+field_name: field_intensificacion_ex
+entity_type: customer_entity
+bundle: customer_entity
+label: 'Identificación Extranjero'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

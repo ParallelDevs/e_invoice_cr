@@ -1,0 +1,41 @@
+uuid: 27ff2482-c9b6-44ad-9241-bb3bb65c9c34
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_entity
+    - options
+_core:
+  default_config_hash: 8sKFnfXTxRR2QuZgRd5uT0-FRkENWTE1GRoMjZew0eg
+id: invoice_entity.field_medio_de_pago
+field_name: field_medio_de_pago
+entity_type: invoice_entity
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '01'
+      label: Efectivo
+    -
+      value: '02'
+      label: Tarjeta
+    -
+      value: '03'
+      label: Cheque
+    -
+      value: '04'
+      label: 'Transferencia – depósito bancario'
+    -
+      value: '05'
+      label: 'Recaudado por terceros'
+    -
+      value: '99'
+      label: 'Otros (se debe indicar el medio de pago)'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 4
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

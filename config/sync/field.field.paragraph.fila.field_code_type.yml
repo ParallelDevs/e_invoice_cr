@@ -1,0 +1,23 @@
+uuid: 4eb27571-55f1-4f7c-b785-cb3a7bf3958d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_code_type
+    - paragraphs.paragraphs_type.fila
+  module:
+    - options
+_core:
+  default_config_hash: H1EMrFlCw_ye_r9-MGXjJHdQK5vU0WiAAJnNEfb1_kY
+id: paragraph.fila.field_code_type
+field_name: field_code_type
+entity_type: paragraph
+bundle: fila
+label: 'Code Type'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

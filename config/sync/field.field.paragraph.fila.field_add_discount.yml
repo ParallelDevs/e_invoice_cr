@@ -1,0 +1,28 @@
+uuid: 4b847605-428e-4f1d-803f-1572fe18a201
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_add_discount
+    - paragraphs.paragraphs_type.fila
+  enforced:
+    module:
+      - invoice_entity
+_core:
+  default_config_hash: RPYH8c2zZWm9JiCZjd8aOUz9aD0WTMBDkct7JwlKW84
+id: paragraph.fila.field_add_discount
+field_name: field_add_discount
+entity_type: paragraph
+bundle: fila
+label: 'Add discount'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

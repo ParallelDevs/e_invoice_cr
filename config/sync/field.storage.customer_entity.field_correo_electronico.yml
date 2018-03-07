@@ -1,0 +1,20 @@
+uuid: ea673a65-e0ee-481e-bdef-5df21300e53c
+langcode: en
+status: true
+dependencies:
+  module:
+    - customer_entity
+_core:
+  default_config_hash: lcEMTT6X-8FBSRsYdvhbqbTHIXJgWqkH8gMeuJ1QHn0
+id: customer_entity.field_correo_electronico
+field_name: field_correo_electronico
+entity_type: customer_entity
+type: email
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

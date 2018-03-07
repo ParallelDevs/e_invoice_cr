@@ -1,0 +1,23 @@
+uuid: 9325a6a1-83bd-4293-8f51-67d9601e5c2d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_condicion_venta
+  module:
+    - invoice_entity
+    - options
+_core:
+  default_config_hash: EepDponuFkGoeCWUawpce8wjcHA4HJBsgFGnaO9L_JY
+id: invoice_entity.invoice_entity.field_condicion_venta
+field_name: field_condicion_venta
+entity_type: invoice_entity
+bundle: invoice_entity
+label: 'Condición Venta'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

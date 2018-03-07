@@ -1,0 +1,22 @@
+uuid: 744cdd14-6865-4130-820b-f769baab2698
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_plazo_credito
+  module:
+    - invoice_entity
+_core:
+  default_config_hash: a9y2UokaWwR8bt9MuC6u1p4JO7mvuvOh8iiKEZEAhpA
+id: invoice_entity.invoice_entity.field_plazo_credito
+field_name: field_plazo_credito
+entity_type: invoice_entity
+bundle: invoice_entity
+label: 'Plazo Crédito'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

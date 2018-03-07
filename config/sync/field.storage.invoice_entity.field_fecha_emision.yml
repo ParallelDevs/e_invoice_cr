@@ -1,0 +1,22 @@
+uuid: ad43c9fe-bb35-4bbf-b825-f651b0d72c34
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - invoice_entity
+_core:
+  default_config_hash: bhvxqGBFTCon8rWmYSVMj5zkN_4vbh1JAypAPef_p1E
+id: invoice_entity.field_fecha_emision
+field_name: field_fecha_emision
+entity_type: invoice_entity
+type: datetime
+settings:
+  datetime_type: datetime
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,22 @@
+uuid: 00f17466-8f05-4a0a-a123-0321a51b464a
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_entity
+_core:
+  default_config_hash: AaM_dmLy-islpdDJix7-v4LI7U3dZV65Rn6L7_bEDVY
+id: invoice_entity.field_total_impuesto
+field_name: field_total_impuesto
+entity_type: invoice_entity
+type: decimal
+settings:
+  precision: 32
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

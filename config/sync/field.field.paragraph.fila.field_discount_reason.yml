@@ -1,0 +1,24 @@
+uuid: 80649f1c-9505-4d6c-badb-7c81d21b22b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_discount_reason
+    - paragraphs.paragraphs_type.fila
+  enforced:
+    module:
+      - invoice_entity
+_core:
+  default_config_hash: kGIGbBrLo8FF14zHms8uc9kp4OZqN1su7Hlv91rK5Ig
+id: paragraph.fila.field_discount_reason
+field_name: field_discount_reason
+entity_type: paragraph
+bundle: fila
+label: 'Discount reason'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

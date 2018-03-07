@@ -1,0 +1,32 @@
+uuid: f728bd7d-f2c5-441b-ae48-1c0c0e1f93be
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - invoice_entity
+  module:
+    - options
+    - paragraphs
+_core:
+  default_config_hash: zNzGsZEjze2O-LAf2P2wh39aKDffmBA4i74GfDST3GI
+id: paragraph.field_tipo
+field_name: field_tipo
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '01'
+      label: Producto
+    -
+      value: '02'
+      label: Servicio
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

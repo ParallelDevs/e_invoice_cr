@@ -1,0 +1,23 @@
+uuid: 8b14a36f-85a9-4952-be2a-931461e67c2b
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - invoice_entity
+  module:
+    - paragraphs
+_core:
+  default_config_hash: qTg6xHKdncTcApyRw94h7R3gVWSbsqtU86q2aR5jvDc
+id: paragraph.field_add_discount
+field_name: field_add_discount
+entity_type: paragraph
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

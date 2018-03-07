@@ -1,0 +1,24 @@
+uuid: 5a48fbc5-0ece-4608-b36d-256869e87fb4
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - invoice_entity
+  module:
+    - paragraphs
+_core:
+  default_config_hash: zSu2v5kf0uMc9zAhGe0lOl9M9xtNQRzgEYgZ7VI3bFM
+id: paragraph.field_discount_reason
+field_name: field_discount_reason
+entity_type: paragraph
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

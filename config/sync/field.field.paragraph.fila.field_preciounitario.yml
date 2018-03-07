@@ -1,0 +1,28 @@
+uuid: cde4aba6-6fa5-48c2-a841-6da0b39cf4b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_preciounitario
+    - paragraphs.paragraphs_type.fila
+  enforced:
+    module:
+      - invoice_entity
+_core:
+  default_config_hash: qBBjiWsGUJS9aCcYaWn2jHyi269cmz701oZ0APly_qw
+id: paragraph.fila.field_preciounitario
+field_name: field_preciounitario
+entity_type: paragraph
+bundle: fila
+label: 'Precio Unitario'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

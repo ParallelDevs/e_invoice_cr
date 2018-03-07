@@ -1,0 +1,25 @@
+uuid: 2bd9fa65-7ce1-4e92-9de0-b243a9957937
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - invoice_entity
+  module:
+    - paragraphs
+_core:
+  default_config_hash: ox1ECxXcchb_p03-vbMv6RyykNG2pSoWC1hfU692Jq0
+id: paragraph.field_montototal
+field_name: field_montototal
+entity_type: paragraph
+type: decimal
+settings:
+  precision: 32
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

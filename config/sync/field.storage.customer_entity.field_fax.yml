@@ -1,0 +1,21 @@
+uuid: 5b8e429c-d32f-48b1-aa05-e04a988517ad
+langcode: en
+status: true
+dependencies:
+  module:
+    - customer_entity
+    - telephone
+_core:
+  default_config_hash: U8fX-UKdqGK3oqfRnllZvlC-RUvXaeb-2tP6jTQwU5o
+id: customer_entity.field_fax
+field_name: field_fax
+entity_type: customer_entity
+type: telephone
+settings: {  }
+module: telephone
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

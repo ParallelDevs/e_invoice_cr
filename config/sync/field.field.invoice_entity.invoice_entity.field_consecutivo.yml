@@ -1,0 +1,22 @@
+uuid: 8ddf17f9-01a6-4fc5-a2c8-54dddcd4a82c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_consecutivo
+  module:
+    - invoice_entity
+_core:
+  default_config_hash: BwRq-g8TTMuPafvnByXKSn-U_pKQHSCNLrjO28E9yBU
+id: invoice_entity.invoice_entity.field_consecutivo
+field_name: field_consecutivo
+entity_type: invoice_entity
+bundle: invoice_entity
+label: Consecutivo
+description: 'Numero consecutivo de la factura. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

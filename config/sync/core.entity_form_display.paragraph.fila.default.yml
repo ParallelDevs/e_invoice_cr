@@ -1,0 +1,156 @@
+uuid: 91170850-97a9-4422-a6a4-939b6a065249
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.fila.field_add_discount
+    - field.field.paragraph.fila.field_another_unit_measure
+    - field.field.paragraph.fila.field_cantidad
+    - field.field.paragraph.fila.field_code_type
+    - field.field.paragraph.fila.field_codigo
+    - field.field.paragraph.fila.field_detalle
+    - field.field.paragraph.fila.field_discount_percentage
+    - field.field.paragraph.fila.field_discount_reason
+    - field.field.paragraph.fila.field_impuesto
+    - field.field.paragraph.fila.field_monto_total_linea
+    - field.field.paragraph.fila.field_montototal
+    - field.field.paragraph.fila.field_preciounitario
+    - field.field.paragraph.fila.field_row_discount
+    - field.field.paragraph.fila.field_subtotal
+    - field.field.paragraph.fila.field_tipo
+    - field.field.paragraph.fila.field_unit_measure
+    - paragraphs.paragraphs_type.fila
+  enforced:
+    module:
+      - invoice_entity
+  module:
+    - content_moderation
+_core:
+  default_config_hash: WM28ABMatrwSmHBSHm6DsWo9mqRU_2R6u5onMt1VE1Y
+id: paragraph.fila.default
+targetEntityType: paragraph
+bundle: fila
+mode: default
+content:
+  field_add_discount:
+    type: boolean_checkbox
+    weight: 8
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_another_unit_measure:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_cantidad:
+    weight: 5
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_code_type:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_codigo:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_detalle:
+    weight: 7
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_discount_percentage:
+    type: number
+    weight: 9
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_discount_reason:
+    type: string_textarea
+    weight: 11
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_impuesto:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_monto_total_linea:
+    weight: 15
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_montototal:
+    weight: 12
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_preciounitario:
+    weight: 6
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_row_discount:
+    type: number
+    weight: 13
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_subtotal:
+    weight: 14
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_tipo:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_unit_measure:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 16
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
+  uid: true

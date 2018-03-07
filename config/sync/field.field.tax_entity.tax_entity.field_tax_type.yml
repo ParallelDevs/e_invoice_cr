@@ -1,0 +1,23 @@
+uuid: 35c529d8-4de1-4508-bf36-5e62e4d94aec
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.tax_entity.field_tax_type
+  module:
+    - options
+    - tax_entity
+_core:
+  default_config_hash: rhbifOYx3CuKplQ1CORvvsw7Jda79hmjzB2j0o5hzg8
+id: tax_entity.tax_entity.field_tax_type
+field_name: field_tax_type
+entity_type: tax_entity
+bundle: tax_entity
+label: 'Tax type'
+description: 'Choose a tax type.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
