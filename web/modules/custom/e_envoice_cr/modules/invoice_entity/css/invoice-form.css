@@ -106,6 +106,10 @@
 .invoice-reference-information .field--name-ref-code {
   display: inline-block;
 }
+.invoice-entity-add-form fieldset {
+  padding: 5px;
+  border: solid 1px #ccc;
+}
 .field--name-field-rows fieldset.group-first {
   width: 68%;
   min-height: 240px;
