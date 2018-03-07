@@ -5,8 +5,17 @@ msgstr ""
 msgid "Tax Entity"
 msgstr "Entidad Impuesto"
 
-msgid "Add Tax"
-msgstr "Agregar Impuesto"
+msgid "tax entity"
+msgstr "impuesto"
+
+msgid "Tax entity"
+msgstr "impuesto"
+
+msgid "Add Tax entity"
+msgstr "Añadir Impuesto"
+
+msgid "Add tax entity"
+msgstr "Añadir Impuesto"
 
 msgid "Add tax"
-msgstr "Agregar Impuesto"
+msgstr "Añadir Impuesto"

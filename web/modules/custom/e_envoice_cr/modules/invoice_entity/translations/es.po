@@ -5,11 +5,23 @@ msgstr ""
 msgid "Invoice Entity"
 msgstr "Entidad Factura"
 
+msgid "invoice"
+msgstr "factura"
+
+msgid "Invoice"
+msgstr "factura"
+
+msgid "invoice entity"
+msgstr "entidad factura"
+
+msgid "Invoice entity"
+msgstr "Entidad Factura"
+
 msgid "Add Invoice"
-msgstr "Agregar Factura"
+msgstr "Añadir Factura"
 
 msgid "Add invoice"
-msgstr "Agregar Factura"
+msgstr "Añadir Factura"
 
 msgid "Type of document"
 msgstr "Tipo de documento"
