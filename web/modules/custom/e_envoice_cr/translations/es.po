@@ -119,7 +119,21 @@ msgstr "Añada el asunto con el que se enviara el correo de notificación de la 
 msgid "Add a text that it will be printed on the email invoice notifications sent to the clients.\nUse @company to print your company name, @invoice_id to print the invoice id, @date to print the invoice date, @hour to print the hour and @url to print the pdf invoice link."
 msgstr "Añada el texto que va a ser imprimido en el correo de la notificación, el cual se le enviará a los clientes.\nUse @company para imprimir el nombre de tu compañia, @invoice_id para imprimir la identifación de la factura, @date para imprimir la fecha de la factura, @hour para imprimir la hora y @url para imprimir el enlace de la factura."
 
+msgid "A validation request has been performed."
+msgstr "Se ha ejecutado una validación."
+
 # General
 
 msgid "Management"
 msgstr "Administración"
+
+# Mails
+
+msgid "An email notification has been sent to @email"
+msgstr "Un correo de notificación ha sido enviado a @email"
+
+msgid "There was a problem sending your email notification to @email"
+msgstr "Ha habido un problema al enviar el correo de notificación a @email"
+
+msgid "Email error. There was a problem attaching the pdf invoice."
+msgstr "Error de correo. Ha habido un problema al adjuntar el archivo pdf de la factura."
