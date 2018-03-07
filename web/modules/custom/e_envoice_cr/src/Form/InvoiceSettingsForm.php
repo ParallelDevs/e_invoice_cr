@@ -252,22 +252,24 @@ class InvoiceSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $id_type = $form_state->getValue('id_type');
+    $values = $form_state->getValues();
+    $tabs = $values['settings_tab']['stuff'];
+    $id_type = $tabs['taxpayer_group']['id_type'];
     switch ($id_type) {
       case "01":
-        if (strlen($form_state->getValue('id')) !== 9) {
+        if (strlen($tabs['taxpayer_group']['id']) !== 9) {
           $form_state->setErrorByName('id', $this->t("The id should have 9 characters, add zeros at the start if it's necessary."));
         }
         break;
 
       case "02":
-        if (strlen($form_state->getValue('id')) !== 10) {
+        if (strlen($tabs['taxpayer_group']['id']) !== 10) {
           $form_state->setErrorByName('id', $this->t("The id should have 10 characters, add zeros at the start if it's necessary."));
         }
         break;
 
       case "03":
-        if (strlen($form_state->getValue('id')) < 11 || strlen($form_state->getValue('id')) > 12) {
+        if (strlen($tabs['taxpayer_group']['id']) < 11 || strlen($tabs['taxpayer_group']['id']) > 12) {
           $form_state->setErrorByName('id', $this->t("The id should have 11 or 12 characters, add zeros at the start if it's necessary."));
         }
         break;
@@ -279,16 +281,15 @@ class InvoiceSettingsForm extends ConfigFormBase {
         break;
 
     }
-
-    if (!is_numeric($form_state->getValue('id'))) {
+    if (!is_numeric($tabs['taxpayer_group']['id'])) {
       $form_state->setErrorByName('id', $this->t('This field should only have numbers. No spaces or special characters.'));
     }
 
-    if (!is_numeric($form_state->getValue('phone'))) {
+    if (!is_numeric($tabs['taxpayer_group']['phone'])) {
       $form_state->setErrorByName('phone', $this->t('This field should only have numbers. No spaces or special characters.'));
     }
 
-    if (strlen($form_state->getValue('fax')) > 0) {
+    if (strlen($tabs['taxpayer_group']['fax']) > 0) {
       if (!is_numeric($form_state->getValue('fax'))) {
         $form_state->setErrorByName('fax', $this->t('This field should only have numbers. No spaces or special characters.'));
       }
@@ -299,30 +300,33 @@ class InvoiceSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $values = $form_state->getValues();
+    $tabs = $values['settings_tab']['stuff'];
+    $id_type = $tabs['auth_group']['id_type'];
     // Retrieve the configuration.
     \Drupal::configFactory()->getEditable('e_invoice_cr.settings')
       // Set the submitted configuration setting.
       ->set('environment', $form_state->getValue('environment'))
-      ->set('username', $form_state->getValue('username'))
-      ->set('password', $form_state->getValue('password'))
-      ->set('id_type', $form_state->getValue('id_type'))
-      ->set('id', $form_state->getValue('id'))
-      ->set('name', $form_state->getValue('name'))
-      ->set('commercial_name', $form_state->getValue('commercial_name'))
-      ->set('phone', $form_state->getValue('phone'))
-      ->set('fax', $form_state->getValue('fax'))
-      ->set('email', $form_state->getValue('email'))
-      ->set('postal_code', $form_state->getValue('postal_code'))
-      ->set('address', $form_state->getValue('address'))
-      ->set('p12_cert', $form_state->getValue('p12_cert'))
-      ->set('cert_password', $form_state->getValue('cert_password'))
-      ->set('invoice_logo_file', $form_state->getValue('invoice_logo_file'))
-      ->set('email_text', $form_state->getValue('email_text'))
-      ->set('email_subject', $form_state->getValue('email_subject'))
-      ->set('email_copies', $form_state->getValue('email_copies'))
-      ->save('file', $form_state->get('invoice_logo_file'));
+      ->set('username', $tabs['auth_group']['username'])
+      ->set('password', $tabs['auth_group']['password'])
+      ->set('id_type', $tabs['taxpayer_group']['id_type'])
+      ->set('id', $tabs['taxpayer_group']['id'])
+      ->set('name', $tabs['taxpayer_group']['name'])
+      ->set('commercial_name', $tabs['taxpayer_group']['commercial_name'])
+      ->set('phone', $tabs['taxpayer_group']['phone'])
+      ->set('fax', $tabs['taxpayer_group']['fax'])
+      ->set('email', $tabs['taxpayer_group']['email'])
+      ->set('postal_code', $tabs['taxpayer_group']['address_fieldset']['postal_code'])
+      ->set('address', $tabs['taxpayer_group']['address_fieldset']['address'])
+      ->set('p12_cert', $tabs['cert_group']['p12_cert'])
+      ->set('cert_password', $tabs['cert_group']['cert_password'])
+      ->set('invoice_logo_file', $tabs['email_text_group']['invoice_logo_file'])
+      ->set('email_text', $tabs['email_text_group']['email_text'])
+      ->set('email_subject', $tabs['email_text_group']['email_subject'])
+      ->set('email_copies', $tabs['email_text_group']['email_copies'])
+      ->save('file', $tabs['email_text_group']['invoice_logo_file']);
 
-    $fid = $form_state->getValue('p12_cert');
+    $fid = $tabs['cert_group']['p12_cert'];
     $file_object = file_load($fid[0], $reset = FALSE);
     // Make copies and change the file names.
     file_copy($file_object, 'public://certs/cert.pfx', FILE_EXISTS_REPLACE);
