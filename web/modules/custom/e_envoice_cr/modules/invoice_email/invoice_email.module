@@ -33,6 +33,9 @@ function invoice_email_mail($key, &$message, $params) {
   ];
   switch ($key) {
     case 'invoice_validated':
+      if (count($params['cc']) !== 0 && !is_null($params['cc'])) {
+        $message['headers']['cc'] = $params['cc'];
+      }
       $message['from'] = \Drupal::config('system.site')->get('mail');
       $message['subject'] = t('Subject: @title', ['@title' => $params['title']], $options);
       $message['body'][] = Html::escape($params['message']);

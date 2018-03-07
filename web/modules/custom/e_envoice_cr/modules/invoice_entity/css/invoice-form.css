@@ -123,7 +123,7 @@
   float: right;
 }
 .field--name-field-rows fieldset {
-  background: transparent;
+  background-color: transparent;
   border: 0;
 }
 .field--name-field-rows fieldset legend {
