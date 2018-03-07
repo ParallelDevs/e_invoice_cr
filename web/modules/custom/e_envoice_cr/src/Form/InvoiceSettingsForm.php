@@ -84,34 +84,34 @@ class InvoiceSettingsForm extends ConfigFormBase {
       '#suffix' => '</div>',
     ];
 
-    $form['settings_tab']['stuff'][0] = [
+    $form['settings_tab']['stuff']['auth_group'] = [
       '#type' => 'details',
       '#title' => $this->t('API login information.'),
       '#description' => t('This module does the API login through the Oauth 2.0 token.'),
       '#collapsed' => FALSE,
     ];
 
-    $form['settings_tab']['stuff'][0]['username'] = [
+    $form['settings_tab']['stuff']['auth_group']['username'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Username:'),
       '#default_value' => $username,
       '#required' => TRUE,
     ];
 
-    $form['settings_tab']['stuff'][0]['password'] = [
+    $form['settings_tab']['stuff']['auth_group']['password'] = [
       '#type' => 'password',
       '#title' => $this->t('Password:'),
       '#default_value' => $password,
       '#required' => TRUE,
     ];
 
-    $form['settings_tab']['stuff'][1] = [
+    $form['settings_tab']['stuff']['taxpayer_group'] = [
       '#type' => 'details',
       '#title' => $this->t('Taxpayer information.'),
       '#collapsed' => FALSE,
     ];
 
-    $form['settings_tab']['stuff'][1]['id_type'] = [
+    $form['settings_tab']['stuff']['taxpayer_group']['id_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Id type.'),
       '#default_value' => $id_type,
@@ -120,7 +120,7 @@ class InvoiceSettingsForm extends ConfigFormBase {
       '#description' => $this->t("Select the taxpayer's id type."),
       '#validated' => TRUE,
     ];
-    $form['settings_tab']['stuff'][1]['id'] = [
+    $form['settings_tab']['stuff']['taxpayer_group']['id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Id number:'),
       '#default_value' => $id,
@@ -128,62 +128,62 @@ class InvoiceSettingsForm extends ConfigFormBase {
       '#size' => 12,
       '#maxlength' => 12,
     ];
-    $form['settings_tab']['stuff'][1]['name'] = [
+    $form['settings_tab']['stuff']['taxpayer_group']['name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Name:'),
       '#default_value' => $name,
       '#required' => TRUE,
     ];
-    $form['settings_tab']['stuff'][1]['commercial_name'] = [
+    $form['settings_tab']['stuff']['taxpayer_group']['commercial_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tradename:'),
       '#default_value' => $commercial_name,
       '#required' => TRUE,
     ];
-    $form['settings_tab']['stuff'][1]['phone'] = [
+    $form['settings_tab']['stuff']['taxpayer_group']['phone'] = [
       '#type' => 'tel',
       '#title' => $this->t('Phone number:'),
       '#default_value' => $phone,
       '#description' => $this->t('Please add the country code to the beginning. This field should only have numbers. No spaces or special characters.'),
       '#required' => TRUE,
     ];
-    $form['settings_tab']['stuff'][1]['fax'] = [
+    $form['settings_tab']['stuff']['taxpayer_group']['fax'] = [
       '#type' => 'tel',
       '#title' => $this->t('Fax number:'),
       '#default_value' => $fax,
       '#description' => $this->t('Please add the country code to the beginning. This field should only have numbers. No spaces or special characters.'),
       '#required' => FALSE,
     ];
-    $form['settings_tab']['stuff'][1]['email'] = [
+    $form['settings_tab']['stuff']['taxpayer_group']['email'] = [
       '#type' => 'email',
       '#title' => $this->t('Email:'),
       '#default_value' => $email,
       '#required' => TRUE,
     ];
-    $form['settings_tab']['stuff'][1]['address_fieldset'] = [
+    $form['settings_tab']['stuff']['taxpayer_group']['address_fieldset'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Location.'),
     ];
-    $form['settings_tab']['stuff'][1]['address_fieldset']['postal_code'] = [
+    $form['settings_tab']['stuff']['taxpayer_group']['address_fieldset']['postal_code'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Zip code:'),
       '#default_value' => $postal_code,
       '#required' => TRUE,
     ];
-    $form['settings_tab']['stuff'][1]['address_fieldset']['address'] = [
+    $form['settings_tab']['stuff']['taxpayer_group']['address_fieldset']['address'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Others:'),
       '#default_value' => $address,
       '#required' => TRUE,
     ];
 
-    $form['settings_tab']['stuff'][2] = [
+    $form['settings_tab']['stuff']['email_text_group'] = [
       '#type' => 'details',
       '#title' => $this->t('Email notifications.'),
       '#collapsed' => FALSE,
     ];
 
-    $form['settings_tab']['stuff'][2]['invoice_logo_file'] = [
+    $form['settings_tab']['stuff']['email_text_group']['invoice_logo_file'] = [
       '#title' => $this->t('Company Logo'),
       '#type' => 'managed_file',
       '#description' => $this->t('Add a company logo that it will be print on the invoice documents.'),
@@ -197,21 +197,21 @@ class InvoiceSettingsForm extends ConfigFormBase {
       '#upload_location' => 'public://',
       '#required' => FALSE,
     ];
-    $form['settings_tab']['stuff'][2]['email_subject'] = [
+    $form['settings_tab']['stuff']['email_text_group']['email_subject'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Email subject'),
       '#description' => $this->t("Add a subject text that it will be printed on the email invoice notifications. Use @company to print your company name."),
       '#default_value' => $email_subject,
       '#required' => TRUE,
     ];
-    $form['settings_tab']['stuff'][2]['email_text'] = [
+    $form['settings_tab']['stuff']['email_text_group']['email_text'] = [
       '#title' => $this->t('Email notifications text'),
       '#type' => 'textarea',
       '#description' => $this->t("Add a text that it will be printed on the email invoice notifications sent to the clients.\nUse @company to print your company name, @invoice_id to print the invoice id, @date to print the invoice date, @hour to print the hour and @url to print the pdf invoice link."),
       '#default_value' => $email_text,
       '#required' => TRUE,
     ];
-    $form['settings_tab']['stuff'][2]['email_copies'] = [
+    $form['settings_tab']['stuff']['email_text_group']['email_copies'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Send always copy to'),
       '#description' => $this->t("Insert email addresses to send always a copy, separate the emails using a comma, example: test@test.com, test2@test2.com."),
@@ -219,7 +219,7 @@ class InvoiceSettingsForm extends ConfigFormBase {
       '#required' => FALSE,
     ];
 
-    $form['settings_tab']['stuff'][3] = [
+    $form['settings_tab']['stuff']['cert_group'] = [
       '#type' => 'details',
       '#title' => $this->t('Certificate information.'),
       '#collapsed' => FALSE,
@@ -227,7 +227,7 @@ class InvoiceSettingsForm extends ConfigFormBase {
 
     $validators = ['file_validate_extensions' => ['p12']];
     $path = \Drupal::moduleHandler()->getModule('e_invoice_cr')->getPath();
-    $form['settings_tab']['stuff'][3]['p12_cert'] = [
+    $form['settings_tab']['stuff']['cert_group']['p12_cert'] = [
       '#type' => 'managed_file',
       '#name' => 'Certificate p12.',
       '#title' => $this->t('Certificate p12.'),
@@ -238,7 +238,7 @@ class InvoiceSettingsForm extends ConfigFormBase {
       '#required' => TRUE,
     ];
 
-    $form['settings_tab']['stuff'][3]['cert_password'] = [
+    $form['settings_tab']['stuff']['cert_group']['cert_password'] = [
       '#type' => 'password',
       '#title' => $this->t('Password:'),
       '#default_value' => $cert_password,
