@@ -207,7 +207,7 @@ class InvoiceService implements InvoiceServiceInterface {
       'postal_code',
       'address',
       'p12_cert',
-      'cert_password'
+      'cert_password',
     ];
     foreach ($neededFields as $field) {
       $value = $settings->get($field);

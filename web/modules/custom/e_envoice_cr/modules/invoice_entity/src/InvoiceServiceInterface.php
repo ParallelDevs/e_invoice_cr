@@ -83,7 +83,7 @@ interface InvoiceServiceInterface {
   public function getInvoiceVariable($variable_name);
 
   /**
-   * Check if all the necessary information have been filled.   *
+   * Check if all the necessary information have been filled.
    *
    * @return bool
    *   Return true if all the information is filled.
