@@ -1,0 +1,61 @@
+.sidebar-open {
+  .content-wrapper,
+  .profile-menu {
+    @include breakpoint($bp--medium-down) {
+      transform: translate(230px, 0);
+    }
+  }
+}
+
+.sidebar-collapse {
+  &.sidebar-mini {
+    .content-wrapper {
+      @include breakpoint($bp--medium) {
+        margin-left: 50px !important; /* stylelint-disable-line declaration-no-important */
+      }
+    }
+  }
+  .content-wrapper {
+    @include breakpoint($bp--medium) {
+      margin-left: 0;
+    }
+  }
+}
+
+.content-wrapper {
+  padding: 0 $spacing--m;
+  background-color: $c-gray--lightest;
+  transition: transform .3s ease-in-out,margin .3s ease-in-out;
+  margin-left: 230px;
+  @include breakpoint($bp--medium-down) {
+    margin-left: 0;
+  }
+}
+
+/* New styles for administative theme*/
+
+.region-title__action {
+  display: inline;
+  margin-left: 1em;
+}
+
+.ui-dialog {
+  background-color: #fff;
+  overflow: auto;
+  padding: 10px;
+  border-style: ridge;
+}
+
+.js .dropbutton-wrapper, .js .dropbutton-widget {
+  display: inherit;
+  position: relative;
+}
+
+.ui-dialog-titlebar {
+  float: right;
+  margin-bottom: 10px;
+}
+
+span#ui-id-1 {
+  margin-right: 15px;
+}

@@ -1,0 +1,24 @@
+uuid: b6bd57f1-f8db-43e9-9ce0-023f76fbfc10
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.top-menu
+  module:
+    - system
+  theme:
+    - euro_digital_admin
+id: topmenu
+theme: euro_digital_admin
+region: header
+weight: -7
+provider: null
+plugin: 'system_menu_block:top-menu'
+settings:
+  id: 'system_menu_block:top-menu'
+  label: 'Top Menu'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility: {  }

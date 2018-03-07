@@ -1,0 +1,5 @@
+.layout-footer {
+  @include flex($fg: 1, $fs: null, $fb: null);
+  padding: 15px;
+  background: $c-white;
+}

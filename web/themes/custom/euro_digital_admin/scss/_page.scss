@@ -1,0 +1,18 @@
+// this file sets general layout styles
+body {
+  margin: 0;
+}
+
+.layout-container {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  main {
+    //@include breakpoint($bp--medium){  }
+  }
+  .block-system {
+    @include container-border($c-info, 3px, 3px);
+    padding: 15px;
+    background: $c-white;
+  }
+}

@@ -1,0 +1,22 @@
+.nav-pills {
+  &.primary {
+    margin-bottom: 1rem;
+  }
+  background: $c-white;
+  > li {
+    margin: 0;
+    > a {
+      @include container-border(transparent, 3px, 0);
+      border-radius: 0;
+      &:hover,
+      &:active,
+      &.is-active {
+        border-right: solid 1px $c-gray--lightest;
+        background-color: $c-info !important;
+        color: $c-white;
+        @include container-border($c-info-active, 3px, 0);
+      }
+    }
+  }
+
+}

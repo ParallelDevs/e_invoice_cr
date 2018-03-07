@@ -1,0 +1,22 @@
+uuid: 16666dfe-4aeb-420a-b61a-1dd045606111
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - euro_digital_admin
+_core:
+  default_config_hash: oXUb3JZR2WW5VOdw4HrhRicCsq51mCgLfRyvheG68ck
+id: euro_digital_admin_breadcrumbs
+theme: euro_digital_admin
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  provider: system
+  label_display: '0'
+visibility: {  }

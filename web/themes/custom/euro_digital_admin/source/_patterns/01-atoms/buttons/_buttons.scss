@@ -1,0 +1,178 @@
+//@mixin button($alt: false, $large: false, $small: false, $x-small: false, $dis: false, $link: true ) {
+//  @if $link {
+//    @include a-link($link: $c-white, $hover: $c-white, $deco--hover: "none");
+//  }
+//  display: inline-block;
+//  background-color: $c-primary;
+//  border: 0;
+//  border-radius: ($spacing--xs - 2);
+//  color: $c-white;
+//  font-weight: $fw--400;
+//  font-size: $fs--s;
+//  padding: ($spacing--xs + 1) ($spacing--s + 2);
+//  text-decoration: none;
+//  text-align: center;
+//  &:hover,
+//  &:focus,
+//  &:active {
+//    background: $c-primary-active;
+//  }
+//
+//  @if $alt {
+//    background: $c-grey;
+//    color: $c-primary;
+//  }
+//  @if $large {
+//    @include btn-large();
+//  }
+//  @if $small {
+//    @include btn-small();
+//  }
+//  @if $x-small {
+//    @include btn-x-small();
+//  }
+//  @if $dis {
+//    @include btn-disable();
+//  }
+//}
+//
+//// Setting btn size
+//@mixin btn-large() {
+//  font-size: $fs--m;
+//  padding: ($spacing--s) ($spacing--m + 1);
+//}
+//
+//@mixin btn-small() {
+//  font-size: $fs--xs;
+//  padding: $spacing--xs $spacing--s;
+//}
+//
+//@mixin btn-x-small() {
+//  font-size: $fs--xs;
+//  padding: $spacing--xs;
+//}
+//
+//@mixin btn-disable(){
+//  opacity: .65;
+//}
+//
+//.button {
+//  @include button();
+//  &--alt {
+//    @include button($alt: true);
+//  }
+//  &--btn-lg {
+//    @include button($large: true);
+//  }
+//  &--btn-sm {
+//    @include button($small: true);
+//  }
+//  &--btn-x-sm {
+//    @include button($x-small: true);
+//  }
+//  &--btn-dis {
+//    @include button($dis: true);
+//  }
+//}
+//
+a.button,
+button {
+  // needed to override base theme CSS
+  // stylelint-disable property-no-vendor-prefix
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  // stylelint-enable property-no-vendor-prefix
+  @include button-variant($c-white, $c-primary, $c-primary-active);
+  @include button-size(6px, 12px, $fs--s, 20px, 3px);
+  vertical-align: top;
+  @include breakpoint($bp--medium-down){
+    width: 100%;
+    text-align: center;
+  }
+}
+
+input[type="submit"],
+.form-submit {
+  @include button-variant($c-white, $c-primary, $c-primary-active);
+  @include button-size(6px, 12px, $fs--s, 1.4, 3px);
+  @include breakpoint($bp--medium-down){
+    width: 100%;
+  }
+  width: auto;
+}
+
+.tabledrag-handle {
+  margin-right: $spacing--m;
+}
+
+.handle {
+  &::before {
+    content: '\e068';
+    font-family: $ff--icons;
+  }
+}
+
+.tabledrag-toggle-weight {
+  @include button-variant($c-body, $c-gray--lighter, $c-gray--light);
+  border-color: transparent;
+  &:hover,
+  &:focus,
+  &.focus {
+    border-color: transparent;
+  }
+}
+
+input[value~="Remove"],
+input[value~="Delete"],
+input[value~="Eliminar"],
+a[data-drupal-selector~="edit-delete"]{
+  @include button-variant($c-white, $c-danger, $c-danger-active);
+  @include button-size(6px, 12px, $fs--s, 20px, 3px);
+  display: inline-block;
+  @include breakpoint($bp--medium-down){
+    width: 100%;
+  }
+}
+
+input[value~="Remove"]{
+  @include breakpoint($bp--medium-down){
+    width: auto;
+  }
+}
+
+input[value~="Eliminar"] {
+  &.multiple-fields-remove-button {
+    @include breakpoint($bp--medium-down){
+      width: auto;
+    }
+  }
+}
+
+input[value~="Save"],
+input[value~="Guardar"] {
+  @include button-variant($c-white, $c-info, $c-info-active);
+  @include button-size(6px, 12px, $fs--s, 20px, 3px);
+}
+
+a.cta-new-item {
+  @include button-variant($c-white, $c-info, $c-info-active);
+  @include button-size(6px, 12px, $fs--s, 20px, 3px);
+  display: inline-block;
+  margin-bottom: 1rem;
+  text-align: center;
+  @include breakpoint($bp--medium-down){
+    text-align: left;
+    width: auto;
+  }
+}
+
+input[value~="Preview"],
+input[value~="Previsualizar"]{
+  @include button-variant($c-white, $c-teal, $c-teal-active);
+  @include button-size(6px, 12px, $fs--s, 20px, 3px);
+  display: inline-block;
+  margin-right: $spacing--s;
+  @include breakpoint($bp--medium-down){
+    width: 100%;
+  }
+}

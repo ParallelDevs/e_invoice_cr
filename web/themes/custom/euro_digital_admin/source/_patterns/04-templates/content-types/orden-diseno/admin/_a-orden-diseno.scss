@@ -1,0 +1,190 @@
+.node-orden-de-diseno-edit-form,
+.node-orden-de-diseno-form {
+
+  .field-suffix {
+    display: none;
+  }
+  .first {
+    > div {
+      width: 100%;
+      display: block;
+      @include breakpoint($bp--medium) {
+        display: inline-block;
+        vertical-align: top;
+        width: 47%;
+        margin-right: 2%;
+      }
+      @include breakpoint($bp--large) {
+        width: 30%;
+      }
+    }
+  }
+  .field--name-field-observaciones,
+  .field--name-field-correos-adicionales {
+    width: 100%;
+  }
+  .field-multiple-table {
+    width: 100%;
+  }
+  .field--name-field-ingreso-trabajo,
+  .field--name-field-entrega-trabajo {
+     .form-item {
+      @include breakpoint($bp--large) {
+        width: 47%;
+        margin-right: 2%;
+        display: inline-block;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  .field-group-format-wrapper {
+    .form-wrapper {
+      //display: inline-block;
+      //width: 30%;
+      //margin-right: 2%;
+      //vertical-align: top;
+      fieldset {
+        width: 100%;
+      }
+    }
+  }
+
+  .field--name-field-cliente-dep {
+    > div {
+      @include breakpoint($bp--medium) {
+        display: inline-block;
+        width: 45%;
+        margin-right: 2%;
+      }
+    }
+  }
+
+  // fields 45% medium up
+
+  .field--name-field-dummie,
+  .field--name-field-tintas,
+  .field--name-field-cantidad-tintas,
+  .field--name-field-pantone,
+  .field--name-field-pantone-numero,
+  .field--name-field-acabados-diseno-tax,
+  .field--name-field-tiro-retiro-tax,
+  .field--name-field-full-color {
+    @include breakpoint($bp--medium) {
+      display: inline-block;
+      width: 45%;
+      margin-right: 2%;
+    }
+  }
+
+  .field--name-field-1er-correo,
+  .field--name-field-2do-correo,
+  .field--name-field-llamada,
+  .field--name-field-aviso-a-ejecutivo,
+  .field--name-field-aprobacion-cliente-tax,
+  .field--name-field-fecha-aprobacion,
+  .field--name-field-nota-2,
+  .field--name-field-nota-3 {
+    @include breakpoint($bp--large) {
+      width: 45%;
+    }
+  }
+
+  // fields with 45% medium  & 30% large
+  .field--name-field-impresion-tax,
+  .field--name-field-resolucion-tax,
+  .field--name-field-orientacion-tax,
+  .field--name-field-trabajo,
+  .field--name-field-prioridad,
+  .field--name-field-ingreso-trabajo,
+  .field--name-field-entrega-trabajo,
+  .field--name-field-link-archivo,
+  .field--name-field-produccion-ref,
+  .field--name-field-excesos,
+  .field--name-field-traslape {
+    @include breakpoint($bp--medium) {
+      display: inline-block;
+      width: 45%;
+      margin-right: 2%;
+      vertical-align: top;
+    }
+    @include breakpoint($bp--large) {
+      width: 30%;
+    }
+  }
+
+  // background light blue for checkbox & radio containers
+  .field--name-field-impresion-tax,
+  .field--name-field-resolucion-tax,
+  .field--name-field-orientacion-tax,
+  .field--name-field-tintas,
+  .field--name-field-pantone,
+  .field--name-field-acabados-diseno-tax,
+  .field--name-field-tiro-retiro-tax,
+  .field--name-field-formato-final-tax,
+  .field--name-field-dummie,
+  .field--name-field-arte-digital-tax,
+  .field--name-field-field-aspectos-revision-ta,
+  .field--name-field-full-color,
+  .field--name-field-aprobacion-cliente-tax,
+  .field--name-field-entrega-arte-tax {
+    padding: $spacing--s;
+    margin-bottom: 1rem;
+    border-radius: 3px;
+    background: #f0f8ff;
+  }
+}
+
+.field--name-field-fecha-entrega {
+  @include breakpoint($bp--large) {
+    width: 35%;
+    display: inline-block;
+  }
+}
+
+.field--name-field-fecha-aprobacion {
+  @include breakpoint($bp--medium-down){
+    width: 100%;
+  }
+}
+
+.fieldset-wrapper {
+  &.arte {
+    .form-item {
+      width: 100%;
+    }
+  }
+}
+
+.field--name-field-fotografia-tax,
+.field--name-field-stock,
+.field--name-field-toma-fotografias {
+  padding: 0 $spacing--s 0;
+  background-color: #f0f8ff;
+  legend {
+    padding: $spacing--xs;
+  }
+}
+
+.field--name-field-foto-creditos,
+.field--name-field-toma-fotografias {
+  padding-top: 10px;
+}
+
+.form-checkboxes .form-item {
+  @include breakpoint($bp--medium){
+    display: inline-block;
+    width: 50%;
+  }
+}
+
+.field--name-field-formato-final-tax,
+.aspectos {
+  .form-checkboxes .form-item {
+    @include breakpoint($bp--medium){
+      display: inline-block;
+      width: 49%;
+    }
+  }
+}
