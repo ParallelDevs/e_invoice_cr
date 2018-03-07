@@ -66,6 +66,9 @@ msgstr "La llave del documento no se puede generar correctamente ya que no se ha
 msgid "Error getting the authentication token."
 msgstr "Error obteniendo el token de autotentificación"
 
+msgid "There is some missing configuration. Please go to: /admin/e-invoice-cr/settings"
+msgstr "Hay alguna configuración faltante. Por favor dirigase a: /admin/e-invoice-cr/settings"
+
 msgid "Current invoice number updated."
 msgstr "El número de la factura actual actualizado."
 
