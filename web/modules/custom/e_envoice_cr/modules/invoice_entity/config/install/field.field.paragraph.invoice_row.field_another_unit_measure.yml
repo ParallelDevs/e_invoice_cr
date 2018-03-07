@@ -14,7 +14,7 @@ field_name: field_another_unit_measure
 entity_type: paragraph
 bundle: invoice_row
 label: 'Another unit measure'
-description: 'You must specify the unit measure.'
+description: ''
 required: false
 translatable: false
 default_value: {  }

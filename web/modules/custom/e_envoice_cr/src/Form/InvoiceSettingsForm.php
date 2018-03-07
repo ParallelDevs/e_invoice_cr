@@ -60,6 +60,7 @@ class InvoiceSettingsForm extends ConfigFormBase {
     $cert_password = $settings->get('cert_password');
     $email_text = $settings->get('email_text');
     $email_subject = $settings->get('email_subject');
+    $email_copies = $settings->get('email_copies');
     if (is_null($email_text)) {
       $email_text = "Find attached an Electronic Invoice with Key Number @invoice_id issued by @company on @date at @hour.\nYou can also download it at @url\n\nThis is an automatic notification, please do not reply this email.";
     }
@@ -201,6 +202,13 @@ class InvoiceSettingsForm extends ConfigFormBase {
       '#default_value' => $email_text,
       '#required' => TRUE,
     ];
+    $form['email_text_fieldset']['email_copies'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Send always copy to'),
+      '#description' => $this->t("Insert email addresses to send always a copy, separate the emails using a comma, example: test@test.com, test2@test2.com."),
+      '#default_value' => $email_copies,
+      '#required' => FALSE,
+    ];
 
     $form['cert_fieldset'] = [
       '#type' => 'fieldset',
@@ -301,6 +309,7 @@ class InvoiceSettingsForm extends ConfigFormBase {
       ->set('invoice_logo_file', $form_state->getValue('invoice_logo_file'))
       ->set('email_text', $form_state->getValue('email_text'))
       ->set('email_subject', $form_state->getValue('email_subject'))
+      ->set('email_copies', $form_state->getValue('email_copies'))
       ->save('file', $form_state->get('invoice_logo_file'));
 
     $fid = $form_state->getValue('p12_cert');

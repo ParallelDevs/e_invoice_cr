@@ -52,6 +52,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
         $settings = \Drupal::config('e_invoice_cr.settings');
         $company = $settings->get('name');
         $email_text = $settings->get('email_text');
+        $copies = $settings->get('email_copies');
         $email_subject = $settings->get('email_subject');
         $email_subject = str_replace("@company", $company, $email_subject);
         // Build the message.
@@ -81,6 +82,9 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
         $module = 'invoice_email';
         $key = 'invoice_validated';
         $to = $customerEmail;
+        if (!is_null($copies) && $copies !== "") {
+          $params['cc'] = $copies;
+        }
         $params['message'] = $email_text;
         $params['title'] = $email_subject;
         $params['files'][] = $file;
