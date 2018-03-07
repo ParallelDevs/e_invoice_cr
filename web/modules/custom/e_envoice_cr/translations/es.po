@@ -107,6 +107,12 @@ msgstr "Asunto correo electrónico"
 msgid "Email notifications text"
 msgstr "Texto de notificación correo electrónico"
 
+msgid "Send always copy to"
+msgstr "Siempre enviar una copia a"
+
+msgid "Insert email addresses to send always a copy, separate the emails using a comma, example: test@test.com, test2@test2.com."
+msgstr "Agregue los correos electrónicos a los que desea siempre enviar una copia, separados por una coma. Ejemplo: test@test.com, test2@test2.com"
+
 msgid "Add a subject text that it will be printed on the email invoice notifications. Use @company to print your company name."
 msgstr "Añada el asunto con el que se enviara el correo de notificación de la factura. Use @company para imprimir el nombre de su compañia/"
 
