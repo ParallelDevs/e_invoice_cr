@@ -20,11 +20,10 @@ class InvoiceService implements InvoiceServiceInterface {
    */
   public function __construct() {
     self::$invoiceNumber = $this->getInvoiceVariable('invoice_number');
-    self::$secureCode = $this->getInvoiceVariable('secure_code');
-
-    if (is_null(self::$invoiceNumber) || is_null(self::$secureCode)) {
+    // It gets a random number
+    self::$secureCode = str_pad(intval(rand(1 , 99999999)), 8, '0', STR_PAD_LEFT);
+    if (is_null(self::$invoiceNumber)) {
       self::$invoiceNumber = '0000000001';
-      self::$secureCode = '00000001';
       $this->updateValues();
     }
   }
@@ -48,7 +47,7 @@ class InvoiceService implements InvoiceServiceInterface {
    */
   public function increaseValues() {
     self::$invoiceNumber = str_pad(intval(self::$invoiceNumber) + 1, 10, '0', STR_PAD_LEFT);
-    self::$secureCode = str_pad(intval(self::$secureCode) + 1, 8, '0', STR_PAD_LEFT);
+    self::$secureCode = str_pad(intval(rand(1 , 99999999)), 8, '0', STR_PAD_LEFT);
   }
 
   /**
@@ -56,7 +55,7 @@ class InvoiceService implements InvoiceServiceInterface {
    */
   public function decreaseValues() {
     self::$invoiceNumber = str_pad(intval(self::$invoiceNumber) - 1, 10, '0', STR_PAD_LEFT);
-    self::$secureCode = str_pad(intval(self::$secureCode) - 1, 8, '0', STR_PAD_LEFT);
+    self::$secureCode = str_pad(intval(rand(1 , 99999999)), 8, '0', STR_PAD_LEFT);
   }
 
   /**
@@ -64,7 +63,6 @@ class InvoiceService implements InvoiceServiceInterface {
    */
   public function updateValues() {
     $this->setInvoiceVariable('invoice_number', self::$invoiceNumber);
-    $this->setInvoiceVariable('secure_code', self::$secureCode);
   }
 
   /**
