@@ -183,10 +183,39 @@ class InvoiceService implements InvoiceServiceInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getInvoiceVariable($variable_name) {
+  public function getInvoiceVariable($variable_name) {
     $config = \Drupal::config('invoice_entity.settings');
     $value = $config->get($variable_name);
     return $value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function checkSettingsData() {
+    $settings = \Drupal::config('e_invoice_cr.settings');
+    $neededFields = [
+      'environment',
+      'username',
+      'password',
+      'id_type',
+      'id',
+      'name',
+      'commercial_name',
+      'phone',
+      'email',
+      'postal_code',
+      'address',
+      'p12_cert',
+      'cert_password',
+    ];
+    foreach ($neededFields as $field) {
+      $value = $settings->get($field);
+      if (is_null($value) || empty($value)) {
+        return FALSE;
+      }
+    }
+    return TRUE;
   }
 
 }

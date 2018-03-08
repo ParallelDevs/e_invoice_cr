@@ -142,7 +142,7 @@ function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
   $emitter['fax'] = $config->get('fax');
   $emitter['postal_code'] = $config->get('postal_code');
   $emitter['address'] = $config->get('address');
-  $currency_code = $variables['elements']['field_currency'][0]['#markup'];
+  $currency_code = $variables['elements']['#invoice_entity']->get('field_currency')->value;
   $emitter['currency'] = InvoiceEntityInterface::AVAILABLE_CURRENCY[$currency_code]['symbol'];
   // Client data.
   if (isset($variables['elements']['field_client'][0]['#options']['entity'])) {

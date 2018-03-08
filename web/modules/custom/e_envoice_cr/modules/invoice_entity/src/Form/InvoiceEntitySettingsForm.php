@@ -51,12 +51,15 @@ class InvoiceEntitySettingsForm extends FormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
+    $invoice_service = \Drupal::service('invoice_entity.service');
+
     $form['invoiceentity_settings']['#markup'] = 'Settings form for Invoice entities. Manage field settings here.';
 
     $form['consecutive_number'] = [
       '#type' => 'number',
       '#description' => t('The number of the next invoice.'),
-      '#default_value' => intval(InvoiceService::getInvoiceVariable('invoice_number')),
+      '#default_value' => intval($invoice_service->getInvoiceVariable('invoice_number')),
     ];
 
     $form['actions']['#type'] = 'actions';

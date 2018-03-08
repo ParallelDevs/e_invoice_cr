@@ -196,6 +196,9 @@ class InvoiceEntityForm extends ContentEntityForm {
    *   Return true if did have no error.
    */
   public function sendInvoice(array $form, FormStateInterface $form_state) {
+    /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
+    $invoice_service = \Drupal::service('invoice_entity.service');
+
     // Authentication.
     try {
       // Get authentication token for the API.
@@ -207,15 +210,17 @@ class InvoiceEntityForm extends ContentEntityForm {
       $form_state->setSubmitHandlers([]);
     }
 
-    if (!$token) {
-      drupal_set_message(t('Error getting the authentication token.'), 'error');
+    $settingsFilled = $invoice_service->checkSettingsData();
+    if (!$token || !$settingsFilled) {
+      $error_message = !$token ?
+        $this->t('Error getting the authentication token.') :
+        $this->t('There is some missing configuration. Please go to: /admin/e-invoice-cr/settings');
+      drupal_set_message($error_message, 'error');
       $form_state->setRebuild();
       $form_state->setSubmitHandlers([]);
       return FALSE;
     }
     else {
-      /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
-      $invoice_service = \Drupal::service('invoice_entity.service');
 
       $settings = \Drupal::config('e_invoice_cr.settings');
       $date_text = $this->entity->get('field_invoice_date')->value;
