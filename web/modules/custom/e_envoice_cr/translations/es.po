@@ -107,13 +107,33 @@ msgstr "Asunto correo electrónico"
 msgid "Email notifications text"
 msgstr "Texto de notificación correo electrónico"
 
+msgid "Send always copy to"
+msgstr "Siempre enviar una copia a"
+
+msgid "Insert email addresses to send always a copy, separate the emails using a comma, example: test@test.com, test2@test2.com."
+msgstr "Agregue los correos electrónicos a los que desea siempre enviar una copia, separados por una coma. Ejemplo: test@test.com, test2@test2.com"
+
 msgid "Add a subject text that it will be printed on the email invoice notifications. Use @company to print your company name."
 msgstr "Añada el asunto con el que se enviara el correo de notificación de la factura. Use @company para imprimir el nombre de su compañia/"
 
 msgid "Add a text that it will be printed on the email invoice notifications sent to the clients.\nUse @company to print your company name, @invoice_id to print the invoice id, @date to print the invoice date, @hour to print the hour and @url to print the pdf invoice link."
 msgstr "Añada el texto que va a ser imprimido en el correo de la notificación, el cual se le enviará a los clientes.\nUse @company para imprimir el nombre de tu compañia, @invoice_id para imprimir la identifación de la factura, @date para imprimir la fecha de la factura, @hour para imprimir la hora y @url para imprimir el enlace de la factura."
 
+msgid "A validation request has been performed."
+msgstr "Se ha ejecutado una validación."
+
 # General
 
 msgid "Management"
 msgstr "Administración"
+
+# Mails
+
+msgid "An email notification has been sent to @email"
+msgstr "Un correo de notificación ha sido enviado a @email"
+
+msgid "There was a problem sending your email notification to @email"
+msgstr "Ha habido un problema al enviar el correo de notificación a @email"
+
+msgid "Email error. There was a problem attaching the pdf invoice."
+msgstr "Error de correo. Ha habido un problema al adjuntar el archivo pdf de la factura."

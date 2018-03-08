@@ -5,8 +5,20 @@ msgstr ""
 msgid "Customer Entity"
 msgstr "Entidad Cliente"
 
+msgid "customer"
+msgstr "cliente"
+
+msgid "Customer"
+msgstr "cliente"
+
+msgid "Customer entity"
+msgstr "Entity cliente"
+
+msgid "customer entity"
+msgstr "entidad cliente"
+
 msgid "Add Customer"
-msgstr "Agregar Cliente"
+msgstr "Añadir Cliente"
 
 msgid "Add customer"
 msgstr "Agregar Cliente"
