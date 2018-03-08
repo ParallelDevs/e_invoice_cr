@@ -32,54 +32,79 @@ third_party_settings:
         - field_row_type
         - field_code_type
         - field_code
-        - field_detail
-        - field_unit_measure
-        - field_another_unit_measure
-        - field_quantity
-        - field_unit_price
       parent_name: ''
       weight: 0
       format_type: fieldset
       format_settings:
-        label: 'Group 1'
+        label: Product/Service
         description: ''
         required_fields: true
         id: ''
-        classes: 'group-first'
-      label: 'Group 1'
+        classes: group-first
+      label: Product/Service
     group_g:
       children:
-        - field_add_discount
-        - field_discount_percentage
-        - field_discount_reason
-        - field_row_tax
+        - field_unit_measure
+        - field_another_unit_measure
+        - field_quantity
+        - field_unit_price
+        - field_detail
       parent_name: ''
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
-        classes: group-second
+        label: Quantity/Details
         description: ''
         required_fields: true
-      label: 'Group 2'
+        id: ''
+        classes: group-second
+      label: Quantity/Details
     group_group_3:
       children:
-        - field_total_amount
-        - field_row_discount
-        - field_subtotal
-        - field_line_total_amount
-        - moderation_state
+        - field_row_tax
+        - group_discount
       parent_name: ''
       weight: 2
       format_type: fieldset
       format_settings:
-        id: ''
-        classes: group-third
+        label: Taxes/Discounts
         description: ''
         required_fields: true
-      label: 'Group 3'
+        id: ''
+        classes: group-third
+      label: Taxes/Discounts
+    group_group_5:
+      children:
+        - field_row_discount
+        - field_total_amount
+        - field_subtotal
+        - field_line_total_amount
+        - moderation_state
+      parent_name: ''
+      weight: 20
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: group-fourth
+        description: ''
+        required_fields: true
+      label: Totals
+    group_discount:
+      children:
+        - field_add_discount
+        - field_discount_percentage
+        - field_discount_reason
+      parent_name: group_group_3
+      weight: 20
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: group-discount
+        description: ''
+        required_fields: true
+      label: Discount
 _core:
-  default_config_hash: XXRyUIPmS0w2UzQIXXCWzBVwHr_MgiqGEwH6apRIMrg
+  default_config_hash: 5Xs9QOdpqKXfJhnp_TSeuXQQwoZNpDldjaLT76lC4tA
 id: paragraph.invoice_row.default
 targetEntityType: paragraph
 bundle: invoice_row
@@ -87,13 +112,13 @@ mode: default
 content:
   field_add_discount:
     type: boolean_checkbox
-    weight: 4
+    weight: 21
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_another_unit_measure:
-    weight: 6
+    weight: 12
     settings:
       size: 60
       placeholder: ''
@@ -115,7 +140,7 @@ content:
     type: options_select
     region: content
   field_detail:
-    weight: 4
+    weight: 15
     settings:
       size: 60
       placeholder: ''
@@ -124,13 +149,13 @@ content:
     region: content
   field_discount_percentage:
     type: number
-    weight: 5
+    weight: 22
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_discount_reason:
-    weight: 6
+    weight: 23
     settings:
       size: 60
       placeholder: ''
@@ -138,14 +163,14 @@ content:
     type: string_textfield
     region: content
   field_line_total_amount:
-    weight: 6
+    weight: 32
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
   field_quantity:
-    weight: 7
+    weight: 13
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -153,13 +178,13 @@ content:
     region: content
   field_row_discount:
     type: number
-    weight: 4
+    weight: 29
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_row_tax:
-    weight: 7
+    weight: 19
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -171,27 +196,27 @@ content:
     type: options_select
     region: content
   field_subtotal:
-    weight: 5
+    weight: 31
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
   field_total_amount:
-    weight: 3
+    weight: 30
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
   field_unit_measure:
-    weight: 5
+    weight: 11
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_unit_price:
-    weight: 8
+    weight: 14
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -199,7 +224,7 @@ content:
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 7
+    weight: 33
     settings: {  }
     region: content
     third_party_settings: {  }

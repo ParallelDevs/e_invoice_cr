@@ -1,138 +1,127 @@
-.field--name-field-row-type,
-.field--name-field-code-type {
-  display: block;
-  width: 50%;
-  min-width: 165px;
-  margin-bottom: 10px;
-}
-.field--name-field-code-type {
-  margin-bottom: 35px;
-}
-.field--name-field-code,
-.field--name-field-quantity,
-.field--name-field-unit-price,
-.field--name-field-unit-measure,
-.field--name-field-quantity,
-.field--name-field-unit-price,
-.field--name-field-detail {
-  display: inline-block;
-  width: 13%;
-  min-width: 165px;
-}
-.field--name-field-detail {
-  width: 35%;
-}
-.field--name-field-code {
-  min-width: 127px;
-}
-.field--name-field-quantity {
-  min-width: 114px;
-}
-.field--name-field-unit-price {
-  min-width: 114px;
-}
-.field--name-field-another-unit-measure {
-  width: auto;
-  display: inline-block;
-}
-.field--name-field-another-unit-measure .form-item {
-  width: 176px;
-  min-width: 14%;
-}
-.field--name-field-discount-reason {
-  margin-bottom: 10px;
-}
-.field--name-field-row-type select,
-.field--name-field-code-type select,
-.field--name-field-code input,
-.field--name-field-quantity input,
-.field--name-field-unit-price input,
-.field--name-field-unit-measure select,
-.field--name-field-another-unit-measure input,
-.field--name-field-quantity input,
-.field--name-field-unit-price input,
-.field--name-field-detail input {
-  width: 100%;
-}
-.field--name-field-row-type {
-  display: inline-block;
-}
-.field--name-field-row-tax,
-.field--name-field-subtotal,
-.field--name-field-line-total-amount,
-.field--name-field-row-discount {
-  width: 100%;
-  display: inline-block;
-  margin-bottom: 10px;
-  min-width: 165px;
-}
-.field--name-field-row-tax input,
-.field--name-field-subtotal input,
-.field--name-field-line-total-amount input,
-.field--name-field-row-discount input {
-  width: 50%;
-  display: inline-block;
-}
-.field--name-field-row-tax label {
-  display: inline-block;
-  min-width: 138px;
-}
-.field--name-field-total-amount label {
-  display: inline-block;
-  min-width: 138px;
-}
-.field--name-field-row-tax select {
-  width: 179px;
-}
-.field--name-field-row-discount label {
-  display: inline-block;
-  min-width: 138px;
-}
-.field--name-field-subtotal label {
-  display: inline-block;
-  min-width: 138px;
-}
-.field--name-field-line-total-amount label {
-  display: inline-block;
-  min-width: 138px;
-}
-.field--name-field-discount-percentage {
-  margin-bottom: 10px;
-}
-
-.invoice-reference-information .field--name-ref-type-of,
-.invoice-reference-information .field--name-ref-doc-key,
-.invoice-reference-information .field--name-ref-date,
-.invoice-reference-information .field--name-ref-code {
-  display: inline-block;
-}
-.invoice-entity-add-form fieldset {
+.invoice-entity-form fieldset {
   padding: 5px;
-  border: solid 1px #ccc;
+  border: 1px solid #eee;
 }
-.field--name-field-rows fieldset.group-first {
-  width: 68%;
-  min-height: 240px;
-  float: left;
-}
-.field--name-field-rows fieldset.group-second {
-  width: 26%;
-  padding-bottom: 5px;
-  float: right;
-}
-.field--name-field-rows fieldset.group-third {
-  width: 26%;
-  padding-top: 14px;
-  border-top: 1px solid #e6e4df;
-  float: right;
-}
-.field--name-field-rows fieldset {
-  background-color: transparent;
+.invoice-entity-form .table-rows fieldset {
+  padding: 0;
   border: 0;
 }
-.field--name-field-rows fieldset legend {
+.group-first,
+.group-second,
+.group-third,
+.group-fourth {
+  float: left;
+  width: 25%;
+  min-width: 192px;
+}
+.group-first > legend,
+.group-second > legend,
+.group-third > legend,
+.group-fourth > legend {
+  width: 100%;
+  padding: 10px 10px;
+  background: #eee;
+}
+.group-discount {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+.group-discount legend {
   display: none;
+}
+.group-first .fieldset-wrapper,
+.group-second .fieldset-wrapper,
+.group-third .fieldset-wrapper,
+.group-fourth .fieldset-wrapper {
+  min-height: 237px;
+  padding: 0 10px;
+  border-right: 2px solid #eee;
+}
+.group-fourth .fieldset-wrapper {
+  border-right: 0;
+}
+.group-discount .fieldset-wrapper {
+  min-height: inherit;
+  padding: 0 10px;
+  border-right: 0;
 }
 .field--name-field-total-amount {
   display: none;
+}
+.field--name-field-quantity {
+  width: 25%;
+  float: left;
+  margin-right: 10%;
+}
+.field--name-field-unit-price {
+  width: 65%;
+  float: left;
+}
+.field--name-field-detail input[type=text],
+.field--name-field-detail textarea {
+  height: 65px;
+}
+.table-rows.field-multiple-table {
+  box-shadow: none;
+}
+.table-rows > thead tr th {
+  border-bottom: 0;
+}
+.table-rows .field--name-field-add-discount label {
+  display: initial;
+  color: black;
+}
+.table-rows thead {
+  border: 0;
+  box-shadow: none;
+}
+.table-rows tr {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  border: solid 1px #f4f4f4;
+  border-radius: 5px;
+}
+.table-rows thead tr {
+  margin-bottom: 0;
+}
+.table-rows td.field-multiple-drag {
+  display: inline-block;
+  border-bottom: 0;
+}
+.table-rows .paragraph-type-title {
+  display: none;
+}
+.table-rows .paragraph-type-top {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+.table-rows input[type=text],
+.table-rows input[type=number],
+.table-rows select {
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+.table-rows .select2-container .select2-selection--single {
+  border-radius: 5px !important;
+}
+.table-rows label {
+  display: block;
+  font-weight: 300;
+  color: #999999;
+}
+.table-rows .group-fourth label {
+  font-weight: 300;
+  color: black;
+}
+@media (max-width: 767px) {
+  .group-first,
+  .group-second,
+  .group-third,
+  .group-fourth {
+    width: 100%;
+  }
 }
