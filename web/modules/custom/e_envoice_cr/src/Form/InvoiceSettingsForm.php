@@ -4,6 +4,7 @@ namespace Drupal\e_invoice_cr\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\file\Entity\File;
 
 /**
  * Configure e_invoice settings for this site.
@@ -326,12 +327,27 @@ class InvoiceSettingsForm extends ConfigFormBase {
       ->set('email_copies', $tabs['email_text_group']['email_copies'])
       ->save('file', $tabs['email_text_group']['invoice_logo_file']);
 
-    $fid = $tabs['cert_group']['p12_cert'];
-    $file_object = file_load($fid[0], $reset = FALSE);
-    // Make copies and change the file names.
-    file_copy($file_object, 'public://certs/cert.pfx', FILE_EXISTS_REPLACE);
-    file_copy($file_object, 'public://certs/cert.p12', FILE_EXISTS_REPLACE);
+    $this->saveSettingsFiles();
+
     parent::submitForm($form, $form_state);
+  }
+
+  private function saveSettingsFiles(){
+    $settings = \Drupal::config('e_invoice_cr.settings');
+    $p12 = File::load(current($settings->get('p12_cert')));
+    $files = [
+      $p12,
+      File::load(current($settings->get('invoice_logo_file'))),
+      file_copy($p12, 'public://certs/cert.pfx', FILE_EXISTS_REPLACE),
+      file_copy($p12, 'public://certs/cert.p12', FILE_EXISTS_REPLACE),
+    ];
+
+    /** @var \Drupal\file\Entity\File $file */
+    foreach ($files as $file)  {
+      $file->setPermanent();
+      $file->save();
+    }
+
   }
 
 }

@@ -102,3 +102,15 @@ msgstr "Factura creada."
 # Configuration
 msgid "The number of the next invoice."
 msgstr "El número de la siguiente factura."
+
+
+# Templates
+
+msgid "Electronic receipt"
+msgstr "Recibo Electrónico"
+
+msgid "Customer's information:"
+msgstr "Información del cliente:"
+
+msgid "View PDF"
+msgstr "Ver PDF"
