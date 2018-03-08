@@ -1,3 +1,11 @@
+.invoice-entity-form fieldset {
+  padding: 5px;
+  border: 1px solid #eee;
+}
+.invoice-entity-form .table-rows fieldset {
+  padding: 0;
+  border: 0;
+}
 .group-first,
 .group-second,
 .group-third,
@@ -109,7 +117,6 @@
   font-weight: 300;
   color: black;
 }
-
 @media (max-width: 767px) {
   .group-first,
   .group-second,
