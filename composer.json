@@ -28,6 +28,7 @@
         "drupal/entity_print": "2.x",
         "drupal/field_group": "^1.0",
         "drupal/fontawesome_menu_icons": "^1.2",
+        "drupal/group": "^1.0@RC",
         "drupal/paragraphs": "^1.2",
         "drupal/swiftmailer": "^1.0@beta",
         "drupal/twig_field_value": "^1.1",
