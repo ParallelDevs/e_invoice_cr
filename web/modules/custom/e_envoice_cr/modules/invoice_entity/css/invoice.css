@@ -124,3 +124,6 @@
 .company-icon img {
   max-width: 100px;
 }
+.print__link {
+  max-width: 160px;
+}
