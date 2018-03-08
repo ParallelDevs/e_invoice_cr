@@ -332,7 +332,10 @@ class InvoiceSettingsForm extends ConfigFormBase {
     parent::submitForm($form, $form_state);
   }
 
-  private function saveSettingsFiles(){
+  /**
+   * Function to store all the settings files.
+   */
+  private function saveSettingsFiles() {
     $settings = \Drupal::config('e_invoice_cr.settings');
     $p12 = File::load(current($settings->get('p12_cert')));
     $files = [
@@ -343,9 +346,11 @@ class InvoiceSettingsForm extends ConfigFormBase {
     ];
 
     /** @var \Drupal\file\Entity\File $file */
-    foreach ($files as $file)  {
-      $file->setPermanent();
-      $file->save();
+    foreach ($files as $file) {
+      if (!is_null($file)) {
+        $file->setPermanent();
+        $file->save();
+      }
     }
 
   }
