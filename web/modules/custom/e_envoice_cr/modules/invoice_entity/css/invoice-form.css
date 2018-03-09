@@ -3,10 +3,27 @@
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+.invoice-entity-form .group-doc-info,
+.invoice-entity-form .group-doc-info fieldset,
+.invoice-entity-form .group-client-info,
+.invoice-entity-form .group-invoice-payment,
+.invoice-entity-form .group-invoice-payment,
+.invoice-entity-form .group-invoice-payment fieldset,
 .invoice-entity-form .table-rows fieldset {
   padding: 0;
   border: 0;
 }
+.invoice-entity-form .group-doc-info fieldset,
+.invoice-entity-form .group-invoice-payment fieldset {
+  padding: 0;
+}
+.invoice-entity-form .group-doc-info fieldset .fieldset-wrapper,
+.invoice-entity-form .group-invoice-payment fieldset .fieldset-wrapper {
+  padding: 0;
+}
+.group-doc-info,
+.group-client-info,
+.group-invoice-payment,
 .group-first,
 .group-second,
 .group-third,
@@ -26,14 +43,30 @@
 .invoice-footer {
   margin-bottom: 30px;
 }
+.invoice-head > legend,
+.invoice-footer > legend {
+  margin-left: 10px;
+}
 .invoice-entity-form .table-rows .group-discount {
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 5px;
 }
+.group-doc-info legend,
+.group-client-info legend,
+.group-invoice-payment legend,
 .group-discount legend {
   display: none;
 }
+.group-doc-info fieldset legend,
+.group-invoice-payment fieldset legend {
+  display: block;
+  font-weight: 300;
+  color: #999999;
+}
+.group-doc-info .fieldset-wrapper,
+.group-client-info .fieldset-wrapper,
+.group-invoice-payment .fieldset-wrapper,
 .group-first .fieldset-wrapper,
 .group-second .fieldset-wrapper,
 .group-third .fieldset-wrapper,
@@ -42,8 +75,19 @@
   padding: 0 10px;
   border-right: 2px solid #eee;
 }
+.group-doc-info .fieldset-wrapper,
+.group-client-info .fieldset-wrapper,
+.group-invoice-payment .fieldset-wrapper {
+  min-height: 258px;
+}
+.group-doc-info fieldset .fieldset-wrapper,
+.group-invoice-payment fieldset .fieldset-wrapper,
 .group-fourth .fieldset-wrapper {
   border-right: 0;
+  min-height: inherit;
+}
+.group-doc-info fieldset .fieldset-wrapper {
+  min-height: 80px;
 }
 .group-discount .fieldset-wrapper {
   min-height: inherit;
@@ -64,6 +108,7 @@
 }
 .table-rows.field-multiple-table {
   box-shadow: none;
+  border-top: 0;
 }
 .table-rows > thead tr th {
   border-bottom: 0;
@@ -73,16 +118,16 @@
   display: initial;
   color: black;
 }
+.description,
 .table-rows thead {
-  border: 0;
-  box-shadow: none;
+  display: none;
 }
 .table-rows tr {
   position: relative;
   display: block;
   width: 100%;
   margin-bottom: 20px;
-  border: solid 1px #f4f4f4;
+  border: solid 1px #ccc;
   border-radius: 5px;
 }
 .table-rows thead tr {
@@ -108,6 +153,9 @@
 .invoice-entity-form select {
   border-radius: 5px;
   margin-bottom: 15px;
+}
+.invoice-entity-form .form-checkboxes .form-item {
+  width: 100%;
 }
 .invoice-entity-form .select2-container .select2-selection--single {
   border-radius: 5px !important;
@@ -154,6 +202,9 @@
   min-width: 192px;
 }
 @media (max-width: 767px) {
+  .group-doc-info,
+  .group-client-info,
+  .group-invoice-payment,
   .group-first,
   .group-second,
   .group-third,
