@@ -219,7 +219,7 @@ class InvoiceEntityForm extends ContentEntityForm {
       return FALSE;
     }
     else {
-      // Add the key number to the invoice
+      // Add the key number to the invoice.
       $type_of = $this->entity->get('type_of')->value;
       $this->entity->set('field_numeric_key', $invoice_service->generateInvoiceKey($type_of));
 
