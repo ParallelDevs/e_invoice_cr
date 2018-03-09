@@ -3,12 +3,6 @@ invoice-rows:
   css:
     theme:
       css/invoice-form.css: {}
-  js:
-    js/invoice-rows.js: {}
-  dependencies:
-    - core/jquery
-    - core/jquery.once
-    - core/drupal
 invoice:
   version: 1.x
   css:
