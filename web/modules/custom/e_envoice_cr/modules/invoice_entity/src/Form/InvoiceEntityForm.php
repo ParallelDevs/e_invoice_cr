@@ -84,7 +84,6 @@ class InvoiceEntityForm extends ContentEntityForm {
     $form['#attached']['drupalSettings']['dependentFields'] = InvoiceEntityForm::DEPENDENT_FIELDS;
     $form['#attached']['drupalSettings']['taxsObject'] = $tax_info;
 
-    $form['field_numeric_key']['#disabled'] = 'disabled';
     $form['field_consecutive_number']['#disabled'] = 'disabled';
     if ($this->entity->isNew()) {
       // Generate the invoice keys.
@@ -96,7 +95,6 @@ class InvoiceEntityForm extends ContentEntityForm {
       else {
         $invoice_service->updateValues();
       }
-      $form['field_numeric_key']['widget'][0]['value']['#default_value'] = $key;
       $form['field_consecutive_number']['widget'][0]['value']['#default_value'] = $invoice_service->generateConsecutive($type_of);
     }
     $this->formatField($form['field_total_discount']['widget'][0]['value'], TRUE, TRUE);
@@ -221,6 +219,9 @@ class InvoiceEntityForm extends ContentEntityForm {
       return FALSE;
     }
     else {
+      // Add the key number to the invoice
+      $type_of = $this->entity->get('type_of')->value;
+      $this->entity->set('field_numeric_key', $invoice_service->generateInvoiceKey($type_of));
 
       $settings = \Drupal::config('e_invoice_cr.settings');
       $date_text = $this->entity->get('field_invoice_date')->value;
