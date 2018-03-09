@@ -24,7 +24,6 @@ third_party_settings:
   field_group:
     group_header:
       children:
-        - field_numeric_key
         - field_consecutive_number
         - field_invoice_date
         - field_client
@@ -160,14 +159,6 @@ content:
     third_party_settings: {  }
     type: number
     region: content
-  field_numeric_key:
-    weight: 1
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_payment_method:
     weight: 5
     settings: {  }
@@ -270,5 +261,6 @@ content:
     region: content
     third_party_settings: {  }
 hidden:
+  field_numeric_key: true
   moderation_state: true
   name: true
