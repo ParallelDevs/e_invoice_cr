@@ -5,6 +5,7 @@ core: 8.x
 libraries:
   - euro_digital_admin/core
   - euro_digital_admin/select2
+  - euro_digital_admin/e-invoice-cr-form
 package: Entity Print
 entity_print:
   node:

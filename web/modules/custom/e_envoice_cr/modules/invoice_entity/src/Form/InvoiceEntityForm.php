@@ -73,9 +73,9 @@ class InvoiceEntityForm extends ContentEntityForm {
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
     $invoice_service = \Drupal::service('invoice_entity.service');
 
-    // The library.
-    $form['#attached']['library'][] = 'invoice_entity/invoice-rows';
-    $form['#attached']['library'][] = 'invoice_entity/invoice-rows-js';
+    // Add the libraries.
+    $form = $this->addLibraries($form);
+
     // Get all tax entities.
     $tax_info = $this->getMainTaxesInfo();
 
@@ -297,6 +297,39 @@ class InvoiceEntityForm extends ContentEntityForm {
     }
 
     return TRUE;
+  }
+
+  /**
+   * Add the libraries.
+   */
+  private function addLibraries($form) {
+    // Get default theme libraries.
+    $theme_libraries = \Drupal::theme()->getActiveTheme()->getLibraries();
+    // Look for a custom library.
+    $custom_library = $this->searchCustomLibrary($theme_libraries);
+    if ($custom_library) {
+      // This a library from a theme.
+      $form['#attached']['library'][] = $custom_library;
+    }
+    else {
+      // This is the default library.
+      $form['#attached']['library'][] = 'invoice_entity/invoice-rows';
+    }
+    // Default js library.
+    $form['#attached']['library'][] = 'invoice_entity/invoice-rows-js';
+    return $form;
+  }
+
+  /**
+   * Search a custom library.
+   */
+  private function searchCustomLibrary($libraries) {
+    foreach ($libraries as $index => $item) {
+      if (strpos($item, 'e-invoice-cr-form') !== FALSE) {
+        return $item;
+      }
+    }
+    return NULL;
   }
 
   /**

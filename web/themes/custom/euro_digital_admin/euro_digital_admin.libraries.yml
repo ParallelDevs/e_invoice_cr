@@ -23,3 +23,8 @@ print-styling:
   css:
     theme:
       css/style.css: {}
+
+e-invoice-cr-form:
+  css:
+    theme:
+      css/invoice-form.css: {}
