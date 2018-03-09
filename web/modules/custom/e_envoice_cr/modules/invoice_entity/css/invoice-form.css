@@ -9,7 +9,7 @@
 .invoice-entity-form .group-invoice-payment,
 .invoice-entity-form .group-invoice-payment,
 .invoice-entity-form .group-invoice-payment fieldset,
-.invoice-entity-form .table-rows fieldset {
+.invoice-entity-form .field-multiple-table fieldset {
   padding: 0;
   border: 0;
 }
@@ -36,8 +36,8 @@
 .group-second > legend,
 .group-third > legend,
 .group-fourth > legend {
-  width: 100%;
-  padding: 10px 10px;
+  width: calc(100% - 10px);
+  padding: 10px 0 10px 10px;
   background: #eee;
 }
 .invoice-footer {
@@ -47,7 +47,7 @@
 .invoice-footer > legend {
   margin-left: 10px;
 }
-.invoice-entity-form .table-rows .group-discount {
+.invoice-entity-form .field-multiple-table .group-discount {
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 5px;
@@ -64,6 +64,9 @@
   font-weight: 300;
   color: #999999;
 }
+.group-doc-info fieldset:not(.fieldgroup) > legend {
+  position: static;
+}
 .group-doc-info .fieldset-wrapper,
 .group-client-info .fieldset-wrapper,
 .group-invoice-payment .fieldset-wrapper,
@@ -78,7 +81,7 @@
 .group-doc-info .fieldset-wrapper,
 .group-client-info .fieldset-wrapper,
 .group-invoice-payment .fieldset-wrapper {
-  min-height: 258px;
+  min-height: 216px;
 }
 .group-doc-info fieldset .fieldset-wrapper,
 .group-invoice-payment fieldset .fieldset-wrapper,
@@ -87,7 +90,7 @@
   min-height: inherit;
 }
 .group-doc-info fieldset .fieldset-wrapper {
-  min-height: 80px;
+  min-height: 50px;
 }
 .group-discount .fieldset-wrapper {
   min-height: inherit;
@@ -106,44 +109,55 @@
   width: 65%;
   float: left;
 }
-.table-rows.field-multiple-table {
+.field-multiple-table.field-multiple-table {
   box-shadow: none;
   border-top: 0;
 }
-.table-rows > thead tr th {
+.field-multiple-table > thead tr th {
   border-bottom: 0;
 }
 .invoice-entity-form .field--name-field-payment-method label,
-.table-rows .field--name-field-add-discount label {
+.field-multiple-table .field--name-field-add-discount label {
   display: initial;
   color: black;
 }
 .description,
-.table-rows thead {
+.field-multiple-table thead {
   display: none;
 }
-.table-rows tr {
+.field-multiple-table tr {
   position: relative;
   display: block;
   width: 100%;
   margin-bottom: 20px;
+  padding: 0;
   border: solid 1px #ccc;
   border-radius: 5px;
 }
-.table-rows thead tr {
+.field-multiple-table thead tr {
   margin-bottom: 0;
 }
-.table-rows td.field-multiple-drag {
+.field-multiple-table td.field-multiple-drag {
   display: inline-block;
   border-bottom: 0;
 }
-.table-rows .paragraph-type-title {
+.field-multiple-table .paragraph-type-title {
   display: none;
 }
-.table-rows .paragraph-type-top {
+.field-multiple-table .paragraph-type-top {
   position: absolute;
   top: 5px;
   right: 10px;
+}
+.field-multiple-table fieldset:not(.fieldgroup) {
+  background-color: transparent;
+  min-width: 220px;
+}
+.field-multiple-table fieldset:not(.fieldgroup).group-discount {
+  min-width: 164px;
+}
+.field-multiple-table fieldset:not(.fieldgroup) > legend {
+  position: static;
 }
 .invoice-entity-form input[type=text],
 .invoice-entity-form input[type=number],
@@ -172,7 +186,7 @@
   text-transform: uppercase;
   font-weight: 600;
 }
-.table-rows .group-fourth label {
+.field-multiple-table .group-fourth label {
   font-weight: 300;
   color: black;
 }
@@ -181,13 +195,13 @@
 .field--name-field-total-tax,
 .field--name-field-total-invoice {
   float: left;
-  width: 25%;
+  width: 22%;
   min-width: 192px;
   padding: 5px 10px;
 }
 .invoice-reference-information .field--name-ref-type-of,
 .invoice-reference-information .field--name-ref-date {
-  width: 25%;
+  width: 24%;
   float: left;
   min-width: 192px;
 }
