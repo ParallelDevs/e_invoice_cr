@@ -1,7 +1,11 @@
+# How to use
 command:
   name: project:install
   description: 'Install the project with the all the dependencies and configs.'
 commands:
+  - command: exec
+    arguments:
+      bin: composer install
   # Install Drupal
   - command: site:install
     options:
