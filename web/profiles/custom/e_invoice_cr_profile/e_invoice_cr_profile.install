@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall hooks for the e-invoice-cr site.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function e_invoice_cr_profile_install() {
+  // First, do everything in standard profile.
+  include_once DRUPAL_ROOT . '/core/profiles/standard/standard.install';
+  standard_install();
+
+  // Enable euro_digital_admin theme.
+  \Drupal::service('theme_installer')->install(['euro_digital_admin'], TRUE);
+
+  // Set the default admin theme.
+  \Drupal::configFactory()->getEditable('system.theme')
+    ->set('admin', 'euro_digital_admin')
+    ->save(TRUE);
+
+  // Modules to install.
+  $modules = [
+    'admin_toolbar',
+    'admin_toolbar_tools',
+    'e_invoice_cr',
+    'customer_entity',
+    'tax_entity',
+    'invoice_entity',
+    'invoice_email',
+  ];
+
+  // Install the modules.
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+
+  // Call the hook_update_N function.
+  e_invoice_cr_profile_update_8001();
+
+}
+
+/**
+ * Implements hook_update_N().
+ */
+function e_invoice_cr_profile_update_8001() {
+
+  $modules = [
+    'admin_toolbar',
+    'admin_toolbar_tools',
+    'e_invoice_cr',
+    'customer_entity',
+    'tax_entity',
+    'invoice_entity',
+    'invoice_email',
+  ];
+
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}

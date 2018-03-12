@@ -1,0 +1,29 @@
+command:
+  name: project:install
+  description: 'Install the project with the all the dependencies and configs.'
+commands:
+  # Install Drupal
+  - command: site:install
+    options:
+      langcode: es
+      db-type: '%env(DATABASE_TYPE)%'
+      db-host: '%env(DATABASE_HOST)%'
+      db-name: '%env(DATABASE_NAME)%'
+      db-user: '%env(DATABASE_USER)%'
+      db-pass: '%env(DATABASE_PASSWORD)%'
+      db-port: '%env(DATABASE_PORT)%'
+      site-name: 'Factura CR'
+      site-mail: info@facturacr.org
+      account-name: admin
+      account-mail: admin@example.org
+      account-pass: 6bb181d872
+      force: true
+      no-interaction: true
+    arguments:
+      profile: 'e_invoice_cr_profile'
+  # Import configurations
+  - command: config:import
+   # Rebuild caches
+  - command: cache:rebuild
+    arguments:
+        cache: 'all'
