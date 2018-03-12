@@ -91,9 +91,6 @@
             "drush/contrib/{$name}": ["type:drupal-drush"]
         },
         "patches": {
-            "drupal/core": "https://www.drupal.org/files/issues/drupal-n1356276-414-d8.4.3.patch"
-        },
-        "patches": {
             "drupal/core": {
                 "Fix the install profile issues.": "https://www.drupal.org/files/issues/drupal-n1356276-413-d8.4.patch"
             }

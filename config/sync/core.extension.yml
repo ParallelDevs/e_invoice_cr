@@ -57,6 +57,6 @@ theme:
   bartik: 0
   seven: 0
   euro_digital_admin: 0
-profile: standard
+profile: e_invoice_cr_profile
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc

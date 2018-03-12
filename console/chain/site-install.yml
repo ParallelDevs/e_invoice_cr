@@ -1,11 +1,10 @@
-# How to use
 command:
   name: project:install
   description: 'Install the project with the all the dependencies and configs.'
 commands:
   - command: exec
     arguments:
-      bin: composer install
+      bin: composer install --working-dir=../
   # Install Drupal
   - command: site:install
     options:
@@ -25,9 +24,13 @@ commands:
       no-interaction: true
     arguments:
       profile: 'e_invoice_cr_profile'
+  - command: config:override
+    options:
+      quiet: true
+      uri: 'http://sync'
+    arguments:
+      name: system.site
+      key: uuid
+      value: 'eda2dc7d-6210-4fa3-a763-ca7f69f7bc9b'
   # Import configurations
   - command: config:import
-   # Rebuild caches
-  - command: cache:rebuild
-    arguments:
-        cache: 'all'
