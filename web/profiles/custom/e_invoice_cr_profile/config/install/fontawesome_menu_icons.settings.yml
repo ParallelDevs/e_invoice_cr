@@ -1,0 +1,6 @@
+menu_link_icons:
+  standard_front_page:
+    icon: 'fas fa-home'
+    appearance: before
+_core:
+  default_config_hash: 5TDl2QyTY-mHHJ0_VrmcxVDwhp4oqkLTzDI03yXvhAI

@@ -8,6 +8,7 @@ dependencies:
   - history
   - block
   - block_content
+  - block_user
   - breakpoint
   - color
   - config
