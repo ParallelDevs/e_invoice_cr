@@ -13,7 +13,7 @@ web/sites/*/private
 web/core/
 web/modules/contrib/
 web/themes/contrib/
-we/profiles/contrib/
+web/profiles/contrib/
 web/libraries/
 drush/contrib/
 

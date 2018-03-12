@@ -21,22 +21,6 @@ function e_invoice_cr_profile_install() {
     ->set('admin', 'euro_digital_admin')
     ->save(TRUE);
 
-  // Modules to install.
-  $modules = [
-    'admin_toolbar',
-    'admin_toolbar_tools',
-    'e_invoice_cr',
-    'customer_entity',
-    'tax_entity',
-    'invoice_entity',
-    'invoice_email',
-  ];
-
-  // Install the modules.
-  foreach ($modules as $module) {
-    \Drupal::service('module_installer')->install([$module]);
-  }
-
   // Call the hook_update_N function.
   e_invoice_cr_profile_update_8001();
 
