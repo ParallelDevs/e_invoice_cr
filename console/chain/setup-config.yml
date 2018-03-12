@@ -1,0 +1,16 @@
+command:
+  name: project:config:install
+  description: 'Install the project with the all the dependencies and configs.'
+commands:
+  - command: config:override
+    options:
+      quiet: true
+      uri: 'http://sync'
+    arguments:
+      name: system.site
+      key: uuid
+      value: 'eda2dc7d-6210-4fa3-a763-ca7f69f7bc9b'
+  # Import configurations
+  - command: config:import
+  # Install e-invoice-cr modules
+  - command: drupal module:install e_invoice_cr customer_entity tax_entity invoice_entity invoice_email

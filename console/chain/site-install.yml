@@ -32,5 +32,3 @@ commands:
       name: system.site
       key: uuid
       value: 'eda2dc7d-6210-4fa3-a763-ca7f69f7bc9b'
-  # Import configurations
-  - command: config:import
