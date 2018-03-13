@@ -4,7 +4,7 @@ command:
 commands:
   - command: exec
     arguments:
-      bin: composer install --working-dir=../
+      bin: composer global install --working-dir=../
   # Install Drupal
   - command: site:install
     options:
