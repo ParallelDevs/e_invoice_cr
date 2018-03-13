@@ -9,12 +9,12 @@ commands:
   - command: site:install
     options:
       langcode: es
-      db-type: '%env(DATABASE_TYPE)%'
-      db-host: '%env(DATABASE_HOST)%'
-      db-name: '%env(DATABASE_NAME)%'
-      db-user: '%env(DATABASE_USER)%'
-      db-pass: '%env(DATABASE_PASSWORD)%'
-      db-port: '%env(DATABASE_PORT)%'
+      db-type: ${DATABASE_TYPE}
+      db-host: ${DATABASE_HOST}
+      db-name: ${DATABASE_NAME}
+      db-user: ${DATABASE_USER}
+      db-pass: ${DATABASE_PASSWORD}
+      db-port: ${DATABASE_PORT}
       site-name: 'Factura CR'
       site-mail: info@facturacr.org
       account-name: admin
