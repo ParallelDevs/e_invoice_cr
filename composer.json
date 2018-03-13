@@ -24,6 +24,7 @@
         "drupal/block_user_info": "^2.0",
         "drupal/components": "^1.0",
         "drupal/console": "^1.0.2",
+        "drupal/console-dotenv": "^0.3.0",
         "drupal/core": "~8.4",
         "drupal/entity_print": "2.x",
         "drupal/field_group": "^1.0",
