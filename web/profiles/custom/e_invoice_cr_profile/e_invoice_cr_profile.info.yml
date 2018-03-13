@@ -1,0 +1,54 @@
+name: 'E-Invoice CR Profile'
+type: profile
+description: Runs an installation to have the E-invoice CR features ready.
+version: 8.x-dev
+core: '8.x'
+dependencies:
+  - node
+  - history
+  - block
+  - block_content
+  - block_user
+  - breakpoint
+  - color
+  - config
+  - comment
+  - contextual
+  - contact
+  - quickedit
+  - help
+  - image
+  - options
+  - path
+  - taxonomy
+  - dblog
+  - search
+  - shortcut
+  - toolbar
+  - field_ui
+  - file
+  - rdf
+  - views
+  - views_ui
+  - editor
+  - ckeditor
+  - components
+  - addressfield_cr
+  - admin_toolbar
+  - components
+  - entity_print
+  - field_group
+  - fontawesome_menu_icons
+  - paragraphs
+  - swiftmailer
+  - twig_field_value
+  - twig_tweak
+  - telephone
+  - content_moderation
+  - workflows
+themes:
+  - bartik
+  - seven
+  - euro_digital_admin
+base profile:
+  name: standard

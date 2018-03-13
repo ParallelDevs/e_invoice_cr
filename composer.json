@@ -24,6 +24,7 @@
         "drupal/block_user_info": "^2.0",
         "drupal/components": "^1.0",
         "drupal/console": "^1.0.2",
+        "drupal/console-dotenv": "^0.3.0",
         "drupal/core": "~8.4",
         "drupal/entity_print": "2.x",
         "drupal/field_group": "^1.0",
@@ -89,6 +90,11 @@
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
             "drush/contrib/{$name}": ["type:drupal-drush"]
+        },
+        "patches": {
+            "drupal/core": {
+                "Fix the install profile issues.": "https://www.drupal.org/files/issues/drupal-n1356276-413-d8.4.patch"
+            }
         }
     }
 }
