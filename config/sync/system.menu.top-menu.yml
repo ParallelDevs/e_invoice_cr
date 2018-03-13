@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: top-menu
-label: 'Top Menu'
-description: ''
-locked: false
