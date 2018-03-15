@@ -35,9 +35,6 @@ $font-directory: "../fonts/" !default;
   $filename: map-get($font-face, "filename");
   @font-face {
     font-family: map-get($font-face, "name");
-    src: url("#{$font-directory}#{$filename}.woff2") format("woff2"),
-      url("#{$font-directory}#{$filename}.woff") format("woff"),
-      url("#{$font-directory}#{$filename}.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
   }
@@ -46,7 +43,7 @@ $font-directory: "../fonts/" !default;
 $ff--lato: 'LatoRegular', sans-serif;
 $ff--helvetica: 'Helvetica', sans-serif;
 $ff--source-pro: 'Source Sans Pro', sans-serif;
-$ff--icons: 'Glyphicons';
+$ff--icons: 'fontawesome';
 
 $ff--heading: $ff--source-pro !default;
 $ff--body: $ff--source-pro !default;

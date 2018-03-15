@@ -1,0 +1,6 @@
+e_invoice_cr_profile.top_menu:
+  title: 'Hamburger Menu'
+  parent: system.menu.top-menu
+  route_name: '<front>'
+  menu_name: top-menu
+  weight: 100
