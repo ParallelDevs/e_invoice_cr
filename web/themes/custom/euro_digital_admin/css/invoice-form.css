@@ -9,6 +9,7 @@
 .invoice-entity-form .group-invoice-payment,
 .invoice-entity-form .group-invoice-payment,
 .invoice-entity-form .group-invoice-payment fieldset,
+.invoice-entity-form .table-filas fieldset,
 .invoice-entity-form .table-rows fieldset {
   padding: 0;
   border: 0;
@@ -47,6 +48,7 @@
 .invoice-footer > legend {
   margin-left: 10px;
 }
+.invoice-entity-form .table-filas .group-discount,
 .invoice-entity-form .table-rows .group-discount {
   border: 1px solid #ccc;
   padding: 10px;
@@ -106,22 +108,27 @@
   width: 65%;
   float: left;
 }
+.table-filas.field-multiple-table,
 .table-rows.field-multiple-table {
   box-shadow: none;
   border-top: 0;
 }
+.table-filas > thead tr th,
 .table-rows > thead tr th {
   border-bottom: 0;
 }
 .invoice-entity-form .field--name-field-payment-method label,
+.table-filas .field--name-field-add-discount label,
 .table-rows .field--name-field-add-discount label {
   display: initial;
   color: black;
 }
 .description,
+.table-filas thead,
 .table-rows thead {
   display: none;
 }
+.table-filas tr,
 .table-rows tr {
   position: relative;
   display: block;
@@ -130,16 +137,20 @@
   border: solid 1px #ccc;
   border-radius: 5px;
 }
+.table-filas thead tr,
 .table-rows thead tr {
   margin-bottom: 0;
 }
+.table-filas td.field-multiple-drag,
 .table-rows td.field-multiple-drag {
   display: inline-block;
   border-bottom: 0;
 }
+.table-filas .paragraph-type-title,
 .table-rows .paragraph-type-title {
   display: none;
 }
+.table-filas .paragraph-type-top,
 .table-rows .paragraph-type-top {
   position: absolute;
   top: 5px;
@@ -172,6 +183,7 @@
   text-transform: uppercase;
   font-weight: 600;
 }
+.table-filas .group-fourth label,
 .table-rows .group-fourth label {
   font-weight: 300;
   color: black;
