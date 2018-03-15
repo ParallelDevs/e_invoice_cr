@@ -12,8 +12,7 @@ function e_invoice_cr_profile_install() {
   // First, do everything in standard profile.
   include_once DRUPAL_ROOT . '/core/profiles/standard/standard.install';
   standard_install();
-  // check dirs permissions.
-  checkDirsPermissions();
+
   // Enable euro_digital_admin theme.
   \Drupal::service('theme_installer')->install(['euro_digital_admin'], TRUE);
 
@@ -38,29 +37,4 @@ function e_invoice_cr_profile_install() {
     \Drupal::service('module_installer')->install([$module]);
   }
 
-}
-
-function checkDirsPermissions() {
-  $css_dir = DRUPAL_ROOT . '/sites/default/files/css/';
-  $js_dir = DRUPAL_ROOT . '/sites/default/files/js/';
-  $files_dir = DRUPAL_ROOT . '/sites/default/files/';
-  // Delete existing dirs.
-  if (is_dir($css_dir)) {
-    file_unmanaged_delete_recursive($css_dir);
-    // Create dirs again.
-    file_prepare_directory($css_dir, FILE_CREATE_DIRECTORY);
-    // Check its permissions.
-    chmod($css_dir, 0777);
-  }
-  if (is_dir($js_dir)) {
-    file_unmanaged_delete_recursive($js_dir);
-    // Create dirs again.
-    file_prepare_directory($js_dir, FILE_CREATE_DIRECTORY);
-    // Check its permissions.
-    chmod($js_dir, 0777);
-  }
-  if (is_dir($files_dir)) {
-    // Check its permissions.
-    chmod($files_dir, 0775);
-  }
 }
