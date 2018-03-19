@@ -316,10 +316,12 @@ class XMLGenerator {
     // Continue building the xml.
     $xml_doc = "\t\t<LineaDetalle>\n";
     $xml_doc .= "\t\t\t<NumeroLinea>" . $count . "</NumeroLinea>\n";
-    $xml_doc .= "\t\t\t<Codigo>\n";
-    $xml_doc .= "\t\t\t\t<Tipo>" . $values['field_code_type'][0]['value'] . "</Tipo>\n";
-    $xml_doc .= "\t\t\t\t<Codigo>" . $values['field_code'][0]['value'] . "</Codigo>\n";
-    $xml_doc .= "\t\t\t</Codigo>\n";
+    if ($values['field_code_type'][0]['value'] !== "" && $values['field_code'][0]['value'] !== "") {
+      $xml_doc .= "\t\t\t<Codigo>\n";
+      $xml_doc .= "\t\t\t\t<Tipo>" . $values['field_code_type'][0]['value'] . "</Tipo>\n";
+      $xml_doc .= "\t\t\t\t<Codigo>" . $values['field_code'][0]['value'] . "</Codigo>\n";
+      $xml_doc .= "\t\t\t</Codigo>\n";
+    }
     $xml_doc .= "\t\t\t<Cantidad>" . $values['field_quantity'][0]['value'] . "</Cantidad>\n";
     $xml_doc .= "\t\t\t<UnidadMedida>" . $values['field_unit_measure'][0]['value'] . "</UnidadMedida>\n";
     $xml_doc .= "\t\t\t<UnidadMedidaComercial>" . $values['field_another_unit_measure'][0]['value'] . "</UnidadMedidaComercial>\n";
