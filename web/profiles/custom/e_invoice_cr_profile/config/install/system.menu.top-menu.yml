@@ -4,4 +4,4 @@ dependencies: {  }
 id: top-menu
 label: 'Top Menu'
 description: ''
-locked: false
+locked: true

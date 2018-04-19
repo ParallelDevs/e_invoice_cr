@@ -27,4 +27,4 @@ print-styling:
 e-invoice-cr-form:
   css:
     theme:
-      css/invoice-form.css: {}
+      css_invoice/invoice-form.css: {}

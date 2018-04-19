@@ -94,10 +94,10 @@
 
         if (windowWidth > this.options.collapseScreenSize) {
           $('body').removeClass(ClassName.collapsed)
-            .trigger($.events(events.expanded));
+            .trigger($.Event(events.expanded));
         } else {
           $('body').addClass(ClassName.open)
-            .trigger($.events(events.expanded));
+            .trigger($.Event(events.expanded));
         }
       };
 
@@ -105,10 +105,10 @@
         var windowWidth = $(window).width();
         if (windowWidth > this.options.collapseScreenSize) {
           $('body').addClass(ClassName.collapsed)
-            .trigger($.events(events.collapsed));
+            .trigger($.Event(events.collapsed));
         } else {
           $('body').removeClass(ClassName.open + ' ' + ClassName.collapsed) // eslint-disable-line prefer-template
-            .trigger($.events(events.collapsed));
+            .trigger($.Event(events.collapsed));
         }
       };
 
