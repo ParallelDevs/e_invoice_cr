@@ -193,19 +193,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         var windowWidth = $(window).width();
 
         if (windowWidth > this.options.collapseScreenSize) {
-          $('body').removeClass(ClassName.collapsed).trigger($.events(events.expanded));
+          $('body').removeClass(ClassName.collapsed).trigger($.Event(events.expanded));
         } else {
-          $('body').addClass(ClassName.open).trigger($.events(events.expanded));
+          $('body').addClass(ClassName.open).trigger($.Event(events.expanded));
         }
       };
 
       PushMenu.prototype.close = function () {
         var windowWidth = $(window).width();
         if (windowWidth > this.options.collapseScreenSize) {
-          $('body').addClass(ClassName.collapsed).trigger($.events(events.collapsed));
+          $('body').addClass(ClassName.collapsed).trigger($.Event(events.collapsed));
         } else {
           $('body').removeClass(ClassName.open + ' ' + ClassName.collapsed) // eslint-disable-line prefer-template
-          .trigger($.events(events.collapsed));
+          .trigger($.Event(events.collapsed));
         }
       };
 

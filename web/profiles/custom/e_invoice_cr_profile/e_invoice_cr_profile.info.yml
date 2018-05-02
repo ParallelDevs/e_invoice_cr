@@ -43,6 +43,7 @@ dependencies:
   - fontawesome_menu_icons
   - paragraphs
   - swiftmailer
+  - superfish
   - twig_field_value
   - twig_tweak
   - telephone

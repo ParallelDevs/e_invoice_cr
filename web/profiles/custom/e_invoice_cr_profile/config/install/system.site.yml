@@ -1,14 +1,13 @@
-uuid: eda2dc7d-6210-4fa3-a763-ca7f69f7bc9b
-name: FacturacionCR
-mail: mail@mail.com
+name: 'Factura Electrónica CR'
+mail: admin@example.com
 slogan: ''
 page:
   403: ''
   404: ''
-  front: /node
+  front: /user/login
 admin_compact_mode: false
 weight_select_max: 100
 langcode: en
 default_langcode: en
 _core:
-  default_config_hash: yXadRE77Va-G6dxhd2kPYapAvbnSvTF6hO4oXiOEynI
+  default_config_hash: Hf281U_ljT2V4lrDO9gPw8UCY8cCxf6-b3yX85zGr7k
