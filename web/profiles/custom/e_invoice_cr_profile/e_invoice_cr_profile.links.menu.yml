@@ -4,3 +4,73 @@ e_invoice_cr_profile.top_menu:
   route_name: '<front>'
   menu_name: top-menu
   weight: 100
+
+e_invoice_cr_profile.invoice_settings:
+  title: 'Settings'
+  parent: system.menu.main
+  url: internal:/admin/e-invoice-cr/settings
+  menu_name: main
+  weight: 100
+
+e_invoice_cr_profile.customer:
+  title: 'Customers'
+  parent: system.menu.main
+  url: internal:/admin/structure/e-invoice-cr/customer_entity
+  menu_name: main
+  weight: 100
+
+e_invoice_cr_profile.add_customer:
+  title: 'Add Customer'
+  parent: e_invoice_cr_profile.customer
+  url: internal:/admin/structure/e-invoice-cr/customer_entity/add
+  menu_name: main
+  weight: 100
+
+e_invoice_cr_profile.view_customers:
+  title: 'Customers list'
+  parent: e_invoice_cr_profile.customer
+  url: internal:/admin/structure/e-invoice-cr/customer_entity
+  menu_name: main
+  weight: 100
+
+e_invoice_cr_profile.invoice:
+  title: 'Invoices'
+  parent: system.menu.main
+  url: internal:/admin/structure/e-invoice-cr/invoice_entity
+  menu_name: main
+  weight: 100
+
+e_invoice_cr_profile.add_invoice:
+  title: 'Add invoice'
+  parent: e_invoice_cr_profile.invoice
+  url: internal:/admin/structure/e-invoice-cr/invoice_entity/add
+  menu_name: main
+  weight: 100
+
+e_invoice_cr_profile.view_invoice:
+  title: 'Invoices list'
+  parent: e_invoice_cr_profile.invoice
+  url: internal:/admin/structure/e-invoice-cr/invoice_entity
+  menu_name: main
+  weight: 100
+
+e_invoice_cr_profile.tax:
+  title: 'Taxes'
+  parent: system.menu.main
+  url: internal:/admin/structure/tax_entity
+  menu_name: main
+  weight: 100
+
+e_invoice_cr_profile.add_tax:
+  title: 'Add tax'
+  parent: e_invoice_cr_profile.tax
+  url: internal:/admin/structure/tax_entity/add
+  menu_name: main
+  weight: 100
+
+e_invoice_cr_profile.view_tax:
+  title: 'Taxes list'
+  parent: e_invoice_cr_profile.tax
+  url: internal:/admin/structure/tax_entity
+  menu_name: main
+  weight: 100

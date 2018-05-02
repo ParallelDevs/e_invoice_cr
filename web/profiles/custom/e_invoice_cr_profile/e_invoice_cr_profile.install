@@ -30,6 +30,7 @@ function e_invoice_cr_profile_install() {
     'tax_entity',
     'invoice_entity',
     'invoice_email',
+      'superfish',
   ];
 
   // Install the modules.
