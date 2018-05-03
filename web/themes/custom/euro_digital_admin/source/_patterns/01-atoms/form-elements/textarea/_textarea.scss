@@ -1,7 +1,0 @@
-textarea {
-  @include input-style;
-  transition: ease-in-out .5s all;
-  &.on-focus {
-    height: 134px;
-  }
-}

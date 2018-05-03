@@ -1,101 +1,22 @@
 {
-    "name": "drupal-composer/drupal-project",
-    "description": "Project template for Drupal 8 projects with composer",
-    "type": "project",
-    "license": "GPL-2.0+",
-    "authors": [
-        {
-            "name": "",
-            "role": ""
-        }
-    ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://packages.drupal.org/8"
-        }
-    ],
-    "require": {
-        "composer/installers": "^1.2",
-        "cweagans/composer-patches": "^1.6",
-        "drupal-composer/drupal-scaffold": "^2.2",
-        "drupal/addressfield_cr": "1.x-dev",
-        "drupal/admin_toolbar": "^1.23",
-        "drupal/block_user_info": "^2.0",
-        "drupal/components": "^1.0",
-        "drupal/console": "^1.0.2",
-        "drupal/console-dotenv": "^0.3.0",
-        "drupal/core": "~8.4",
-        "drupal/entity_print": "2.x",
-        "drupal/field_group": "^1.0",
-        "drupal/fontawesome_menu_icons": "^1.2",
-        "drupal/group": "^1.0@RC",
-        "drupal/paragraphs": "^1.2",
-        "drupal/superfish": "^1.2",
-        "drupal/swiftmailer": "^1.0@beta",
-        "drupal/twig_field_value": "^1.1",
-        "drupal/twig_tweak": "^1.9",
-        "drush/drush": "~8.0|^9.0.0-beta8",
-        "webflo/drupal-finder": "^1.0.0",
-        "webmozart/path-util": "^2.3"
-    },
-    "require-dev": {
-        "behat/mink": "~1.7",
-        "behat/mink-goutte-driver": "~1.2",
-        "drupal/coder": "^8.2",
-        "jcalderonzumba/gastonjs": "~1.0.2",
-        "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
-        "mikey179/vfsstream": "~1.2",
-        "phpunit/phpunit": ">=4.8.28 <5",
-        "symfony/css-selector": "~2.8|~3.0"
-    },
-    "conflict": {
-        "drupal/drupal": "*"
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "config": {
-        "sort-packages": true
-    },
-    "autoload": {
-        "classmap": [
-            "scripts/composer/ScriptHandler.php"
-        ]
-    },
-    "scripts": {
-        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-        "pre-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
-        ],
-        "pre-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
-        ],
-        "post-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
-        ],
-        "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
-        ],
-        "php-code-sniffer-cmd": [
-            "./vendor/bin/phpcs --standard=./vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md ./web/modules/custom"
-        ],        
-        "validate-code-cmd": [
-            "@php-code-sniffer-cmd"            
-        ]
-    },
-    "extra": {
-        "installer-paths": {
-            "web/core": ["type:drupal-core"],
-            "web/libraries/{$name}": ["type:drupal-library"],
-            "web/modules/contrib/{$name}": ["type:drupal-module"],
-            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
-            "web/themes/contrib/{$name}": ["type:drupal-theme"],
-            "drush/contrib/{$name}": ["type:drupal-drush"]
-        },
-        "patches": {
-            "drupal/core": {
-                "Fix the install profile issues.": "https://www.drupal.org/files/issues/drupal-n1356276-413-d8.4.patch"
-            }
-        }
+  "name": "drupal/e_invoice_cr",
+  "type": "drupal-module",
+  "description": "This module provides an invoice system according to the costa rican regulations.",
+  "keywords": ["Drupal", "invoice", "Costa Rica"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/e_invoice_cr",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/e_invoice_cr",
+    "source": "http://cgit.drupalcode.org/e_invoice_cr"
+  },
+  "require": { },
+  "extra": {
+    "patches": {
+      "drupal/core": {
+        "Drupal Core AJAX error fix": "https://www.drupal.org/files/issues/drupal-2027059-62.patch",
+        "Number Decimals fields fixed" : "https://www.drupal.org/files/issues/2230909-78-simple_decimals_fail_to.patch"
+      }
     }
+  }
 }
