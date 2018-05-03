@@ -2,7 +2,6 @@
 
 namespace Drupal\e_invoice_cr;
 
-
 /**
  * Communication with the API.
  */
@@ -23,5 +22,13 @@ interface CommunicationInterface {
    *   The status.
    */
   public function validateDocument($key = NULL);
+
+  /**
+   * Get the environment url.
+   *
+   * @return string
+   *   Environment url.
+   */
+  public function getEnvironment();
 
 }

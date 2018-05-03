@@ -2,14 +2,13 @@ invoice-rows:
   version: 1.x
   css:
     theme:
-      css/invoice-rows.css: {}
-  js:
-    js/invoice-rows.js: {}
+      css/invoice-form.css: {}
+invoice:
+  version: 1.x
+  css:
+    theme:
+      css/invoice.css: {}
   dependencies:
-    - core/jquery
-    - core/jquery.once
-    - core/drupal
-
 invoice-rows-js:
   version: 1.x
   js:

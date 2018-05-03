@@ -94,8 +94,6 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
       }
     }
 
-    // If no revision author has been set explicitly, make the invoice_entity owner the
-    // revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());
     }
@@ -114,6 +112,13 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
   public function setName($name) {
     $this->set('name', $name);
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getInvoiceType() {
+    return $this->get('type_of')->value;
   }
 
   /**
@@ -228,6 +233,105 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['type_of'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Type of document'))
+      ->setRevisionable(FALSE)
+      ->setTranslatable(FALSE)
+      ->setSettings([
+        'allowed_values' => [
+          'FE' => t('Electronic Bill'),
+          'TE' => t('Electronic Ticket'),
+          'NC' => t('Credit Note'),
+          'ND' => t('Debit Note'),
+        ],
+      ])
+      ->setRequired(TRUE)
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => -4,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'options_select',
+        'weight' => -4,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    // Reference Information fields.
+    $fields['ref_type_of'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Type of document'))
+      ->setRevisionable(FALSE)
+      ->setTranslatable(FALSE)
+      ->setSettings([
+        'allowed_values' => [
+          'FE' => t('Electronic Bill'),
+          'TE' => t('Electronic Ticket'),
+          'NC' => t('Credit Note'),
+          'ND' => t('Debit Note'),
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['ref_doc_key'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Document Number'))
+      ->setRevisionable(FALSE)
+      ->setTranslatable(FALSE)
+      ->setSettings([
+        'max_length' => 50,
+        'min_length' => 50,
+        'text_processing' => 0,
+      ])
+      ->setDefaultValue('')
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['ref_date'] = BaseFieldDefinition::create('datetime')
+      ->setLabel(t('Date'))
+      ->setSettings([
+        'datetime_type' => 'date',
+        'datetime_format' => 'd/m/Y',
+      ])
+      ->setRevisionable(FALSE)
+      ->setTranslatable(FALSE)
+      ->setDefaultValue('')
+      ->setDisplayOptions('form', [
+        'date_date_element' => 'date',
+        'date_date_format' => 'd/m/Y',
+        'date_time_element' => 'none',
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['ref_code'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Type of reference'))
+      ->setRevisionable(FALSE)
+      ->setTranslatable(FALSE)
+      ->setSettings([
+        'allowed_values' => [
+          '01' => t('Cancel Reference Document'),
+          '02' => t('Corrects text reference document'),
+          '03' => t('Corrects amount'),
+          '04' => t('Reference to another document'),
+          '05' => t('Replaces provisional voucher for contingency'),
+          '99' => t('Other'),
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['ref_reason'] = BaseFieldDefinition::create('string_long')
+      ->setLabel('Reason')
+      ->setRevisionable(FALSE)
+      ->setTranslatable(FALSE)
+      ->setSettings([
+        'max_length' => 180,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))
       ->setDescription(t('A boolean indicating whether the Invoice is published.'))
@@ -250,6 +354,30 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
       ->setTranslatable(TRUE);
 
     return $fields;
+  }
+
+  /**
+   * Gets an array of placeholders for this entity.
+   *
+   * Individual entity classes may override this method to add additional
+   * placeholders if desired. If so, they should be sure to replicate the
+   * property caching logic.
+   *
+   * @param string $rel
+   *   The link relationship type, for example: canonical or edit-form.
+   *
+   * @return array
+   *   An array of URI placeholders.
+   */
+  protected function urlRouteParameters($rel) {
+    $uri_route_parameters = parent::urlRouteParameters($rel);
+    if ($rel === 'revision_revert' && $this instanceof RevisionableContentEntityBase) {
+      $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
+    }
+    elseif ($rel === 'revision_delete' && $this instanceof RevisionableContentEntityBase) {
+      $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
+    }
+    return $uri_route_parameters;
   }
 
 }

@@ -1,0 +1,173 @@
+div,
+table {
+  font-family: "Lucida Grande","Lucida Sans Unicode","DejaVu Sans","Lucida Sans", sans-serif;
+  font-size: 10px;
+}
+.print__wrapper--pdf {
+  display: none;
+}
+.first-table {
+  width: 100%;
+}
+.first-table td {
+  color: #999999;
+}
+.first-table tr {
+  border-bottom: 0;
+  height: 200px;
+}
+.first-table td.right-col {
+  text-align: right;
+}
+.invoice-info {
+  text-align: right;
+  display: block;
+}
+.contact-info {
+  text-align: right;
+  display: block;
+}
+.background-gray {
+  color: #999999;
+}
+.contact-info div {
+  display: inline;
+  padding: 5px;
+  text-align: right;
+}
+.contact-info div div {
+  padding: 0 5px;
+}
+.contact-info .circle {
+  margin-right: 5px;
+  padding: 5px;
+  background-color: white;
+  border-bottom-left-radius: 5px;
+  text-align: center;
+}
+.contact-info .circle img {
+  max-width: 18px;
+  height: 15px;
+  vertical-align: text-bottom;
+}
+.content-right {
+  text-align: right;
+}
+.company-info {
+  display: inline-block;
+  position: static;
+  margin-right: 10px;
+  color: #3f3f3f;
+  font-weight: 200;
+  font-size: 12px;
+}
+.company-info .main-name {
+  color: #999999;
+  font-weight: 400;
+  font-size: 16px;
+  max-width: 180px;
+}
+.customer-info {
+  margin-top: 20px;
+  color: #3f3f3f;
+  font-size: 12px;
+}
+.customer-info .customer-name {
+  color: #999999;
+}
+.field-group {
+  text-align: right;
+  display: block;
+}
+.field-group .field-label,
+.field-group .field-value {
+  display: inline;
+  color: #3f3f3f;
+  font-size: 10px;
+  text-align: right;
+}
+.invoice-num .field-label {
+  font-size: 16px;
+  color: #999999;
+}
+.invoice-num .field-value {
+  font-size: 16px;
+  color: #df0707;
+}
+.pdf-only {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  border-top: 2px solid #999999;
+}
+.sum-table .sum-field-label {
+  text-align: right;
+}
+.sum-table .sum-field-value {
+  text-align: right;
+  width: 130px;
+  text-align: right;
+  padding-right: 46px;
+}
+.rows-table {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.rows-table th {
+  background: #999999;
+  color: #ffffff;
+  padding: 2px 5px;
+  border-right: 4px solid;
+  border-top: 0;
+}
+.rows-table tr,
+.rows-table thead {
+  width: 100%;
+  border: 0;
+}
+.rows-table td {
+  color: #3f3f3f;
+  padding: 0 4px;
+}
+.sum-table {
+  width: 100%;
+}
+.sum-table td {
+  margin-top: 20px;
+  color: #3f3f3f;
+}
+.sum-field-label,
+.sum-field-value {
+  font-size: 13px;
+  text-align: right;
+  text-transform: uppercase;
+}
+.small-text .sum-field-label,
+.small-text .sum-field-value {
+  font-size: 11px;
+}
+.big-text .sum-field-label,
+.big-text .sum-field-value {
+  font-size: 17px;
+  color: black;
+}
+.field--name-field-rows > .field__label {
+  display: none;
+}
+.invoice_entity h2 {
+  color: #999999;
+  margin: 28px 0;
+  font-size: 16px;
+  text-align: center;
+}
+.company-icon {
+  max-width: 75px;
+  display: inline;
+  margin-right: 5px;
+  height: auto;
+}
+.company-icon img {
+  max-width: 75px;
+}

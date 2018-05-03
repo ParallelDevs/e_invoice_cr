@@ -4,7 +4,7 @@ invoice_entity.settings:
   mapping:
    invoice_number:
      type: string
-   secure_code:
-     type: string
    consecutive_code:
      type: string
+   type_of:
+      type: string

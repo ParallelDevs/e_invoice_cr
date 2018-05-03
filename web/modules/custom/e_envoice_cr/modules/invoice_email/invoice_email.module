@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_help().
@@ -20,5 +21,65 @@ function invoice_email_help($route_name, RouteMatchInterface $route_match) {
       return $output;
 
     default:
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function invoice_email_mail($key, &$message, $params) {
+  $options = [
+    'langcode' => $message['langcode'],
+  ];
+  switch ($key) {
+    case 'invoice_validated':
+      if (count($params['cc']) !== 0 && !is_null($params['cc'])) {
+        $message['headers']['cc'] = $params['cc'];
+      }
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('Subject: @title', ['@title' => $params['title']], $options);
+      $message['body'][] = Html::escape($params['message']);
+      if (count($params['files']) !== 0 && !is_null($params['files'])) {
+        $message['params']['files'] = $params['files'];
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function invoice_email_theme_registry_alter(&$theme_registry) {
+  // Change the default template.
+  $theme_registry['entity_print']['path'] = drupal_get_path('module', 'invoice_email') . '/templates';
+}
+
+/**
+ * Implements hook_link_alter().
+ */
+function invoice_email_link_alter(&$variables) {
+  $url = $variables['url'];
+  $external = $url->isExternal();
+  if ($external == FALSE) {
+    $name = $url->getRouteName();
+    if ($name === "entity_print.view") {
+      $variables['options']['attributes']['class'][] = "button";
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_entity_print().
+ */
+function invoice_email_preprocess_entity_print(&$vars) {
+  $module_handler = \Drupal::service('module_handler');
+  if (!is_null($module_handler)) {
+    $module_path = $module_handler->getModule('invoice_email')->getPath();
+    if ($module_path !== "") {
+      $vars['module_path'] = $module_path;
+    }
+  }
+  if (isset($vars['content'][0]['#invoice_entity']) || isset($vars['content'][0][0]['#invoice_entity'])) {
+    $vars['invoice_entity'] = TRUE;
   }
 }

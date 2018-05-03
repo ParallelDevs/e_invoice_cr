@@ -1,0 +1,47 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - tax_entity
+id: tax_entity.field_tax_type
+field_name: field_tax_type
+entity_type: tax_entity
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '01'
+      label: 'General Sales Tax'
+    -
+      value: '02'
+      label: 'Consumer Selective Tax'
+    -
+      value: '03'
+      label: 'Unique Fuel Tax'
+    -
+      value: '04'
+      label: 'Alcoholic Beverages Specific Tax'
+    -
+      value: '05'
+      label: 'Non-alcoholic bottled beverages and body soap Specific tax'
+    -
+      value: '06'
+      label: 'Tobacco Products tax'
+    -
+      value: '07'
+      label: Service
+    -
+      value: '12'
+      label: 'Concrete Specific Tax'
+    -
+      value: '98'
+      label: Other
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

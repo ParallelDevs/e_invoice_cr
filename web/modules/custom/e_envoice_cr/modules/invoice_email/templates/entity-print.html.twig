@@ -1,0 +1,15 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+  {{ entity_print_css }}
+  {% if invoice_entity %}
+    <link rel="stylesheet" type="text/css" href="/{{ module_path }}/css/pdf.css">
+  {% endif %}
+</head>
+<body>
+<div class="page">
+  {{ content }}
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_discount_percentage
+    - paragraphs.paragraphs_type.invoice_row
+  module:
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+id: paragraph.invoice_row.field_discount_percentage
+field_name: field_discount_percentage
+entity_type: paragraph
+bundle: invoice_row
+label: 'Discount percentage'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: 100
+  prefix: ''
+  suffix: ''
+field_type: integer

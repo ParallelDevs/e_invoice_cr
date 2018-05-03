@@ -14,7 +14,47 @@ use Drupal\user\EntityOwnerInterface;
  */
 interface InvoiceEntityInterface extends RevisionableInterface, RevisionLogInterface, EntityChangedInterface, EntityOwnerInterface {
 
-  // Add get/set methods for your configuration properties here.
+  public const DOCUMENTATIONINFO = [
+    'FE' => [
+      'code' => '01',
+      'label' => 'Electronic Bill',
+      'xmltag' => 'FacturaElectronica',
+      'xmlns' => 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica',
+    ],
+    'ND' => [
+      'code' => '02',
+      'label' => 'Debit Note',
+      'xmltag' => 'NotaDebitoElectronica',
+      'xmlns' => 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaDebitoElectronica',
+    ],
+    'NC' => [
+      'code' => '03',
+      'label' => 'Credit Note',
+      'xmltag' => 'NotaCreditoElectronica',
+      'xmlns' => 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica',
+    ],
+    'TE' => [
+      'code' => '04',
+      'label' => 'Electronic Ticket',
+      'xmltag' => 'TiqueteElectronico',
+      'xmlns' => 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico',
+    ],
+  ];
+
+  public const AVAILABLE_CURRENCY = [
+    'CRC' => [
+      'name' => 'Colones',
+      'symbol' => '₡',
+    ],
+    'USD' => [
+      'name' => 'Dolares',
+      'symbol' => '$',
+    ],
+    'EUR' => [
+      'name' => 'Euro',
+      'symbol' => '€',
+    ],
+  ];
 
   /**
    * Gets the Invoice name.
@@ -34,6 +74,14 @@ interface InvoiceEntityInterface extends RevisionableInterface, RevisionLogInter
    *   The called Invoice entity.
    */
   public function setName($name);
+
+  /**
+   * Gets the Invoice type.
+   *
+   * @return string
+   *   Type of the Invoice.
+   */
+  public function getInvoiceType();
 
   /**
    * Gets the Invoice creation timestamp.

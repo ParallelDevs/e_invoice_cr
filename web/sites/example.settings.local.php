@@ -113,3 +113,37 @@ $settings['rebuild_access'] = TRUE;
  * directory.
  */
 $settings['skip_permissions_hardening'] = TRUE;
+
+# Config to use on settings.php
+
+$cli = (php_sapi_name() == 'cli');
+if ($cli) {
+  ini_set('memory_limit', '512M');
+  ini_set('max_execution_time', '900');
+}
+
+if (isset($_SERVER['REQUEST_URI']) && (strpos($_SERVER['REQUEST_URI'], '/en/admin/') === 0 || strpos($_SERVER['REQUEST_URI'], '/en/batch') === 0  )) {
+  ini_set('memory_limit', '512M');
+  ini_set('max_execution_time', '900');
+}
+
+# Load .env file if exists
+if (file_exists(dirname(DRUPAL_ROOT) . '/web/.env')) {
+  // Load environment
+  $dotenv = new \Dotenv\Dotenv(dirname(DRUPAL_ROOT) . '/web');
+  $dotenv->load();
+}
+
+$config_directories['sync'] = '../config/sync';
+$databases['default']['default'] = array (
+  'database' => getenv('DATABASE_NAME'),
+  'username' => getenv('DATABASE_USER'),
+  'password' => getenv('DATABASE_PASSWORD'),
+  'prefix' => '',
+  'host' => getenv('DATABASE_HOST'),
+  'port' => getenv('DATABASE_PORT'),
+  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+  'driver' => 'mysql',
+);
+
+$settings['install_profile'] = 'e_invoice_cr_profile';

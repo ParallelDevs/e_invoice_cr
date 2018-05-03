@@ -1,4 +1,3 @@
-uuid: 1d6cecc5-b2f7-42cc-aac9-532eb1c492d0
 langcode: en
 status: true
 dependencies:
@@ -7,7 +6,7 @@ dependencies:
   module:
     - tax_entity
 _core:
-  default_config_hash: qKeKSr6gV66lquPl6o83QqoAv5ZJ47MKUngI7wz2aK8
+  default_config_hash: Cn6gkBBindQWwuk0QAPvup3TMuL6MFrjZ2rZR3Lp1zI
 id: tax_entity.tax_entity.field_tax_percentage
 field_name: field_tax_percentage
 entity_type: tax_entity

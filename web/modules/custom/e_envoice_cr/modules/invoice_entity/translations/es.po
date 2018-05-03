@@ -1,0 +1,116 @@
+# Invoice Entity.
+msgid ""
+msgstr ""
+
+msgid "Invoice Entity"
+msgstr "Entidad Factura"
+
+msgid "invoice"
+msgstr "factura"
+
+msgid "Invoice"
+msgstr "factura"
+
+msgid "invoice entity"
+msgstr "entidad factura"
+
+msgid "Invoice entity"
+msgstr "Entidad Factura"
+
+msgid "Add Invoice"
+msgstr "Añadir Factura"
+
+msgid "Add invoice"
+msgstr "Añadir Factura"
+
+msgid "Type of document"
+msgstr "Tipo de documento"
+
+msgid "Electronic Bill"
+msgstr "Factura Electrónica"
+
+msgid "Electronic Ticket"
+msgstr "Tiquete Electrónica"
+
+msgid "Credit Note"
+msgstr "Nota de Crédito"
+
+msgid "Debit Note"
+msgstr "Nota de Débito"
+
+msgid "Type of document"
+msgstr "Tipo de documento"
+
+msgid "Document Number"
+msgstr "Número de documento"
+
+msgid "Type of reference"
+msgstr "Tipo de referencia"
+
+msgid "Reason"
+msgstr "Razón"
+
+msgid "Cancel Reference Document"
+msgstr "Anula Documento de Referencia"
+
+msgid "Corrects text reference document"
+msgstr "Corrige texto documento de referencia"
+
+msgid "Corrects amount"
+msgstr "Corrige monto"
+
+msgid "Reference to another document"
+msgstr "Referencia a otro documento"
+
+msgid "Replaces provisional voucher for contingency"
+msgstr "Sustituye comprobante provisional por contingencia"
+
+msgid "Reference Information"
+msgstr "Información de Referencia"
+
+msgid "Payment"
+msgstr "Pago"
+
+# Messages
+msgid "Settings form for Invoice entities. Manage field settings here."
+msgstr "Configuraciones para las entidades de tipo factura. Administre los campos aquí."
+
+msgid "The document key could not be generated because there are not configuration data yet, to set those go to /admin/e-invoice-cr/settings."
+msgstr "La llave del documento no se puede generar correctamente ya que no se ha ingresado los datos de configuración, para hacerlo debe dirigirse a /admin/e-invoice-cr/settings."
+
+msgid "Error getting the authentication token."
+msgstr "Error obteniendo el token de autotentificación"
+
+msgid "There is some missing configuration. Please go to: /admin/e-invoice-cr/settings"
+msgstr "Hay alguna configuración faltante. Por favor dirigase a: /admin/e-invoice-cr/settings"
+
+msgid "Current invoice number updated."
+msgstr "El número de la factura actual ha sido actualizado."
+
+msgid "The field @field is required for following types of document: @types"
+msgstr "El campo @field es requerido por los siguientes tipos de documento: @types."
+
+msgid "Communication error. @error"
+msgstr "Error de comunicación. @error"
+
+msgid "The electronic document was sent to its verification."
+msgstr "El documento electrónico ha sido enviado para su verificación."
+
+msgid "Created the Invoice."
+msgstr "Factura creada."
+
+# Configuration
+msgid "The number of the next invoice."
+msgstr "El número de la siguiente factura."
+
+
+# Templates
+
+msgid "Electronic receipt"
+msgstr "Recibo Electrónico"
+
+msgid "Customer's information:"
+msgstr "Información del cliente:"
+
+msgid "View PDF"
+msgstr "Ver PDF"

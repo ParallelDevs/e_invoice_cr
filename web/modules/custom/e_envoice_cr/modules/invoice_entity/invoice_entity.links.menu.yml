@@ -1,15 +1,27 @@
 
 # Invoice menu items definition
+entity.invoice_entity.manage:
+  title: 'Invoice Entity'
+  route_name: invoice_entity.settings
+  parent: e_envoice_cr.manage
+  weight: 101
+
+entity.invoice_entity.content:
+  title: 'Invoice Entity'
+  route_name: invoice_entity.options
+  parent: e_envoice_cr.content
+  weight: 101
+
+entity.invoice_entity.addnew:
+  title: Add Invoice
+  route_name: entity.invoice_entity.add_form
+  description: 'List Invoice entities'
+  parent: entity.invoice_entity.content
+  weight: 100
+
 entity.invoice_entity.collection:
-  title: 'Invoice management'
+  title: Management
   route_name: entity.invoice_entity.collection
   description: 'List Invoice entities'
-  parent: system.admin_structure
-  weight: 102
-
-invoice_entity.admin.structure.settings:
-  title: Invoice configuration
-  description: 'Invoice configuration'
-  route_name: invoice_entity.settings
-  parent: system.admin_structure
-  weight: 103
+  parent: entity.invoice_entity.content
+  weight: 101

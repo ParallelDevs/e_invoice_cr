@@ -1,0 +1,28 @@
+.node-cliente-edit-form,
+.node-cliente-form {
+  .description {
+    margin-bottom: 1rem;
+  }
+  @include breakpoint($bp--medium){
+    .field--name-title,
+    .field--name-field-cia,
+    .field--name-field-direccion,
+    .field--name-field-email,
+    .field--name-field-telefono {
+      display: inline-block;
+      width: 45%;
+      margin-right: 2%;
+      vertical-align: top;
+    }
+  }
+
+  @include breakpoint($bp--large){
+    .field--name-title,
+    .field--name-field-cia,
+    .field--name-field-direccion,
+    .field--name-field-email,
+    .field--name-field-telefono {
+      width: 30%;
+    }
+  }
+}

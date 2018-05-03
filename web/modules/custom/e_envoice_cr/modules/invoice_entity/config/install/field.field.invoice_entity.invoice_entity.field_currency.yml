@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_currency
+  module:
+    - invoice_entity
+    - options
+  enforced:
+    module:
+      - invoice_entity
+id: invoice_entity.invoice_entity.field_currency
+field_name: field_currency
+entity_type: invoice_entity
+bundle: invoice_entity
+label: Currency
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

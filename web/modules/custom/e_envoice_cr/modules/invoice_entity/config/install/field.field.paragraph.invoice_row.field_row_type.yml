@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_row_type
+    - paragraphs.paragraphs_type.invoice_row
+  module:
+    - options
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+id: paragraph.invoice_row.field_row_type
+field_name: field_row_type
+entity_type: paragraph
+bundle: invoice_row
+label: Type
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '01'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

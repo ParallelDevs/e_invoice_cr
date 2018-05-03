@@ -1,0 +1,38 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+  enforced:
+    module:
+      - invoice_entity
+id: paragraph.field_code_type
+field_name: field_code_type
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '01'
+      label: "Seller's product code"
+    -
+      value: '02'
+      label: "Buyer's product code"
+    -
+      value: '03'
+      label: 'Product code assigned by the industry'
+    -
+      value: '04'
+      label: 'Internal use code'
+    -
+      value: '99'
+      label: Other
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

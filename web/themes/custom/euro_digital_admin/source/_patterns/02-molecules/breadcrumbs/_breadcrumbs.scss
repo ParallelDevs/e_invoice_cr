@@ -1,0 +1,16 @@
+.breadcrumb {
+  margin-top: 1rem;
+  padding: 15px 30px 15px 15px;
+  background: $c-white;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  li {
+    display: inline-block;
+    &:not(:first-child){
+      &:before {
+        content: '>';
+        color: $c-primary;
+        padding: 0 5px;
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "name": "drupal/e_invoice_cr",
   "type": "drupal-module",
   "description": "This module provides an invoice system according to the costa rican regulations.",
-  "keywords": ["Drupal"],
+  "keywords": ["Drupal", "invoice", "Costa Rica"],
   "license": "GPL-2.0+",
   "homepage": "https://www.drupal.org/project/e_invoice_cr",
   "minimum-stability": "dev",
@@ -10,5 +10,13 @@
     "issues": "https://www.drupal.org/project/issues/e_invoice_cr",
     "source": "http://cgit.drupalcode.org/e_invoice_cr"
   },
-  "require": { }
+  "require": { },
+  "extra": {
+    "patches": {
+      "drupal/core": {
+        "Drupal Core AJAX error fix": "https://www.drupal.org/files/issues/drupal-2027059-62.patch",
+        "Number Decimals fields fixed" : "https://www.drupal.org/files/issues/2230909-78-simple_decimals_fail_to.patch"
+      }
+    }
+  }
 }

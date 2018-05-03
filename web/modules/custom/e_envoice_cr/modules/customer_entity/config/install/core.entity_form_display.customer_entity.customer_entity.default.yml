@@ -1,16 +1,15 @@
-uuid: 59af089a-b348-4a96-b2ab-4bd242b4d87e
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.customer_entity.customer_entity.field_correo_electronico
-    - field.field.customer_entity.customer_entity.field_direccion_
+    - field.field.customer_entity.customer_entity.field_email
+    - field.field.customer_entity.customer_entity.field_address
     - field.field.customer_entity.customer_entity.field_fax
-    - field.field.customer_entity.customer_entity.field_intensificacion
-    - field.field.customer_entity.customer_entity.field_intensificacion_ex
-    - field.field.customer_entity.customer_entity.field_nombrecomercial
-    - field.field.customer_entity.customer_entity.field_telefono
-    - field.field.customer_entity.customer_entity.field_tipo_de_identificacion
+    - field.field.customer_entity.customer_entity.field_customer_id
+    - field.field.customer_entity.customer_entity.field_customer_foreign_id
+    - field.field.customer_entity.customer_entity.field_commercial_name
+    - field.field.customer_entity.customer_entity.field_phone
+    - field.field.customer_entity.customer_entity.field_type_id
   module:
     - addressfield_cr
     - customer_entity
@@ -18,9 +17,9 @@ dependencies:
     - telephone
 third_party_settings:
   field_group:
-    group_ubicacion:
+    group_location:
       children:
-        - field_direccion_
+        - field_address
       parent_name: ''
       weight: 8
       format_type: fieldset
@@ -29,7 +28,7 @@ third_party_settings:
         classes: ''
         description: ''
         required_fields: true
-      label: Ubicación
+      label: Location
 _core:
   default_config_hash: Nb8wyMqwQedKsBJJpPqbh-sB6pZhTKtvoiVlWHvYjYI
 id: customer_entity.customer_entity.default
@@ -37,7 +36,7 @@ targetEntityType: customer_entity
 bundle: customer_entity
 mode: default
 content:
-  field_correo_electronico:
+  field_email:
     weight: 7
     settings:
       size: 60
@@ -45,7 +44,7 @@ content:
     third_party_settings: {  }
     type: email_default
     region: content
-  field_direccion_:
+  field_address:
     weight: 31
     settings: {  }
     third_party_settings: {  }
@@ -58,7 +57,7 @@ content:
     third_party_settings: {  }
     type: telephone_default
     region: content
-  field_intensificacion:
+  field_customer_id:
     weight: 1
     settings:
       size: 60
@@ -66,7 +65,7 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_intensificacion_ex:
+  field_customer_foreign_id:
     weight: 2
     settings:
       size: 60
@@ -74,7 +73,7 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_nombrecomercial:
+  field_commercial_name:
     weight: 4
     settings:
       size: 60
@@ -82,14 +81,14 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
-  field_telefono:
+  field_phone:
     weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: content
-  field_tipo_de_identificacion:
+  field_type_id:
     weight: 0
     settings: {  }
     third_party_settings: {  }

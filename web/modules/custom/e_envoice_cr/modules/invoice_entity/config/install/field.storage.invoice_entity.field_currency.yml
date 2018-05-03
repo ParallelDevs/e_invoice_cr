@@ -1,0 +1,30 @@
+uuid: ca33b2da-c8a6-4e57-ad57-2370ffbe574d
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_entity
+    - options
+id: invoice_entity.field_currency
+field_name: field_currency
+entity_type: invoice_entity
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: CRC
+      label: 'Colón (CRC)'
+    -
+      value: USD
+      label: 'Dolar (USA)'
+    -
+      value: EUR
+      label: 'Euro (EUR)'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

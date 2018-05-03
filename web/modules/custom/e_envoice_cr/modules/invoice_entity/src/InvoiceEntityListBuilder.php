@@ -4,7 +4,6 @@ namespace Drupal\invoice_entity;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\Core\Link;
 
 /**
  * Defines a class to build a listing of Invoice entities.
@@ -13,12 +12,12 @@ use Drupal\Core\Link;
  */
 class InvoiceEntityListBuilder extends EntityListBuilder {
 
-
   /**
    * {@inheritdoc}
    */
   public function buildHeader() {
     $header['id'] = $this->t('Invoice ID');
+    $header['type_of'] = $this->t('Type');
     $header['status'] = $this->t('Status');
     return $header + parent::buildHeader();
   }
@@ -34,14 +33,21 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
       case "draft":
         $state_label = t("In validation");
         break;
+
       case "published":
         $state_label = t("Accepted");
         break;
+
       case "rejected":
         $state_label = t("Rejected");
         break;
+
     }
+    /** @var \Drupal\Core\Field\BaseFieldDefinition $fd */
+    $fd = $entity->getFieldDefinition('type_of');
+    $options = $fd->getSetting('allowed_values');
     $row['id'] = $entity->id();
+    $row['type_of'] = $options[$entity->getInvoiceType()];
     $row['status'] = $state_label;
     return $row + parent::buildRow($entity);
   }

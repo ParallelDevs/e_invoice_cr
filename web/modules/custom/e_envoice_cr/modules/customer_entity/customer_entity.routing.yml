@@ -1,0 +1,7 @@
+entity.customer_entity.options:
+  path: '/admin/structure/customer_entity/options'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Customer Entity'
+  requirements:
+    _permission: 'access administration pages'

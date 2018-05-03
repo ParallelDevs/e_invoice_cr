@@ -8,7 +8,6 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
 use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Drupal\e_invoice_cr\Communication;
 
 /**
  * Class InvoiceEntityController.
@@ -129,8 +128,15 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
             $links['revert'] = [
               'title' => $this->t('Revert'),
               'url' => $has_translations ?
-              Url::fromRoute('entity.invoice_entity.translation_revert', ['invoice_entity' => $invoice_entity->id(), 'invoice_entity_revision' => $vid, 'langcode' => $langcode]) :
-              Url::fromRoute('entity.invoice_entity.revision_revert', ['invoice_entity' => $invoice_entity->id(), 'invoice_entity_revision' => $vid]),
+              Url::fromRoute('entity.invoice_entity.translation_revert', [
+                'invoice_entity' => $invoice_entity->id(),
+                'invoice_entity_revision' => $vid,
+                'langcode' => $langcode,
+              ]) :
+              Url::fromRoute('entity.invoice_entity.revision_revert', [
+                'invoice_entity' => $invoice_entity->id(),
+                'invoice_entity_revision' => $vid,
+              ]),
             ];
           }
 
@@ -165,26 +171,32 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
   /**
    * Validate a invoice.
    *
-   * @param $key
+   * @param string $key
    *   A Invoice  object.
+   * @param string $id
+   *   A Invoice Id.
    *
-   * @return boolean
+   * @return bool
    *   An array as expected by drupal_render().
    */
   public function validateInvoice($key, $id) {
+    /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
+    $invoice_service = \Drupal::service('invoice_entity.service');
     $entity = \Drupal::entityManager()->getStorage('invoice_entity')->load($id);
-    $con = new Communication();
-    $res = $con->validateDocument($key);
-    if ($res[2] === "rechazado") {
-      $entity->set('moderation_state', 'rejected');
-      $entity->save();
-      drupal_set_message(t("Status Rejected. " . $res[3]->DetalleMensaje), 'error');
-    } else {
-      $entity->set('moderation_state', 'published');
-      $entity->save();
-      drupal_set_message(t("Status Accepted. " . $res[3]->DetalleMensaje), 'status');
+    $result = $invoice_service->validateInvoiceEntity($entity);
+
+    if (is_null($result['response'])) {
+      drupal_set_message(t("Status Unknown. The state couldn't be validated."), 'error');
     }
-    drupal_set_message(t('A validation request has been performed.'), 'status');
+    else {
+      if ($result['state'] === "rejected") {
+        drupal_set_message(t("Status Rejected. @text", ["@text" => $result['response'][3]->DetalleMensaje]), 'error');
+      }
+      elseif ($result['response'] === "published") {
+        drupal_set_message(t("Status Accepted. @text", ["@text" => $result['response'][3]->DetalleMensaje]), 'status');
+      }
+      drupal_set_message(t('A validation request has been performed.'), 'status');
+    }
     return new RedirectResponse('/admin/structure/e-invoice-cr/invoice_entity');
   }
 

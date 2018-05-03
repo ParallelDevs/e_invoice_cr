@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_entity.field_payment_method
+  module:
+    - invoice_entity
+    - options
+id: invoice_entity.invoice_entity.field_payment_method
+field_name: field_payment_method
+entity_type: invoice_entity
+bundle: invoice_entity
+label: 'Payment Method'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_add_discount
+    - paragraphs.paragraphs_type.invoice_row
+  module:
+    - invoice_entity
+  enforced:
+    module:
+      - invoice_entity
+id: paragraph.invoice_row.field_add_discount
+field_name: field_add_discount
+entity_type: paragraph
+bundle: invoice_row
+label: 'Add discount'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

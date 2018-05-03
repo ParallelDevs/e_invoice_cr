@@ -94,8 +94,6 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
       }
     }
 
-    // If no revision author has been set explicitly, make the tax_entity owner the
-    // revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());
     }
@@ -182,6 +180,8 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
+    $settings = \Drupal::config('e_invoice_cr.settings');
+
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
       ->setDescription(t('The user ID of author of the Tax entity entity.'))
@@ -196,7 +196,7 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
       ])
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
-        'weight' => 5,
+        'weight' => 20,
         'settings' => [
           'match_operator' => 'CONTAINS',
           'size' => '60',
@@ -228,6 +228,117 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['exoneration'] = BaseFieldDefinition::create('boolean')
+      ->setLabel('Add exoneration')
+      ->setDescription(t('Check if this tax has a exoneration.'))
+      ->setRevisionable(TRUE)
+      ->setDefaultValue(FALSE)
+      ->setDisplayOptions('form', [
+        'weight' => 10,
+      ])
+      ->setDisplayConfigurable('form', TRUE);
+
+    $fields['ex_document_type'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Document type'))
+      ->setDescription(t('Type of document exoneration or authorization'))
+      ->setRevisionable(TRUE)
+      ->setSettings([
+        'allowed_values' => [
+          '01' => t('Compras autorizadas'),
+          '02' => t('Ventas exentas a diplomáticos'),
+          '03' => t('Orden de compra (Instituciones Públicas y otros organismos)'),
+          '04' => t('Exenciones Dirección General de Hacienda'),
+          '05' => t('Zonas Francas'),
+          '99' => t('Otros'),
+        ],
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => -5,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'options_select',
+        'weight' => 11,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['ex_document_number'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Document number'))
+      ->setRevisionable(TRUE)
+      ->setSettings([
+        'max_length' => 17,
+        'text_processing' => 0,
+      ])
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => -6,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => 12,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['ex_institution'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Institution'))
+      ->setDescription(t('Institution that emit the exoneration.'))
+      ->setRevisionable(TRUE)
+      ->setSettings([
+        'max_length' => 100,
+        'text_processing' => 0,
+      ])
+      ->setDefaultValue($settings->get('name'))
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => -6,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => 13,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['ex_date'] = BaseFieldDefinition::create('datetime')
+      ->setLabel(t('Date'))
+      ->setRevisionable(TRUE)
+      /*
+      ->setSettings([
+        'datetime_type' => 'date',
+        'datetime_format' => 'd/m/Y',
+      ])
+      */
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_default',
+        'weight' => 14,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['ex_percentage'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Exoneration percentage (%)'))
+      ->setSettings([
+        'max_value' => 100,
+      ])
+      ->setRevisionable(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => -8,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'number',
+        'weight' => 15,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))
       ->setDescription(t('A boolean indicating whether the Tax entity is published.'))
@@ -250,6 +361,30 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
       ->setTranslatable(TRUE);
 
     return $fields;
+  }
+
+  /**
+   * Gets an array of placeholders for this entity.
+   *
+   * Individual entity classes may override this method to add additional
+   * placeholders if desired. If so, they should be sure to replicate the
+   * property caching logic.
+   *
+   * @param string $rel
+   *   The link relationship type, for example: canonical or edit-form.
+   *
+   * @return array
+   *   An array of URI placeholders.
+   */
+  protected function urlRouteParameters($rel) {
+    $uri_route_parameters = parent::urlRouteParameters($rel);
+    if ($rel === 'revision_revert' && $this instanceof RevisionableContentEntityBase) {
+      $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
+    }
+    elseif ($rel === 'revision_delete' && $this instanceof RevisionableContentEntityBase) {
+      $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
+    }
+    return $uri_route_parameters;
   }
 
 }

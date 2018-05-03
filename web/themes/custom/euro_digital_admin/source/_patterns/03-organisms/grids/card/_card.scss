@@ -1,0 +1,30 @@
+.representante-title {
+  display: none;
+}
+.card-header {
+  padding: 20px;
+  background-color: $cb-green;
+  h2 {
+    color: $c-white;
+  }
+  .header-summary {
+    color: $c-white;
+    font-style: italic;
+  }
+}
+.card {
+  @include container-border($c-teal, 3px, 3px);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  padding: 30px;
+  ul {
+    padding-left: 0;
+  }
+  li {
+    margin-bottom: 1rem;
+    padding-bottom: 6px;
+    border-bottom: solid 1px $c-grey-active;
+  }
+  span {
+    float: right;
+  }
+}

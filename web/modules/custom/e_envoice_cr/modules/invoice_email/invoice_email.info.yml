@@ -5,3 +5,5 @@ core: 8.x
 package: other
 dependencies:
   - e_invoice_cr
+  - entity_print
+  - swiftmailer
