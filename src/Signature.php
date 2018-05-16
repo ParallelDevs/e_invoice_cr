@@ -12,7 +12,7 @@ class Signature implements SignatureInterface {
    */
   public function signDocument($doc_name = "") {
     // Locate where is the jar.
-    $res = chdir("modules/custom/e_envoice_cr/jar");
+    $res = chdir(drupal_get_path('module', 'e_invoice_cr') . '/jar');
     if ($res) {
       $base_path = DRUPAL_ROOT . '/sites/default/files/';
       // Check the directory.
