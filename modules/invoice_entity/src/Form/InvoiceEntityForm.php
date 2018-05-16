@@ -87,7 +87,10 @@ class InvoiceEntityForm extends ContentEntityForm {
     $form['field_consecutive_number']['#disabled'] = 'disabled';
     if ($this->entity->isNew()) {
       // Generate the invoice keys.
-      $type_of = $form_state->getUserInput()['type_of'];
+      $type_of = NULL;
+      if (!empty($form_state->getUserInput()['type_of'])) {
+        $type_of = $form_state->getUserInput()['type_of'];
+      }
       $key = $type_of ? $invoice_service->getUniqueInvoiceKey($type_of) : $invoice_service->getUniqueInvoiceKey();
       if ($key == NULL) {
         invoice_entity_config_error();
@@ -424,7 +427,7 @@ class InvoiceEntityForm extends ContentEntityForm {
    *   Add the read only property to the field.
    */
   private function formatField(array &$field, $addCurrency, $addReadOnly) {
-    if ($addCurrency) {
+    if ($addCurrency && !empty($this->currency)) {
       $field['#title'] .= ' ' . $this->currency;
     }
     if ($addReadOnly) {

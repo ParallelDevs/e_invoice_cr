@@ -110,14 +110,16 @@ class XMLGenerator {
 
     foreach ($rows as $row) {
       $values = $row['subform'];
-      $tax_id = $values['field_row_tax'][0]['target_id'];
-      $tax = TaxEntity::load($tax_id);
+      if (!empty($values['field_row_tax'][0]['target_id'])) {
+        $tax_id = $values['field_row_tax'][0]['target_id'];
+        $tax = TaxEntity::load($tax_id);
+      }
 
-      if ($tax !== NULL) {
+      if (isset($tax)) {
         $tax_mount = ($tax->get('field_tax_percentage')->value / 100) * $values['field_subtotal'][0]['value'];
       }
       // Save the ones with tax.
-      if ($tax_mount !== "" && $tax_mount > 0 && $tax_mount !== NULL) {
+      if (isset($tax_mount) && $tax_mount !== "" && $tax_mount > 0) {
         if ($values['field_row_type'][0]['value'] === "01") {
           $total_prod_with_tax = $total_prod_with_tax + (int) round($values['field_total_amount'][0]['value'], 5);
           $total_prod++;
@@ -307,10 +309,12 @@ class XMLGenerator {
     $values = $row['subform'];
     $discount = $values['field_add_discount']['value'] ? $values['field_row_discount'][0]['value'] : 0;
     $discount_reason = $values['field_add_discount']['value'] ? $values['field_discount_reason'][0]['value'] : "";
-    $tax_id = $values['field_row_tax'][0]['target_id'];
-    $entity_manager = \Drupal::entityManager();
-    $tax = $entity_manager->getStorage('tax_entity')->load($tax_id);
-    if ($tax !== NULL) {
+    if (!empty($values['field_row_tax'][0]['target_id'])) {
+      $tax_id = $values['field_row_tax'][0]['target_id'];
+      $entity_manager = \Drupal::entityManager();
+      $tax = $entity_manager->getStorage('tax_entity')->load($tax_id);
+    }
+    if (isset($tax)) {
       $tax_mount = ($tax->get('field_tax_percentage')->value / 100) * $values['field_subtotal'][0]['value'];
     }
     // Continue building the xml.
@@ -333,7 +337,7 @@ class XMLGenerator {
       $xml_doc .= "\t\t\t<NaturalezaDescuento>" . $discount_reason . "</NaturalezaDescuento>\n";
     }
     $xml_doc .= "\t\t\t<SubTotal>" . round($values['field_subtotal'][0]['value'], 5) . "</SubTotal>\n";
-    if ($tax !== NULL) {
+    if (isset($tax)) {
       if ($tax->get('field_tax_percentage')->value > 0) {
         $xml_doc .= "\t\t\t<Impuesto>\n";
         $xml_doc .= "\t\t\t\t<Codigo>" . $tax->get('field_tax_type')->value . "</Codigo>\n";
