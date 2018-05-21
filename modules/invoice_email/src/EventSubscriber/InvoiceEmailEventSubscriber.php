@@ -71,11 +71,14 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
           drupal_set_message($e_message, 'error');
           \Drupal::logger('mail-log')->error($e_message);
         }
-        // Set up the email attachment.
-        $file = new \stdClass();
-        $file->uri = $path . $file_name . ".pdf";
-        $file->filename = $file_name . ".pdf";
-        $file->filemime = 'application/pdf';
+        else {
+          // Set up the email attachment.
+          $file = new \stdClass();
+          $file->uri = $path . $file_name . ".pdf";
+          $file->filename = $file_name . ".pdf";
+          $file->filemime = 'application/pdf';
+          $params['files'][] = $file;
+        }
 
         // Set the email parameters.
         $mailManager = \Drupal::service('plugin.manager.mail');
@@ -87,7 +90,6 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
         }
         $params['message'] = $email_text;
         $params['title'] = $email_subject;
-        $params['files'][] = $file;
         $langcode = \Drupal::currentUser()->getPreferredLangcode();
         $send = TRUE;
 
