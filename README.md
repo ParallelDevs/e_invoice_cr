@@ -24,7 +24,7 @@ tax_entity, invoice_entity, invoice_email. Once done, you must fill
 the configuration form at admin/e-invoice-cr/settings.
 
 See spanish documentation
-[here](https://docs.google.com/document/d/1SNvUe5eaaEs76PW49B9JeJ-v2NW09Kf-aqb1LaPj9yE/edit?usp=sharing).
+[here](https://www.paralleldevs.com/blog/gu%C3%ADa-r%C3%A1pida-para-usar-y-configurar-el-m%C3%B3dulo-factura-electr%C3%B3nica-cr-e-invoice-cr).
 
 If you need more support feel free to write
 to info@paralleldevs.com
