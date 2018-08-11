@@ -1,0 +1,134 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_credit_term
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_currency
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_invoice_date
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_message
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_message_detail
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_number_key_r
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_numeric_key
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_payment_method
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_rows
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_sale_condition
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_senders_id
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_senders_id_type
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_senders_name
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_status
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_total
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_total_discount
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_total_net_sale
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_total_tax
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_xml_file
+  module:
+    - entity_reference_revisions
+    - file
+    - invoice_received_entity
+    - options
+_core:
+  default_config_hash: JMLcH7C_MpCPRqcjm3tgs-fvUHVwCjVKT8zMZ0-VdZE
+id: invoice_received_entity.invoice_received_entity.default
+targetEntityType: invoice_received_entity
+bundle: invoice_received_entity
+mode: default
+content:
+  field_ir_currency:
+    type: list_default
+    weight: 4
+    region: content
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+  field_ir_numeric_key:
+    type: string
+    weight: 2
+    region: content
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_ir_rows:
+    type: entity_reference_revisions_entity_view
+    weight: 5
+    region: content
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_ir_sale_condition:
+    type: list_default
+    weight: 3
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_ir_senders_id:
+    type: string
+    weight: 1
+    region: content
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_ir_status:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_ir_total:
+    type: number_decimal
+    weight: 7
+    region: content
+    label: inline
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+  field_ir_total_tax:
+    type: number_decimal
+    weight: 6
+    region: content
+    label: inline
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+  field_ir_xml_file:
+    weight: 8
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    type: file_default
+    region: content
+  name:
+    label: above
+    type: string
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_ir_credit_term: true
+  field_ir_invoice_date: true
+  field_ir_message: true
+  field_ir_message_detail: true
+  field_ir_number_key_r: true
+  field_ir_payment_method: true
+  field_ir_senders_id_type: true
+  field_ir_senders_name: true
+  field_ir_total_discount: true
+  field_ir_total_net_sale: true
+  user_id: true

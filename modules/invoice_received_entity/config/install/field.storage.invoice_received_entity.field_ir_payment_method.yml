@@ -1,0 +1,41 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_received_entity
+    - options
+  enforced:
+    module:
+      - invoice_received_entity
+id: invoice_received_entity.field_ir_payment_method
+field_name: field_ir_payment_method
+entity_type: invoice_received_entity
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '01'
+      label: Cash
+    -
+      value: '02'
+      label: Card
+    -
+      value: '03'
+      label: Check
+    -
+      value: '04'
+      label: 'Transfer - bank deposit'
+    -
+      value: '05'
+      label: 'Collected by third parties'
+    -
+      value: '99'
+      label: 'Other (you must indicate the payment method)'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

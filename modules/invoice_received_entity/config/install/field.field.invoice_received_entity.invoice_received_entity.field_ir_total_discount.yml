@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_received_entity.field_ir_total_discount
+  module:
+    - invoice_received_entity
+id: invoice_received_entity.invoice_received_entity.field_ir_total_discount
+field_name: field_ir_total_discount
+entity_type: invoice_received_entity
+bundle: invoice_received_entity
+label: 'Total discount'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

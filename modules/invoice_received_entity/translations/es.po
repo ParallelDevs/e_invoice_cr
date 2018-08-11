@@ -1,0 +1,33 @@
+# Invoice Received entity
+msgid ""
+msgstr ""
+
+msgid "Invoice Received Entity"
+msgstr "Entidad Facturas Recibidas"
+
+msgid "Add Invoice Received"
+msgstr "Añadir factura recibida"
+
+msgid "Management"
+msgstr "Administración"
+
+msgid "Document Key"
+msgstr "Clave del documento"
+
+msgid "The document you are trying to upload have been already uploaded."
+msgstr "El documento que esta intentando subir, ya se ha sido subido antes."
+
+msgid "Accepted"
+msgstr "Aceptado"
+
+msgid "Rejected"
+msgstr "Rechazado"
+
+msgid "Sender"
+msgstr "Emisor"
+
+msgid "Hacienda response"
+msgstr "Respuesta de Hacienda"
+
+msgid "Sent it"
+msgstr "Enviado"

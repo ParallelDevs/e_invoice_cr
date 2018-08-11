@@ -1,0 +1,11 @@
+settings:
+  allowed_values:
+    -
+      value: 1
+      label: Aceptar
+    -
+      value: 2
+      label: 'Aceptar parcialmente'
+    -
+      value: 3
+      label: Rechazar

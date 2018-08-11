@@ -1,0 +1,10 @@
+name: 'Invoice Received Entity'
+type: module
+description: 'This module provides the invoice received entity for e-invoice.'
+core: 8.x
+package: 'other'
+interface translation project: invoice_received_entity
+interface translation server pattern: modules/custom/e_envoice_cr/modules/invoice_received_entity/translations/%language.po
+dependencies:
+  - e_invoice_cr
+  - invoice_entity

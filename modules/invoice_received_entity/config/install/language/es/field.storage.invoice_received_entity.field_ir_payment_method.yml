@@ -1,0 +1,14 @@
+settings:
+  allowed_values:
+    -
+      label: Efectivo
+    -
+      label: Tarjeta
+    -
+      label: Cheque
+    -
+      label: 'Transferencia - deposito en el banco'
+    -
+      label: 'Recolectado por terceros'
+    -
+      label: 'Otros (debes indicar el método de pago)'
