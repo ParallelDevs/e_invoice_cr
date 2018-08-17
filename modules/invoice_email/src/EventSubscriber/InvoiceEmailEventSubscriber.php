@@ -21,14 +21,14 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    $events[InvoiceEmailEvent::SUBMIT][] = ['invoiceEmailSendPdf', 800];
+    $events[InvoiceEmailEvent::SUBMIT][] = ['invoiceSendEmail', 800];
     return $events;
   }
 
   /**
    * Subscriber Callback for the event.
    */
-  public function invoiceEmailSendPdf(InvoiceEmailEvent $event) {
+  public function invoiceSendEmail(InvoiceEmailEvent $event) {
     // Build the email message.
     $entityId = $event->getEntityId();
     if (!is_null($entityId)) {
@@ -37,6 +37,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
       if (!is_null($entity) && !empty($entity->get("field_client")->getValue())) {
         // Define some required data.
         $invoice_id = $entity->get("field_numeric_key")->getValue()[0]['value'];
+        $consecutive = $entity->get("field_consecutive_number")->getValue()[0]['value'];
         $invoice_date = $entity->get("field_invoice_date")->getValue()[0]['value'];
         $date_object = strtotime($invoice_date);
         $date = \Drupal::service('date.formatter')->format($date_object, 'custom', 'Y-m-d');
@@ -79,6 +80,14 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
           $file->filemime = 'application/pdf';
           $params['files'][] = $file;
         }
+
+        // Attach xml.
+        $uri = 'public://xml_signed/document-1-' . $consecutive . 'segned.xml';
+        $file = new \stdClass();
+        $file->uri = $uri;
+        $file->filename = $consecutive . 'segned.xml';
+        $file->filemime = 'application/xml';
+        $params['files'][] = $file;
 
         // Set the email parameters.
         $mailManager = \Drupal::service('plugin.manager.mail');
