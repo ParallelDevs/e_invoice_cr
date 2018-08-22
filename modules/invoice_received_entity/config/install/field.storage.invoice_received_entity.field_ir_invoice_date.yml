@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - invoice_received_entity
+  enforced:
+    module:
+      - invoice_received_entity
+id: invoice_received_entity.field_ir_invoice_date
+field_name: field_ir_invoice_date
+entity_type: invoice_received_entity
+type: datetime
+settings:
+  datetime_type: datetime
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

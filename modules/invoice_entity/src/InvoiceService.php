@@ -6,6 +6,8 @@ use Drupal\e_invoice_cr\Communication;
 use Drupal\invoice_entity\Entity\InvoiceEntity;
 use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 use Drupal\invoice_email\InvoiceEmailEvent;
+use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity;
+use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface;
 
 /**
  * Class InvoiceService.
@@ -37,7 +39,7 @@ class InvoiceService implements InvoiceServiceInterface {
    * @return array|null|string
    *   Return the response from the api.
    */
-  private function responseForKey($key) {
+  public function responseForKey($key) {
     $con = new Communication();
     return $con->validateDocument($key);
   }
@@ -120,7 +122,26 @@ class InvoiceService implements InvoiceServiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function generateInvoiceKey($type) {
+  public function validateInvoiceReceivedEntity(InvoiceReceivedEntity $entity) {
+    $key = $entity->get('document_key')->value;
+    $result = $this->responseForKey($key);
+    $status = $entity->get('field_ir_status')->value;
+    if(!is_null($result)) {
+      $status = $result[2] === 'aceptado' ? 
+        InvoiceReceivedEntity::IR_ACCEPTED_STATUS : InvoiceReceivedEntity::IR_REJECTED_STATUS;
+      $entity->set('field_ir_status', $status);
+      $entity->save();
+    }
+    return [
+      'state' => $status,
+      'response' => $result,
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function generateInvoiceKey($type, $received = FALSE) {
     // Get date information.
     $day = date("d");
     $mouth = date("m");
@@ -133,8 +154,9 @@ class InvoiceService implements InvoiceServiceInterface {
       return NULL;
     }
     else {
+      $consecutive = $received ? $this->generateMessageConsecutive($type) : $this->generateConsecutive($type);
       // Join the key.
-      $key = '506' . $day . $mouth . $year . $id_user . $this->generateConsecutive($type) . '1' . self::$secureCode;
+      $key = '506' . $day . $mouth . $year . $id_user . $consecutive . '1' . self::$secureCode;
       return $key;
     }
   }
@@ -146,14 +168,30 @@ class InvoiceService implements InvoiceServiceInterface {
     $document_code = isset(InvoiceEntityInterface::DOCUMENTATIONINFO[$type]) ?
       InvoiceEntityInterface::DOCUMENTATIONINFO[$type]['code'] : '01';
 
-    return '00100001' . $document_code . self::$invoiceNumber;
+    return $this->generateConsecutiveDoc($document_code);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getUniqueInvoiceKey($type = 'FE') {
-    $current_key = $this->generateInvoiceKey($type);
+  public function generateMessageConsecutive($code) {
+    $document_code = InvoiceReceivedEntityInterface::IR_MESSAGES_STATES[$code]['code'];
+    
+    return $this->generateConsecutiveDoc($document_code);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  private function generateConsecutiveDoc($code) {
+    return '00100001' . $code . self::$invoiceNumber;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getUniqueInvoiceKey($type = 'FE', $received = FALSE) {
+    $current_key = $this->generateInvoiceKey($type, $received);
 
     if ($current_key != NULL) {
       // Check if the generated key is already use it.
@@ -169,6 +207,8 @@ class InvoiceService implements InvoiceServiceInterface {
 
     return $current_key;
   }
+  
+  
 
   /**
    * {@inheritdoc}

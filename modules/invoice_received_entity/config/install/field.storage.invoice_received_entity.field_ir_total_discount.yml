@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_received_entity
+  enforced:
+    module:
+      - invoice_received_entity
+id: invoice_received_entity.field_ir_total_discount
+field_name: field_ir_total_discount
+entity_type: invoice_received_entity
+type: decimal
+settings:
+  precision: 32
+  scale: 2
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

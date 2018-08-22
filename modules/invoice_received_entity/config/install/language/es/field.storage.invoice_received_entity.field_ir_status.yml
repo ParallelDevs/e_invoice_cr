@@ -1,0 +1,14 @@
+settings:
+  allowed_values:
+    -
+      value: 0
+      label: Esperando por respuesta del usuario
+    -
+      value: 1
+      label: Enviado
+    -
+      value: 2
+      label: Rechazado
+    -
+      value: 3
+      label: Aceptado

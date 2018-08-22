@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * Contains invoice_received_entity.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_help().
+ */
+function invoice_received_entity_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the invoice_received_entity module.
+    case 'help.page.invoice_received_entity':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module provides the invoice received entity for e-invoice.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_operation_alter().
+ */
+function invoice_received_entity_entity_operation_alter(array &$operations, EntityInterface $entity) {
+  $url = $entity->toUrl();
+
+  if ($entity->getEntityTypeId() === 'invoice_received_entity') {
+    if (!is_null($entity->get('field_ir_message')->value) && $entity->get('field_ir_status')->value > 1) {
+      unset($operations['edit']);
+    } else {
+      $operations['edit']['title'] = t('Accept or Reject');
+    }
+    $operations['view'] = [
+      'title' => t('View'),
+      'weight' => 20,
+      'url' => $entity->toUrl(),
+    ];
+  }
+}
