@@ -1,5 +1,5 @@
 {
-  "name": "drupal/e_invoice_cr",
+  "name": "paralleldevs/e_invoice_cr",
   "type": "drupal-module",
   "description": "This module provides an invoice system according to the costa rican regulations.",
   "keywords": ["Drupal", "invoice", "Costa Rica"],
