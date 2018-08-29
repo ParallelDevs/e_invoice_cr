@@ -81,13 +81,23 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
           $params['files'][] = $file;
         }
 
-        // Attach xml.
-        $uri = 'public://xml_signed/document-1-' . $consecutive . 'segned.xml';
+        // Attach signed xml.
+        $user_current = \Drupal::currentUser();
+        $uri = 'public://xml_signed/document-'. $user_current->id() . '-' . $consecutive . 'segned.xml';
         $file = new \stdClass();
         $file->uri = $uri;
         $file->filename = $consecutive . 'segned.xml';
         $file->filemime = 'application/xml';
         $params['files'][] = $file;
+
+        // Attach confirmation xml.
+        $user_current = \Drupal::currentUser();
+        $uri = 'public://xml_confirmation/document-'. $user_current->id() . '-' . $consecutive . 'confirmation.xml';
+        $confirmationFile = new \stdClass();
+        $confirmationFile->uri = $uri;
+        $confirmationFile->filename = $consecutive . 'confirmation.xml';
+        $confirmationFile->filemime = 'application/xml';
+        $params['files'][] = $confirmationFile;
 
         // Set the email parameters.
         $mailManager = \Drupal::service('plugin.manager.mail');
