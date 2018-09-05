@@ -1,0 +1,34 @@
+
+# Invoice received entity menu items definition
+entity.invoice_received_entity.manage:
+  title: 'Invoice Received Entity'
+  parent: e_invoice_cr.manage
+  route_name: invoice_received_entity.settings
+  weight: 100
+
+entity.invoice_received_entity.content:
+  title: 'Invoice Received Entity'
+  parent: e_envoice_cr.content
+  route_name: entity.invoice_received_entity.options
+  weight: 101
+
+entity.invoice_received_entity.addnew:
+  title: 'Add Invoice Received'
+  route_name: entity.invoice_received_entity.add_form
+  description: 'Add a new Customer Invoice Received Entity.'
+  parent: entity.invoice_received_entity.content
+  weight: 100
+
+entity.invoice_received_entity.collection:
+  title: 'Management'
+  route_name: entity.invoice_received_entity.collection
+  description: 'List Invoice received entity entities'
+  parent: entity.invoice_received_entity.content
+  weight: 100
+
+invoice_received_entity.admin.structure.settings:
+  title: 'Invoice Received Entity'
+  description: 'Configure Invoice received entity entities'
+  route_name: invoice_received_entity.settings
+  parent: e_envoice_cr.manage
+  weight: 101

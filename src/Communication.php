@@ -81,7 +81,7 @@ class Communication implements CommunicationInterface {
         return $result;
       }
 
-      catch (ClientException $e) {
+        catch (ClientException $e) {
         return NULL;
       }
     }

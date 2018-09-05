@@ -5,6 +5,7 @@ namespace Drupal\e_invoice_cr;
 use DOMDocument;
 use Drupal\customer_entity\Entity\CustomerEntity;
 use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
+use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity;
 use Drupal\tax_entity\Entity\TaxEntity;
 use Drupal\invoice_entity\Entity\InvoiceEntity;
 
@@ -32,6 +33,30 @@ class XMLGenerator {
     $xml_text .= $this->generateSummaryXml($entity);
     $xml_text .= $this->generateReferenceInfoXml($entity);
     $xml_text .= $this->generateCurrentRegulationXml();
+    $xml_text .= "</" . $tagname . ">\n";
+
+    // Create the xml document.
+    $doc = new DOMDocument();
+    $doc->loadXML($xml_text);
+    return $doc;
+  }
+
+  public function generateReceiverMessageXML(InvoiceReceivedEntity $entity, $number_key, $consecutive) {
+    $settings = \Drupal::config('e_invoice_cr.settings');
+
+    $tagname = 'MensajeReceptor';
+    $xmlns = 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor';
+    $xml_text = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
+    $xml_text .= "<" . $tagname . " xmlns=\"" . $xmlns . "\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">\n";
+    $xml_text .= "\t<Clave>" . $entity->get('field_ir_numeric_key')->value . "</Clave>\n";
+    $xml_text .= "\t<NumeroCedulaEmisor>" . $entity->get('field_ir_senders_id')->value . "</NumeroCedulaEmisor>\n";
+    $xml_text .= "\t<FechaEmisionDoc>" . $this->formatDateForXml($entity->get('field_ir_invoice_date')->value) . "</FechaEmisionDoc>\n";
+    $xml_text .= "\t<Mensaje>" . $entity->get('field_ir_message')->value . "</Mensaje>\n";
+    $xml_text .= "\t<DetalleMensaje>" . $entity->get('field_ir_message_detail')->value . "</DetalleMensaje>\n";
+    $xml_text .= "\t<MontoTotalImpuesto>" . $entity->get('field_ir_total_tax')->value . "</MontoTotalImpuesto>\n";
+    $xml_text .= "\t<TotalFactura>" . $entity->get('field_ir_total')->value . "</TotalFactura>\n";
+    $xml_text .= "\t<NumeroCedulaReceptor>" . $entity->get('field_ir_number_key_r')->value . "</NumeroCedulaReceptor>\n";
+    $xml_text .= "\t<NumeroConsecutivoReceptor>" . $consecutive . "</NumeroConsecutivoReceptor>\n";
     $xml_text .= "</" . $tagname . ">\n";
 
     // Create the xml document.
@@ -292,7 +317,8 @@ class XMLGenerator {
       $xml_doc .= "\t\t\t<NumTelefono>" . substr($client->get('field_fax')->value, 3) . "</NumTelefono>\n";
       $xml_doc .= "\t\t</Fax>\n";
     }
-    $xml_doc .= "\t\t" . $this->simpleFieldTag("CorreoElectronico", $client->get('field_email')->value, FALSE);
+    $xml_doc .= "\t\t<CorreoElectronico>" . $client->get('field_email')->value . "</CorreoElectronico>\n";
+    //$xml_doc .= "\t\t" . $this->simpleFieldTag("CorreoElectronico", $client->get('field_email')->value, FALSE);
     $xml_doc .= "\t</Receptor>\n";
 
     return $xml_doc;
@@ -320,12 +346,16 @@ class XMLGenerator {
     // Continue building the xml.
     $xml_doc = "\t\t<LineaDetalle>\n";
     $xml_doc .= "\t\t\t<NumeroLinea>" . $count . "</NumeroLinea>\n";
-    if ($values['field_code_type'][0]['value'] !== "" && $values['field_code'][0]['value'] !== "") {
-      $xml_doc .= "\t\t\t<Codigo>\n";
-      $xml_doc .= "\t\t\t\t<Tipo>" . $values['field_code_type'][0]['value'] . "</Tipo>\n";
-      $xml_doc .= "\t\t\t\t<Codigo>" . $values['field_code'][0]['value'] . "</Codigo>\n";
-      $xml_doc .= "\t\t\t</Codigo>\n";
+
+    if (isset($values['field_code_type'][0])) {
+      if ($values['field_code_type'][0]['value'] !== "" && $values['field_code'][0]['value'] !== "") {
+        $xml_doc .= "\t\t\t<Codigo>\n";
+        $xml_doc .= "\t\t\t\t<Tipo>" . $values['field_code_type'][0]['value'] . "</Tipo>\n";
+        $xml_doc .= "\t\t\t\t<Codigo>" . $values['field_code'][0]['value'] . "</Codigo>\n";
+        $xml_doc .= "\t\t\t</Codigo>\n";
+      }
     }
+
     $xml_doc .= "\t\t\t<Cantidad>" . $values['field_quantity'][0]['value'] . "</Cantidad>\n";
     $xml_doc .= "\t\t\t<UnidadMedida>" . $values['field_unit_measure'][0]['value'] . "</UnidadMedida>\n";
     $xml_doc .= "\t\t\t<UnidadMedidaComercial>" . $values['field_another_unit_measure'][0]['value'] . "</UnidadMedidaComercial>\n";

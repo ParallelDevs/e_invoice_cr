@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - invoice_received_entity
+    - options
+  enforced:
+    module:
+      - invoice_received_entity
+id: invoice_received_entity.field_ir_status
+field_name: field_ir_status
+entity_type: invoice_received_entity
+type: list_integer
+settings:
+  allowed_values:
+    -
+      value: 0
+      label: Waiting for user response
+    -
+      value: 1
+      label: Sent it to Hacienda
+    -
+      value: 2
+      label: Rejected
+    -
+      value: 3
+      label: Accepted
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

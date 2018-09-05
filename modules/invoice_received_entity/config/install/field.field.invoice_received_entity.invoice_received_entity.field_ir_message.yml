@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.invoice_received_entity.field_ir_message
+  module:
+    - invoice_received_entity
+    - options
+id: invoice_received_entity.invoice_received_entity.field_ir_message
+field_name: field_ir_message
+entity_type: invoice_received_entity
+bundle: invoice_received_entity
+label: Message
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

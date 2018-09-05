@@ -3,6 +3,7 @@
 namespace Drupal\invoice_entity;
 
 use Drupal\invoice_entity\Entity\InvoiceEntity;
+use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity;
 
 /**
  * Interface InvoiceServiceInterface.
@@ -32,15 +33,28 @@ interface InvoiceServiceInterface {
   public function validateInvoiceEntity(InvoiceEntity $entity);
 
   /**
+   * Check the current state of the InvoiceReceivedEntity.
+   *
+   * @param \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity $entity
+   *   Entity to eval.
+   * 
+   * @return array
+   *   Return an array with the operation result information.
+   */
+  public function validateInvoiceReceivedEntity(InvoiceReceivedEntity $entity);
+
+  /**
    * Generate the invoice key and return it.
    *
    * @param string $type
    *   The type of the invoice.
+   * @param bool $received
+   *   If the document is a received invoice.
    *
    * @return string
    *   Return the generated key.
    */
-  public function generateInvoiceKey($type);
+  public function generateInvoiceKey($type, $received = FALSE);
 
   /**
    * Generate the invoice consecutive number.
@@ -54,15 +68,27 @@ interface InvoiceServiceInterface {
   public function generateConsecutive($type);
 
   /**
+   * Generate the message document's consecutive number.
+   * @param $code
+   *   Message's code.
+   * 
+   * @return string
+   *   The consecutive number.
+   */
+  public function generateMessageConsecutive($code);
+
+  /**
    * Generate and check if the generated key is already used.
    *
    * @param string $type
    *   The type of the invoice.
+   * @param bool $received
+   *   If the document is a received invoice.
    *
    * @return string
    *   Return the new unique key.
    */
-  public function getUniqueInvoiceKey($type = 'FE');
+  public function getUniqueInvoiceKey($type = 'FE', $received = FALSE);
 
   /**
    * Set variable value.

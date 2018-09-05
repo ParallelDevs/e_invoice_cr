@@ -1,0 +1,75 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_credit_term
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_currency
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_invoice_date
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_message
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_message_detail
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_number_key_r
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_numeric_key
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_payment_method
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_rows
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_sale_condition
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_senders_id
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_senders_id_type
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_senders_name
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_status
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_total
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_total_discount
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_total_net_sale
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_total_tax
+    - field.field.invoice_received_entity.invoice_received_entity.field_ir_xml_file
+  module:
+    - file
+    - invoice_received_entity
+_core:
+  default_config_hash: BA4aGVSduZCsLNoT7A2-o6vbfBDP4yCJUFqq_yATuYY
+id: invoice_received_entity.invoice_received_entity.default
+targetEntityType: invoice_received_entity
+bundle: invoice_received_entity
+mode: default
+content:
+  field_ir_message:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_ir_message_detail:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_ir_xml_file:
+    weight: 0
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
+    region: content
+hidden:
+  document_key: true
+  field_ir_credit_term: true
+  field_ir_currency: true
+  field_ir_invoice_date: true
+  field_ir_number_key_r: true
+  field_ir_numeric_key: true
+  field_ir_payment_method: true
+  field_ir_rows: true
+  field_ir_sale_condition: true
+  field_ir_senders_id: true
+  field_ir_senders_id_type: true
+  field_ir_senders_name: true
+  field_ir_status: true
+  field_ir_total: true
+  field_ir_total_discount: true
+  field_ir_total_net_sale: true
+  field_ir_total_tax: true
+  moderation_state: true
+  name: true
+  user_id: true
