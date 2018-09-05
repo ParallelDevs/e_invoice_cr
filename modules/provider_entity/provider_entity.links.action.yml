@@ -1,0 +1,5 @@
+entity.provider_entity.add_form:
+  route_name: entity.provider_entity.add_form
+  title: 'Add provider'
+  appears_on:
+    - entity.provider_entity.collection

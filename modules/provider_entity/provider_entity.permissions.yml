@@ -1,0 +1,33 @@
+add provider entities:
+  title: 'Create new Provider entities'
+
+administer provider entities:
+  title: 'Administer Provider entities'
+  description: 'Allow to access the administration form to configure Provider entities.'
+  restrict access: true
+
+delete provider entities:
+  title: 'Delete Provider entities'
+
+edit provider entities:
+  title: 'Edit Provider entities'
+
+access provider overview:
+  title: 'Access the Provider overview page'
+
+view published provider entities:
+  title: 'View published Provider entities'
+
+view unpublished provider entities:
+  title: 'View unpublished Provider entities'
+
+view all provider revisions:
+  title: 'View all Provider revisions'
+
+revert all provider revisions:
+  title: 'Revert all Provider revisions'
+  description: 'Role requires permission <em>view Provider revisions</em> and <em>edit rights</em> for provider entities in question or <em>administer provider entities</em>.'
+
+delete all provider revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Provider revisions</em> and <em>delete rights</em> for provider entities in question or <em>administer provider entities</em>.'
