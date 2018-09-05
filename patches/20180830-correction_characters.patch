@@ -1,0 +1,29 @@
+diff --git a/src/Plugin/Field/FieldType/addressfield_crItem.php b/src/Plugin/Field/FieldType/addressfield_crItem.php
+index a5fed4b..8dbb8b6 100644
+--- a/src/Plugin/Field/FieldType/addressfield_crItem.php
++++ b/src/Plugin/Field/FieldType/addressfield_crItem.php
+@@ -44,7 +44,7 @@ class addressfield_crItem extends FieldItemBase {
+         ],
+         'additionalinfo' => [
+           'type' => 'varchar',
+-          'length' => 40,
++          'length' => 160,
+         ],
+       ],
+     ];
+diff --git a/src/Plugin/Field/FieldWidget/addressfield_crWidget.php b/src/Plugin/Field/FieldWidget/addressfield_crWidget.php
+index 2f16eaa..2f6d195 100644
+--- a/src/Plugin/Field/FieldWidget/addressfield_crWidget.php
++++ b/src/Plugin/Field/FieldWidget/addressfield_crWidget.php
+@@ -343,9 +343,9 @@ class addressfield_crWidget extends WidgetBase implements WidgetInterface {
+    */
+   public function generateAdditionalInfoField() {
+     return [
+-      '#type' => 'textfield',
++      '#type' => 'textarea',
+       '#title' => t('Additional Information'),
+-      '#size' => 40,
++      '#col' => 160,
+       '#required' => FALSE,
+     ];
+   }
