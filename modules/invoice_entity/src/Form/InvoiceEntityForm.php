@@ -21,7 +21,7 @@ use Drupal\tax_entity\Entity\TaxEntity;
  */
 class InvoiceEntityForm extends ContentEntityForm {
 
-  private const DEPENDENT_FIELDS = [
+  const DEPENDENT_FIELDS = [
     'field_payment_method' => ['FE', 'TE'],
     'field_client' => ['FE', 'NC', 'ND'],
     'ref_type_of' => ['NC', 'ND'],

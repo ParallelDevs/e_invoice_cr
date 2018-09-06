@@ -96,6 +96,14 @@ class InvoiceService implements InvoiceServiceInterface {
     $key = $entity->get('field_numeric_key')->value;
     $result = $this->responseForKey($key);
     $state = NULL;
+
+    $path = "public://xml_confirmation/";
+    $user_current = \Drupal::currentUser();
+    $id_cons = $entity->get('field_consecutive_number')->value;
+    $doc_name = "document-" . $user_current->id() . "-" . $id_cons . "confirmation";
+    file_prepare_directory($path, FILE_CREATE_DIRECTORY);
+    $result[3]->saveXML($path . $doc_name . ".xml");
+
     if (!is_null($result)) {
       $state = $result[2] === 'rechazado' ? 'rejected' : 'published';
       $entity->set('moderation_state', $state);
@@ -127,7 +135,7 @@ class InvoiceService implements InvoiceServiceInterface {
     $result = $this->responseForKey($key);
     $status = $entity->get('field_ir_status')->value;
     if(!is_null($result)) {
-      $status = $result[2] === 'aceptado' ? 
+      $status = $result[2] === 'aceptado' ?
         InvoiceReceivedEntity::IR_ACCEPTED_STATUS : InvoiceReceivedEntity::IR_REJECTED_STATUS;
       $entity->set('field_ir_status', $status);
       $entity->save();
@@ -176,7 +184,7 @@ class InvoiceService implements InvoiceServiceInterface {
    */
   public function generateMessageConsecutive($code) {
     $document_code = InvoiceReceivedEntityInterface::IR_MESSAGES_STATES[$code]['code'];
-    
+
     return $this->generateConsecutiveDoc($document_code);
   }
 
@@ -207,8 +215,8 @@ class InvoiceService implements InvoiceServiceInterface {
 
     return $current_key;
   }
-  
-  
+
+
 
   /**
    * {@inheritdoc}

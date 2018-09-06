@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Contains config_email.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function imap_module($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the imap_module module.
+    case 'help.page.imap_module':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module provides IMAP configuration of the email account for e-invoice.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function imap_module_theme() {
+  return [
+    'imap_module' => [
+      'render element' => 'children',
+    ],
+  ];
+}

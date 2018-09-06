@@ -14,7 +14,7 @@ use Drupal\user\EntityOwnerInterface;
  */
 interface InvoiceEntityInterface extends RevisionableInterface, RevisionLogInterface, EntityChangedInterface, EntityOwnerInterface {
 
-  public const DOCUMENTATIONINFO = [
+  const DOCUMENTATIONINFO = [
     'FE' => [
       'code' => '01',
       'label' => 'Electronic Bill',
@@ -41,7 +41,7 @@ interface InvoiceEntityInterface extends RevisionableInterface, RevisionLogInter
     ],
   ];
 
-  public const AVAILABLE_CURRENCY = [
+  const AVAILABLE_CURRENCY = [
     'CRC' => [
       'name' => 'Colones',
       'symbol' => '₡',

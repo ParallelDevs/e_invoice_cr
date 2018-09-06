@@ -1,0 +1,7 @@
+entity.provider_entity.options:
+  path: '/admin/structure/provider_entity/options'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Provider Entity'
+  requirements:
+    _permission: 'access administration pages'
