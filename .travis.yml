@@ -60,6 +60,7 @@ script:
   - phpcs --standard=phpcs.xml src -s
   - phpcs --standard=phpcs.xml modules -s
   - phpcs --standard=phpcs.xml tests -s
+  - phpcs --standard=phpcs.xml e_invoice_cr.module -s
 
 notifications:
   email: false
