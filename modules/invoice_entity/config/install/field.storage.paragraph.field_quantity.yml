@@ -10,7 +10,7 @@ dependencies:
 id: paragraph.field_quantity
 field_name: field_quantity
 entity_type: paragraph
-type: integer
+type: decimal
 settings:
   unsigned: false
   size: normal

@@ -24,4 +24,4 @@ settings:
   max: null
   prefix: ''
   suffix: ''
-field_type: integer
+field_type: decimal
