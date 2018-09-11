@@ -16,6 +16,9 @@
       "drupal/core": {
         "Drupal Core AJAX error fix": "https://www.drupal.org/files/issues/drupal-2027059-62.patch",
         "Number Decimals fields fixed" : "https://www.drupal.org/files/issues/2230909-78-simple_decimals_fail_to.patch"
+      },
+      "drupal/addressfield_cr": {
+        "Change length additionalinformation length": "patches/20180830-correction_characters.patch"
       }
     }
   }
