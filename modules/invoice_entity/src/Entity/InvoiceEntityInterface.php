@@ -14,7 +14,7 @@ use Drupal\user\EntityOwnerInterface;
  */
 interface InvoiceEntityInterface extends RevisionableInterface, RevisionLogInterface, EntityChangedInterface, EntityOwnerInterface {
 
-  const DOCUMENTATIONINFO = [
+  const DOCUMENTATION_INFO = [
     'FE' => [
       'code' => '01',
       'label' => 'Electronic Bill',

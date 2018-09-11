@@ -1,4 +1,4 @@
-name: 'Invoice CR Received Entity'
+name: 'Invoice Received Entity'
 type: module
 description: 'This module provides the invoice received entity for e-invoice.'
 core: 8.x

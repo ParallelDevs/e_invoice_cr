@@ -194,6 +194,12 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
       }
       elseif ($result['state'] === "published") {
         drupal_set_message(t("Status Accepted. @text", ["@text" => $result['response'][3]->DetalleMensaje]), 'status');
+        $path = "public://xml_confirmation/";
+        $user_current = \Drupal::currentUser();
+        $id_cons = $entity->get('field_consecutive_number')->value;
+        $doc_name = "document-" . $user_current->id() . "-" . $id_cons . "confirmation";
+        file_prepare_directory($path, FILE_CREATE_DIRECTORY);
+        $result['response'][3]->saveXML($path . $doc_name . ".xml");
       }
       drupal_set_message(t('A validation request has been performed.'), 'status');
     }

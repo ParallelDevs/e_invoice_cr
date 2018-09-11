@@ -1,6 +1,0 @@
-settings:
-  allowed_values:
-    -
-      label: 'Número de cédula física'
-    -
-      label: 'Cédula Jurídica'

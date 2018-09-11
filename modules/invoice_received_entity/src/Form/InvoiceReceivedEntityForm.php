@@ -111,8 +111,6 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
         } else {
           $this->file_xml = $simpleXml;
         }
-      }else{
-        $form_state->setErrorByName('field_ir_xml_file', $this->t("The XML file field is required."));
       }
     }
 
@@ -280,7 +278,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
         return FALSE;
       }
     }
-
+    
   }
 
   /**

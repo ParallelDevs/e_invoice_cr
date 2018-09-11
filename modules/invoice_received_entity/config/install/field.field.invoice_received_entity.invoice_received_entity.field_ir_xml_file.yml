@@ -12,7 +12,7 @@ entity_type: invoice_received_entity
 bundle: invoice_received_entity
 label: 'XML file'
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
