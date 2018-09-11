@@ -1,24 +1,28 @@
-# SUMMARY
+# Invoice CR
+
+[![Build Status](https://travis-ci.org/ParallelDevs/e_invoice_cr.svg?branch=develop)](https://travis-ci.org/ParallelDevs/e_invoice_cr)
+
+## SUMMARY
 
 This is a module to do the electronic billing for Costa Rican regulations only.
 It solves the signature process, it lets us to create electronic documents and
 send them to the verifications API, generates the XML documents,
 email integrations, customer management, and taxes management.
 
-# REQUIREMENTS
+## REQUIREMENTS
 
 * Composer
 
 Important: You need to set up Swiftmailer module in order to have the invoice
 email module working properly.
 
-# THEMING
+## THEMING
 At the moment, you can only overwrite the invoice form styles
 if you have a custom admin theme, you just need to add
 on yourtheme.libraries.yml a library called "e-invoice-cr-form"
 and the module will load those styles instead of default.
 
-# INSTALLATION
+## INSTALLATION
 You must enable the following modules: e_invoice_cr, customer_entity,
 tax_entity, invoice_entity, invoice_email. Once done, you must fill
 the configuration form at admin/e-invoice-cr/settings.
