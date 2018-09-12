@@ -1,7 +1,0 @@
-name: Invoice CR IMAP Configuration
-type: module
-description: This module provides IMAP configuration of the email account for e-invoice.
-core: 8.x
-package: other
-dependencies:
-  - e_invoice_cr

@@ -1,21 +1,21 @@
 <?php
 
-namespace Drupal\imap_module\Form;
+namespace Drupal\imap_settings\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
 
 /**
- * Configure imap_module settings for this site.
+ * Configure imap_settings settings for this site.
  */
-class EmailSettingsForm extends ConfigFormBase {
+class ImapSettingsForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'imap_module_settings';
+    return 'imap_settings_settings';
   }
 
   /**
@@ -23,7 +23,7 @@ class EmailSettingsForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'imap_module.settings',
+      'imap_settings.settings',
     ];
   }
 
@@ -31,7 +31,7 @@ class EmailSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $settings = \Drupal::config('imap_module.settings');
+    $settings = \Drupal::config('imap_settings.settings');
     $flags = [
       "" => $this->t("No flag selected"),
       "/service" => $this->t("service"),
@@ -52,7 +52,7 @@ class EmailSettingsForm extends ConfigFormBase {
       "/readonly" => $this->t("readonly"),
     ];
     // Get default values.
-    $remote_system_name = $settings->get('remote_system_name');
+    $remote = $settings->get('remote');
     $port = $settings->get('port');
     $flag = $settings->get('flag');
     $mailbox = $settings->get('mailbox');
@@ -70,14 +70,14 @@ class EmailSettingsForm extends ConfigFormBase {
     $form['form'] = [
       '#id' => 'form',
       '#type' => 'details',
-      '#title' => $this->t('IMAP Configuration'),
+      '#title' => $this->t('IMAP Settings'),
       '#open' => TRUE,
     ];
 
-    $form['form']['remote_system_name'] = [
+    $form['form']['remote'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Remote system name:'),
-      '#default_value' => $remote_system_name,
+      '#default_value' => $remote,
       '#required' => TRUE,
       '#description' => $this->t('Internet domain name or bracketed IP address of server.'),
       '#validated' => FALSE,
@@ -150,9 +150,9 @@ class EmailSettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
     // Retrieve the configuration.
-    \Drupal::configFactory()->getEditable('imap_module.settings')
+    \Drupal::configFactory()->getEditable('imap_settings.settings')
       // Set the submitted configuration setting.
-      ->set('remote_system_name', $values['remote_system_name'])
+      ->set('remote', $values['remote'])
       ->set('port', $values['port'])
       ->set('flag', $values['flags'])
       ->set('mailbox', $values['mailbox'])

@@ -1,8 +1,8 @@
-imap_module.settings:
+imap_settings.settings:
   type: mapping
-  label: Variable Settings of imap configuration module
+  label: Variable Settings of imap module
   mapping:
-   remote_system_name:
+   remote:
      type: string
    port:
      type: int

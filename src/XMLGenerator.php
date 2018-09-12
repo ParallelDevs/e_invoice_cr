@@ -318,7 +318,6 @@ class XMLGenerator {
       $xml_doc .= "\t\t</Fax>\n";
     }
     $xml_doc .= "\t\t<CorreoElectronico>" . $client->get('field_email')->value . "</CorreoElectronico>\n";
-    //$xml_doc .= "\t\t" . $this->simpleFieldTag("CorreoElectronico", $client->get('field_email')->value, FALSE);
     $xml_doc .= "\t</Receptor>\n";
 
     return $xml_doc;

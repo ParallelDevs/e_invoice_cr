@@ -8,24 +8,31 @@ use Drupal\provider_entity\Entity\ProviderEntity;
 use Drupal\addressfield_cr\Plugin\Field\FieldType\addressfield_crItem;
 
 /**
- * Class InvoiceReceivedEntityController.
- *
- *  Returns responses for Invoice received entity routes.
+ * Import XML files from a inbox gmail account and mapping the entities in Drupal.
  */
 class ImportXMLFromEmail {
 
   /**
-   * {@inheritdoc}
+   * Get the unread emails from the gmail account and save the xml files attached of that emails locally.
+   *
+   * @param $inbox
+   *   IMAP stream on success or FALSE on error.
+   *
+   * @param array $emails
+   *   array of message numbers or UIDs.
+   *
+   * @return array
+   *   An array with the paths of the xml files saved.
    */
   public function getXMLFilesFromEmails($inbox, $emails) {
     $count = 0;
     $paths = [];
-
     rsort($emails);
 
     foreach ($emails as $email_number) {
       $structure = imap_fetchstructure($inbox, $email_number);
       $attachments = [];
+
       if (isset($structure->parts) && count($structure->parts)) {
         for ($i = 0; $i < count($structure->parts); $i++) {
           $attachments[$i] = [
@@ -34,7 +41,6 @@ class ImportXMLFromEmail {
             'name' => '',
             'attachment' => '',
           ];
-
           if ($structure->parts[$i]->ifdparameters) {
             foreach ($structure->parts[$i]->dparameters as $object) {
               if (strtolower($object->attribute) == 'filename') {
@@ -43,7 +49,6 @@ class ImportXMLFromEmail {
               }
             }
           }
-
           if ($structure->parts[$i]->ifparameters) {
             foreach ($structure->parts[$i]->parameters as $object) {
               if (strtolower($object->attribute) == 'name') {
@@ -52,7 +57,6 @@ class ImportXMLFromEmail {
               }
             }
           }
-
           if ($attachments[$i]['is_attachment']) {
             $attachments[$i]['attachment'] = imap_fetchbody($inbox, $email_number, $i + 1);
             if ($structure->parts[$i]->encoding == 3) { // 3 = BASE64
@@ -64,8 +68,6 @@ class ImportXMLFromEmail {
           }
         }
       }
-
-      /* iterate through each attachment and save it */
       foreach ($attachments as $attachment) {
         if ($attachment['is_attachment'] == 1) {
           if (strpos($attachment['name'], '.xml') !== FALSE) {
@@ -87,29 +89,30 @@ class ImportXMLFromEmail {
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the invoice data from the xml file, create a invoice received entity and save that.
+   *
+   * @param SimpleXMLElement $file_xml
+   *   The xml of the respective invoice.
+   *
+   * @return bool
+   *   Determinates if the entity saved successfully or not.
    */
   function createInvoiceReceivedEntityFromXML($file_xml) {
     $settings = \Drupal::config('e_invoice_cr.settings');
     $date = date('Y-m-d\Th:i:s', strtotime($file_xml->FechaEmision));
     $entity = new InvoiceReceivedEntity([], 'invoice_received_entity');
-    $entity->set('document_key', 'Unassigned');
-    $entity->set('langcode', "en");
-    $entity->set('status', 1);
-    $entity->set('default_langcode', TRUE);
-    $entity->set('uuid', $file_xml->NumeroConsecutivo);
     $entity->set('field_ir_numeric_key', $file_xml->Clave);
     $entity->set('field_ir_senders_id', str_pad($file_xml->Emisor->Identificacion->Numero, 12, '0', STR_PAD_LEFT));
     $entity->set('field_ir_invoice_date', $date);
-    $entity->set('field_ir_total_tax', $file_xml->ResumenFactura->TotalImpuesto);
-    $entity->set('field_ir_total', $file_xml->ResumenFactura->TotalComprobante);
+    $entity->set('field_ir_total_tax', floatval($file_xml->ResumenFactura->TotalImpuesto));
+    $entity->set('field_ir_total', floatval($file_xml->ResumenFactura->TotalComprobante));
     $entity->set('field_ir_sale_condition', $file_xml->CondicionVenta);
     $entity->set('field_ir_currency', $file_xml->ResumenFactura->CodigoMoneda);
     $entity->set('field_ir_senders_name', $file_xml->Emisor->NombreComercial);
-    //$this->entity->set('field_ir_credit_term', );
-    $entity->set('field_ir_total_discount', $file_xml->ResumenFactura->TotalDescuento);
-    $entity->set('field_ir_total_net_sale', $file_xml->ResumenFactura->TotalVentaNeta);
-    $entity->set('field_ir_number_key_r', str_pad($settings->get('id'), 12, '0', STR_PAD_LEFT));
+    $entity->set('field_ir_total_discount', floatval($file_xml->ResumenFactura->TotalDescuento));
+    $entity->set('field_ir_total_net_sale', floatval($file_xml->ResumenFactura->TotalVentaNeta));
+    $entity->set('field_ir_number_key_r', $file_xml->Receptor->Identificacion->Numero, 12, '0', STR_PAD_LEFT);
+
     $entity->setNewRevision();
     $entity->setRevisionCreationTime(REQUEST_TIME);
     $entity->setRevisionUserId(\Drupal::currentUser()->id());
@@ -127,20 +130,28 @@ class ImportXMLFromEmail {
   }
 
   /**
-   * {@inheritdoc}
+   * Takes and sets the row data of the xml file in the invoice received entity.
+   *
+   * @param SimpleXMLElement $row
+   *   The xml of the respective invoice.
+   *
+   * @param \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity $entity
+   *   The xml of the respective invoice.
+   *
+   * @return \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity
+   *   Return the invoice received entity with the row data.
    */
   function addRowToEntity($row, $entity) {
     $paragraph = Paragraph::create(['type' => 'invoice_row']);
     $paragraph->set('field_code_type', $row->Codigo->Tipo);
     $paragraph->set('field_code', $row->Codigo->Codigo);
     $paragraph->set('field_detail', $row->Detalle);
-    $paragraph->set('field_line_total_amount', $row->MontoTotalLinea);
-    $paragraph->set('field_quantity', $row->Cantidad);
-    $paragraph->set('field_subtotal', $row->SubTotal);
-    $paragraph->set('field_total_amount', $row->MontoTotal);
-    //$paragraph->set('field_row_type', $row->MontoTotal);
+    $paragraph->set('field_line_total_amount', floatval($row->MontoTotalLinea));
+    $paragraph->set('field_quantity', floatval($row->Cantidad));
+    $paragraph->set('field_subtotal', floatval($row->SubTotal));
+    $paragraph->set('field_total_amount', floatval($row->MontoTotal));
     $paragraph->set('field_unit_measure', $row->UnidadMedida);
-    $paragraph->set('field_unit_price', $row->PrecioUnitario);
+    $paragraph->set('field_unit_price', floatval($row->PrecioUnitario));
     $paragraph->isNew();
     $paragraph->save();
     $current = $entity->get('field_ir_rows')->getValue();
@@ -153,7 +164,13 @@ class ImportXMLFromEmail {
   }
 
   /**
-   * {@inheritdoc}
+   * Checks if the invoice was saved previously in the system.
+   *
+   * @param int $number_key
+   *   The consecutive number of the invoice.
+   *
+   * @return bool
+   *   If the invoice exists or not in the system.
    */
   function alreadyExistInvoiceReceivedEntity($number_key) {
     $connection = \Drupal::database();
@@ -168,7 +185,13 @@ class ImportXMLFromEmail {
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the invoice data from the xml file, create a provider entity and save that.
+   *
+   * @param SimpleXMLElement $file_xml
+   *   The xml of the respective invoice.
+   *
+   * @return bool
+   *   Determinates if the entity saved successfully or not.
    */
   function createProviderEntityFromXML($file_xml) {
     $entity = new ProviderEntity([], 'provider_entity');
@@ -180,13 +203,13 @@ class ImportXMLFromEmail {
     $entity->set('field_provider_id', $file_xml->Emisor->Identificacion->Numero);
     $entity->set('name', $file_xml->Emisor->Nombre);
     $entity->set('field_commercial_name', $file_xml->Emisor->NombreComercial);
-    $entity->set('field_phone', $file_xml->Emisor->Telefono->CodigoPais.$file_xml->Emisor->Telefono->NumTelefono);
+    $entity->set('field_phone', $file_xml->Emisor->Telefono->CodigoPais . $file_xml->Emisor->Telefono->NumTelefono);
     $entity->set('field_email', $file_xml->Emisor->CorreoElectronico);
     $entity->set('field_address', $file_xml->Emisor->Ubicacion->Provincia);
     $address_field = $entity->get('field_address')[0];
     $address_field->set('canton', $file_xml->Emisor->Ubicacion->Canton);
     $address_field->set('district', $file_xml->Emisor->Ubicacion->Distrito);
-    $address_field->set('zipcode', $file_xml->Emisor->Ubicacion->Provincia.$file_xml->Emisor->Ubicacion->Canton.$file_xml->Emisor->Ubicacion->Distrito);
+    $address_field->set('zipcode', $file_xml->Emisor->Ubicacion->Provincia . $file_xml->Emisor->Ubicacion->Canton . $file_xml->Emisor->Ubicacion->Distrito);
     $address_field->set('additionalinfo', $file_xml->Emisor->Ubicacion->OtrasSenas);
     $entity->setNewRevision();
     $entity->setRevisionCreationTime(REQUEST_TIME);
@@ -195,7 +218,13 @@ class ImportXMLFromEmail {
   }
 
   /**
-   * {@inheritdoc}
+   * Checks if the provider was saved previously in the system.
+   *
+   * @param int $id
+   *   The id of the provider.
+   *
+   * @return bool
+   *   If the provider already exists or not in the system.
    */
   function alreadyExistProviderEntity($id) {
     $connection = \Drupal::database();
@@ -203,7 +232,7 @@ class ImportXMLFromEmail {
     $query->fields('provider_entity', ['id']);
     $query->leftJoin('provider_entity__field_provider_id', 'provider_entity_id',
       'provider_entity.id = provider_entity_id.entity_id AND provider_entity_id.deleted = \'0\'');
-    $query->condition('pe_id.field_provider_id_value', $id, '=');
+    $query->condition('provider_entity_id.field_provider_id_value', $id, '=');
     $result = $query->execute();
     $fetch = $result->fetchAll();
     return !empty($fetch);

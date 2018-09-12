@@ -6,7 +6,6 @@ use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
-use Drupal\invoice_received_entity\ImportXMLFromEmail;
 use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface;
 
 /**
@@ -176,39 +175,35 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
   }
 
   /**
-   * Import XML files from a gmail account and mapping the entities in Drupal.
+   * Import XML files from a inbox gmail account and mapping the entities in Drupal.
    */
-  public function importXMLFromEmail() {
-    $settings = \Drupal::config('imap_module.settings');
-    $remote_system_name = $settings->get('remote_system_name');
+  public function importXmlFromEmail() {
+    $settings = \Drupal::config('imap_settings.settings');
+    $remote = $settings->get('remote');
     $port = $settings->get('port');
     $flag = $settings->get('flag');
     $mailbox = $settings->get('mailbox');
-    $imapPath = '{' . $remote_system_name . ':' . $port . $flag . '}' . $mailbox;
+    $imap = '{' . $remote . ':' . $port . $flag . '}' . $mailbox;
     $username = $settings->get('username');
     $password = $settings->get('password');
-
-    // try to connect
-    $inbox = imap_open($imapPath, $username, $password) or die('Cannot connect to Gmail: ' . imap_last_error());
-
+    $inbox = imap_open($imap, $username, $password);
     if (!is_null($inbox)) {
-      $importXML = new ImportXMLFromEmail();
+      $importXml = new importXmlFromEmail();
       $emails = imap_search($inbox, 'ALL UNSEEN');
-
       if ($emails) {
-        $paths = $importXML->getXMLFilesFromEmails($inbox, $emails);
-
+        $paths = $importXml->getXMLFilesFromEmails($inbox, $emails);
         foreach ($paths as $path) {
           $simpleXml = simplexml_load_file($path);
-          if (isset($simpleXml->Emisor->Identificacion->Numero) && !$importXML->alreadyExistInvoiceReceivedEntity($simpleXml->Clave)) {
-            $importXML->createInvoiceReceivedEntityFromXML($simpleXml);
+          if (isset($simpleXml->Emisor->Identificacion->Numero) && !$importXml->alreadyExistInvoiceReceivedEntity($simpleXml->Clave)) {
+            $importXml->createInvoiceReceivedEntityFromXML($simpleXml);
           }
-          if(isset($simpleXml->Emisor->Identificacion->Numero) && !$importXML->alreadyExistProviderEntity($simpleXml->Emisor->Identificacion->Numero)){
-            $importXML->createProviderEntityFromXML($simpleXml);
+          if(isset($simpleXml->Emisor->Identificacion->Numero) && !$importXml->alreadyExistProviderEntity($simpleXml->Emisor->Identificacion->Numero)){
+            $importXml->createProviderEntityFromXML($simpleXml);
           }
         }
         drupal_set_message($this->t('The XML file(s) was imported successfully from unread email(s).'));
-      } else {
+      }
+      else {
         drupal_set_message($this->t('No have new unreads emails for XML import.'));
       }
     }

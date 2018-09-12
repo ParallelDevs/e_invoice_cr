@@ -9,7 +9,7 @@ entity.invoice_received_entity.options:
 entity.invoice_received_entities.view:
   path: '/invoice-received-entities'
   defaults:
-    _title: 'Invoice Received Entities'
+    _title: 'Invoice Received Enitities'
   requirements:
     _permission: 'access administration pages'
 
@@ -20,4 +20,3 @@ entity.invoice_received_entity.import_xml:
     _title: 'Import XML from email'
   requirements:
     _permission: 'access administration pages'
-

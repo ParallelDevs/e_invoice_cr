@@ -1,0 +1,14 @@
+
+# Email Account menu items definition
+imap_settings.manage:
+  title: 'IMAP Settings'
+  route_name: imap_settings.settings
+  parent: e_envoice_cr.manage
+  weight: 102
+
+imap_settings.addnew:
+  title: 'IMAP Settings'
+  route_name: imap_settings.settings
+  description: 'Set IMAP settings of email account.'
+  parent: imap_settings.content
+  weight: 50

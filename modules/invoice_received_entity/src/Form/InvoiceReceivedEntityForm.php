@@ -124,21 +124,19 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
    */
   function createEntityFromXML(array $form, FormStateInterface $form_state) {
     $this->entity->set('document_key', 'Unassigned');
-    $settings = \Drupal::config('e_invoice_cr.settings');
     $date = date('Y-m-d\Th:i:s', strtotime($this->file_xml->FechaEmision));
 
     $this->entity->set('field_ir_numeric_key', $this->file_xml->Clave);
     $this->entity->set('field_ir_senders_id', str_pad($this->file_xml->Emisor->Identificacion->Numero, 12, '0', STR_PAD_LEFT));
     $this->entity->set('field_ir_invoice_date', $date);
-    $this->entity->set('field_ir_total_tax', $this->file_xml->ResumenFactura->TotalImpuesto);
-    $this->entity->set('field_ir_total', $this->file_xml->ResumenFactura->TotalComprobante);
+    $this->entity->set('field_ir_total_tax', floatval($this->file_xml->ResumenFactura->TotalImpuesto));
+    $this->entity->set('field_ir_total', floatval($this->file_xml->ResumenFactura->TotalComprobante));
     $this->entity->set('field_ir_sale_condition', $this->file_xml->CondicionVenta);
     $this->entity->set('field_ir_currency', $this->file_xml->ResumenFactura->CodigoMoneda);
     $this->entity->set('field_ir_senders_name', $this->file_xml->Emisor->NombreComercial);
-    //$this->entity->set('field_ir_credit_term', );
-    $this->entity->set('field_ir_total_discount', $this->file_xml->ResumenFactura->TotalDescuento);
-    $this->entity->set('field_ir_total_net_sale', $this->file_xml->ResumenFactura->TotalVentaNeta);
-    $this->entity->set('field_ir_number_key_r', str_pad($settings->get('id'), 12, '0', STR_PAD_LEFT));
+    $this->entity->set('field_ir_total_discount', floatval($this->file_xml->ResumenFactura->TotalDescuento));
+    $this->entity->set('field_ir_total_net_sale', floatval($this->file_xml->ResumenFactura->TotalVentaNeta));
+    $this->entity->set('field_ir_number_key_r', $this->file_xml->Receptor->Identificacion->Numero, 12, '0', STR_PAD_LEFT);
 
     // Invoice's rows
     /** @var \SimpleXMLElement $serviceDetail */
@@ -158,13 +156,12 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
     $paragraph->set('field_code_type', $row->Codigo->Tipo);
     $paragraph->set('field_code', $row->Codigo->Codigo);
     $paragraph->set('field_detail', $row->Detalle);
-    $paragraph->set('field_line_total_amount', $row->MontoTotalLinea);
-    $paragraph->set('field_quantity', $row->Cantidad);
-    $paragraph->set('field_subtotal', $row->SubTotal);
-    $paragraph->set('field_total_amount', $row->MontoTotal);
-    //$paragraph->set('field_row_type', $row->MontoTotal);
+    $paragraph->set('field_line_total_amount', floatval($row->MontoTotalLinea));
+    $paragraph->set('field_quantity', floatval($row->Cantidad));
+    $paragraph->set('field_subtotal', floatval($row->SubTotal));
+    $paragraph->set('field_total_amount', floatval($row->MontoTotal));
     $paragraph->set('field_unit_measure', $row->UnidadMedida);
-    $paragraph->set('field_unit_price', $row->PrecioUnitario);
+    $paragraph->set('field_unit_price', floatval($row->PrecioUnitario));
     $paragraph->isNew();
     $paragraph->save();
     $current = $this->entity->get('field_ir_rows')->getValue();
@@ -272,7 +269,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
           $invoice_service->validateInvoiceReceivedEntity($this->entity);
           $invoice_service->increaseValues();
           $invoice_service->updateValues();
-          //$this->checkInvoiceState($newNumberKey);
+          $this->checkInvoiceState($newNumberKey);
           return TRUE;
         }
       }
