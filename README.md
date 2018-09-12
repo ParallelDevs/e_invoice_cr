@@ -13,10 +13,10 @@ email integrations, customer management, and taxes management.
 
 * Composer
 
-Important: You need to set up Swiftmailer module in order to have the invoice
+* Important: You need to set up Swiftmailer module in order to have the invoice
 email module working properly.
 
-Java Runtime Environment (JRE) installed on your server.
+* Java Runtime Environment (JRE) installed on your server.
 
 ## THEMING
 At the moment, you can only overwrite the invoice form styles
