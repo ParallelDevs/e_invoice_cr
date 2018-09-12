@@ -16,6 +16,8 @@ email integrations, customer management, and taxes management.
 Important: You need to set up Swiftmailer module in order to have the invoice
 email module working properly.
 
+Java Runtime Environment (JRE) installed on your server.
+
 ## THEMING
 At the moment, you can only overwrite the invoice form styles
 if you have a custom admin theme, you just need to add
