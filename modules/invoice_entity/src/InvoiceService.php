@@ -165,8 +165,8 @@ class InvoiceService implements InvoiceServiceInterface {
    * {@inheritdoc}
    */
   public function generateConsecutive($type) {
-    $document_code = isset(InvoiceEntityInterface::DOCUMENTATIONINFO[$type]) ?
-      InvoiceEntityInterface::DOCUMENTATIONINFO[$type]['code'] : '01';
+    $document_code = isset(InvoiceEntityInterface::DOCUMENTATION_INFO[$type]) ?
+      InvoiceEntityInterface::DOCUMENTATION_INFO[$type]['code'] : '01';
 
     return $this->generateConsecutiveDoc($document_code);
   }
