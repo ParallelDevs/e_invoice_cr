@@ -96,18 +96,17 @@ class InvoiceService implements InvoiceServiceInterface {
     $key = $entity->get('field_numeric_key')->value;
     $result = $this->responseForKey($key);
     $state = NULL;
-    $path = "public://xml_confirmation/";
-    $user_current = \Drupal::currentUser();
-    $id_cons = $entity->get('field_consecutive_number')->value;
-    $doc_name = "document-" . $user_current->id() . "-" . $id_cons . "confirmation";
-    file_prepare_directory($path, FILE_CREATE_DIRECTORY);
-    $result['response'][3]->saveXML($path . $doc_name . ".xml");
     if (!is_null($result)) {
       $state = $result[2] === 'rechazado' ? 'rejected' : 'published';
       $entity->set('moderation_state', $state);
       $entity->save();
       if ($state === 'published') {
-
+        $path = "public://xml_confirmation/";
+        $user_current = \Drupal::currentUser();
+        $id_cons = $entity->get('field_consecutive_number')->value;
+        $doc_name = "document-" . $user_current->id() . "-" . $id_cons . "confirmation";
+        file_prepare_directory($path, FILE_CREATE_DIRECTORY);
+        $result['response'][3]->saveXML($path . $doc_name . ".xml");
         // Load the Symfony event dispatcher object through services.
         $dispatcher = \Drupal::service('event_dispatcher');
         // Creating our event class object.
