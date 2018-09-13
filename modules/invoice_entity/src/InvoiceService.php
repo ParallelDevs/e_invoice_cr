@@ -131,8 +131,8 @@ class InvoiceService implements InvoiceServiceInterface {
     $key = $entity->get('document_key')->value;
     $result = $this->responseForKey($key);
     $status = $entity->get('field_ir_status')->value;
-    if(!is_null($result)) {
-      $status = $result[2] === 'aceptado' ? 
+    if (!is_null($result)) {
+      $status = $result[2] === 'aceptado' ?
         InvoiceReceivedEntity::IR_ACCEPTED_STATUS : InvoiceReceivedEntity::IR_REJECTED_STATUS;
       $entity->set('field_ir_status', $status);
       $entity->save();
@@ -181,7 +181,7 @@ class InvoiceService implements InvoiceServiceInterface {
    */
   public function generateMessageConsecutive($code) {
     $document_code = InvoiceReceivedEntityInterface::IR_MESSAGES_STATES[$code]['code'];
-    
+
     return $this->generateConsecutiveDoc($document_code);
   }
 
@@ -212,8 +212,6 @@ class InvoiceService implements InvoiceServiceInterface {
 
     return $current_key;
   }
-  
-  
 
   /**
    * {@inheritdoc}

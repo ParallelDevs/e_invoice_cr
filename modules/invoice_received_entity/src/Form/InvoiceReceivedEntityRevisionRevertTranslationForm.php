@@ -10,7 +10,8 @@ use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a form for reverting a Invoice received entity revision for a single translation.
+ * Provides a form for reverting a Invoice received entity revision for a 
+ * single translation.
  *
  * @ingroup invoice_received_entity
  */

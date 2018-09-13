@@ -48,6 +48,7 @@ interface InvoiceServiceInterface {
    *
    * @param string $type
    *   The type of the invoice.
+   *
    * @param bool $received
    *   If the document is a received invoice.
    *
@@ -69,7 +70,8 @@ interface InvoiceServiceInterface {
 
   /**
    * Generate the message document's consecutive number.
-   * @param $code
+   *
+   * @param integer $code
    *   Message's code.
    * 
    * @return string
@@ -82,6 +84,7 @@ interface InvoiceServiceInterface {
    *
    * @param string $type
    *   The type of the invoice.
+   *
    * @param bool $received
    *   If the document is a received invoice.
    *
@@ -95,6 +98,7 @@ interface InvoiceServiceInterface {
    *
    * @param string $variable_name
    *   Variable machine name.
+   *
    * @param string $value
    *   New value for the variable.
    */

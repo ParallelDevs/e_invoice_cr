@@ -12,3 +12,4 @@ entity.invoice_received_entities.view:
     _title: 'Invoice Received Enitities'
   requirements:
     _permission: 'access administration pages'
+    
