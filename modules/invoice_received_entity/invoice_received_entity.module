@@ -7,7 +7,6 @@
 
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Url;
 
 /**
  * Implements hook_help().
@@ -37,6 +36,7 @@ function invoice_received_entity_entity_operation_alter(array &$operations, Enti
     } else {
       $operations['edit']['title'] = t('Accept or Reject');
     }
+    
     $operations['view'] = [
       'title' => t('View'),
       'weight' => 20,

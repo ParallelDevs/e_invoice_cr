@@ -3,7 +3,6 @@
 namespace Drupal\invoice_received_entity\Plugin\ValidateInvoiceReceivedQueue;
 
 use Drupal\Core\Queue\QueueWorkerBase;
-use Drupal\invoice_entity\InvoiceService;
 use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity;
 
 /**
@@ -16,11 +15,12 @@ use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity;
  * )
  */
 class ValidateInvoiceReceivedQueue extends QueueWorkerBase {
+  
   /**
    * {@inheritdoc}
    */
   public function processItem($data) {
-    /** @var InvoiceService $invoice_service */
+    /** @var \Drupal\invoice_entity\InvoiceService  $invoice_service */
     $invoice_service = \Drupal::service('invoice_entity.service');
 
     if (isset($data['number_key']) && !is_null($data['number_key'])) {
@@ -28,4 +28,5 @@ class ValidateInvoiceReceivedQueue extends QueueWorkerBase {
       $result = $invoice_service->validateInvoiceReceivedEntity($entity);
     }
   }
+  
 }

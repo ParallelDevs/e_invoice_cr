@@ -46,7 +46,7 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
   }
 
   /**
-   * Generates an overview table of older revisions of a Invoice received entity .
+   * Generates a overview table of older revisions of a Invoice received entity.
    *
    * @param \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface $invoice_received_entity
    *   A Invoice received entity  object.
@@ -163,14 +163,14 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
   /**
    * {@inheritdoc}
    */
-  public function acceptInvoice($id){
+  public function acceptInvoice($id) {
 
   }
 
   /**
    * {@inheritdoc}
    */
-  public function rejectInvoice($id){
+  public function rejectInvoice($id) {
 
   }
 
