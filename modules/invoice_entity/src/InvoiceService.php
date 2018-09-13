@@ -106,7 +106,7 @@ class InvoiceService implements InvoiceServiceInterface {
         $id_cons = $entity->get('field_consecutive_number')->value;
         $doc_name = "document-" . $user_current->id() . "-" . $id_cons . "confirmation";
         file_prepare_directory($path, FILE_CREATE_DIRECTORY);
-        $result['response'][3]->saveXML($path . $doc_name . ".xml");
+        $result[3]->saveXML($path . $doc_name . ".xml");
         // Load the Symfony event dispatcher object through services.
         $dispatcher = \Drupal::service('event_dispatcher');
         // Creating our event class object.
