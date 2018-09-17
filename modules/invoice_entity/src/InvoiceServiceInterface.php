@@ -37,7 +37,7 @@ interface InvoiceServiceInterface {
    *
    * @param \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity $entity
    *   Entity to eval.
-   * 
+   *
    * @return array
    *   Return an array with the operation result information.
    */
@@ -48,7 +48,6 @@ interface InvoiceServiceInterface {
    *
    * @param string $type
    *   The type of the invoice.
-   *
    * @param bool $received
    *   If the document is a received invoice.
    *
@@ -71,7 +70,7 @@ interface InvoiceServiceInterface {
   /**
    * Generate the message document's consecutive number.
    *
-   * @param integer $code
+   * @param int $code
    *   Message's code.
    * 
    * @return string
@@ -84,7 +83,6 @@ interface InvoiceServiceInterface {
    *
    * @param string $type
    *   The type of the invoice.
-   *
    * @param bool $received
    *   If the document is a received invoice.
    *
@@ -98,7 +96,6 @@ interface InvoiceServiceInterface {
    *
    * @param string $variable_name
    *   Variable machine name.
-   *
    * @param string $value
    *   New value for the variable.
    */

@@ -85,7 +85,7 @@ interface InvoiceReceivedEntityInterface extends ContentEntityInterface, Revisio
    * Sets the published status of a Invoice received entity.
    *
    * @param bool $published
-   *   TRUE to set this Invoice received entity to published, FALSE to set it 
+   *   TRUE to set this Invoice received entity to published, FALSE to set it
    *   to unpublished.
    *
    * @return \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface

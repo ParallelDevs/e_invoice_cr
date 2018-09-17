@@ -302,7 +302,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   private function checkInvoiceState($number_key) {
     $queue = \Drupal::queue('validate_ir_queue');

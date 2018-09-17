@@ -33,10 +33,11 @@ function invoice_received_entity_entity_operation_alter(array &$operations, Enti
   if ($entity->getEntityTypeId() === 'invoice_received_entity') {
     if (!is_null($entity->get('field_ir_message')->value) && $entity->get('field_ir_status')->value > 1) {
       unset($operations['edit']);
-    } else {
+    }
+    else {
       $operations['edit']['title'] = t('Accept or Reject');
     }
-    
+
     $operations['view'] = [
       'title' => t('View'),
       'weight' => 20,
