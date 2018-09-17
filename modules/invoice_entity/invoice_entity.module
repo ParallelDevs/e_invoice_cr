@@ -179,5 +179,4 @@ function invoice_entity_preprocess_paragraph__invoice_row(&$variables) {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['elements']['#paragraph'];
   $parent = $paragraph->getParentEntity();
-  //$variables['currency'] = InvoiceEntityInterface::AVAILABLE_CURRENCY[$parent->get('field_currency')->value]['symbol'];
 }

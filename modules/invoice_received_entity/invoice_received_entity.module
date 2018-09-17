@@ -7,7 +7,6 @@
 
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Url;
 
 /**
  * Implements hook_help().
@@ -34,7 +33,8 @@ function invoice_received_entity_entity_operation_alter(array &$operations, Enti
   if ($entity->getEntityTypeId() === 'invoice_received_entity') {
     if (!is_null($entity->get('field_ir_message')->value) && $entity->get('field_ir_status')->value > 1) {
       unset($operations['edit']);
-    } else {
+    }
+    else {
       $operations['edit']['title'] = t('Accept or Reject');
     }
     $operations['view'] = [
