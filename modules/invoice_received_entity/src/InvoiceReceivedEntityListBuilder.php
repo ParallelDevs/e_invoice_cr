@@ -32,11 +32,6 @@ class InvoiceReceivedEntityListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity */
     $row['id'] = $entity->id();
-    /* $row['code'] = Link::createFromRoute(
-      $entity->get('field_ir_numeric_key')->value,
-      'entity.invoice_received_entity.edit_form',
-      ['invoice_received_entity' => $entity->id()]
-    ); */
     $row['sender_name'] = $entity->get('field_ir_senders_name')->value;
     $row['date'] = $entity->get('field_ir_invoice_date')->value;
     $options = $entity->getFieldDefinition('field_ir_message')

@@ -72,7 +72,7 @@ interface InvoiceServiceInterface {
    *
    * @param int $code
    *   Message's code.
-   * 
+   *
    * @return string
    *   The consecutive number.
    */
