@@ -37,7 +37,7 @@ interface InvoiceServiceInterface {
    *
    * @param \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity $entity
    *   Entity to eval.
-   * 
+   *
    * @return array
    *   Return an array with the operation result information.
    */
@@ -69,9 +69,10 @@ interface InvoiceServiceInterface {
 
   /**
    * Generate the message document's consecutive number.
-   * @param $code
+   *
+   * @param int $code
    *   Message's code.
-   * 
+   *
    * @return string
    *   The consecutive number.
    */

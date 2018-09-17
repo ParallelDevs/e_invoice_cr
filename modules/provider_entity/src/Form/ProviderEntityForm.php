@@ -107,7 +107,7 @@ class ProviderEntityForm extends ContentEntityForm {
 
     $additionalInfo = $form_state->getValue($address);
 
-    if(strlen($additionalInfo[0]['additionalinfo']) > 160){
+    if (strlen($additionalInfo[0]['additionalinfo']) > 160) {
       $form_state->setErrorByName('additionalinfo', $this->t('The additional information field need to have a maximum length of 160 characters.'));
     }
 

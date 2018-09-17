@@ -18,7 +18,7 @@ use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface;
 interface InvoiceReceivedEntityStorageInterface extends ContentEntityStorageInterface {
 
   /**
-   * Gets a list of Invoice received entity revision IDs for a specific Invoice received entity.
+   * Gets a list of revision IDs for a specific Invoice received entity.
    *
    * @param \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface $entity
    *   The Invoice received entity entity.
@@ -29,7 +29,7 @@ interface InvoiceReceivedEntityStorageInterface extends ContentEntityStorageInte
   public function revisionIds(InvoiceReceivedEntityInterface $entity);
 
   /**
-   * Gets a list of revision IDs having a given user as Invoice received entity author.
+   * Gets a list of revision IDs having a given user as entity author.
    *
    * @param \Drupal\Core\Session\AccountInterface $account
    *   The user entity.
@@ -51,7 +51,7 @@ interface InvoiceReceivedEntityStorageInterface extends ContentEntityStorageInte
   public function countDefaultLanguageRevisions(InvoiceReceivedEntityInterface $entity);
 
   /**
-   * Unsets the language for all Invoice received entity with the given language.
+   * Unsets language for all Invoice received entity with the given language.
    *
    * @param \Drupal\Core\Language\LanguageInterface $language
    *   The language object.

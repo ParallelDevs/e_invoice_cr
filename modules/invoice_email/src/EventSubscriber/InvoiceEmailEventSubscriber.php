@@ -83,7 +83,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
 
         // Attach signed xml.
         $user_current = \Drupal::currentUser();
-        $uri = 'public://xml_signed/document-'. $user_current->id() . '-' . $consecutive . 'segned.xml';
+        $uri = 'public://xml_signed/document-' . $user_current->id() . '-' . $consecutive . 'segned.xml';
         $file = new \stdClass();
         $file->uri = $uri;
         $file->filename = $consecutive . 'segned.xml';
@@ -92,7 +92,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
 
         // Attach confirmation xml.
         $user_current = \Drupal::currentUser();
-        $uri = 'public://xml_confirmation/document-'. $user_current->id() . '-' . $consecutive . 'confirmation.xml';
+        $uri = 'public://xml_confirmation/document-' . $user_current->id() . '-' . $consecutive . 'confirmation.xml';
         $confirmationFile = new \stdClass();
         $confirmationFile->uri = $uri;
         $confirmationFile->filename = $consecutive . 'confirmation.xml';
