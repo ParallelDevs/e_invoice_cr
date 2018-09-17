@@ -73,7 +73,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
         new_revision') != FALSE) {
         $entity->setNewRevision();
 
-        // If a new revision is created, save the current user as revision author.
+        // If new revision is created, save the current user as revision author.
         $entity->setRevisionCreationTime(REQUEST_TIME);
         $entity->setRevisionUserId(\Drupal::currentUser()->id());
       }
