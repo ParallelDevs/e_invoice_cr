@@ -113,7 +113,7 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
       }
     }
 
-    // If no revision author has been set explicitly, make the 
+    // If no revision author has been set explicitly, make the
     // invoice_received_entity owner the revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());

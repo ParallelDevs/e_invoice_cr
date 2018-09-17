@@ -15,7 +15,7 @@ use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity;
  * )
  */
 class ValidateInvoiceReceivedQueue extends QueueWorkerBase {
-  
+
   /**
    * {@inheritdoc}
    */
@@ -28,5 +28,5 @@ class ValidateInvoiceReceivedQueue extends QueueWorkerBase {
       $result = $invoice_service->validateInvoiceReceivedEntity($entity);
     }
   }
-  
+
 }

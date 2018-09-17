@@ -21,7 +21,7 @@ class InvoiceReceivedEntityListBuilder extends EntityListBuilder {
     $header['sender_name'] = $this->t('Sender');
     $header['date'] = $this->t('Date');
     $header['message'] = $this->t('State');
-    // $header['code'] = $this->t('Numeric Key');
+    /* $header['code'] = $this->t('Numeric Key'); */
     $header['status'] = $this->t('Hacienda response');
     return $header + parent::buildHeader();
   }
@@ -32,11 +32,11 @@ class InvoiceReceivedEntityListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity */
     $row['id'] = $entity->id();
-    //    $row['code'] = Link::createFromRoute(
-    //      $entity->get('field_ir_numeric_key')->value,
-    //      'entity.invoice_received_entity.edit_form',
-    //      ['invoice_received_entity' => $entity->id()]
-    //    );
+    /* $row['code'] = Link::createFromRoute(
+      $entity->get('field_ir_numeric_key')->value,
+      'entity.invoice_received_entity.edit_form',
+      ['invoice_received_entity' => $entity->id()]
+    ); */
     $row['sender_name'] = $entity->get('field_ir_senders_name')->value;
     $row['date'] = $entity->get('field_ir_invoice_date')->value;
     $options = $entity->getFieldDefinition('field_ir_message')
@@ -60,9 +60,9 @@ class InvoiceReceivedEntityListBuilder extends EntityListBuilder {
       case InvoiceReceivedEntityInterface::IR_REJECTED_STATUS:
         $row['status'] = $this->t('Rejected');
         break;
-        
+
       default:
-        $row['status'] = $this->t(' ');
+        $row['status'] = $this->t('.');
     }
     return $row + parent::buildRow($entity);
   }
