@@ -5,26 +5,19 @@ namespace Drupal\invoice_received_entity;
 use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\provider_entity\Entity\ProviderEntity;
-use Drupal\addressfield_cr\Plugin\Field\FieldType\addressfield_crItem;
 
 /**
- * Import XML files from a inbox gmail account and mapping the entities in Drupal.
+ * Import XML from a inbox gmail account and mapping the entities in Drupal.
  */
 class ImportXMLFromEmail {
 
   /**
-   * Get the unread emails from the gmail account and save the xml files attached of that emails locally.
-   *
-   * @param $inbox
-   *   IMAP stream on success or FALSE on error.
-   *
-   * @param array $emails
-   *   array of message numbers or UIDs.
+   * Get the unread emails and save the xml attached of that emails locally.
    *
    * @return array
    *   An array with the paths of the xml files saved.
    */
-  public function getXMLFilesFromEmails($inbox, $emails) {
+  public function getXmlFilesFromEmails($inbox, $emails) {
     $count = 0;
     $paths = [];
     rsort($emails);
@@ -59,10 +52,12 @@ class ImportXMLFromEmail {
           }
           if ($attachments[$i]['is_attachment']) {
             $attachments[$i]['attachment'] = imap_fetchbody($inbox, $email_number, $i + 1);
-            if ($structure->parts[$i]->encoding == 3) { // 3 = BASE64
+            // 3 = BASE64.
+            if ($structure->parts[$i]->encoding == 3) {
               $attachments[$i]['attachment'] = base64_decode($attachments[$i]['attachment']);
             }
-            elseif ($structure->parts[$i]->encoding == 4) { // 4 = QUOTED-PRINTABLE
+            // 4 = QUOTED-PRINTABLE.
+            elseif ($structure->parts[$i]->encoding == 4) {
               $attachments[$i]['attachment'] = quoted_printable_decode($attachments[$i]['attachment']);
             }
           }
@@ -89,15 +84,12 @@ class ImportXMLFromEmail {
   }
 
   /**
-   * Gets the invoice data from the xml file, create a invoice received entity and save that.
-   *
-   * @param SimpleXMLElement $file_xml
-   *   The xml of the respective invoice.
+   * Gets the data from xml file, create a invoice received and save that.
    *
    * @return bool
    *   Determinates if the entity saved successfully or not.
    */
-  function createInvoiceReceivedEntityFromXML($file_xml) {
+  public function createInvoiceReceivedEntityFromXml($file_xml) {
     $settings = \Drupal::config('e_invoice_cr.settings');
     $date = date('Y-m-d\Th:i:s', strtotime($file_xml->FechaEmision));
     $entity = new InvoiceReceivedEntity([], 'invoice_received_entity');
@@ -117,7 +109,7 @@ class ImportXMLFromEmail {
     $entity->setRevisionCreationTime(REQUEST_TIME);
     $entity->setRevisionUserId(\Drupal::currentUser()->id());
 
-    // Invoice's rows
+    // Invoice's rows.
     /** @var \SimpleXMLElement $serviceDetail */
     $serviceDetail = $file_xml->DetalleServicio;
     if ($serviceDetail->count()) {
@@ -132,16 +124,10 @@ class ImportXMLFromEmail {
   /**
    * Takes and sets the row data of the xml file in the invoice received entity.
    *
-   * @param SimpleXMLElement $row
-   *   The xml of the respective invoice.
-   *
-   * @param \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity $entity
-   *   The xml of the respective invoice.
-   *
    * @return \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity
    *   Return the invoice received entity with the row data.
    */
-  function addRowToEntity($row, $entity) {
+  public function addRowToEntity($row, $entity) {
     $paragraph = Paragraph::create(['type' => 'invoice_row']);
     $paragraph->set('field_code_type', $row->Codigo->Tipo);
     $paragraph->set('field_code', $row->Codigo->Codigo);
@@ -166,13 +152,10 @@ class ImportXMLFromEmail {
   /**
    * Checks if the invoice was saved previously in the system.
    *
-   * @param int $number_key
-   *   The consecutive number of the invoice.
-   *
    * @return bool
    *   If the invoice exists or not in the system.
    */
-  function alreadyExistInvoiceReceivedEntity($number_key) {
+  public function alreadyExistInvoiceReceivedEntity($number_key) {
     $connection = \Drupal::database();
     $query = $connection->select('invoice_received_entity_field_data', 'ire');
     $query->fields('ire', ['id']);
@@ -185,15 +168,12 @@ class ImportXMLFromEmail {
   }
 
   /**
-   * Gets the invoice data from the xml file, create a provider entity and save that.
-   *
-   * @param SimpleXMLElement $file_xml
-   *   The xml of the respective invoice.
+   * Gets the data from the xml file, create a provider entity and save that.
    *
    * @return bool
    *   Determinates if the entity saved successfully or not.
    */
-  function createProviderEntityFromXML($file_xml) {
+  public function createProviderEntityFromXml($file_xml) {
     $entity = new ProviderEntity([], 'provider_entity');
     $entity->set('langcode', "en");
     $entity->set('status', 1);
@@ -220,13 +200,10 @@ class ImportXMLFromEmail {
   /**
    * Checks if the provider was saved previously in the system.
    *
-   * @param int $id
-   *   The id of the provider.
-   *
    * @return bool
    *   If the provider already exists or not in the system.
    */
-  function alreadyExistProviderEntity($id) {
+  public function alreadyExistProviderEntity($id) {
     $connection = \Drupal::database();
     $query = $connection->select('provider_entity', 'provider_entity');
     $query->fields('provider_entity', ['id']);
@@ -237,4 +214,5 @@ class ImportXMLFromEmail {
     $fetch = $result->fetchAll();
     return !empty($fetch);
   }
+
 }

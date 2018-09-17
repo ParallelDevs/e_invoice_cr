@@ -14,4 +14,3 @@ imap_settings.settings:
       type: string
    password:
       type: string
-

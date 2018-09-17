@@ -41,7 +41,13 @@ class XMLGenerator {
     return $doc;
   }
 
-  public function generateReceiverMessageXML(InvoiceReceivedEntity $entity, $number_key, $consecutive) {
+  /**
+   * Function to generate the receiver messager xml document.
+   *
+   * @return \DOMDocument
+   *   The complete xml to send.
+   */
+  public function generateReceiverMessageXml(InvoiceReceivedEntity $entity, $number_key, $consecutive) {
     $settings = \Drupal::config('e_invoice_cr.settings');
 
     $tagname = 'MensajeReceptor';

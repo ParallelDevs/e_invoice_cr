@@ -4,7 +4,6 @@ namespace Drupal\imap_settings\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\file\Entity\File;
 
 /**
  * Configure imap_settings settings for this site.
@@ -59,7 +58,7 @@ class ImapSettingsForm extends ConfigFormBase {
     $username = $settings->get('username');
     $password = $settings->get('password');
 
-    if(strcmp($mailbox, '') == 0) {
+    if (strcmp($mailbox, '') == 0) {
       $mailbox = 'INBOX';
     }
 
@@ -139,7 +138,7 @@ class ImapSettingsForm extends ConfigFormBase {
       $form_state->setErrorByName('port', $this->t('This field should only have numbers. No spaces or special characters.'));
     }
 
-    if(strcmp($values['flags'], '') == 0) {
+    if (strcmp($values['flags'], '') == 0) {
       $form_state->setErrorByName('flags', $this->t('This field should have selected a option.'));
     }
   }

@@ -21,19 +21,17 @@ interface InvoiceReceivedEntityInterface extends ContentEntityInterface, Revisio
   public const IR_MESSAGES_STATES = [
     1 => [
       "state" => 'Accepted',
-      "code" => '05'
+      "code" => '05',
     ],
     2 => [
       "state" => 'Partially Accepted',
-      "code" => '06'
+      "code" => '06',
     ],
     3 => [
       "state" => 'Rejected',
-      "code" => '06'
+      "code" => '06',
     ],
   ];
-
-  // Add get/set methods for your configuration properties here.
 
   /**
    * Gets the Invoice received entity name.
@@ -87,7 +85,8 @@ interface InvoiceReceivedEntityInterface extends ContentEntityInterface, Revisio
    * Sets the published status of a Invoice received entity.
    *
    * @param bool $published
-   *   TRUE to set this Invoice received entity to published, FALSE to set it to unpublished.
+   *   TRUE to set this Invoice received entity to published, FALSE to set it
+   *   to unpublished.
    *
    * @return \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface
    *   The called Invoice received entity entity.

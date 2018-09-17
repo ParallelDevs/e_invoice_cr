@@ -46,7 +46,7 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
   }
 
   /**
-   * Generates an overview table of older revisions of a Invoice received entity .
+   * Generates a overview table of older revisions of a Invoice received entity.
    *
    * @param \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface $invoice_received_entity
    *   A Invoice received entity  object.
@@ -127,8 +127,15 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
             $links['revert'] = [
               'title' => $this->t('Revert'),
               'url' => $has_translations ?
-              Url::fromRoute('entity.invoice_received_entity.translation_revert', ['invoice_received_entity' => $invoice_received_entity->id(), 'invoice_received_entity_revision' => $vid, 'langcode' => $langcode]) :
-              Url::fromRoute('entity.invoice_received_entity.revision_revert', ['invoice_received_entity' => $invoice_received_entity->id(), 'invoice_received_entity_revision' => $vid]),
+              Url::fromRoute('entity.invoice_received_entity.translation_revert', [
+                'invoice_received_entity' => $invoice_received_entity->id(),
+                'invoice_received_entity_revision' => $vid,
+                'langcode' => $langcode,
+              ])
+              Url::fromRoute('entity.invoice_received_entity.revision_revert', [
+                'invoice_received_entity' => $invoice_received_entity->id(),
+                'invoice_received_entity_revision' => $vid,
+              ]),
             ];
           }
 
@@ -163,19 +170,19 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
   /**
    * {@inheritdoc}
    */
-  public function acceptInvoice($id){
+  public function acceptInvoice($id) {
 
   }
 
   /**
    * {@inheritdoc}
    */
-  public function rejectInvoice($id){
+  public function rejectInvoice($id) {
 
   }
 
   /**
-   * Import XML files from a inbox gmail account and mapping the entities in Drupal.
+   * Import XML from a inbox gmail account and mapping the entities in Drupal.
    */
   public function importXmlFromEmail() {
     $settings = \Drupal::config('imap_settings.settings');
@@ -197,7 +204,7 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
           if (isset($simpleXml->Emisor->Identificacion->Numero) && !$importXml->alreadyExistInvoiceReceivedEntity($simpleXml->Clave)) {
             $importXml->createInvoiceReceivedEntityFromXML($simpleXml);
           }
-          if(isset($simpleXml->Emisor->Identificacion->Numero) && !$importXml->alreadyExistProviderEntity($simpleXml->Emisor->Identificacion->Numero)){
+          if (isset($simpleXml->Emisor->Identificacion->Numero) && !$importXml->alreadyExistProviderEntity($simpleXml->Emisor->Identificacion->Numero)) {
             $importXml->createProviderEntityFromXML($simpleXml);
           }
         }
@@ -209,4 +216,5 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
     }
     return $this->redirect('entity.invoice_received_entity.collection');
   }
+
 }
