@@ -69,7 +69,6 @@ use Drupal\user\UserInterface;
  * )
  */
 class InvoiceReceivedEntity extends RevisionableContentEntityBase implements InvoiceReceivedEntityInterface {
-
   use EntityChangedTrait;
 
   /**
@@ -87,14 +86,12 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
    */
   protected function urlRouteParameters($rel) {
     $uri_route_parameters = parent::urlRouteParameters($rel);
-
     if ($rel === 'revision_revert' && $this instanceof RevisionableInterface) {
       $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
     }
     elseif ($rel === 'revision_delete' && $this instanceof RevisionableInterface) {
       $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
     }
-
     return $uri_route_parameters;
   }
 
@@ -103,18 +100,15 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
    */
   public function preSave(EntityStorageInterface $storage) {
     parent::preSave($storage);
-
     foreach (array_keys($this->getTranslationLanguages()) as $langcode) {
       $translation = $this->getTranslation($langcode);
-
       // If no owner has been set explicitly, make the anonymous user the owner.
       if (!$translation->getOwner()) {
         $translation->setOwnerId(0);
       }
     }
-
-    // If no revision author has been set explicitly, make the invoice_received_entity owner the
-    // revision author.
+    // If no revision author has been set explicitly, make the
+    // invoice_received_entity owner the revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());
     }
@@ -200,7 +194,6 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
-
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
       ->setDescription(t('The user ID of author of the Invoice received entity entity.'))
@@ -225,10 +218,9 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
-
     $fields['document_key'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Document Key'))
-      ->setDescription(t('The document\'s numeric key.'))
+      ->setDescription(t('The document numeric key.'))
       ->setRevisionable(TRUE)
       ->setSettings([
         'max_length' => 50,
@@ -247,7 +239,6 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
-
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))
       ->setDescription(t('A boolean indicating whether the Invoice received entity is published.'))
@@ -257,22 +248,18 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
         'type' => 'boolean_checkbox',
         'weight' => -3,
       ]);
-
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))
       ->setDescription(t('The time that the entity was created.'));
-
     $fields['changed'] = BaseFieldDefinition::create('changed')
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the entity was last edited.'));
-
     $fields['revision_translation_affected'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Revision translation affected'))
       ->setDescription(t('Indicates if the last edit of a translation belongs to current revision.'))
       ->setReadOnly(TRUE)
       ->setRevisionable(TRUE)
       ->setTranslatable(TRUE);
-
     return $fields;
   }
 

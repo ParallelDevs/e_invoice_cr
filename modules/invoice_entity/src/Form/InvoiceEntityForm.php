@@ -13,6 +13,8 @@ use Drupal\e_invoice_cr\Signature;
 use Drupal\e_invoice_cr\XMLGenerator;
 use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 use Drupal\tax_entity\Entity\TaxEntity;
+use DateTime;
+use DateTimeZone;
 
 /**
  * Form controller for Invoice edit forms.
@@ -227,9 +229,10 @@ class InvoiceEntityForm extends ContentEntityForm {
       $this->entity->set('field_numeric_key', $invoice_service->generateInvoiceKey($type_of));
 
       $settings = \Drupal::config('e_invoice_cr.settings');
-      $date_text = $this->entity->get('field_invoice_date')->value;
-      $date_object = strtotime($date_text);
-      $date = \Drupal::service('date.formatter')->format($date_object, 'date_text', 'c');
+      $datetime = new DateTime('now', new DateTimeZone('America/Costa_Rica'));
+      $date_cr = $datetime->format('Y-m-d') . 'T' . $datetime->format('H:i:s.u');
+      $date = \Drupal::service('date.formatter')->format(strtotime($date_cr), 'date_text', 'c');
+      $this->entity->set('field_invoice_date', substr($date, 0, -6));
       $client_id = $this->entity->get('field_client')->target_id;
       $client = CustomerEntity::load($client_id);
 

@@ -18,7 +18,7 @@ use Drupal\paragraphs\Entity\Paragraph;
  */
 class InvoiceReceivedEntityForm extends ContentEntityForm {
 
-  private $file_xml;
+  private $fileXml;
 
   /**
    * {@inheritdoc}
@@ -35,7 +35,8 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
         '#weight' => 10,
       ];
       $form['field_ir_xml_file']['#access'] = FALSE;
-    } else {
+    }
+    else {
       $form['field_ir_message']['#access'] = FALSE;
       $form['field_ir_message_detail']['#access'] = FALSE;
     }
@@ -54,8 +55,9 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
 
     if ($this->entity->isNew()) {
       $this->createEntityFromXML($form, $form_state);
-    } else {
-      // Look up for changes in the message field
+    }
+    else {
+      // Look up for changes in the message field.
       $entityOriginal = InvoiceReceivedEntity::load($entity->id());
 
       $current_state = $entityOriginal->get('field_ir_message')->value;
@@ -70,10 +72,11 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
       if (!$form_state->isValueEmpty('new_revision') && $form_state->getValue('new_revision') != FALSE) {
         $entity->setNewRevision();
 
-        // If a new revision is created, save the current user as revision author.
+        // If new revision is created, save the current user as revision author.
         $entity->setRevisionCreationTime(REQUEST_TIME);
         $entity->setRevisionUserId(\Drupal::currentUser()->id());
-      } else {
+      }
+      else {
         $entity->setNewRevision(FALSE);
       }
 
@@ -108,7 +111,8 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
         if ($this->alreadyExist($simpleXml->Clave)) {
           $form_state->setErrorByName('field_ir_xml_file',
             $this->t('The document you are trying to upload have been already uploaded.'));
-        } else {
+        }
+        else {
           $this->file_xml = $simpleXml;
         }
       }
@@ -120,7 +124,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
-  function createEntityFromXML(array $form, FormStateInterface $form_state) {
+  public function createEntityFromXml(array $form, FormStateInterface $form_state) {
     $this->entity->set('document_key', 'Unassigned');
     $settings = \Drupal::config('e_invoice_cr.settings');
     $date = date('Y-m-d\Th:i:s', strtotime($this->file_xml->FechaEmision));
@@ -133,12 +137,12 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
     $this->entity->set('field_ir_sale_condition', $this->file_xml->CondicionVenta);
     $this->entity->set('field_ir_currency', $this->file_xml->ResumenFactura->CodigoMoneda);
     $this->entity->set('field_ir_senders_name', $this->file_xml->Emisor->NombreComercial);
-    //$this->entity->set('field_ir_credit_term', );
+    // $this->entity->set('field_ir_credit_term', );.
     $this->entity->set('field_ir_total_discount', $this->file_xml->ResumenFactura->TotalDescuento);
     $this->entity->set('field_ir_total_net_sale', $this->file_xml->ResumenFactura->TotalVentaNeta);
     $this->entity->set('field_ir_number_key_r', str_pad($settings->get('id'), 12, '0', STR_PAD_LEFT));
 
-    // Invoice's rows
+    // Invoice's rows.
     /** @var \SimpleXMLElement $serviceDetail */
     $serviceDetail = $this->file_xml->DetalleServicio;
     $rowsCount = $serviceDetail->LineaDetalle->count();
@@ -151,7 +155,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
-  function addRowToEntity($row) {
+  public function addRowToEntity($row) {
     $paragraph = Paragraph::create(['type' => 'invoice_row']);
     $paragraph->set('field_code_type', $row->Codigo->Tipo);
     $paragraph->set('field_code', $row->Codigo->Codigo);
@@ -160,7 +164,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
     $paragraph->set('field_quantity', $row->Cantidad);
     $paragraph->set('field_subtotal', $row->SubTotal);
     $paragraph->set('field_total_amount', $row->MontoTotal);
-    //$paragraph->set('field_row_type', $row->MontoTotal);
+    // $paragraph->set('field_row_type', $row->MontoTotal);.
     $paragraph->set('field_unit_measure', $row->UnidadMedida);
     $paragraph->set('field_unit_price', $row->PrecioUnitario);
     $paragraph->isNew();
@@ -168,7 +172,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
     $current = $this->entity->get('field_ir_rows')->getValue();
     $current[] = [
       'target_id' => $paragraph->id(),
-      'target_revision_id' => $paragraph->getRevisionId()
+      'target_revision_id' => $paragraph->getRevisionId(),
     ];
     $this->entity->set('field_ir_rows', $current);
   }
@@ -176,7 +180,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
-  function sendInvoice(FormStateInterface $form_state) {
+  public function sendInvoice(FormStateInterface $form_state) {
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
     $invoice_service = \Drupal::service('invoice_entity.service');
 
@@ -270,7 +274,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
           $invoice_service->validateInvoiceReceivedEntity($this->entity);
           $invoice_service->increaseValues();
           $invoice_service->updateValues();
-          //$this->checkInvoiceState($newNumberKey);
+          // $this->checkInvoiceState($newNumberKey);
           return TRUE;
         }
       }
@@ -278,13 +282,13 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
         return FALSE;
       }
     }
-    
+
   }
 
   /**
    * {@inheritdoc}
    */
-  function alreadyExist($number_key) {
+  public function alreadyExist($number_key) {
     $connection = \Drupal::database();
     $query = $connection->select('invoice_received_entity_field_data', 'ire');
     $query->fields('ire', ['id']);
@@ -299,9 +303,9 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
-  function checkInvoiceState($number_key) {
+  public function checkInvoiceState($number_key) {
     $queue = \Drupal::queue('validate_ir_queue');
     $data['id'] = $this->entity->id();
     $data['number_key'] = $number_key;
