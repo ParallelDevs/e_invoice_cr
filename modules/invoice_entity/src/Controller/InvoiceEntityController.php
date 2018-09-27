@@ -206,4 +206,28 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
     return new RedirectResponse('/admin/structure/e-invoice-cr/invoice_entity');
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function createZipFile($id) {
+    $entity = InvoiceEntity::load($id);
+    $uri = DRUPAL_ROOT;
+    $zip = new ZipArchive();
+    $zip->open($uri . '/invoice' . $id . '_files.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
+    $uri = $uri . '/sites/default/files/';
+    $consecutive = $entity->get('field_consecutive_number')->getValue()[0]['value'];
+    $zip->addFile($uri . 'pdf_invoice/invoice_' . $id . '.pdf',
+      'invoice_' . $id . '.pdf');
+    $zip->addFile($uri . 'xml_signed/document-1-' . $consecutive . 'segned.xml',
+      'document-1-' . $consecutive . 'segned.xml');
+    $zip->addFile($uri . 'xml_confirmation/' . $consecutive . 'confirmation.xml',
+      $consecutive . 'confirmation.xml');
+    $zip->close();
+    header('Content-type: application/octet-stream');
+    header('Content-disposition: attachment; filename=invoice' . $id . '_files.zip');
+    readfile('invoice' . $id . '_files.zip');
+    unlink('invoice' . $id . '_files.zip');
+    return new RedirectResponse('/admin/structure/e-invoice-cr/invoice_entity');
+  }
+
 }

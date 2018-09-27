@@ -4,6 +4,8 @@ namespace Drupal\invoice_entity;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
+use Drupal\Core\Link;
+use Drupal\customer_entity\Entity\CustomerEntity;
 
 /**
  * Defines a class to build a listing of Invoice entities.
@@ -17,8 +19,14 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
    */
   public function buildHeader() {
     $header['id'] = $this->t('Invoice ID');
+    $header['date'] = $this->t('Date');
+    $header['client'] = $this->t('Client');
+    $header['consecutive'] = $this->t('Consecutive Number');
     $header['type_of'] = $this->t('Type');
     $header['status'] = $this->t('Status');
+    $header['credit'] = $this->t('Credit Term');
+    $header['total'] = $this->t('Total');
+    $header['download'] = $this->t('Download');
     return $header + parent::buildHeader();
   }
 
@@ -45,10 +53,33 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
     }
     /** @var \Drupal\Core\Field\BaseFieldDefinition $fd */
     $fd = $entity->getFieldDefinition('type_of');
+
+    $customer_entity = CustomerEntity::load($entity->get('field_client')->getValue()[0]['target_id']);
     $options = $fd->getSetting('allowed_values');
     $row['id'] = $entity->id();
+    $date = str_replace('-', '/', $entity->get('field_invoice_date')->getValue()[0]['value']);
+    $row['date'] = substr(str_replace('T', ' - ', $date), 0, -3);
+    $row['client'] = Link::createFromRoute(
+      $customer_entity->get('name')->getValue()[0]['value'],
+      'entity.customer_entity.canonical',
+      ['customer_entity' => $entity->get('field_client')->getValue()[0]['target_id']]
+    );
+    $row['consecutive'] = $entity->get('field_consecutive_number')->getValue()[0]['value'];
     $row['type_of'] = $options[$entity->getInvoiceType()];
     $row['status'] = $state_label;
+    if (isset($entity->get('field_credit_term')->getValue()[0]['value'])) {
+      $row['credit'] = $entity->get('field_credit_term')->getValue()[0]['value'];
+    }
+    else {
+      $row['credit'] = 'None';
+    }
+    $row['total'] = $entity->get('field_currency')->getValue()[0]['value'] . ' ' . $entity->get('field_total_invoice')->getValue()[0]['value'];
+    $row['download'] = Link::createFromRoute(
+      'Descargar',
+      'invoice_entity.zip',
+      ['id' => $entity->id()]
+    );
+
     return $row + parent::buildRow($entity);
   }
 

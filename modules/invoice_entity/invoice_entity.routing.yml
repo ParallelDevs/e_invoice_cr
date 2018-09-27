@@ -13,3 +13,11 @@ invoice_entity.validate:
     _title: 'Validation Request'
   requirements:
     _permission: 'access content'
+
+invoice_entity.zip:
+  path: '/admin/structure/e-invoice-cr/invoice_entity/zip/{id}'
+  defaults:
+    _controller: '\Drupal\invoice_entity\Controller\InvoiceEntityController::createZipFile'
+    _title: 'Descargar'
+  requirements:
+    _permission: 'access content'
