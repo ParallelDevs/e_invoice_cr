@@ -2,7 +2,13 @@ invoice_entity.settings:
   type: mapping
   label: Variable Settings of My Module
   mapping:
-   invoice_number:
+   electronic_bill_consecutive:
+     type: string
+   debit_note_consecutive:
+     type: string
+   credit_note_consecutive:
+     type: string
+   electronic_ticket_consecutive:
      type: string
    consecutive_code:
      type: string
