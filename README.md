@@ -18,6 +18,8 @@ email module working properly.
 
 * Java Runtime Environment (JRE) installed on your server.
 
+* PHP 7
+
 ## THEMING
 At the moment, you can only overwrite the invoice form styles
 if you have a custom admin theme, you just need to add
