@@ -12,3 +12,11 @@ entity.invoice_received_entities.view:
     _title: 'Invoice Received Enitities'
   requirements:
     _permission: 'access administration pages'
+
+entity.invoice_received_entity.import_xml:
+  path: '/importXMLFromEmail'
+  defaults:
+    _controller: '\Drupal\invoice_received_entity\Controller\InvoiceReceivedEntityController::importXmlFromEmail'
+    _title: 'Import XML from email'
+  requirements:
+    _permission: 'access administration pages'

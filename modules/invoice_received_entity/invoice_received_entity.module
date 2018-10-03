@@ -7,7 +7,6 @@
 
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Url;
 
 /**
  * Implements hook_help().
@@ -29,18 +28,47 @@ function invoice_received_entity_help($route_name, RouteMatchInterface $route_ma
  * Implements hook_entity_operation_alter().
  */
 function invoice_received_entity_entity_operation_alter(array &$operations, EntityInterface $entity) {
-  $url = $entity->toUrl();
+$url = $entity->toUrl();
 
-  if ($entity->getEntityTypeId() === 'invoice_received_entity') {
-    if (!is_null($entity->get('field_ir_message')->value) && $entity->get('field_ir_status')->value > 1) {
-      unset($operations['edit']);
-    } else {
-      $operations['edit']['title'] = t('Accept or Reject');
+if ($entity->getEntityTypeId() === 'invoice_received_entity') {
+  if (!is_null($entity->get('field_ir_message')->value) && $entity->get('field_ir_status')->value > 1) {
+    unset($operations['edit']);
+  }
+  else {
+    $operations['edit']['title'] = t('Accept or Reject');
+  }
+  $operations['view'] = [
+    'title' => t('View'),
+    'weight' => 20,
+    'url' => $entity->toUrl(),
+  ];
+}
+
+/**
+ * Implements invoice_received_entity_cron().
+ */
+function invoice_received_entity_cron() {
+  $settings = \Drupal::config('imap_module.settings');
+  $remote_system_name = $settings->get('remote_system_name');
+  $port = $settings->get('port');
+  $flag = $settings->get('flag');
+  $mailbox = $settings->get('mailbox');
+  $imapPath = '{' . $remote_system_name . ':' . $port . $flag . '}' . $mailbox;
+  $username = $settings->get('username');
+  $password = $settings->get('password');
+  // Try to connect.
+  $inbox = imap_open($imapPath, $username, $password);
+  if (!is_null($inbox)) {
+    $importXML = new ImportXMLFromEmail();
+    $emails = imap_search($inbox, 'ALL UNSEEN');
+    if ($emails) {
+      $paths = $importXML->getXMLFilesFromEmails($inbox, $emails);
+      foreach ($paths as $path) {
+        $simpleXml = simplexml_load_file($path);
+        if (!$importXML->alreadyExist($simpleXml->Clave)) {
+          $importXML->createEntityFromXML($simpleXml);
+        }
+      }
     }
-    $operations['view'] = [
-      'title' => t('View'),
-      'weight' => 20,
-      'url' => $entity->toUrl(),
-    ];
   }
 }
