@@ -21,7 +21,6 @@ class InvoiceReceivedEntityListBuilder extends EntityListBuilder {
     $header['sender_name'] = $this->t('Sender');
     $header['date'] = $this->t('Date');
     $header['message'] = $this->t('State');
-    /* $header['code'] = $this->t('Numeric Key'); */
     $header['status'] = $this->t('Hacienda response');
     return $header + parent::buildHeader();
   }
@@ -55,9 +54,6 @@ class InvoiceReceivedEntityListBuilder extends EntityListBuilder {
       case InvoiceReceivedEntityInterface::IR_REJECTED_STATUS:
         $row['status'] = $this->t('Rejected');
         break;
-
-      default:
-        $row['status'] = $this->t('.');
     }
     return $row + parent::buildRow($entity);
   }
