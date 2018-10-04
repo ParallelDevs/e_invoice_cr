@@ -54,9 +54,6 @@ class InvoiceReceivedEntityListBuilder extends EntityListBuilder {
       case InvoiceReceivedEntityInterface::IR_REJECTED_STATUS:
         $row['status'] = $this->t('Rejected');
         break;
-
-      default:
-        break;
     }
     return $row + parent::buildRow($entity);
   }
