@@ -132,7 +132,7 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
                 'invoice_received_entity' => $invoice_received_entity->id(),
                 'invoice_received_entity_revision' => $vid,
                 'langcode' => $langcode,
-              ]):
+              ]) :
               Url::fromRoute('entity.invoice_received_entity.revision_revert', [
                 'invoice_received_entity' => $invoice_received_entity->id(),
                 'invoice_received_entity_revision' => $vid,
