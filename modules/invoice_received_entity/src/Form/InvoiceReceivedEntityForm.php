@@ -273,7 +273,6 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
           $invoice_service->validateInvoiceReceivedEntity($this->entity);
           $invoice_service->increaseValues();
           $invoice_service->updateValues();
-          // $this->checkInvoiceState($newNumberKey)
           return TRUE;
         }
       }
