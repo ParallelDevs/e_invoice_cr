@@ -167,18 +167,4 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
     return $build;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function acceptInvoice($id) {
-
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function rejectInvoice($id) {
-
-  }
-
 }
