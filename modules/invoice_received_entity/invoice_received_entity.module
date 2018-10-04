@@ -28,20 +28,22 @@ function invoice_received_entity_help($route_name, RouteMatchInterface $route_ma
  * Implements hook_entity_operation_alter().
  */
 function invoice_received_entity_entity_operation_alter(array &$operations, EntityInterface $entity) {
-$url = $entity->toUrl();
+  $url = $entity->toUrl();
 
-if ($entity->getEntityTypeId() === 'invoice_received_entity') {
-  if (!is_null($entity->get('field_ir_message')->value) && $entity->get('field_ir_status')->value > 1) {
-    unset($operations['edit']);
+  if ($entity->getEntityTypeId() === 'invoice_received_entity') {
+    if (!is_null($entity->get('field_ir_message')->value) && $entity->get('field_ir_status')->value > 1) {
+      unset($operations['edit']);
+    }
+    else {
+      $operations['edit']['title'] = t('Accept or Reject');
+    }
+
+    $operations['view'] = [
+      'title' => t('View'),
+      'weight' => 20,
+      'url' => $entity->toUrl(),
+    ];
   }
-  else {
-    $operations['edit']['title'] = t('Accept or Reject');
-  }
-  $operations['view'] = [
-    'title' => t('View'),
-    'weight' => 20,
-    'url' => $entity->toUrl(),
-  ];
 }
 
 /**

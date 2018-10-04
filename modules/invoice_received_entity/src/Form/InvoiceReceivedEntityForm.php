@@ -1,6 +1,6 @@
 <?php
 
- namespace Drupal\invoice_received_entity\Form;
+namespace Drupal\invoice_received_entity\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
@@ -17,6 +17,7 @@ use Drupal\paragraphs\Entity\Paragraph;
  * @ingroup invoice_received_entity
  */
 class InvoiceReceivedEntityForm extends ContentEntityForm {
+
   private $fileXml;
 
   /**
@@ -25,6 +26,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
   public function buildForm(array $form, FormStateInterface $form_state) {
     /* @var $entity \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity */
     $form = parent::buildForm($form, $form_state);
+
     if (!$this->entity->isNew()) {
       $form['new_revision'] = [
         '#type' => 'checkbox',
@@ -38,7 +40,9 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
       $form['field_ir_message']['#access'] = FALSE;
       $form['field_ir_message_detail']['#access'] = FALSE;
     }
+
     $entity = $this->entity;
+
     return $form;
   }
 
@@ -48,14 +52,17 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
   public function save(array $form, FormStateInterface $form_state) {
     $entity = $this->entity;
     $result = TRUE;
+
     if ($this->entity->isNew()) {
       $this->createEntityFromXml($form, $form_state);
     }
     else {
       // Look up for changes in the message field.
       $entityOriginal = InvoiceReceivedEntity::load($entity->id());
+
       $current_state = $entityOriginal->get('field_ir_message')->value;
       $new_state = $form_state->getValue('field_ir_message')[0]['value'];
+
       if ($current_state !== $new_state) {
         $result = $this->sendInvoice($form_state);
       }
@@ -65,6 +72,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
       if (!$form_state->isValueEmpty('new_revision') && $form_state->getValue('
         new_revision') != FALSE) {
         $entity->setNewRevision();
+
         // If new revision is created, save the current user as revision author.
         $entity->setRevisionCreationTime(REQUEST_TIME);
         $entity->setRevisionUserId(\Drupal::currentUser()->id());
@@ -72,7 +80,9 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
       else {
         $entity->setNewRevision(FALSE);
       }
+
       $status = parent::save($form, $form_state);
+
       switch ($status) {
         case SAVED_NEW:
           drupal_set_message($this->t('Created the %label Invoice received entity.', [
@@ -96,6 +106,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
     if ($this->entity->isNew()) {
       $field_list = $form_state->getValue('field_ir_xml_file');
       $file = File::load($field_list[0]['fids'][0]);
+
       if (!is_null($file)) {
         $simpleXml = simplexml_load_file($file->getFileUri());
         if ($this->alreadyExist($simpleXml->Clave)) {
@@ -107,13 +118,14 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
         }
       }
     }
+
     return parent::validateForm($form, $form_state);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function createEntityFromXml(array $form, FormStateInterface $form_state) {
+  private function createEntityFromXml(array $form, FormStateInterface $form_state) {
     $this->entity->set('document_key', 'Unassigned');
     $date = date('Y-m-d\Th:i:s', strtotime($this->file_xml->FechaEmision));
     $this->entity->set('field_ir_numeric_key', $this->file_xml->Clave);
@@ -139,7 +151,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
-  public function addRowToEntity($row) {
+  private function addRowToEntity($row) {
     $paragraph = Paragraph::create(['type' => 'invoice_row']);
     $paragraph->set('field_code_type', $row->Codigo->Tipo);
     $paragraph->set('field_code', $row->Codigo->Codigo);
@@ -166,6 +178,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
   private function sendInvoice(FormStateInterface $form_state) {
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
     $invoice_service = \Drupal::service('invoice_entity.service');
+
     try {
       // Get authentication token for the API.
       $token = \Drupal::service('e_invoice_cr.authentication')->getLoginToken();
@@ -175,6 +188,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
       $form_state->setRebuild();
       $form_state->setSubmitHandlers([]);
     }
+
     $settingsFilled = $invoice_service->checkSettingsData();
     if (!$token || !$settingsFilled) {
       $error_message = !$token ?
@@ -189,10 +203,12 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
       $message = $this->entity->get('field_ir_message')->value;
       $newNumberKey = $invoice_service->getUniqueInvoiceKey($message, TRUE);
       $consecutive = $invoice_service->generateMessageConsecutive($message);
+
       $settings = \Drupal::config('e_invoice_cr.settings');
       $date_text = $this->entity->get('field_ir_invoice_date')->value;
       $date_object = strtotime($date_text);
       $date = \Drupal::service('date.formatter')->format($date_object, 'date_text', 'c');
+
       // Create XML document.
       // Generate the XML file with the invoice data.
       $xml_generator = new XMLGenerator();
@@ -205,9 +221,11 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
       $doc_name = "document-message" . $user_current->id() . "-" . $consecutive;
       file_prepare_directory($path, FILE_CREATE_DIRECTORY);
       $result = $xml->save('public://xml/' . $doc_name . ".xml", LIBXML_NOEMPTYTAG);
+
       // Sign document.
       $signature = new Signature();
       $response = $signature->signDocument($doc_name);
+
       // Look for possibles errors.
       foreach ($response as $item) {
         if ((strpos($item, 'Error') !== FALSE) || (strpos($item, 'Failed') !== FALSE)) {
@@ -215,6 +233,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
           drupal_set_message($message, 'warning');
         }
       }
+
       // Send document to API.
       $body_data = [
         'key' => $newNumberKey,
@@ -250,7 +269,6 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
           $invoice_service->validateInvoiceReceivedEntity($this->entity);
           $invoice_service->increaseValues();
           $invoice_service->updateValues();
-          // $this->checkInvoiceState($newNumberKey)
           return TRUE;
         }
       }
@@ -258,6 +276,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
         return FALSE;
       }
     }
+
   }
 
   /**

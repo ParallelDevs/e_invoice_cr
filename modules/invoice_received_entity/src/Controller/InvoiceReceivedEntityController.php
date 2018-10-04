@@ -168,20 +168,6 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function acceptInvoice($id) {
-
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function rejectInvoice($id) {
-
-  }
-
-  /**
    * Import XML from a inbox gmail account and mapping the entities in Drupal.
    */
   public function importXmlFromEmail() {
