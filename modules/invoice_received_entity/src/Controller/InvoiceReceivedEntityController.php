@@ -7,6 +7,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
 use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface;
+use Drupal\invoice_received_entity\ImportXMLFromEmail;
 
 /**
  * Class InvoiceReceivedEntityController.
@@ -131,7 +132,7 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
                 'invoice_received_entity' => $invoice_received_entity->id(),
                 'invoice_received_entity_revision' => $vid,
                 'langcode' => $langcode,
-              ])
+              ]):
               Url::fromRoute('entity.invoice_received_entity.revision_revert', [
                 'invoice_received_entity' => $invoice_received_entity->id(),
                 'invoice_received_entity_revision' => $vid,
@@ -181,7 +182,7 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
     $password = $settings->get('password');
     $inbox = imap_open($imap, $username, $password);
     if (!is_null($inbox)) {
-      $importXml = new importXmlFromEmail();
+      $importXml = new ImportXmlFromEmail();
       $emails = imap_search($inbox, 'ALL UNSEEN');
       if ($emails) {
         $paths = $importXml->getXMLFilesFromEmails($inbox, $emails);

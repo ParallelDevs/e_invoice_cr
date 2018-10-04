@@ -141,7 +141,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
     $this->entity->set('field_ir_number_key_r', $this->file_xml->Receptor->Identificacion->Numero, 12, '0', STR_PAD_LEFT);
     // Invoice's rows.
     /** @var \SimpleXMLElement $serviceDetail */
-    $serviceDetail = $this->file_xml->DetalleServicio;
+    $serviceDetail = $this->fileXml->DetalleServicio;
     $rowsCount = $serviceDetail->LineaDetalle->count();
     for ($i = 0; $i < $rowsCount; $i++) {
       $this->addRowToEntity($serviceDetail->LineaDetalle[$i]);
