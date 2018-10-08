@@ -2,7 +2,7 @@
 
 namespace Drupal\invoice_entity\Form;
 
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Entity\ContentEntityForm;
@@ -34,7 +34,7 @@ class InvoiceEntityForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
-  public function __construct(EntityManagerInterface $entity_manager, EntityTypeBundleInfoInterface $entity_type_bundle_info = NULL, TimeInterface $time = NULL) {
+  public function __construct(EntityTypeManagerInterface $entity_manager, EntityTypeBundleInfoInterface $entity_type_bundle_info = NULL, TimeInterface $time = NULL) {
     parent::__construct($entity_manager, $entity_type_bundle_info, $time);
     $settings = \Drupal::config('e_invoice_cr.settings');
     $empty = $settings->isNew();
