@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="Commerce coding standards">
+<ruleset name="Invoice CR coding standards">
   <description>Drupal 8 coding standards</description>
 
   <exclude-pattern>*/.git/*</exclude-pattern>
