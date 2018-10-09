@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - provider_entity
+_core:
+  default_config_hash: rcrZ9hlxJV4bzXGr0ewGzhsH6ULpwdFN8dQqySNEQqQ
+id: provider_entity.field_provider_id
+field_name: field_provider_id
+entity_type: provider_entity
+type: string
+settings:
+  max_length: 12
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

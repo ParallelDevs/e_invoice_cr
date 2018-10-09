@@ -1,0 +1,114 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.provider_entity.provider_entity.field_email
+    - field.field.provider_entity.provider_entity.field_address
+    - field.field.provider_entity.provider_entity.field_fax
+    - field.field.provider_entity.provider_entity.field_provider_id
+    - field.field.provider_entity.provider_entity.field_provider_foreign_id
+    - field.field.provider_entity.provider_entity.field_commercial_name
+    - field.field.provider_entity.provider_entity.field_phone
+    - field.field.provider_entity.provider_entity.field_type_id
+  module:
+    - addressfield_cr
+    - provider_entity
+    - field_group
+    - telephone
+third_party_settings:
+  field_group:
+    group_location:
+      children:
+        - field_address
+      parent_name: ''
+      weight: 8
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Location
+_core:
+  default_config_hash: Nb8wyMqwQedKsBJJpPqbh-sB6pZhTKtvoiVlWHvYjYI
+id: provider_entity.provider_entity.default
+targetEntityType: provider_entity
+bundle: provider_entity
+mode: default
+content:
+  field_email:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+    region: content
+  field_address:
+    weight: 31
+    settings: {  }
+    third_party_settings: {  }
+    type: addressfield_cr_default
+    region: content
+  field_fax:
+    weight: 6
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
+  field_provider_id:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_provider_foreign_id:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_commercial_name:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_phone:
+    weight: 5
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
+  field_type_id:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  name:
+    type: string_textfield
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 9
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+hidden: {  }
