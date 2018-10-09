@@ -180,9 +180,35 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
    *   An array as expected by drupal_render().
    */
   public function validateInvoice($key, $id) {
-    /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
-    $invoice_service = \Drupal::service('invoice_entity.service');
     $entity = \Drupal::entityManager()->getStorage('invoice_entity')->load($id);
+
+    $type_of = $entity->get('type_of')->getValue()[0]['value'];
+    $document_type = '';
+
+    switch ($type_of) {
+      case 'FE':
+        $document_type = 'electronic_bill.service';
+        break;
+
+      case 'ND':
+        $document_type = 'debit_note.service';
+        break;
+
+      case 'NC':
+        $document_type = 'credit_note.service';
+        break;
+
+      case 'TE':
+        $document_type = 'electronic_ticket.service';
+        break;
+
+      default:
+        $document_type = 'electronic_bill.service';
+        break;
+    }
+
+    /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
+    $invoice_service = \Drupal::service($document_type);
     $result = $invoice_service->validateInvoiceEntity($entity);
 
     if (is_null($result['response'])) {

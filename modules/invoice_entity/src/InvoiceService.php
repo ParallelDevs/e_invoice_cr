@@ -238,7 +238,7 @@ class InvoiceService implements InvoiceServiceInterface {
    * {@inheritdoc}
    */
   public function getDocumentNumber() {
-    return self::$documentType;
+    return self::$invoiceNumber;
   }
 
   /**
