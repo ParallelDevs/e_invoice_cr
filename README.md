@@ -18,6 +18,8 @@ email module working properly.
 
 * Java Runtime Environment (JRE) installed on your server.
 
+* PHP 7
+
 ## THEMING
 At the moment, you can only overwrite the invoice form styles
 if you have a custom admin theme, you just need to add
@@ -29,8 +31,24 @@ You must enable the following modules: e_invoice_cr, customer_entity,
 tax_entity, invoice_entity, invoice_email. Once done, you must fill
 the configuration form at admin/e-invoice-cr/settings.
 
+
 See spanish documentation
 [here](https://docs.google.com/document/d/1SNvUe5eaaEs76PW49B9JeJ-v2NW09Kf-aqb1LaPj9yE/edit?usp=sharing).
+
+## INSTALLING WITH COMPOSER
+
+1- Edit your composer.json to add the repo
+```json
+"repositories": [
+    {
+        "type": "git",
+        "url": "https://github.com/ParallelDevs/e_invoice_cr"
+    },
+],
+``` 
+2- Run `composer require paralleldevs/e_invoice_cr`
+
+----------------
 
 If you need more support feel free to write
 to info@paralleldevs.com
