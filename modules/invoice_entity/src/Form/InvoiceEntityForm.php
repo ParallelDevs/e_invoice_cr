@@ -2,7 +2,7 @@
 
 namespace Drupal\invoice_entity\Form;
 
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Entity\ContentEntityForm;
@@ -23,7 +23,7 @@ use DateTimeZone;
  */
 class InvoiceEntityForm extends ContentEntityForm {
 
-  private const DEPENDENT_FIELDS = [
+  const DEPENDENT_FIELDS = [
     'field_payment_method' => ['FE', 'TE'],
     'field_client' => ['FE', 'NC', 'ND'],
     'ref_type_of' => ['NC', 'ND'],
@@ -36,8 +36,8 @@ class InvoiceEntityForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
-  public function __construct(EntityManagerInterface $entity_manager, EntityTypeBundleInfoInterface $entity_type_bundle_info = NULL, TimeInterface $time = NULL) {
-    parent::__construct($entity_manager, $entity_type_bundle_info, $time);
+  public function __construct(EntityRepositoryInterface $entity_repository, EntityTypeBundleInfoInterface $entity_type_bundle_info = NULL, TimeInterface $time = NULL) {
+    parent::__construct($entity_repository, $entity_type_bundle_info, $time);
     $settings = \Drupal::config('e_invoice_cr.settings');
     $empty = $settings->isNew();
     if ($empty || is_null($settings)) {
