@@ -39,12 +39,12 @@ See spanish documentation
 
 1- Edit your composer.json to add the repo
 ```json
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/ParallelDevs/e_invoice_cr"
-        },
-    ],
+"repositories": [
+    {
+        "type": "git",
+        "url": "https://github.com/ParallelDevs/e_invoice_cr"
+    },
+],
 ``` 
 2- Run `composer require paralleldevs/e_invoice_cr`
 
