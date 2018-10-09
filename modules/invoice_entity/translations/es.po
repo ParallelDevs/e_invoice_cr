@@ -71,6 +71,9 @@ msgstr "Información de Referencia"
 msgid "Payment"
 msgstr "Pago"
 
+msgid "Customer's information:"
+msgstr "Información del Cliente:"
+
 # Messages
 msgid "Settings form for Invoice entities. Manage field settings here."
 msgstr "Configuraciones para las entidades de tipo factura. Administre los campos aquí."
