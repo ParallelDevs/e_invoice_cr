@@ -226,10 +226,12 @@ class InvoiceEntityForm extends ContentEntityForm {
       $type_of = $this->entity->get('type_of')->value;
       $this->entity->set('field_numeric_key', $invoice_service->generateInvoiceKey($type_of));
 
+      $user_current = \Drupal::currentUser();
       $settings = \Drupal::config('e_invoice_cr.settings');
-      $date_text = $this->entity->get('field_invoice_date')->value;
-      $date_object = strtotime($date_text);
-      $date = \Drupal::service('date.formatter')->format($date_object, 'date_text', 'c');
+      $datetime = new \DateTime('now', new \DateTimeZone($user_current->getTimezone()));
+      $date = $datetime->format('Y-m-dTH:i:s.u');
+      $date_text = \Drupal::service('date.formatter')->format(strtotime($date), 'date_text', 'c');
+      $this->entity->set('field_invoice_date', substr($date_text, 0, -6));
       $client_id = $this->entity->get('field_client')->target_id;
       $client = CustomerEntity::load($client_id);
 
