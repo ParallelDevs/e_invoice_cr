@@ -1,0 +1,16 @@
+imap_settings.settings:
+  type: mapping
+  label: Variable Settings of imap module
+  mapping:
+   remote:
+     type: string
+   port:
+     type: int
+   flag:
+      type: string
+   mailbox:
+      type: string
+   username:
+      type: string
+   password:
+      type: string

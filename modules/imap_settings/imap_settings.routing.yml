@@ -1,0 +1,15 @@
+imap_settings.options:
+  path: '/admin/structure/imap_settings/options'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'IMAP Settings'
+  requirements:
+    _permission: 'access administration pages'
+
+imap_settings.settings:
+  path: '/admin/imap_settings/settings'
+  defaults:
+    _form: '\Drupal\imap_settings\Form\ImapSettingsForm'
+    _title: 'IMAP Settings'
+  requirements:
+    _permission: 'access administration settings'

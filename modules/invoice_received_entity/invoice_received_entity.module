@@ -45,3 +45,32 @@ function invoice_received_entity_entity_operation_alter(array &$operations, Enti
     ];
   }
 }
+
+/**
+ * Implements invoice_received_entity_cron().
+ */
+function invoice_received_entity_cron() {
+  $settings = \Drupal::config('imap_module.settings');
+  $remote_system_name = $settings->get('remote_system_name');
+  $port = $settings->get('port');
+  $flag = $settings->get('flag');
+  $mailbox = $settings->get('mailbox');
+  $imapPath = '{' . $remote_system_name . ':' . $port . $flag . '}' . $mailbox;
+  $username = $settings->get('username');
+  $password = $settings->get('password');
+  // Try to connect.
+  $inbox = imap_open($imapPath, $username, $password);
+  if (!is_null($inbox)) {
+    $importXML = new ImportXMLFromEmail();
+    $emails = imap_search($inbox, 'ALL UNSEEN');
+    if ($emails) {
+      $paths = $importXML->getXMLFilesFromEmails($inbox, $emails);
+      foreach ($paths as $path) {
+        $simpleXml = simplexml_load_file($path);
+        if (!$importXML->alreadyExist($simpleXml->Clave)) {
+          $importXML->createEntityFromXML($simpleXml);
+        }
+      }
+    }
+  }
+}
