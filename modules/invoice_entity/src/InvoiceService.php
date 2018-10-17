@@ -66,7 +66,7 @@ class InvoiceService implements InvoiceServiceInterface {
    * Update the configuration values.
    */
   public function updateValues() {
-    $this->setInvoiceVariable('invoice_number', self::$invoiceNumber);
+    $this->setInvoiceVariable(self::$documentType, self::$invoiceNumber);
   }
 
   /**

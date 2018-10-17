@@ -71,7 +71,7 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
       $row['credit'] = $entity->get('field_credit_term')->getValue()[0]['value'];
     }
     else {
-      $row['credit'] = 'None';
+      $row['credit'] = $this->t('None');
     }
     $row['total'] = $entity->get('field_currency')->getValue()[0]['value'] . ' ' . $entity->get('field_total_invoice')->getValue()[0]['value'];
     $row['download'] = Link::createFromRoute(

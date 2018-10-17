@@ -136,4 +136,17 @@
     return hasIt;
   }
 
+  $(document).on("change", "#edit-type-of", function (event) {
+    $.ajax({
+      url: '/consecutive',
+      type: 'POST',
+      data: {
+        type: $('#edit-type-of').val()
+      },
+      success: function (response) {
+        $('#edit-field-consecutive-number-0-value').val(response);
+      }
+    });
+  });
+
 }(jQuery, drupalSettings));

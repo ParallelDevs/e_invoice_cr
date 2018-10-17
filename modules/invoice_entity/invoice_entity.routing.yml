@@ -21,3 +21,11 @@ invoice_entity.zip:
     _title: 'Descargar'
   requirements:
     _permission: 'access content'
+
+invoice_entity.consecutive:
+  path: '/consecutive'
+  defaults:
+    _title: 'Change Consecutive Number'
+    _controller: '\Drupal\invoice_entity\Controller\InvoiceEntityController::changeConsecutiveNumber'
+  requirements:
+    _access: 'TRUE'

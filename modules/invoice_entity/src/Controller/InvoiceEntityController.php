@@ -7,7 +7,9 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
 use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
+use Drupal\invoice_entity\Entity\InvoiceEntity;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class InvoiceEntityController.
@@ -231,16 +233,15 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
    */
   public function createZipFile($id) {
     $entity = InvoiceEntity::load($id);
-    $uri = DRUPAL_ROOT;
-    $zip = new ZipArchive();
-    $zip->open($uri . '/invoice' . $id . '_files.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
-    $uri = $uri . '/sites/default/files/';
+    $zip = new \ZipArchive();
+    $zip->open('invoice' . $id . '_files.zip', \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+    $uri = DRUPAL_ROOT . '/sites/default/files/';
     $consecutive = $entity->get('field_consecutive_number')->getValue()[0]['value'];
     $zip->addFile($uri . 'pdf_invoice/invoice_' . $id . '.pdf',
       'invoice_' . $id . '.pdf');
     $zip->addFile($uri . 'xml_signed/document-1-' . $consecutive . 'segned.xml',
       'document-1-' . $consecutive . 'segned.xml');
-    $zip->addFile($uri . 'xml_confirmation/' . $consecutive . 'confirmation.xml',
+    $zip->addFile($uri . 'xml_confirmation/document-1-' . $consecutive . 'confirmation.xml',
       $consecutive . 'confirmation.xml');
     $zip->close();
     header('Content-type: application/octet-stream');
@@ -248,6 +249,37 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
     readfile('invoice' . $id . '_files.zip');
     unlink('invoice' . $id . '_files.zip');
     return new RedirectResponse('/admin/structure/e-invoice-cr/invoice_entity');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function changeConsecutiveNumber() {
+    $document_type = $_POST['type'];
+    $type = '';
+
+    switch ($document_type) {
+      case 'FE':
+        $type = 'electronic_bill.service';
+        break;
+
+      case 'ND':
+        $type = 'debit_note.service';
+        break;
+
+      case 'NC':
+        $type = 'credit_note.service';
+        break;
+
+      case 'TE':
+        $type = 'electronic_ticket.service';
+        break;
+    }
+
+    /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
+    $invoice_service = \Drupal::service($type);
+    $consecutive = $invoice_service->generateConsecutive($document_type);
+    return new JsonResponse($consecutive);
   }
 
 }

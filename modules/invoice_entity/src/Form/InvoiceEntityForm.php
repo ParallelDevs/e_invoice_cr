@@ -224,8 +224,6 @@ class InvoiceEntityForm extends ContentEntityForm {
 
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
     $invoice_service = \Drupal::service($document_type);
-    $consecutive = substr($this->entity->get('field_consecutive_number')->getValue()[0]['value'], 0, -10) . $invoice_service->getDocumentNumber();
-    $this->entity->set('field_consecutive_number', $consecutive);
 
     // Authentication.
     try {
