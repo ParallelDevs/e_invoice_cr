@@ -97,7 +97,7 @@ class CustomerEntityForm extends ContentEntityForm {
     }
 
     $count = 0;
-    if (isset($form_state->getValue($address)[0])){
+    if (isset($form_state->getValue($address)[0])) {
       $filled_fields = array_filter($form_state->getValue($address)[0], function ($value) {
         return !empty($value);
       });
