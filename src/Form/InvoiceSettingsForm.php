@@ -303,7 +303,6 @@ class InvoiceSettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
     $tabs = $values['settings_tab']['stuff'];
-    $id_type = $tabs['auth_group']['id_type'];
     // Retrieve the configuration.
     \Drupal::configFactory()->getEditable('e_invoice_cr.settings')
       // Set the submitted configuration setting.
