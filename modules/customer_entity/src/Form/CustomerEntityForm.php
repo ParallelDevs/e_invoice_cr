@@ -96,11 +96,14 @@ class CustomerEntityForm extends ContentEntityForm {
       $form_state->setErrorByName($phone, $this->t("The telephone number should only have numbers. No spaces or special characters."));
     }
 
-    $filled_fields = array_filter($form_state->getValue($address)[0], function ($value) {
-      return !empty($value);
-    });
+    $count = 0;
+    if (isset($form_state->getValue($address)[0])){
+      $filled_fields = array_filter($form_state->getValue($address)[0], function ($value) {
+        return !empty($value);
+      });
+      $count = count($filled_fields);
+    }
 
-    $count = count($filled_fields);
     if ($count > 0 && $count < 5) {
       $form_state->setErrorByName($address, $this->t('If you are going to add the address information, please fill all the fields relate it.'));
     }
