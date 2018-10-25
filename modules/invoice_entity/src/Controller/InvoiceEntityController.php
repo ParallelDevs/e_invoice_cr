@@ -6,10 +6,11 @@ use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
+use \Drupal\file\Entity\File;
 use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
-use Drupal\invoice_entity\Entity\InvoiceEntity;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\invoice_entity\Entity\InvoiceEntity;
 
 /**
  * Class InvoiceEntityController.
@@ -233,22 +234,35 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
    */
   public function createZipFile($id) {
     $entity = InvoiceEntity::load($id);
-    $zip = new \ZipArchive();
-    $zip->open('invoice' . $id . '_files.zip', \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
-    $uri = DRUPAL_ROOT . '/sites/default/files/';
+    $user_current = \Drupal::currentUser();
     $consecutive = $entity->get('field_consecutive_number')->getValue()[0]['value'];
-    $zip->addFile($uri . 'pdf_invoice/invoice_' . $id . '.pdf',
-      'invoice_' . $id . '.pdf');
-    $zip->addFile($uri . 'xml_signed/document-1-' . $consecutive . 'segned.xml',
-      'document-1-' . $consecutive . 'segned.xml');
-    $zip->addFile($uri . 'xml_confirmation/document-1-' . $consecutive . 'confirmation.xml',
-      $consecutive . 'confirmation.xml');
+    $pdf_file = File::load($this->searchFile('invoice_' . $id . '.pdf'));
+    $signed_file = File::load($this->searchFile('document-' . $user_current->id() . '-' . $consecutive . 'segned.xml'));
+    $confirmation_file = File::load($this->searchFile('document-' . $user_current->id() . '-' . $consecutive . 'confirmation.xml'));
+    $zip = new \ZipArchive();
+    $uri = file_directory_temp() . '/invoice' . $id . '.zip';
+    $zip->open($uri, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+    $zip->addFile(\Drupal::service('file_system')->realpath($pdf_file->getFileUri()),
+      $pdf_file->getFilename());
+    $zip->addFile(\Drupal::service('file_system')->realpath($signed_file->getFileUri()),
+      $signed_file->getFilename());
+    $zip->addFile(\Drupal::service('file_system')->realpath($confirmation_file->getFileUri()),
+      $confirmation_file->getFilename());
     $zip->close();
     header('Content-type: application/octet-stream');
-    header('Content-disposition: attachment; filename=invoice' . $id . '_files.zip');
-    readfile('invoice' . $id . '_files.zip');
-    unlink('invoice' . $id . '_files.zip');
+    header('Content-disposition: attachment; filename=' . $uri);
+    readfile($uri);
+    unlink($uri);
     return new RedirectResponse('/admin/structure/e-invoice-cr/invoice_entity');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  private function searchFile($filename){
+    $query = \Drupal::entityQuery('file')->condition('filename', $filename);
+    $id = $query->execute();
+    return intval(reset($id));
   }
 
   /**

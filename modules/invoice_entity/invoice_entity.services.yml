@@ -1,25 +1,32 @@
 services:
+  invoice_entity.service:
+    class: Drupal\invoice_entity\InvoiceService
+    arguments: []
   electronic_bill.service:
     class: Drupal\invoice_entity\InvoiceService
     arguments:
       $documentType: 'electronic_bill_consecutive'
-
   debit_note.service:
     class: Drupal\invoice_entity\InvoiceService
     arguments:
       $documentType: 'debit_note_consecutive'
-
   credit_note.service:
     class: Drupal\invoice_entity\InvoiceService
     arguments:
       $documentType: 'credit_note_consecutive'
-
   electronic_ticket.service:
     class: Drupal\invoice_entity\InvoiceService
     arguments:
       $documentType: 'electronic_ticket_consecutive'
-
-  invoice_received.service:
+  invoice_accepted.service:
     class: Drupal\invoice_entity\InvoiceService
     arguments:
-      $documentType: 'invoice_received_consecutive'
+      $documentType: 'invoice_accepted_consecutive'
+  invoice_partial_accepted.service:
+      class: Drupal\invoice_entity\InvoiceService
+      arguments:
+        $documentType: 'invoice_partial_accepted_consecutive'
+  invoice_rejected.service:
+      class: Drupal\invoice_entity\InvoiceService
+      arguments:
+        $documentType: 'invoice_rejected_consecutive'

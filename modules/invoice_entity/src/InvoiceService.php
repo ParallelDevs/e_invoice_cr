@@ -104,12 +104,16 @@ class InvoiceService implements InvoiceServiceInterface {
       $entity->save();
       if ($state === 'published') {
         if (isset($result[3])) {
-          $path = "public://xml_confirmation/";
           $user_current = \Drupal::currentUser();
           $id_cons = $entity->get('field_consecutive_number')->value;
           $doc_name = "document-" . $user_current->id() . "-" . $id_cons . "confirmation";
+          $path = "public://xml_confirmation/";
           file_prepare_directory($path, FILE_CREATE_DIRECTORY);
           $result[3]->saveXML($path . $doc_name . ".xml");
+          $document = file_get_contents($path . $doc_name . '.xml');
+          $confirmation_file = file_save_data($document, $path . $doc_name . '.xml', FILE_EXISTS_REPLACE);
+          $confirmation_file->setPermanent();
+          $confirmation_file->save();
         }
         // Load the Symfony event dispatcher object through services.
         $dispatcher = \Drupal::service('event_dispatcher');

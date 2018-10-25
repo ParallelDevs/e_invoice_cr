@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Install file for the Invoice Entity module.
+ */
+
+/**
+ * {@inheritdoc}
+ */
+function invoice_entity_update_8001() {
+  /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
+  $invoice_service = \Drupal::service('invoice_entity.service');
+  $consecutive = $invoice_service->getDocumentNumber();
+
+  $documentTypes = [
+    'electronic_bill_consecutive',
+    'debit_note_consecutive',
+    'credit_note_consecutive',
+    'electronic_ticket_consecutive',
+    'invoice_accepted_consecutive',
+    'invoice_partial_accepted_consecutive',
+    'invoice_rejected_consecutive',
+  ];
+
+  $config = \Drupal::service('config.factory')->getEditable('invoice_entity.settings');
+
+  foreach ($documentTypes as $documentType) {
+    $config->set($documentType, $consecutive)->save();
+  }
+
+}

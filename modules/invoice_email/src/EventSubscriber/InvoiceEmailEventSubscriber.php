@@ -140,8 +140,10 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
     $print_engine->addPage($html);
     $output = $print_engine->getBlob();
     $file_name = $file_name . ".pdf";
-    $result = file_put_contents($path . $file_name, $output);
-    return $result;
+    $pdf_file = file_save_data($output, $path . $file_name, FILE_EXISTS_REPLACE);
+    $pdf_file->setPermanent();
+    $pdf_file->save();
+    return $pdf_file;
   }
 
 }

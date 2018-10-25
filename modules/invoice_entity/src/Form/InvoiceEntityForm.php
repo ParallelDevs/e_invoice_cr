@@ -41,6 +41,7 @@ class InvoiceEntityForm extends ContentEntityForm {
     if ($empty || is_null($settings)) {
       invoice_entity_config_error();
     }
+
   }
 
   /**
@@ -98,7 +99,7 @@ class InvoiceEntityForm extends ContentEntityForm {
       else {
         $invoice_service->updateValues();
       }
-      $form['field_consecutive_number']['widget'][0]['value']['#default_value'] = $invoice_service->generateConsecutive($type_of);
+      $form['field_consecutive_number']['widget'][0]['value']['#default_value'] = '';
     }
     $this->formatField($form['field_total_discount']['widget'][0]['value'], TRUE, TRUE);
     $this->formatField($form['field_net_sale']['widget'][0]['value'], TRUE, TRUE);
@@ -224,6 +225,7 @@ class InvoiceEntityForm extends ContentEntityForm {
 
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
     $invoice_service = \Drupal::service($document_type);
+    $this->entity->set('field_consecutive_number', $invoice_service->generateConsecutive($type_of));
 
     // Authentication.
     try {
@@ -300,6 +302,7 @@ class InvoiceEntityForm extends ContentEntityForm {
       $document = file_get_contents($doc_uri);
       // Sent the document.
       $response = $communication->sentDocument($document, $body_data, $token);
+
       // Show a error message.
       if (!is_null($response)) {
         if ($response->getStatusCode() != 202 && $response->getStatusCode() != 200) {
@@ -318,6 +321,12 @@ class InvoiceEntityForm extends ContentEntityForm {
           $invoice_service->increaseValues();
         }
         $invoice_service->updateValues();
+
+        $path = 'public://xml_signed/';
+        file_prepare_directory($path, FILE_CREATE_DIRECTORY);
+        $signed_file = file_save_data($document, $path . $doc_name . 'segned.xml', FILE_EXISTS_REPLACE);
+        $signed_file->setPermanent();
+        $signed_file->save();
       }
       else {
         return FALSE;

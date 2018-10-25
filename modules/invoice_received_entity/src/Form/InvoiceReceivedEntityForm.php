@@ -181,7 +181,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
    */
   private function sendInvoice(FormStateInterface $form_state) {
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
-    $invoice_service = \Drupal::service('invoice_entity.service');
+    $invoice_service = \Drupal::service('invoice_received.service:');
 
     try {
       // Get authentication token for the API.
