@@ -143,7 +143,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
    * @return int
    *   A nid of a FileEntity node.
    */
-  private function searchFile($filename){
+  private function searchFile($filename) {
     $query = \Drupal::entityQuery('file')->condition('filename', $filename);
     $id = $query->execute();
     return intval(reset($id));

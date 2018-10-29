@@ -12,6 +12,12 @@ invoice_entity.settings:
     type: string
    electronic_ticket_consecutive:
     type: string
+   invoice_accepted_consecutive:
+    type: string
+   invoice_partial_accepted_consecutive:
+    type: string
+   invoice_rejected_consecutive:
+    type: string
    consecutive_code:
     type: string
    type_of:

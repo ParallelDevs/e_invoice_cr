@@ -21,20 +21,9 @@ class InvoiceService implements InvoiceServiceInterface {
   /**
    * Constructs a new InvoiceService object.
    */
-  public function __construct($documentType = NULL) {
-    if(!is_null($documentType)){
-      self::$consecutiveName = $this->setConsecutiveName($documentType);
-    }
-    else{
-      self::$consecutiveName = 'invoice_number';
-    }
-    self::$invoiceNumber = $this->getInvoiceVariable(self::$consecutiveName);
+  public function __construct() {
     // It gets a random number.
     self::$secureCode = str_pad(intval(rand(1, 99999999)), 8, '0', STR_PAD_LEFT);
-    if (is_null(self::$invoiceNumber)) {
-      self::$invoiceNumber = '0000000001';
-      $this->updateValues();
-    }
   }
 
   /**
@@ -253,7 +242,7 @@ class InvoiceService implements InvoiceServiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function setConsecutiveName($documentType) {
+  public function setConsecutiveNumber($documentType) {
     $consecutive_name = '';
 
     switch ($documentType) {
@@ -273,12 +262,28 @@ class InvoiceService implements InvoiceServiceInterface {
         $consecutive_name = 'electronic_ticket_consecutive';
         break;
 
+      case '1':
+        $consecutive_name = 'invoice_accepted_consecutive';
+        break;
+
+      case '2':
+        $consecutive_name = 'invoice_partial_accepted_consecutive';
+        break;
+
+      case '3':
+        $consecutive_name = 'invoice_rejected_consecutive';
+        break;
+
       default:
         $consecutive_name = 'electronic_bill_consecutive';
         break;
     }
 
-    return $consecutive_name;
+    self::$invoiceNumber = $this->getInvoiceVariable($consecutive_name);
+    if (is_null(self::$invoiceNumber)) {
+      self::$invoiceNumber = '0000000001';
+      $this->updateValues();
+    }
   }
 
   /**

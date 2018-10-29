@@ -6,10 +6,9 @@ use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
-use \Drupal\file\Entity\File;
+use Drupal\file\Entity\File;
 use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\invoice_entity\Entity\InvoiceEntity;
 
 /**
@@ -187,7 +186,8 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
     $type_of = $entity->get('type_of')->getValue()[0]['value'];
 
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
-    $invoice_service = \Drupal::service($type_of . '.service');
+    $invoice_service = \Drupal::service('invoice_entity.service');
+    $invoice_service->setConsecutiveNumber($type_of);
     $result = $invoice_service->validateInvoiceEntity($entity);
 
     if (is_null($result['response'])) {
@@ -247,23 +247,10 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
    * @return int
    *   A nid of a FileEntity node.
    */
-  private function searchFile($filename){
+  private function searchFile($filename) {
     $query = \Drupal::entityQuery('file')->condition('filename', $filename);
     $id = $query->execute();
     return intval(reset($id));
-  }
-
-  /**
-   * Gets document type from AJAX function and return the consecutive number.
-   */
-  public function changeConsecutiveNumber() {
-    $document_type = \Drupal::request();
-    $document_type = $document_type->get('type');
-
-    /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
-    $invoice_service = \Drupal::service($document_type . '.service');
-    $consecutive = $invoice_service->generateConsecutive($document_type);
-    return new JsonResponse($consecutive);
   }
 
 }
