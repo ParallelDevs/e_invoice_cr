@@ -2,16 +2,15 @@
 
 /**
  * @file
- * Install file for the Invoice Entity module.
+ * Contains invoice_entity.install.
  */
 
 /**
- * {@inheritdoc}
+ * Implements hook_update_8001().
  */
 function invoice_entity_update_8001() {
-  /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
-  $invoice_service = \Drupal::service('invoice_entity.service');
-  $consecutive = $invoice_service->getDocumentNumber();
+  $config = \Drupal::config('invoice_entity.settings');
+  $consecutive = $config->get('invoice_number');
 
   $documentTypes = [
     'electronic_bill_consecutive',
@@ -22,8 +21,6 @@ function invoice_entity_update_8001() {
     'invoice_partial_accepted_consecutive',
     'invoice_rejected_consecutive',
   ];
-
-  $config = \Drupal::service('config.factory')->getEditable('invoice_entity.settings');
 
   foreach ($documentTypes as $documentType) {
     $config->set($documentType, $consecutive)->save();

@@ -74,30 +74,18 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
         }
         else {
           // Set up the email attachment.
-          $file = new \stdClass();
-          $file->uri = $path . $file_name . ".pdf";
-          $file->filename = $file_name . ".pdf";
-          $file->filemime = 'application/pdf';
-          $params['files'][] = $file;
+          $params['files'][] = $result;
         }
 
-        // Attach signed xml.
         $user_current = \Drupal::currentUser();
-        $uri = 'public://xml_signed/document-' . $user_current->id() . '-' . $consecutive . 'segned.xml';
-        $file = new \stdClass();
-        $file->uri = $uri;
-        $file->filename = $consecutive . 'segned.xml';
-        $file->filemime = 'application/xml';
-        $params['files'][] = $file;
+
+        // Attach signed xml.
+        $signed_file = File::load($this->searchFile('document-' . $user_current->id() . '-' . $consecutive . 'segned.xml'));
+        $params['files'][] = $signed_file;
 
         // Attach confirmation xml.
-        $user_current = \Drupal::currentUser();
-        $uri = 'public://xml_confirmation/document-' . $user_current->id() . '-' . $consecutive . 'confirmation.xml';
-        $confirmationFile = new \stdClass();
-        $confirmationFile->uri = $uri;
-        $confirmationFile->filename = $consecutive . 'confirmation.xml';
-        $confirmationFile->filemime = 'application/xml';
-        $params['files'][] = $confirmationFile;
+        $confirmation_file = File::load($this->searchFile('document-' . $user_current->id() . '-' . $consecutive . 'confirmation.xml'));
+        $params['files'][] = $confirmation_file;
 
         // Set the email parameters.
         $mailManager = \Drupal::service('plugin.manager.mail');
@@ -144,6 +132,21 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
     $pdf_file->setPermanent();
     $pdf_file->save();
     return $pdf_file;
+  }
+
+  /**
+   * Returns the nid of a specific FileEntity.
+   *
+   * @param string $filename
+   *   The filename of a respective invoice document.
+   *
+   * @return int
+   *   A nid of a FileEntity node.
+   */
+  private function searchFile($filename){
+    $query = \Drupal::entityQuery('file')->condition('filename', $filename);
+    $id = $query->execute();
+    return intval(reset($id));
   }
 
 }

@@ -184,34 +184,10 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
    */
   public function validateInvoice($key, $id) {
     $entity = \Drupal::entityManager()->getStorage('invoice_entity')->load($id);
-
     $type_of = $entity->get('type_of')->getValue()[0]['value'];
-    $document_type = '';
-
-    switch ($type_of) {
-      case 'FE':
-        $document_type = 'electronic_bill.service';
-        break;
-
-      case 'ND':
-        $document_type = 'debit_note.service';
-        break;
-
-      case 'NC':
-        $document_type = 'credit_note.service';
-        break;
-
-      case 'TE':
-        $document_type = 'electronic_ticket.service';
-        break;
-
-      default:
-        $document_type = 'electronic_bill.service';
-        break;
-    }
 
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
-    $invoice_service = \Drupal::service($document_type);
+    $invoice_service = \Drupal::service($type_of . '.service');
     $result = $invoice_service->validateInvoiceEntity($entity);
 
     if (is_null($result['response'])) {
@@ -230,7 +206,13 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
   }
 
   /**
-   * {@inheritdoc}
+   * Create a zip file with the invoice document files.
+   *
+   * @param int $id
+   *   An invoice entity id.
+   *
+   * @return bool
+   *   An array as expected by drupal_render().
    */
   public function createZipFile($id) {
     $entity = InvoiceEntity::load($id);
@@ -257,7 +239,13 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
   }
 
   /**
-   * {@inheritdoc}
+   * Returns the nid of a specific FileEntity.
+   *
+   * @param string $filename
+   *   The filename of a respective invoice document.
+   *
+   * @return int
+   *   A nid of a FileEntity node.
    */
   private function searchFile($filename){
     $query = \Drupal::entityQuery('file')->condition('filename', $filename);
@@ -266,32 +254,14 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
   }
 
   /**
-   * {@inheritdoc}
+   * Gets document type from AJAX function and return the consecutive number.
    */
   public function changeConsecutiveNumber() {
-    $document_type = $_POST['type'];
-    $type = '';
-
-    switch ($document_type) {
-      case 'FE':
-        $type = 'electronic_bill.service';
-        break;
-
-      case 'ND':
-        $type = 'debit_note.service';
-        break;
-
-      case 'NC':
-        $type = 'credit_note.service';
-        break;
-
-      case 'TE':
-        $type = 'electronic_ticket.service';
-        break;
-    }
+    $document_type = \Drupal::request();
+    $document_type = $document_type->get('type');
 
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
-    $invoice_service = \Drupal::service($type);
+    $invoice_service = \Drupal::service($document_type . '.service');
     $consecutive = $invoice_service->generateConsecutive($document_type);
     return new JsonResponse($consecutive);
   }

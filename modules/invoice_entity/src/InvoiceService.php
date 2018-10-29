@@ -16,14 +16,19 @@ class InvoiceService implements InvoiceServiceInterface {
 
   protected static $invoiceNumber;
   protected static $secureCode;
-  protected static $documentType;
+  protected static $consecutiveName;
 
   /**
    * Constructs a new InvoiceService object.
    */
-  public function __construct($documentType) {
-    self::$documentType = $documentType;
-    self::$invoiceNumber = $this->getInvoiceVariable($documentType);
+  public function __construct($documentType = NULL) {
+    if(!is_null($documentType)){
+      self::$consecutiveName = $this->setConsecutiveName($documentType);
+    }
+    else{
+      self::$consecutiveName = 'invoice_number';
+    }
+    self::$invoiceNumber = $this->getInvoiceVariable(self::$consecutiveName);
     // It gets a random number.
     self::$secureCode = str_pad(intval(rand(1, 99999999)), 8, '0', STR_PAD_LEFT);
     if (is_null(self::$invoiceNumber)) {
@@ -66,7 +71,7 @@ class InvoiceService implements InvoiceServiceInterface {
    * Update the configuration values.
    */
   public function updateValues() {
-    $this->setInvoiceVariable(self::$documentType, self::$invoiceNumber);
+    $this->setInvoiceVariable(self::$consecutiveName, self::$invoiceNumber);
   }
 
   /**
@@ -243,6 +248,37 @@ class InvoiceService implements InvoiceServiceInterface {
    */
   public function getDocumentNumber() {
     return self::$invoiceNumber;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setConsecutiveName($documentType) {
+    $consecutive_name = '';
+
+    switch ($documentType) {
+      case 'FE':
+        $consecutive_name = 'electronic_bill_consecutive';
+        break;
+
+      case 'ND':
+        $consecutive_name = 'debit_note_consecutive';
+        break;
+
+      case 'NC':
+        $consecutive_name = 'credit_note_consecutive';
+        break;
+
+      case 'TE':
+        $consecutive_name = 'electronic_ticket_consecutive';
+        break;
+
+      default:
+        $consecutive_name = 'electronic_bill_consecutive';
+        break;
+    }
+
+    return $consecutive_name;
   }
 
   /**

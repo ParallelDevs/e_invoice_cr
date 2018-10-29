@@ -72,8 +72,7 @@ class InvoiceEntityForm extends ContentEntityForm {
    */
   private function invoiceFormStructure(array &$form, FormStateInterface $form_state) {
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
-    $invoice_service = \Drupal::service('electronic_bill.service');
-
+    $invoice_service = \Drupal::service('invoice_entity.service');
     // Add the libraries.
     $form = $this->addLibraries($form);
 
@@ -199,32 +198,9 @@ class InvoiceEntityForm extends ContentEntityForm {
    */
   public function sendInvoice(array $form, FormStateInterface $form_state) {
     $type_of = $this->entity->get('type_of')->getValue()[0]['value'];
-    $document_type = '';
-
-    switch ($type_of) {
-      case 'FE':
-        $document_type = 'electronic_bill.service';
-        break;
-
-      case 'ND':
-        $document_type = 'debit_note.service';
-        break;
-
-      case 'NC':
-        $document_type = 'credit_note.service';
-        break;
-
-      case 'TE':
-        $document_type = 'electronic_ticket.service';
-        break;
-
-      default:
-        $document_type = 'electronic_bill.service';
-        break;
-    }
 
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
-    $invoice_service = \Drupal::service($document_type);
+    $invoice_service = \Drupal::service($type_of . '.service');
     $this->entity->set('field_consecutive_number', $invoice_service->generateConsecutive($type_of));
 
     // Authentication.

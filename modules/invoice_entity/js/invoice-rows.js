@@ -136,7 +136,7 @@
     return hasIt;
   }
 
-  $(document).on("change", "#edit-type-of", function (event) {
+  $("#edit-type-of").on("change", function (event) {
     $.ajax({
       url: '/consecutive',
       type: 'POST',
