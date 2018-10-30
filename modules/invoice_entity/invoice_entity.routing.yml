@@ -18,6 +18,6 @@ invoice_entity.zip:
   path: '/admin/structure/e-invoice-cr/invoice_entity/zip/{id}'
   defaults:
     _controller: '\Drupal\invoice_entity\Controller\InvoiceEntityController::createZipFile'
-    _title: 'Descargar'
+    _title: 'Download'
   requirements:
-    _permission: 'access content'
+    _permission: 'access administration pages'

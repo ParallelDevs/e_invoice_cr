@@ -170,23 +170,23 @@ function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
 
   switch ($type_of) {
     case 'FE':
-      $invoice['document_type'] = 'Electronic Bill';
+      $invoice['document_type'] = t('Electronic Bill');
       break;
 
     case 'ND':
-      $invoice['document_type'] = 'Debit Note';
+      $invoice['document_type'] = t('Debit Note');
       break;
 
     case 'NC':
-      $invoice['document_type'] = 'Credit Note';
+      $invoice['document_type'] = t('Credit Note');
       break;
 
     case 'TE':
-      $invoice['document_type'] = 'Electronic Ticket';
+      $invoice['document_type'] = t('Electronic Ticket');
       break;
 
     default:
-      $invoice['document_type'] = 'Electronic Bill';
+      $invoice['document_type'] = t('Electronic Bill');
       break;
   }
 

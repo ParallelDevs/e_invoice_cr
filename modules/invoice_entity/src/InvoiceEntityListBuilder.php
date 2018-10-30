@@ -85,13 +85,13 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
 
     if (strcmp($state, 'published') == 0) {
       $row['download'] = Link::createFromRoute(
-        'Descargar',
+        $this->t('Download'),
         'invoice_entity.zip',
         ['id' => $entity->id()]
       );
     }
     else {
-      $row['download'] = $this->t('Descargar');
+      $row['download'] = $this->t('Download');
     }
 
     return $row + parent::buildRow($entity);
