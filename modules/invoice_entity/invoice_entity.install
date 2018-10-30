@@ -9,7 +9,7 @@
  * Implements hook_update_8001().
  */
 function invoice_entity_update_8001() {
-  $config = \Drupal::config('invoice_entity.settings');
+  $config = \Drupal::service('config.factory')->getEditable('invoice_entity.settings');
   $consecutive = $config->get('invoice_number');
 
   $documentTypes = [

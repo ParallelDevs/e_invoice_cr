@@ -104,7 +104,7 @@ class InvoiceEntityForm extends ContentEntityForm {
       else {
         $invoice_service->updateValues();
       }
-      $form['field_consecutive_number']['widget'][0]['value']['#default_value'] = '';
+
     }
     $this->formatField($form['field_total_discount']['widget'][0]['value'], TRUE, TRUE);
     $this->formatField($form['field_net_sale']['widget'][0]['value'], TRUE, TRUE);

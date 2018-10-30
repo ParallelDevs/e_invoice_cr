@@ -4,6 +4,7 @@ namespace Drupal\invoice_email\EventSubscriber;
 
 use Drupal\invoice_email\InvoiceEmailEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\file\Entity\File;
 
 /**
  * Class InvoiceEmailEventSubscriber.
@@ -36,6 +37,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
       $entity = $em->getStorage("invoice_entity")->load($entityId);
       if (!is_null($entity) && !empty($entity->get("field_client")->getValue())) {
         // Define some required data.
+        $user_current = \Drupal::currentUser();
         $invoice_id = $entity->get("field_numeric_key")->getValue()[0]['value'];
         $consecutive = $entity->get("field_consecutive_number")->getValue()[0]['value'];
         $invoice_date = $entity->get("field_invoice_date")->getValue()[0]['value'];
@@ -74,18 +76,30 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
         }
         else {
           // Set up the email attachment.
-          $params['files'][] = $result;
+          $file = new \stdClass();
+          $file->uri = $result->getFileUri();
+          $file->filename = $result->getFilename();
+          $file->filemime = 'application/pdf';
+          $params['files'][] = $file;
         }
 
-        $user_current = \Drupal::currentUser();
+        // Load the file entities.
+        $signed_file = File::load($this->searchFile('document-' . $user_current->id() . '-' . $consecutive . 'segned.xml'));
+        $confirmation_file = File::load($this->searchFile('document-' . $user_current->id() . '-' . $consecutive . 'confirmation.xml'));
 
         // Attach signed xml.
-        $signed_file = File::load($this->searchFile('document-' . $user_current->id() . '-' . $consecutive . 'segned.xml'));
-        $params['files'][] = $signed_file;
+        $file = new \stdClass();
+        $file->uri = $signed_file->getFileUri();
+        $file->filename = $signed_file->getFilename();
+        $file->filemime = 'application/xml';
+        $params['files'][] = $file;
 
         // Attach confirmation xml.
-        $confirmation_file = File::load($this->searchFile('document-' . $user_current->id() . '-' . $consecutive . 'confirmation.xml'));
-        $params['files'][] = $confirmation_file;
+        $confirmationFile = new \stdClass();
+        $confirmationFile->uri = $confirmation_file->getFileUri();
+        $confirmationFile->filename = $confirmation_file->getFilename();
+        $confirmationFile->filemime = 'application/xml';
+        $params['files'][] = $confirmationFile;
 
         // Set the email parameters.
         $mailManager = \Drupal::service('plugin.manager.mail');

@@ -243,43 +243,42 @@ class InvoiceService implements InvoiceServiceInterface {
    * {@inheritdoc}
    */
   public function setConsecutiveNumber($documentType) {
-    $consecutive_name = '';
 
     switch ($documentType) {
       case 'FE':
-        $consecutive_name = 'electronic_bill_consecutive';
+        self::$consecutiveName = 'electronic_bill_consecutive';
         break;
 
       case 'ND':
-        $consecutive_name = 'debit_note_consecutive';
+        self::$consecutiveName = 'debit_note_consecutive';
         break;
 
       case 'NC':
-        $consecutive_name = 'credit_note_consecutive';
+        self::$consecutiveName = 'credit_note_consecutive';
         break;
 
       case 'TE':
-        $consecutive_name = 'electronic_ticket_consecutive';
+        self::$consecutiveName = 'electronic_ticket_consecutive';
         break;
 
       case '1':
-        $consecutive_name = 'invoice_accepted_consecutive';
+        self::$consecutiveName = 'invoice_accepted_consecutive';
         break;
 
       case '2':
-        $consecutive_name = 'invoice_partial_accepted_consecutive';
+        self::$consecutiveName = 'invoice_partial_accepted_consecutive';
         break;
 
       case '3':
-        $consecutive_name = 'invoice_rejected_consecutive';
+        self::$consecutiveName = 'invoice_rejected_consecutive';
         break;
 
       default:
-        $consecutive_name = 'electronic_bill_consecutive';
+        self::$consecutiveName = 'electronic_bill_consecutive';
         break;
     }
 
-    self::$invoiceNumber = $this->getInvoiceVariable($consecutive_name);
+    self::$invoiceNumber = $this->getInvoiceVariable(self::$consecutiveName);
     if (is_null(self::$invoiceNumber)) {
       self::$invoiceNumber = '0000000001';
       $this->updateValues();
