@@ -1,17 +1,13 @@
 <?php
-
-namespace Drupal\invoice_received_entity;
-
-use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity;
+ namespace Drupal\invoice_received_entity;
+ use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\provider_entity\Entity\ProviderEntity;
-
-/**
+ /**
  * Import XML from a inbox gmail account and mapping the entities in Drupal.
  */
 class ImportXMLFromEmail {
-
-  /**
+   /**
    * Get the unread emails and save the xml attached of that emails locally.
    *
    * @return array
@@ -80,8 +76,7 @@ class ImportXMLFromEmail {
     }
     return $paths;
   }
-
-  /**
+   /**
    * Gets the data from xml file, create a invoice received and save that.
    *
    * @return bool
@@ -116,8 +111,7 @@ class ImportXMLFromEmail {
       return $entity->save();
     }
   }
-
-  /**
+   /**
    * Takes and sets the row data of the xml file in the invoice received entity.
    *
    * @return \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity
@@ -144,8 +138,7 @@ class ImportXMLFromEmail {
     $entity->set('field_ir_rows', $current);
     return $entity;
   }
-
-  /**
+   /**
    * Checks if the invoice was saved previously in the system.
    *
    * @return bool
@@ -162,8 +155,7 @@ class ImportXMLFromEmail {
     $fetch = $result->fetchAll();
     return !empty($fetch);
   }
-
-  /**
+   /**
    * Gets the data from the xml file, create a provider entity and save that.
    *
    * @return bool
@@ -192,8 +184,7 @@ class ImportXMLFromEmail {
     $entity->setRevisionUserId(\Drupal::currentUser()->id());
     return $entity->save();
   }
-
-  /**
+   /**
    * Checks if the provider was saved previously in the system.
    *
    * @return bool
@@ -210,5 +201,4 @@ class ImportXMLFromEmail {
     $fetch = $result->fetchAll();
     return !empty($fetch);
   }
-
-}
+ }

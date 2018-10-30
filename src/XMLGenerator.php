@@ -22,8 +22,8 @@ class XMLGenerator {
    */
   public function generateXmlByEntity(InvoiceEntity $entity) {
     $type_of = $entity->get('type_of')->value;
-    $tagname = InvoiceEntityInterface::DOCUMENTATION_INFO[$type_of]['xmltag'];
-    $xmlns = InvoiceEntityInterface::DOCUMENTATION_INFO[$type_of]['xmlns'];
+    $tagname = InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['xmltag'];
+    $xmlns = InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['xmlns'];
 
     $xml_text = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
     $xml_text .= "<" . $tagname . " xmlns=\"" . $xmlns . "\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">\n";
@@ -41,13 +41,7 @@ class XMLGenerator {
     return $doc;
   }
 
-  /**
-   * Function to generate the receiver messager xml document.
-   *
-   * @return \DOMDocument
-   *   The complete xml to send.
-   */
-  public function generateReceiverMessageXml(InvoiceReceivedEntity $entity, $number_key, $consecutive) {
+  public function generateReceiverMessageXML(InvoiceReceivedEntity $entity, $number_key, $consecutive) {
     $settings = \Drupal::config('e_invoice_cr.settings');
 
     $tagname = 'MensajeReceptor';
@@ -207,7 +201,7 @@ class XMLGenerator {
     $xml_doc = "";
     if ($type_of != NULL) {
       $xml_doc .= "\t<InformacionReferencia>\n";
-      $xml_doc .= "\t\t<TipoDoc>" . InvoiceEntityInterface::DOCUMENTATION_INFO[$type_of]['code'] . "</TipoDoc>\n";
+      $xml_doc .= "\t\t<TipoDoc>" . InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['code'] . "</TipoDoc>\n";
       $xml_doc .= "\t\t<Numero>" . $entity->get('ref_doc_key')->value . "</Numero>\n";
       $xml_doc .= "\t\t<FechaEmision>" . $this->formatDateForXml($entity->get('ref_date')->value) . "</FechaEmision>\n";
       $xml_doc .= "\t\t<Codigo>" . $entity->get('ref_code')->value . "</Codigo>\n";

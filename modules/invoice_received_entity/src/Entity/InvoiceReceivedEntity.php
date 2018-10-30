@@ -113,8 +113,8 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
       }
     }
 
-    // If no revision author has been set explicitly, make the
-    // invoice_received_entity owner the revision author.
+    // If no revision author has been set explicitly, make the invoice_received_entity owner the
+    // revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());
     }
@@ -228,7 +228,7 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
 
     $fields['document_key'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Document Key'))
-      ->setDescription(t('The document numeric key.'))
+      ->setDescription(t('The document\'s numeric key.'))
       ->setRevisionable(TRUE)
       ->setSettings([
         'max_length' => 50,
