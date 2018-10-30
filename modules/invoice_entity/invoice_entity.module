@@ -127,6 +127,7 @@ function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
   // Emitter data.
   $emitter = [];
   $customer = [];
+  $invoice = [];
   $config = \Drupal::config('e_invoice_cr.settings');
   $file = $config->get('invoice_logo_file');
   if (!is_null($file) && count($file) !== 0) {
@@ -164,11 +165,38 @@ function invoice_entity_preprocess_invoice_entity(&$variables, $hook) {
       $customer['zipcode'] = $address[0]['zipcode'];
     }
   }
+
+  $type_of = $variables['elements']['#invoice_entity']->get('type_of')->getValue()[0]['value'];
+
+  switch ($type_of) {
+    case 'FE':
+      $invoice['document_type'] = t('Electronic Bill');
+      break;
+
+    case 'ND':
+      $invoice['document_type'] = t('Debit Note');
+      break;
+
+    case 'NC':
+      $invoice['document_type'] = t('Credit Note');
+      break;
+
+    case 'TE':
+      $invoice['document_type'] = t('Electronic Ticket');
+      break;
+
+    default:
+      $invoice['document_type'] = t('Electronic Bill');
+      break;
+  }
+
   $module_handler = \Drupal::service('module_handler');
   $moduel_path = $module_handler->getModule('invoice_entity')->getPath();
+
   // Send the data.
   $variables['emitter'] = $emitter;
   $variables['customer'] = $customer;
+  $variables['invoice'] = $invoice;
   $variables['base_path'] = $moduel_path;
 }
 

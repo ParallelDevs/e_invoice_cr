@@ -33,7 +33,7 @@ function invoice_email_mail($key, &$message, $params) {
   ];
   switch ($key) {
     case 'invoice_validated':
-      if (count($params['cc']) !== 0 && !is_null($params['cc'])) {
+      if (array_key_exists('cc', $params) && !is_null($params['cc']) && count($params['cc']) !== 0) {
         $message['headers']['cc'] = $params['cc'];
       }
       $message['from'] = \Drupal::config('system.site')->get('mail');

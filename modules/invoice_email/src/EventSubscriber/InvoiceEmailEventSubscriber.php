@@ -4,6 +4,7 @@ namespace Drupal\invoice_email\EventSubscriber;
 
 use Drupal\invoice_email\InvoiceEmailEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\file\Entity\File;
 
 /**
  * Class InvoiceEmailEventSubscriber.
@@ -36,6 +37,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
       $entity = $em->getStorage("invoice_entity")->load($entityId);
       if (!is_null($entity) && !empty($entity->get("field_client")->getValue())) {
         // Define some required data.
+        $user_current = \Drupal::currentUser();
         $invoice_id = $entity->get("field_numeric_key")->getValue()[0]['value'];
         $consecutive = $entity->get("field_consecutive_number")->getValue()[0]['value'];
         $invoice_date = $entity->get("field_invoice_date")->getValue()[0]['value'];
@@ -75,27 +77,27 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
         else {
           // Set up the email attachment.
           $file = new \stdClass();
-          $file->uri = $path . $file_name . ".pdf";
-          $file->filename = $file_name . ".pdf";
+          $file->uri = $result->getFileUri();
+          $file->filename = $result->getFilename();
           $file->filemime = 'application/pdf';
           $params['files'][] = $file;
         }
 
+        // Load the file entities.
+        $signed_file = File::load($this->searchFile('document-' . $user_current->id() . '-' . $consecutive . 'segned.xml'));
+        $confirmation_file = File::load($this->searchFile('document-' . $user_current->id() . '-' . $consecutive . 'confirmation.xml'));
+
         // Attach signed xml.
-        $user_current = \Drupal::currentUser();
-        $uri = 'public://xml_signed/document-' . $user_current->id() . '-' . $consecutive . 'segned.xml';
         $file = new \stdClass();
-        $file->uri = $uri;
-        $file->filename = $consecutive . 'segned.xml';
+        $file->uri = $signed_file->getFileUri();
+        $file->filename = $signed_file->getFilename();
         $file->filemime = 'application/xml';
         $params['files'][] = $file;
 
         // Attach confirmation xml.
-        $user_current = \Drupal::currentUser();
-        $uri = 'public://xml_confirmation/document-' . $user_current->id() . '-' . $consecutive . 'confirmation.xml';
         $confirmationFile = new \stdClass();
-        $confirmationFile->uri = $uri;
-        $confirmationFile->filename = $consecutive . 'confirmation.xml';
+        $confirmationFile->uri = $confirmation_file->getFileUri();
+        $confirmationFile->filename = $confirmation_file->getFilename();
         $confirmationFile->filemime = 'application/xml';
         $params['files'][] = $confirmationFile;
 
@@ -140,8 +142,25 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
     $print_engine->addPage($html);
     $output = $print_engine->getBlob();
     $file_name = $file_name . ".pdf";
-    $result = file_put_contents($path . $file_name, $output);
-    return $result;
+    $pdf_file = file_save_data($output, $path . $file_name, FILE_EXISTS_REPLACE);
+    $pdf_file->setPermanent();
+    $pdf_file->save();
+    return $pdf_file;
+  }
+
+  /**
+   * Returns the nid of a specific FileEntity.
+   *
+   * @param string $filename
+   *   The filename of a respective invoice document.
+   *
+   * @return int
+   *   A nid of a FileEntity node.
+   */
+  private function searchFile($filename) {
+    $query = \Drupal::entityQuery('file')->condition('filename', $filename);
+    $id = $query->execute();
+    return intval(reset($id));
   }
 
 }

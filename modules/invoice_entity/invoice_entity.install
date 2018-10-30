@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Contains invoice_entity.install.
+ */
+
+/**
+ * Implements hook_update_8001().
+ */
+function invoice_entity_update_8001() {
+  $config = \Drupal::service('config.factory')->getEditable('invoice_entity.settings');
+  $consecutive = $config->get('invoice_number');
+
+  $documentTypes = [
+    'electronic_bill_consecutive',
+    'debit_note_consecutive',
+    'credit_note_consecutive',
+    'electronic_ticket_consecutive',
+    'invoice_accepted_consecutive',
+    'invoice_partial_accepted_consecutive',
+    'invoice_rejected_consecutive',
+  ];
+
+  foreach ($documentTypes as $documentType) {
+    $config->set($documentType, $consecutive)->save();
+  }
+
+}

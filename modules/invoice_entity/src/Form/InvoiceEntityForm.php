@@ -41,6 +41,7 @@ class InvoiceEntityForm extends ContentEntityForm {
     if ($empty || is_null($settings)) {
       invoice_entity_config_error();
     }
+
   }
 
   /**
@@ -59,8 +60,6 @@ class InvoiceEntityForm extends ContentEntityForm {
       ];
     }
 
-    $entity = $this->entity;
-
     $this->invoiceFormStructure($form, $form_state);
 
     return $form;
@@ -72,7 +71,6 @@ class InvoiceEntityForm extends ContentEntityForm {
   private function invoiceFormStructure(array &$form, FormStateInterface $form_state) {
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
     $invoice_service = \Drupal::service('invoice_entity.service');
-
     // Add the libraries.
     $form = $this->addLibraries($form);
 
@@ -85,6 +83,14 @@ class InvoiceEntityForm extends ContentEntityForm {
     $form['#attached']['drupalSettings']['taxsObject'] = $tax_info;
 
     $form['field_consecutive_number']['#disabled'] = 'disabled';
+    $form['type_of']['widget']['#ajax'] = [
+      'callback' => [$this, 'changeConsecutiveNumber'],
+      'event' => 'change',
+      'wrapper' => 'edit-field-consecutive-number-wrapper',
+      'method' => 'replace',
+      'effect' => 'none',
+    ];
+
     if ($this->entity->isNew()) {
       // Generate the invoice keys.
       $type_of = NULL;
@@ -98,7 +104,7 @@ class InvoiceEntityForm extends ContentEntityForm {
       else {
         $invoice_service->updateValues();
       }
-      $form['field_consecutive_number']['widget'][0]['value']['#default_value'] = $invoice_service->generateConsecutive($type_of);
+
     }
     $this->formatField($form['field_total_discount']['widget'][0]['value'], TRUE, TRUE);
     $this->formatField($form['field_net_sale']['widget'][0]['value'], TRUE, TRUE);
@@ -197,8 +203,12 @@ class InvoiceEntityForm extends ContentEntityForm {
    *   Return true if did have no error.
    */
   public function sendInvoice(array $form, FormStateInterface $form_state) {
+    $type_of = $this->entity->get('type_of')->getValue()[0]['value'];
+
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
     $invoice_service = \Drupal::service('invoice_entity.service');
+    $invoice_service->setConsecutiveNumber($type_of);
+    $this->entity->set('field_consecutive_number', $invoice_service->generateConsecutive($type_of));
 
     // Authentication.
     try {
@@ -277,6 +287,7 @@ class InvoiceEntityForm extends ContentEntityForm {
       $document = file_get_contents($doc_uri);
       // Sent the document.
       $response = $communication->sentDocument($document, $body_data, $token);
+
       // Show a error message.
       if (!is_null($response)) {
         if ($response->getStatusCode() != 202 && $response->getStatusCode() != 200) {
@@ -295,6 +306,12 @@ class InvoiceEntityForm extends ContentEntityForm {
           $invoice_service->increaseValues();
         }
         $invoice_service->updateValues();
+
+        $path = 'public://xml_signed/';
+        file_prepare_directory($path, FILE_CREATE_DIRECTORY);
+        $signed_file = file_save_data($document, $path . $doc_name . 'segned.xml', FILE_EXISTS_REPLACE);
+        $signed_file->setPermanent();
+        $signed_file->save();
       }
       else {
         return FALSE;
@@ -435,6 +452,19 @@ class InvoiceEntityForm extends ContentEntityForm {
     if ($addReadOnly) {
       $field['#attributes'] = ['readonly' => 'readonly'];
     }
+  }
+
+  /**
+   * Gets document type from AJAX function and return the consecutive number.
+   */
+  public function changeConsecutiveNumber(array &$form, FormStateInterface &$form_state) {
+    $type_of = $form_state->getValue('type_of')[0]['value'];
+    $invoice_service = \Drupal::service('invoice_entity.service');
+    $invoice_service->setConsecutiveNumber($type_of);
+    $consecutive = $invoice_service->generateConsecutive($type_of);
+    $form['field_consecutive_number']['widget'][0]['value']['#value'] = $consecutive;
+    $form['field_consecutive_number']['#id'] = 'edit-field-consecutive-number-wrapper';
+    return $form['field_consecutive_number'];
   }
 
 }

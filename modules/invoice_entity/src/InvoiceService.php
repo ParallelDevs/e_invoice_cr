@@ -16,18 +16,14 @@ class InvoiceService implements InvoiceServiceInterface {
 
   protected static $invoiceNumber;
   protected static $secureCode;
+  protected static $consecutiveName;
 
   /**
    * Constructs a new InvoiceService object.
    */
   public function __construct() {
-    self::$invoiceNumber = $this->getInvoiceVariable('invoice_number');
     // It gets a random number.
     self::$secureCode = str_pad(intval(rand(1, 99999999)), 8, '0', STR_PAD_LEFT);
-    if (is_null(self::$invoiceNumber)) {
-      self::$invoiceNumber = '0000000001';
-      $this->updateValues();
-    }
   }
 
   /**
@@ -64,7 +60,7 @@ class InvoiceService implements InvoiceServiceInterface {
    * Update the configuration values.
    */
   public function updateValues() {
-    $this->setInvoiceVariable('invoice_number', self::$invoiceNumber);
+    $this->setInvoiceVariable(self::$consecutiveName, self::$invoiceNumber);
   }
 
   /**
@@ -102,12 +98,16 @@ class InvoiceService implements InvoiceServiceInterface {
       $entity->save();
       if ($state === 'published') {
         if (isset($result[3])) {
-          $path = "public://xml_confirmation/";
           $user_current = \Drupal::currentUser();
           $id_cons = $entity->get('field_consecutive_number')->value;
           $doc_name = "document-" . $user_current->id() . "-" . $id_cons . "confirmation";
+          $path = "public://xml_confirmation/";
           file_prepare_directory($path, FILE_CREATE_DIRECTORY);
           $result[3]->saveXML($path . $doc_name . ".xml");
+          $document = file_get_contents($path . $doc_name . '.xml');
+          $confirmation_file = file_save_data($document, $path . $doc_name . '.xml', FILE_EXISTS_REPLACE);
+          $confirmation_file->setPermanent();
+          $confirmation_file->save();
         }
         // Load the Symfony event dispatcher object through services.
         $dispatcher = \Drupal::service('event_dispatcher');
@@ -230,6 +230,59 @@ class InvoiceService implements InvoiceServiceInterface {
     $config = \Drupal::config('invoice_entity.settings');
     $value = $config->get($variable_name);
     return $value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDocumentNumber() {
+    return self::$invoiceNumber;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setConsecutiveNumber($documentType) {
+
+    switch ($documentType) {
+      case 'FE':
+        self::$consecutiveName = 'electronic_bill_consecutive';
+        break;
+
+      case 'ND':
+        self::$consecutiveName = 'debit_note_consecutive';
+        break;
+
+      case 'NC':
+        self::$consecutiveName = 'credit_note_consecutive';
+        break;
+
+      case 'TE':
+        self::$consecutiveName = 'electronic_ticket_consecutive';
+        break;
+
+      case '1':
+        self::$consecutiveName = 'invoice_accepted_consecutive';
+        break;
+
+      case '2':
+        self::$consecutiveName = 'invoice_partial_accepted_consecutive';
+        break;
+
+      case '3':
+        self::$consecutiveName = 'invoice_rejected_consecutive';
+        break;
+
+      default:
+        self::$consecutiveName = 'electronic_bill_consecutive';
+        break;
+    }
+
+    self::$invoiceNumber = $this->getInvoiceVariable(self::$consecutiveName);
+    if (is_null(self::$invoiceNumber)) {
+      self::$invoiceNumber = '0000000001';
+      $this->updateValues();
+    }
   }
 
   /**
