@@ -14,11 +14,11 @@ use Drupal\user\EntityOwnerInterface;
  */
 interface InvoiceReceivedEntityInterface extends ContentEntityInterface, RevisionLogInterface, EntityChangedInterface, EntityOwnerInterface {
 
-  public const IR_WAITING_STATUS = 0;
-  public const IR_SENT_HACIENDA = 1;
-  public const IR_REJECTED_STATUS = 2;
-  public const IR_ACCEPTED_STATUS = 3;
-  public const IR_MESSAGES_STATES = [
+  const IR_WAITING_STATUS = 0;
+  const IR_SENT_HACIENDA = 1;
+  const IR_REJECTED_STATUS = 2;
+  const IR_ACCEPTED_STATUS = 3;
+  const IR_MESSAGES_STATES = [
     1 => [
       "state" => 'Accepted',
       "code" => '05'
