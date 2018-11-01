@@ -107,6 +107,12 @@ class CustomerEntityForm extends ContentEntityForm {
     if ($count > 0 && $count < 5) {
       $form_state->setErrorByName($address, $this->t('If you are going to add the address information, please fill all the fields relate it.'));
     }
+
+    $additionalInfo = $form_state->getValue($address);
+    if (strlen($additionalInfo[0]['additionalinfo']) > 40) {
+      $form_state->setErrorByName('additionalinfo', $this->t('The additional information field need to have a maximum length of 40 characters.'));
+    }
+
     parent::validateForm($form, $form_state);
   }
 

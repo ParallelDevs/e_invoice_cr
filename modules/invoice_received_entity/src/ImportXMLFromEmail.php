@@ -88,9 +88,15 @@ class ImportXMLFromEmail {
    *   Determinates if the entity saved successfully or not.
    */
   public function createInvoiceReceivedEntityFromXml($file_xml) {
-    $settings = \Drupal::config('e_invoice_cr.settings');
-    $date = date('Y-m-d\Th:i:s', strtotime($file_xml->FechaEmision));
+    /** @var \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity $entity */
     $entity = new InvoiceReceivedEntity([], 'invoice_received_entity');
+    $newData = $this->getNewData('invoice_received_entity');
+    $date = date('Y-m-d\Th:i:s', strtotime($file_xml->FechaEmision));
+    $entity->set('vid', $newData['vid']);
+    $entity->set('langcode', $newData['langcode']);
+    $entity->set('uuid', $newData['uuid']);
+    $entity->set('status', $newData['status']);
+    $entity->set('default_langcode', $newData['default_langcode']);
     $entity->set('field_ir_numeric_key', $file_xml->Clave);
     $entity->set('field_ir_senders_id', str_pad($file_xml->Emisor->Identificacion->Numero, 12, '0', STR_PAD_LEFT));
     $entity->set('field_ir_invoice_date', $date);
@@ -171,10 +177,12 @@ class ImportXMLFromEmail {
    */
   public function createProviderEntityFromXml($file_xml) {
     $entity = new ProviderEntity([], 'provider_entity');
-    $entity->set('langcode', "en");
-    $entity->set('status', 1);
-    $entity->set('default_langcode', TRUE);
-    $entity->set('uuid', $file_xml->Emisor->Identificacion->Numero);
+    $newData = $this->getNewData('provider_entity');
+    $entity->set('vid', $newData['vid']);
+    $entity->set('langcode', $newData['langcode']);
+    $entity->set('uuid', $newData['uuid']);
+    $entity->set('status', $newData['status']);
+    $entity->set('default_langcode', $newData['default_langcode']);
     $entity->set('field_type_id', $file_xml->Emisor->Identificacion->Tipo);
     $entity->set('field_provider_id', $file_xml->Emisor->Identificacion->Numero);
     $entity->set('name', $file_xml->Emisor->Nombre);
@@ -209,6 +217,43 @@ class ImportXMLFromEmail {
     $result = $query->execute();
     $fetch = $result->fetchAll();
     return !empty($fetch);
+  }
+
+  /**
+   * Find (if exists) the last entity saved for get the entity_key values.
+   *
+   * @param string $table_name
+   *   The table name in database.
+   *
+   * @return array
+   *   An array with the entity_key values.
+   */
+  public function getNewData($table_name) {
+    $result = [];
+    $uuid_service = \Drupal::service('uuid');
+    $uuid = $uuid_service->generate();
+    $connection = \Drupal::database();
+    $query = $connection->query('SELECT * FROM ' . $table_name . ' WHERE id = (SELECT MAX(id) FROM ' . $table_name . ')');
+    $query_result = $query->fetchAll();
+    if (!empty($query_result)) {
+      $result = [
+        "vid" => strval(intval($query_result[0]->vid + 1)),
+        "langcode" => $query_result[0]->langcode,
+        "uuid" => $uuid,
+        "status" => 1,
+        "default_langcode" => TRUE,
+      ];
+    }
+    else {
+      $result = [
+        "vid" => "1",
+        "langcode" => \Drupal::currentUser()->getPreferredLangcode(),
+        "uuid" => $uuid,
+        "status" => 1,
+        "default_langcode" => TRUE,
+      ];
+    }
+    return $result;
   }
 
 }
