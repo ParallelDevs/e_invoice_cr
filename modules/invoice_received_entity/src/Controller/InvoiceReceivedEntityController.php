@@ -128,15 +128,15 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
             $links['revert'] = [
               'title' => $this->t('Revert'),
               'url' => $has_translations ?
-                Url::fromRoute('entity.invoice_received_entity.translation_revert', [
-                  'invoice_received_entity' => $invoice_received_entity->id(),
-                  'invoice_received_entity_revision' => $vid,
-                  'langcode' => $langcode,
-                ]) :
-                Url::fromRoute('entity.invoice_received_entity.revision_revert', [
-                  'invoice_received_entity' => $invoice_received_entity->id(),
-                  'invoice_received_entity_revision' => $vid,
-                ]),
+              Url::fromRoute('entity.invoice_received_entity.translation_revert', [
+                'invoice_received_entity' => $invoice_received_entity->id(),
+                'invoice_received_entity_revision' => $vid,
+                'langcode' => $langcode,
+              ]) :
+              Url::fromRoute('entity.invoice_received_entity.revision_revert', [
+                'invoice_received_entity' => $invoice_received_entity->id(),
+                'invoice_received_entity_revision' => $vid,
+              ]),
             ];
           }
 
