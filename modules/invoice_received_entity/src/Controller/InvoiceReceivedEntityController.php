@@ -128,15 +128,15 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
             $links['revert'] = [
               'title' => $this->t('Revert'),
               'url' => $has_translations ?
-              Url::fromRoute('entity.invoice_received_entity.translation_revert', [
-                'invoice_received_entity' => $invoice_received_entity->id(),
-                'invoice_received_entity_revision' => $vid,
-                'langcode' => $langcode,
-              ]) :
-              Url::fromRoute('entity.invoice_received_entity.revision_revert', [
-                'invoice_received_entity' => $invoice_received_entity->id(),
-                'invoice_received_entity_revision' => $vid,
-              ]),
+                Url::fromRoute('entity.invoice_received_entity.translation_revert', [
+                  'invoice_received_entity' => $invoice_received_entity->id(),
+                  'invoice_received_entity_revision' => $vid,
+                  'langcode' => $langcode,
+                ]) :
+                Url::fromRoute('entity.invoice_received_entity.revision_revert', [
+                  'invoice_received_entity' => $invoice_received_entity->id(),
+                  'invoice_received_entity_revision' => $vid,
+                ]),
             ];
           }
 
@@ -187,7 +187,8 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
       if ($emails) {
         $paths = $importXml->getXMLFilesFromEmails($inbox, $emails);
         foreach ($paths as $path) {
-          $simpleXml = simplexml_load_file($path);
+          $xml_content = file_get_contents($path);
+          $simpleXml = simplexml_load_string($xml_content);
           if (isset($simpleXml->Emisor->Identificacion->Numero) && !$importXml->alreadyExistInvoiceReceivedEntity($simpleXml->Clave)) {
             $importXml->createInvoiceReceivedEntityFromXML($simpleXml);
           }
