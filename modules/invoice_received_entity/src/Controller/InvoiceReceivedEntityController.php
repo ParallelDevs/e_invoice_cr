@@ -7,7 +7,6 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
 use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface;
-use Drupal\invoice_received_entity\InvoiceReceivedService;
 
 /**
  * Class InvoiceReceivedEntityController.

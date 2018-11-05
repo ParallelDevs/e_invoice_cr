@@ -6,8 +6,7 @@ use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\provider_entity\Entity\ProviderEntity;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use \Drupal\Component\Uuid\UuidInterface;
-
+use Drupal\Component\Uuid\UuidInterface;
 
 /**
  * Import XML from a inbox gmail account and mapping the entities in Drupal.
