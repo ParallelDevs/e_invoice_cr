@@ -37,7 +37,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
       $entity = $em->getStorage("invoice_entity")->load($entityId);
       if (!is_null($entity) && !empty($entity->get("field_client")->getValue())) {
         // Define some required data.
-        $user_current = \Drupal::currentUser();
+        $user_current = $entity->get('user_id')->getValue()[0]['target_id'];
         $invoice_id = $entity->get("field_numeric_key")->getValue()[0]['value'];
         $consecutive = $entity->get("field_consecutive_number")->getValue()[0]['value'];
         $invoice_date = $entity->get("field_invoice_date")->getValue()[0]['value'];
@@ -84,8 +84,9 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
         }
 
         // Load the file entities.
-        $signed_file = File::load($this->searchFile('document-' . $user_current->id() . '-' . $consecutive . 'segned.xml'));
-        $confirmation_file = File::load($this->searchFile('document-' . $user_current->id() . '-' . $consecutive . 'confirmation.xml'));
+        $signed_file = File::load($this->searchFile('document-' . $user_current . '-' . $consecutive . 'segned.xml'));
+        $confirmation_file = File::load($this->searchFile('document-' . $user_current . '-' . $consecutive . 'confirmation.xml'));
+
         // Attach signed xml.
         $file = new \stdClass();
         $file->uri = $signed_file->getFileUri();

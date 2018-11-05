@@ -98,9 +98,9 @@ class InvoiceService implements InvoiceServiceInterface {
       $entity->save();
       if ($state === 'published') {
         if (isset($result[3])) {
-          $user_current = \Drupal::currentUser();
+          $user_current = $entity->get('user_id')->getValue()[0]['target_id'];
           $id_cons = $entity->get('field_consecutive_number')->value;
-          $doc_name = "document-" . $user_current->id() . "-" . $id_cons . "confirmation";
+          $doc_name = "document-" . $user_current . "-" . $id_cons . "confirmation";
           $path = "public://xml_confirmation/";
           file_prepare_directory($path, FILE_CREATE_DIRECTORY);
           $result[3]->saveXML($path . $doc_name . ".xml");

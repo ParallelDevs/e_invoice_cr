@@ -74,8 +74,11 @@ function invoice_entity_cron() {
     foreach ($nids as $index => $item) {
       $entity = $entity_manager->getStorage('invoice_entity')->load($item);
       if ($entity->get('moderation_state')->value === 'draft') {
+        $type_of = $entity->get('type_of')->getValue()[0]['value'];
+
         /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
         $invoice_service = \Drupal::service('invoice_entity.service');
+        $invoice_service->setConsecutiveNumber($type_of);
         $invoice_service->validateInvoiceEntity($entity);
         // Show a notification massage.
         drupal_set_message(t("The invoices have been verified during the cron process."), 'status');

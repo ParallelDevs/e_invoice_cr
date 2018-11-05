@@ -104,12 +104,18 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
       $file = File::load($field_list[0]['fids'][0]);
 
       if (!is_null($file)) {
-        $simpleXml = simplexml_load_file($file->getFileUri());
+        $xml_content = file_get_contents($file->getFileUri());
+        $simpleXml = simplexml_load_string($xml_content);
         if ($this->alreadyExist($simpleXml->Clave)) {
           $form_state->setErrorByName('field_ir_xml_file',
             $this->t('The document you are trying to upload have been already uploaded.'));
-        } else {
-          $this->file_xml = $simpleXml;
+        }
+        elseif (!isset($simpleXml->Emisor->Identificacion->Numero)) {
+          $form_state->setErrorByName('field_ir_xml_file',
+            $this->t('The document you are trying to upload is invalid.'));
+        }
+        else {
+          $this->fileXml = $simpleXml;
         }
       }
     }
@@ -122,21 +128,19 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
    */
   function createEntityFromXML(array $form, FormStateInterface $form_state) {
     $this->entity->set('document_key', 'Unassigned');
-    $date = date('Y-m-d\Th:i:s', strtotime($this->file_xml->FechaEmision));
-    $this->entity->set('field_ir_numeric_key', $this->file_xml->Clave);
-    $this->entity->set('field_ir_senders_id', str_pad($this->file_xml->Emisor->Identificacion->Numero, 12, '0', STR_PAD_LEFT));
+    $date = date('Y-m-d\Th:i:s', strtotime($this->fileXml->FechaEmision));
+    $this->entity->set('field_ir_numeric_key', $this->fileXml->Clave);
+    $this->entity->set('field_ir_senders_id', str_pad($this->fileXml->Emisor->Identificacion->Numero, 12, '0', STR_PAD_LEFT));
     $this->entity->set('field_ir_invoice_date', $date);
-
-    $this->entity->set('field_ir_total_tax', floatval($this->file_xml->ResumenFactura->TotalImpuesto));
-    $this->entity->set('field_ir_total', floatval($this->file_xml->ResumenFactura->TotalComprobante));
-    $this->entity->set('field_ir_sale_condition', $this->file_xml->CondicionVenta);
-    $this->entity->set('field_ir_currency', $this->file_xml->ResumenFactura->CodigoMoneda);
-    $this->entity->set('field_ir_senders_name', $this->file_xml->Emisor->NombreComercial);
-    $this->entity->set('field_ir_total_discount', floatval($this->file_xml->ResumenFactura->TotalDescuento));
-    $this->entity->set('field_ir_total_net_sale', floatval($this->file_xml->ResumenFactura->TotalVentaNeta));
-    $this->entity->set('field_ir_number_key_r', $this->file_xml->Receptor->Identificacion->Numero, 12, '0', STR_PAD_LEFT);
-
-    // Invoice's rows
+    $this->entity->set('field_ir_total_tax', floatval($this->fileXml->ResumenFactura->TotalImpuesto));
+    $this->entity->set('field_ir_total', floatval($this->fileXml->ResumenFactura->TotalComprobante));
+    $this->entity->set('field_ir_sale_condition', $this->fileXml->CondicionVenta);
+    $this->entity->set('field_ir_currency', $this->fileXml->ResumenFactura->CodigoMoneda);
+    $this->entity->set('field_ir_senders_name', $this->fileXml->Emisor->NombreComercial);
+    $this->entity->set('field_ir_total_discount', floatval($this->fileXml->ResumenFactura->TotalDescuento));
+    $this->entity->set('field_ir_total_net_sale', floatval($this->fileXml->ResumenFactura->TotalVentaNeta));
+    $this->entity->set('field_ir_number_key_r', $this->fileXml->Receptor->Identificacion->Numero, 12, '0', STR_PAD_LEFT);
+    // Invoice's rows.
     /** @var \SimpleXMLElement $serviceDetail */
     $serviceDetail = $this->file_xml->DetalleServicio;
     $rowsCount = $serviceDetail->LineaDetalle->count();
