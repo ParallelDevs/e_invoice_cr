@@ -7,7 +7,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
 use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface;
-use Drupal\invoice_received_entity\ImportXMLFromEmail;
+use Drupal\invoice_received_entity\InvoiceReceivedService;
 
 /**
  * Class InvoiceReceivedEntityController.
@@ -182,7 +182,7 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
     $password = $settings->get('password');
     $inbox = imap_open($imap, $username, $password);
     if (!is_null($inbox)) {
-      $importXml = new ImportXmlFromEmail();
+      $importXml = \Drupal::service('invoice_received.service');
       $emails = imap_search($inbox, 'ALL UNSEEN');
       if ($emails) {
         $paths = $importXml->getXMLFilesFromEmails($inbox, $emails);
