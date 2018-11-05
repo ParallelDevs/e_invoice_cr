@@ -22,8 +22,8 @@ class XMLGenerator {
    */
   public function generateXmlByEntity(InvoiceEntity $entity) {
     $type_of = $entity->get('type_of')->value;
-    $tagname = InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['xmltag'];
-    $xmlns = InvoiceEntityInterface::DOCUMENTATIONINFO[$type_of]['xmlns'];
+    $tagname = InvoiceEntityInterface::DOCUMENTATION_INFO[$type_of]['xmltag'];
+    $xmlns = InvoiceEntityInterface::DOCUMENTATION_INFO[$type_of]['xmlns'];
 
     $xml_text = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
     $xml_text .= "<" . $tagname . " xmlns=\"" . $xmlns . "\" xmlns:ns2=\"http://www.w3.org/2000/09/xmldsig#\">\n";
