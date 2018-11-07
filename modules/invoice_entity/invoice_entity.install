@@ -31,7 +31,7 @@ function invoice_entity_update_8001() {
 /**
  * Implements hook_update_8002().
  */
-function invoice_entity_update_8002(){
+function invoice_entity_update_8002() {
   $config_service = \Drupal::service('config.installer');
   $config_service->installDefaultConfig('module', 'invoice_entity');
 }
