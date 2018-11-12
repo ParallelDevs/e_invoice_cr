@@ -183,6 +183,8 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
   private function sendInvoice(FormStateInterface $form_state) {
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
     $invoice_service = \Drupal::service('invoice_entity.service');
+    $message = $this->entity->get('field_ir_message')->value;
+    $invoice_service->setConsecutiveNumber($message);
 
     try {
       // Get authentication token for the API.
@@ -205,7 +207,6 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
       return FALSE;
     }
     else {
-      $message = $this->entity->get('field_ir_message')->value;
       $newNumberKey = $invoice_service->getUniqueInvoiceKey($message, TRUE);
       $consecutive = $invoice_service->generateMessageConsecutive($message);
 

@@ -218,13 +218,13 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
     /** @var \Drupal\invoice_entity\Entity\InvoiceEntity $entity */
     $entity = InvoiceEntity::load($id);
 
-    $user_current = \Drupal::currentUser();
+    $user_id = $entity->get('user_id')->getValue()[0]['target_id'];
     $consecutive = $entity->get('field_consecutive_number')->getValue()[0]['value'];
 
     // Gets the documents of the invoice.
     $pdf_file = File::load($this->searchFile('invoice_' . $id . '.pdf'));
-    $signed_file = File::load($this->searchFile('document-' . $user_current->id() . '-' . $consecutive . 'segned.xml'));
-    $confirmation_file = File::load($this->searchFile('document-' . $user_current->id() . '-' . $consecutive . 'confirmation.xml'));
+    $signed_file = File::load($this->searchFile('document-' . $user_id . '-' . $consecutive . 'segned.xml'));
+    $confirmation_file = File::load($this->searchFile('document-' . $user_id . '-' . $consecutive . 'confirmation.xml'));
 
     // Create a new zip file and save it in a temporary directory.
     $zip = new \ZipArchive();
