@@ -280,7 +280,7 @@ class InvoiceService implements InvoiceServiceInterface {
 
     self::$invoiceNumber = $this->getInvoiceVariable(self::$consecutiveName);
     if (is_null(self::$invoiceNumber)) {
-      self::$invoiceNumber = '0000200000';
+      self::$invoiceNumber = '0000000001';
       $this->updateValues();
     }
   }

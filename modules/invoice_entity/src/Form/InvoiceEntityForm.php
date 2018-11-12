@@ -42,8 +42,6 @@ class InvoiceEntityForm extends ContentEntityForm {
       invoice_entity_config_error();
     }
 
-    $this->invoice_entity_update_8003();
-
   }
 
   /**
