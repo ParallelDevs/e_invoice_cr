@@ -13,7 +13,6 @@ use Drupal\e_invoice_cr\Signature;
 use Drupal\e_invoice_cr\XMLGenerator;
 use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 use Drupal\tax_entity\Entity\TaxEntity;
-use Drupal\invoice_entity\Entity\InvoiceEntity;
 
 /**
  * Form controller for Invoice edit forms.

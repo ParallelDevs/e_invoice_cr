@@ -2,14 +2,10 @@
 
 /**
  * @file
+ * Contains invoice_entity.install.
  */
 
 use Drupal\invoice_entity\Entity\InvoiceEntity;
-
-/**
- * @file
- * Contains invoice_entity.install.
- */
 
 /**
  * Implements hook_update_8001().
