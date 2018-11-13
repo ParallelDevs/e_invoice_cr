@@ -147,7 +147,8 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
     $pdf_file->save();
     return $pdf_file;
   }
-   /**
+
+  /**
    * Returns the nid of a specific FileEntity.
    *
    * @param string $filename

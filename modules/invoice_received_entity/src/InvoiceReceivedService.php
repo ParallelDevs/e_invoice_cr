@@ -21,6 +21,7 @@ class InvoiceReceivedService implements InvoiceReceivedInterace {
   public function __construct(UuidInterface $uuid) {
     $this->uuid = $uuid;
   }
+
   /**
    * {@inheritdoc}
    */

@@ -7,7 +7,6 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
 use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface;
-use Drupal\invoice_received_entity\InvoiceReceivedService;
 
 /**
  * Class InvoiceReceivedEntityController.
@@ -47,7 +46,7 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
   }
 
   /**
-   * Generates an overview table of older revisions of a Invoice received entity .
+   * Generates a overview table of older revisions of a Invoice received entity.
    *
    * @param \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface $invoice_received_entity
    *   A Invoice received entity  object.
@@ -128,8 +127,15 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
             $links['revert'] = [
               'title' => $this->t('Revert'),
               'url' => $has_translations ?
-              Url::fromRoute('entity.invoice_received_entity.translation_revert', ['invoice_received_entity' => $invoice_received_entity->id(), 'invoice_received_entity_revision' => $vid, 'langcode' => $langcode]) :
-              Url::fromRoute('entity.invoice_received_entity.revision_revert', ['invoice_received_entity' => $invoice_received_entity->id(), 'invoice_received_entity_revision' => $vid]),
+              Url::fromRoute('entity.invoice_received_entity.translation_revert', [
+                'invoice_received_entity' => $invoice_received_entity->id(),
+                'invoice_received_entity_revision' => $vid,
+                'langcode' => $langcode,
+              ]) :
+              Url::fromRoute('entity.invoice_received_entity.revision_revert', [
+                'invoice_received_entity' => $invoice_received_entity->id(),
+                'invoice_received_entity_revision' => $vid,
+              ]),
             ];
           }
 
@@ -197,4 +203,5 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
     }
     return $this->redirect('entity.invoice_received_entity.collection');
   }
+
 }
