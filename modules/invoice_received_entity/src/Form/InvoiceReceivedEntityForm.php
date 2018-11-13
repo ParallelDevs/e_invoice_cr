@@ -41,8 +41,6 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
       $form['field_ir_message_detail']['#access'] = FALSE;
     }
 
-    $entity = $this->entity;
-
     return $form;
   }
 
@@ -104,22 +102,29 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     if ($this->entity->isNew()) {
-      $field_list = $form_state->getValue('field_ir_xml_file');
-      $file = File::load($field_list[0]['fids'][0]);
+      $is_upload = $form_state->getValue('field_ir_xml_file_0_upload_button');
+      if (isset($is_upload)) {
+        $field_list = $form_state->getValue('field_ir_xml_file');
+        $file = File::load($field_list[0]['fids'][0]);
 
-      if (!is_null($file)) {
-        $xml_content = file_get_contents($file->getFileUri());
-        $simpleXml = simplexml_load_string($xml_content);
-        if ($this->alreadyExist($simpleXml->Clave)) {
-          $form_state->setErrorByName('field_ir_xml_file',
-            $this->t('The document you are trying to upload have been already uploaded.'));
-        }
-        elseif (!isset($simpleXml->Emisor->Identificacion->Numero)) {
-          $form_state->setErrorByName('field_ir_xml_file',
-            $this->t('The document you are trying to upload is invalid.'));
-        }
-        else {
-          $this->fileXml = $simpleXml;
+        if (!is_null($file)) {
+          $xml_content = file_get_contents($file->getFileUri());
+          if (!empty($xml_content)) {
+            $simpleXml = simplexml_load_string($xml_content);
+            if ($this->alreadyExist($simpleXml->Clave)) {
+              $form_state->setErrorByName('field_ir_xml_file',
+                $this->t('The document you are trying to upload have been already uploaded.'));
+            }
+            elseif (!isset($simpleXml->Emisor->Identificacion->Numero)) {
+              $form_state->setErrorByName('field_ir_xml_file',
+                $this->t('The document you are trying to upload is invalid.'));
+            }
+            $this->fileXml = $simpleXml;
+          }
+          else {
+            $form_state->setErrorByName('field_ir_xml_file',
+              $this->t('The document you are trying to upload is empty.'));
+          }
         }
       }
     }

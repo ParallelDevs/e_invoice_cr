@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\invoice_entity\Entity\InvoiceEntity;
 
 /**
@@ -54,10 +58,10 @@ function invoice_entity_update_8003() {
       $entity = InvoiceEntity::load($nid->id);
       $user_id = $entity->get('user_id')->getValue()[0]['target_id'];
       $consecutive = $entity->get('field_consecutive_number')->getValue()[0]['value'];
-      $uri = \Drupal::service('file_system')->realpath('public://');
+      $uri = file_default_scheme() . '://';
       $xml_doc_name = 'document-' . $user_id . '-' . $consecutive;
 
-      $pdf_path = $uri . '/pdf_invoice/';
+      $pdf_path = $uri . 'pdf_invoice/';
       $pdf_content = file_get_contents($pdf_path . 'invoice_' . $nid->id . '.pdf');
       file_prepare_directory($pdf_path, FILE_MODIFY_PERMISSIONS);
       if (!is_null($pdf_content)) {
@@ -66,7 +70,7 @@ function invoice_entity_update_8003() {
         $pdf_file->save();
       }
 
-      $signed_path = $uri . '/xml_signed/';
+      $signed_path = $uri . 'xml_signed/';
       $signed_content = file_get_contents($signed_path . $xml_doc_name . 'segned.xml');
       file_prepare_directory($signed_path, FILE_MODIFY_PERMISSIONS);
       if (!is_null($signed_content)) {
@@ -75,7 +79,7 @@ function invoice_entity_update_8003() {
         $signed_file->save();
       }
 
-      $confirmation_path = $uri . '/xml_confirmation/';
+      $confirmation_path = $uri . 'xml_confirmation/';
       $confirmation_content = file_get_contents($confirmation_path . $xml_doc_name . 'confirmation.xml');
       file_prepare_directory($signed_path, FILE_MODIFY_PERMISSIONS);
       if (!is_null($confirmation_content)) {
