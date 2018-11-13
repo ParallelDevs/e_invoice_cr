@@ -5,6 +5,8 @@
  * Contains invoice_entity.install.
  */
 
+use Drupal\invoice_entity\Entity\InvoiceEntity;
+
 /**
  * Implements hook_update_8001().
  */
@@ -26,4 +28,61 @@ function invoice_entity_update_8001() {
     $config->set($documentType, $consecutive)->save();
   }
 
+}
+
+/**
+ * Implements hook_update_8002().
+ */
+function invoice_entity_update_8002() {
+  $config_service = \Drupal::service('config.installer');
+  $config_service->installDefaultConfig('module', 'invoice_entity');
+}
+
+/**
+ * Implements hook_update_8003().
+ */
+function invoice_entity_update_8003() {
+  $connection = \Drupal::database();
+  $query = $connection->select('invoice_entity', 'invoice_entity');
+  $query->fields('invoice_entity', ['id']);
+  $query->condition('id', 0, '>');
+  $query_result = $query->execute();
+  $fetch = $query_result->fetchAll();
+
+  if (!empty($fetch)) {
+    foreach ($fetch as $nid) {
+      $entity = InvoiceEntity::load($nid->id);
+      $user_id = $entity->get('user_id')->getValue()[0]['target_id'];
+      $consecutive = $entity->get('field_consecutive_number')->getValue()[0]['value'];
+      $uri = file_default_scheme() . '://';
+      $xml_doc_name = 'document-' . $user_id . '-' . $consecutive;
+
+      $pdf_path = $uri . 'pdf_invoice/';
+      $pdf_content = file_get_contents($pdf_path . 'invoice_' . $nid->id . '.pdf');
+      file_prepare_directory($pdf_path, FILE_MODIFY_PERMISSIONS);
+      if (!is_null($pdf_content)) {
+        $pdf_file = file_save_data($pdf_content, $pdf_path . '/invoice_' . $nid->id . '.pdf', FILE_EXISTS_REPLACE);
+        $pdf_file->setPermanent();
+        $pdf_file->save();
+      }
+
+      $signed_path = $uri . 'xml_signed/';
+      $signed_content = file_get_contents($signed_path . $xml_doc_name . 'segned.xml');
+      file_prepare_directory($signed_path, FILE_MODIFY_PERMISSIONS);
+      if (!is_null($signed_content)) {
+        $signed_file = file_save_data($signed_content, $signed_path . $xml_doc_name . 'segned.xml', FILE_EXISTS_REPLACE);
+        $signed_file->setPermanent();
+        $signed_file->save();
+      }
+
+      $confirmation_path = $uri . 'xml_confirmation/';
+      $confirmation_content = file_get_contents($confirmation_path . $xml_doc_name . 'confirmation.xml');
+      file_prepare_directory($signed_path, FILE_MODIFY_PERMISSIONS);
+      if (!is_null($confirmation_content)) {
+        $confirmation_file = file_save_data($confirmation_content, $confirmation_path . '/' . $xml_doc_name . 'confirmation.xml', FILE_EXISTS_REPLACE);
+        $confirmation_file->setPermanent();
+        $confirmation_file->save();
+      }
+    }
+  }
 }

@@ -1,13 +1,37 @@
 <?php
- namespace Drupal\invoice_received_entity;
- use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity;
+
+namespace Drupal\invoice_received_entity;
+
+use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\provider_entity\Entity\ProviderEntity;
- /**
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Component\Uuid\UuidInterface;
+
+/**
  * Import XML from a inbox gmail account and mapping the entities in Drupal.
  */
-class ImportXMLFromEmail {
-   /**
+class InvoiceReceivedService implements InvoiceReceivedInterace {
+
+  protected $uuid;
+
+  /**
+   * Class constructor.
+   */
+  public function __construct(UuidInterface $uuid) {
+    $this->uuid = $uuid;
+  }
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+    // Load the service required to construct this class.
+      $container->get('uuid')
+    );
+  }
+
+  /**
    * Get the unread emails and save the xml attached of that emails locally.
    *
    * @return array
@@ -76,7 +100,8 @@ class ImportXMLFromEmail {
     }
     return $paths;
   }
-   /**
+
+  /**
    * Gets the data from xml file, create a invoice received and save that.
    *
    * @return bool
@@ -85,13 +110,13 @@ class ImportXMLFromEmail {
   public function createInvoiceReceivedEntityFromXml($file_xml) {
     /** @var \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity $entity */
     $entity = new InvoiceReceivedEntity([], 'invoice_received_entity');
-    $newData = $this->getNewData('invoice_received_entity');
+    $new_data = $this->getNewData('invoice_received_entity');
     $date = date('Y-m-d\Th:i:s', strtotime($file_xml->FechaEmision));
-    $entity->set('vid', $newData['vid']);
-    $entity->set('langcode', $newData['langcode']);
-    $entity->set('uuid', $newData['uuid']);
-    $entity->set('status', $newData['status']);
-    $entity->set('default_langcode', $newData['default_langcode']);
+    $entity->set('vid', $new_data['vid']);
+    $entity->set('langcode', $new_data['langcode']);
+    $entity->set('uuid', $new_data['uuid']);
+    $entity->set('status', $new_data['status']);
+    $entity->set('default_langcode', $new_data['default_langcode']);
     $entity->set('field_ir_numeric_key', $file_xml->Clave);
     $entity->set('field_ir_senders_id', str_pad($file_xml->Emisor->Identificacion->Numero, 12, '0', STR_PAD_LEFT));
     $entity->set('field_ir_invoice_date', $date);
@@ -117,7 +142,8 @@ class ImportXMLFromEmail {
       return $entity->save();
     }
   }
-   /**
+
+  /**
    * Takes and sets the row data of the xml file in the invoice received entity.
    *
    * @return \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity
@@ -144,7 +170,8 @@ class ImportXMLFromEmail {
     $entity->set('field_ir_rows', $current);
     return $entity;
   }
-   /**
+
+  /**
    * Checks if the invoice was saved previously in the system.
    *
    * @return bool
@@ -161,7 +188,8 @@ class ImportXMLFromEmail {
     $fetch = $result->fetchAll();
     return !empty($fetch);
   }
-   /**
+
+  /**
    * Gets the data from the xml file, create a provider entity and save that.
    *
    * @return bool
@@ -169,12 +197,12 @@ class ImportXMLFromEmail {
    */
   public function createProviderEntityFromXml($file_xml) {
     $entity = new ProviderEntity([], 'provider_entity');
-    $newData = $this->getNewData('provider_entity');
-    $entity->set('vid', $newData['vid']);
-    $entity->set('langcode', $newData['langcode']);
-    $entity->set('uuid', $newData['uuid']);
-    $entity->set('status', $newData['status']);
-    $entity->set('default_langcode', $newData['default_langcode']);
+    $new_data = $this->getNewData('provider_entity');
+    $entity->set('vid', $new_data['vid']);
+    $entity->set('langcode', $new_data['langcode']);
+    $entity->set('uuid', $new_data['uuid']);
+    $entity->set('status', $new_data['status']);
+    $entity->set('default_langcode', $new_data['default_langcode']);
     $entity->set('field_type_id', $file_xml->Emisor->Identificacion->Tipo);
     $entity->set('field_provider_id', $file_xml->Emisor->Identificacion->Numero);
     $entity->set('name', $file_xml->Emisor->Nombre);
@@ -192,7 +220,8 @@ class ImportXMLFromEmail {
     $entity->setRevisionUserId(\Drupal::currentUser()->id());
     return $entity->save();
   }
-   /**
+
+  /**
    * Checks if the provider was saved previously in the system.
    *
    * @return bool
@@ -221,15 +250,21 @@ class ImportXMLFromEmail {
    */
   public function getNewData($table_name) {
     $result = [];
-    $uuid_service = \Drupal::service('uuid');
-    $uuid = $uuid_service->generate();
+    $uuid = $this->uuid->generate();
+
     $connection = \Drupal::database();
-    $query = $connection->query('SELECT * FROM ' . $table_name . ' WHERE id = (SELECT MAX(id) FROM ' . $table_name . ')');
-    $query_result = $query->fetchAll();
-    if (!empty($query_result)) {
+    $subquery = $connection->select($table_name, $table_name);
+    $subquery->addExpression('MAX(id)', 'id_max');
+    $query = $connection->select($table_name, $table_name);
+    $query->fields($table_name, ['vid', 'langcode', 'uuid']);
+    $query->condition('id', $subquery, '=');
+    $query_result = $query->execute();
+    $fetch = $query_result->fetchAll();
+
+    if (!empty($fetch)) {
       $result = [
-        "vid" => strval(intval($query_result[0]->vid + 1)),
-        "langcode" => $query_result[0]->langcode,
+        "vid" => strval(intval($fetch[0]->vid + 1)),
+        "langcode" => $fetch[0]->langcode,
         "uuid" => $uuid,
         "status" => 1,
         "default_langcode" => TRUE,

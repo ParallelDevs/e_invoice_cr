@@ -1,0 +1,4 @@
+services:
+  invoice_received.service:
+    class: Drupal\invoice_received_entity\InvoiceReceivedService
+    arguments: ['@uuid']

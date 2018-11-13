@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Contains invoice_received_entity.install.
+ */
+
+/**
+ * Implements hook_update_8001().
+ */
+function invoice_received_entity_update_8001() {
+  $config_service = \Drupal::service('config.installer');
+  $config_service->installDefaultConfig('module', 'invoice_received_entity');
+}
