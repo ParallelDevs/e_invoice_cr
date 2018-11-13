@@ -29,7 +29,7 @@ interface InvoiceReceivedEntityInterface extends ContentEntityInterface, Revisio
     ],
     3 => [
       "state" => 'Rejected',
-      "code" => '06',
+      "code" => '07',
     ],
   ];
 
