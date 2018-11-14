@@ -96,6 +96,8 @@ class InvoiceEntityForm extends ContentEntityForm {
       $type_of = NULL;
       if (!empty($form_state->getUserInput()['type_of'])) {
         $type_of = $form_state->getUserInput()['type_of'];
+        $invoice_service->setConsecutiveNumber($type_of);
+        $form['field_consecutive_number']['widget'][0]['value']['#default_value'] = $invoice_service->generateConsecutive($type_of);
       }
       $key = $type_of ? $invoice_service->getUniqueInvoiceKey($type_of) : $invoice_service->getUniqueInvoiceKey();
       if ($key == NULL) {
@@ -104,7 +106,6 @@ class InvoiceEntityForm extends ContentEntityForm {
       else {
         $invoice_service->updateValues();
       }
-
     }
     $this->formatField($form['field_total_discount']['widget'][0]['value'], TRUE, TRUE);
     $this->formatField($form['field_net_sale']['widget'][0]['value'], TRUE, TRUE);
