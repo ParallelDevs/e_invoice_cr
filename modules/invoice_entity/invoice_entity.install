@@ -42,6 +42,8 @@ function invoice_entity_update_8002() {
  * Implements hook_update_8003().
  */
 function invoice_entity_update_8003() {
+
+  // Query for get all invoice entities ids.
   $connection = \Drupal::database();
   $query = $connection->select('invoice_entity', 'invoice_entity');
   $query->fields('invoice_entity', ['id']);
@@ -49,14 +51,19 @@ function invoice_entity_update_8003() {
   $query_result = $query->execute();
   $fetch = $query_result->fetchAll();
 
+  // Check if there are invoice entities saved.
   if (!empty($fetch)) {
     foreach ($fetch as $nid) {
+      /* @var $entity \Drupal\invoice_entity\Entity\InvoiceEntity */
       $entity = InvoiceEntity::load($nid->id);
+
+      // Get all necessary data for invoice entities file names.
       $user_id = $entity->get('user_id')->getValue()[0]['target_id'];
       $consecutive = $entity->get('field_consecutive_number')->getValue()[0]['value'];
       $uri = file_default_scheme() . '://';
       $xml_doc_name = 'document-' . $user_id . '-' . $consecutive;
 
+      // The pdf file data is obtained and saved in a File Entity.
       $pdf_path = $uri . 'pdf_invoice/';
       $pdf_content = file_get_contents($pdf_path . 'invoice_' . $nid->id . '.pdf');
       file_prepare_directory($pdf_path, FILE_MODIFY_PERMISSIONS);
@@ -66,6 +73,7 @@ function invoice_entity_update_8003() {
         $pdf_file->save();
       }
 
+      // The xml signed file data is obtained and saved in a File Entity.
       $signed_path = $uri . 'xml_signed/';
       $signed_content = file_get_contents($signed_path . $xml_doc_name . 'segned.xml');
       file_prepare_directory($signed_path, FILE_MODIFY_PERMISSIONS);
@@ -75,6 +83,7 @@ function invoice_entity_update_8003() {
         $signed_file->save();
       }
 
+      // The xml confirmation file data is obtained and saved in a File Entity.
       $confirmation_path = $uri . 'xml_confirmation/';
       $confirmation_content = file_get_contents($confirmation_path . $xml_doc_name . 'confirmation.xml');
       file_prepare_directory($signed_path, FILE_MODIFY_PERMISSIONS);
