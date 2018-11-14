@@ -102,7 +102,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     if ($this->entity->isNew()) {
-      // Get the value of this entry, to verify if a file is being added or deleted.
+      // Get value of this entry to verify if a file is being added or deleted.
       $is_upload = $form_state->getValue('field_ir_xml_file_0_upload_button');
       if (isset($is_upload)) {
         $field_list = $form_state->getValue('field_ir_xml_file');
@@ -119,7 +119,8 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
               $form_state->setErrorByName('field_ir_xml_file',
                 $this->t('The document you are trying to upload have been already uploaded.'));
             }
-            // Verify that the file has the data that is needed for the received invoice entity.
+            // Verify that the file has the data that is needed for the
+            // received invoice entity.
             elseif (!isset($simpleXml->Emisor->Identificacion->Numero)) {
               $form_state->setErrorByName('field_ir_xml_file',
                 $this->t('The document you are trying to upload is invalid.'));
