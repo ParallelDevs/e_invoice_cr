@@ -218,6 +218,7 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
     /** @var \Drupal\invoice_entity\Entity\InvoiceEntity $entity */
     $entity = InvoiceEntity::load($id);
 
+    // Get all necessary data for invoice entities file names.
     $user_id = $entity->get('user_id')->getValue()[0]['target_id'];
     $consecutive = $entity->get('field_consecutive_number')->getValue()[0]['value'];
 
