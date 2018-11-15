@@ -9,19 +9,19 @@ msgid "invoice"
 msgstr "factura"
 
 msgid "Invoice"
-msgstr "factura"
+msgstr "Factura"
 
 msgid "invoice entity"
 msgstr "entidad factura"
 
 msgid "Invoice entity"
-msgstr "Entidad Factura"
+msgstr "Entidad factura"
 
 msgid "Add Invoice"
 msgstr "Añadir Factura"
 
 msgid "Add invoice"
-msgstr "Añadir Factura"
+msgstr "Añadir factura"
 
 msgid "Type of document"
 msgstr "Tipo de documento"
@@ -30,16 +30,13 @@ msgid "Electronic Bill"
 msgstr "Factura Electrónica"
 
 msgid "Electronic Ticket"
-msgstr "Tiquete Electrónica"
+msgstr "Tiquete Electrónico"
 
 msgid "Credit Note"
 msgstr "Nota de Crédito"
 
 msgid "Debit Note"
 msgstr "Nota de Débito"
-
-msgid "Type of document"
-msgstr "Tipo de documento"
 
 msgid "Document Number"
 msgstr "Número de documento"
@@ -73,6 +70,36 @@ msgstr "Pago"
 
 msgid "Customer's information:"
 msgstr "Información del Cliente:"
+
+msgid "HEADER INFORMATION"
+msgstr "INFORMACIÓN DEL ENCABEZADO"
+
+msgid "PRODUCT/SERVICE"
+msgstr "PRODUCTO/SERVICIO"
+
+msgid "QUANTITY/DETAILS"
+msgstr "CANTIDAD/DETALLES"
+
+msgid "TAXES/DISCOUNTS"
+msgstr "IMPUESTOS/DESCUENTOS"
+
+msgid "TOTALS"
+msgstr "TOTALES"
+
+msgid "Row"
+msgstr "Fila"
+
+msgid "Date"
+msgstr "Fecha"
+
+msgid "In validation"
+msgstr "En validación"
+
+msgid "Accepted"
+msgstr "Aceptado"
+
+msgid "Rejected"
+msgstr "Rechazado"
 
 # Messages
 msgid "Settings form for Invoice entities. Manage field settings here."

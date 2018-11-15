@@ -17,8 +17,11 @@ msgstr "Entity proveedor"
 msgid "provider entity"
 msgstr "entidad proveedor"
 
-msgid "Add Customer"
+msgid "Add Provider"
 msgstr "Añadir Proveedor"
 
-msgid "Add customer"
-msgstr "Agregar Proveedor"
+msgid "Add provider"
+msgstr "Agregar proveedor"
+
+msgid "PROVIDER ID"
+msgstr "ID PROVEEDOR"

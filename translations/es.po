@@ -5,6 +5,9 @@ msgstr ""
 msgid "Invoice CR"
 msgstr "Facturación CR"
 
+msgid "Global Configuration"
+msgstr "Configuración Global"
+
 msgid "Invoice Settings"
 msgstr "Configuración de Facturación"
 
