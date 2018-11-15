@@ -38,7 +38,6 @@ function invoice_entity_update_8002() {
   $config_service->installDefaultConfig('module', 'invoice_entity');
 }
 
-
 /**
  * Implements hook_update_8003().
  */
@@ -54,9 +53,6 @@ function invoice_entity_update_8003() {
 
   /* @var $entity \Drupal\invoice_entity\Entity\InvoiceEntity */
   $entities = InvoiceEntity::loadMultiple($fetch);
-
-  /* @var $entity \Drupal\invoice_entity\Entity\InvoiceEntity */
-  //$entities = InvoiceEntity::loadMultiple($nids);
 
   // Check if there are invoice entities saved.
   if (!empty($entities)) {
