@@ -50,17 +50,13 @@ function invoice_entity_update_8003() {
   $query->fields('invoice_entity', ['id']);
   $query->condition('id', 0, '>');
   $query_result = $query->execute();
-  $nids = array_column (
-    json_decode (
-      json_encode (
-        $query_result->fetchAll()
-      ),
-      TRUE),
-    'id'
-  );
+  $fetch = $query_result->fetchCol('id');
 
   /* @var $entity \Drupal\invoice_entity\Entity\InvoiceEntity */
-  $entities = InvoiceEntity::loadMultiple($nids);
+  $entities = InvoiceEntity::loadMultiple($fetch);
+
+  /* @var $entity \Drupal\invoice_entity\Entity\InvoiceEntity */
+  //$entities = InvoiceEntity::loadMultiple($nids);
 
   // Check if there are invoice entities saved.
   if (!empty($entities)) {
