@@ -50,12 +50,11 @@ function invoice_entity_update_8003() {
   $query->condition('id', 0, '>');
   $query_result = $query->execute();
   $fetch = $query_result->fetchCol('id');
-
-  /* @var $entity \Drupal\invoice_entity\Entity\InvoiceEntity */
   $entities = InvoiceEntity::loadMultiple($fetch);
 
   // Check if there are invoice entities saved.
   if (!empty($entities)) {
+    /* @var $entity \Drupal\invoice_entity\Entity\InvoiceEntity */
     foreach ($entities as $entity) {
       // Get all necessary data for invoice entities file names.
       $user_id = $entity->get('user_id')->getValue()[0]['target_id'];
