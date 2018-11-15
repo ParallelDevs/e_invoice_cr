@@ -5,8 +5,17 @@ msgstr ""
 msgid "Invoice Received Entity"
 msgstr "Entidad Facturas Recibidas"
 
+msgid "invoice received entity"
+msgstr "entidad factura recibida"
+
 msgid "Add Invoice Received"
 msgstr "Añadir factura recibida"
+
+msgid "Add Invoice received entity"
+msgstr "Añadir entidad factura recibida"
+
+msgid "Import XML from email"
+msgstr "Importar XML desde correo electrónico"
 
 msgid "Management"
 msgstr "Administración"
@@ -31,3 +40,11 @@ msgstr "Respuesta de Hacienda"
 
 msgid "Sent it"
 msgstr "Enviado"
+
+msgid "SENDER"
+msgstr "CONTRIBUYENTE"
+
+msgid "DATE"
+msgstr "FECHA"
+
+

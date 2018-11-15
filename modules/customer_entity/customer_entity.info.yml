@@ -4,6 +4,6 @@ description: This module provides the customer entity for e-invoice.
 core: 8.x
 package: other
 interface translation project: customer_entity
-interface translation server pattern: modules/custom/e_envoice_cr/modules/customer_entity/translations/%language.po
+interface translation server pattern: modules/custom/e_invoice_cr/modules/customer_entity/translations/%language.po
 dependencies:
   - e_invoice_cr

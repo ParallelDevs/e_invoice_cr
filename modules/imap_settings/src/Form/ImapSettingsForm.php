@@ -32,7 +32,7 @@ class ImapSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $settings = \Drupal::config('imap_settings.settings');
     $flags = [
-      "" => $this->t("No flag selected"),
+      "" => $this->t("- Select a value -"),
       "/service" => $this->t("service"),
       "/user" => $this->t("user"),
       "/authuser" => $this->t("authuser"),
@@ -93,7 +93,7 @@ class ImapSettingsForm extends ConfigFormBase {
     ];
     $form['form']['flags'] = [
       '#type' => 'select',
-      '#title' => $this->t('Select a optional flag.'),
+      '#title' => $this->t('Select a optional flag:'),
       '#default_value' => $flag,
       '#required' => FALSE,
       '#options' => $flags,

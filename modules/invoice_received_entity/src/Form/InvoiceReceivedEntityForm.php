@@ -104,16 +104,18 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
     if ($this->entity->isNew()) {
       // Get value of this entry to verify if a file is being added or deleted.
       $is_upload = $form_state->getValue('field_ir_xml_file_0_upload_button');
-      if (isset($is_upload)) {
-        $field_list = $form_state->getValue('field_ir_xml_file');
-        $file = File::load($field_list[0]['fids'][0]);
 
-        // Verify that a file has been added.
-        if (!is_null($file)) {
-          $xml_content = file_get_contents($file->getFileUri());
-          // Verify that an empty file is not being added.
-          if (!empty($xml_content)) {
-            $simpleXml = simplexml_load_string($xml_content);
+      $field_list = $form_state->getValue('field_ir_xml_file');
+      $file = File::load($field_list[0]['fids'][0]);
+
+      // Verify that a file has been added.
+      if (!is_null($file)) {
+        $xml_content = file_get_contents($file->getFileUri());
+
+        // Verify that an empty file is not being added.
+        if (!empty($xml_content)) {
+          $simpleXml = simplexml_load_string($xml_content);
+          if (isset($is_upload)) {
             // Verify that the key of the attached XML file does not exist.
             if ($this->alreadyExist($simpleXml->Clave)) {
               $form_state->setErrorByName('field_ir_xml_file',
@@ -125,13 +127,9 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
               $form_state->setErrorByName('field_ir_xml_file',
                 $this->t('The document you are trying to upload is invalid.'));
             }
-            $this->fileXml = $simpleXml;
-          }
-          else {
-            $form_state->setErrorByName('field_ir_xml_file',
-              $this->t('The document you are trying to upload is empty.'));
           }
         }
+        $this->fileXml = $simpleXml;
       }
     }
 

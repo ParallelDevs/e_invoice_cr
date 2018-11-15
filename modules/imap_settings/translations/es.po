@@ -1,0 +1,48 @@
+# IMAP Settings
+msgid ""
+msgstr ""
+
+msgid "IMAP Settings"
+msgstr "Configuración del IMAP"
+
+msgid "IMAP SETTINGS"
+msgstr "CONFIGURACIÓN DEL IMAP"
+
+msgid "This page allows you to configure settings which determines how open an IMAP Stream to a mailbox. This function can also be used to open streams to POP3 and NNTP servers, but some functions and features are only available on IMAP servers."
+msgstr "Esta página te permite configurar las opciones que determinan cómo abrir una secuencia IMAP a un buzón de correo electrónico. Esta función también se puede utilizar para abrir transmisiones a servidores POP3 y NNTP, pero algunas funciones y características solo están disponibles en servidores IMAP."
+
+msgid "Remote system name:"
+msgstr "Nombre del sistema remoto:"
+
+msgid "Internet domain name or bracketed IP address of server."
+msgstr "Nombre de dominio de Internet o dirección IP del servidor."
+
+msgid "Port:"
+msgstr "Puerto:"
+
+msgid "Optional TCP port number, default is the default port for that service."
+msgstr "Número de puerto TCP opcional, por defecto existe un puerto predeterminado para ese servicio."
+
+msgid "Select a optional flag:"
+msgstr "Selecciona una bandera opcional:"
+
+msgid "Optional flags."
+msgstr "Banderas opcionales."
+
+msgid "Mailbox name:"
+msgstr "Nombre del buzón de correo:"
+
+msgid "Remote mailbox name."
+msgstr "Nombre del buzón de correo remoto."
+
+msgid "Username:"
+msgstr "Nombre de usuario:"
+
+msgid "A username required by the IMAP configuration."
+msgstr "Un nombre de usuario requerido para la configuración del IMAP."
+
+msgid "Password:"
+msgstr "Contraseña:"
+
+msgid "A password required by the IMAP configuration."
+msgstr "Una contraseña requerida para la configuración del IMAP."
