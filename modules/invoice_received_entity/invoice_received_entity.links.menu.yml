@@ -15,20 +15,20 @@ entity.invoice_received_entity.content:
 entity.invoice_received_entity.addnew:
   title: 'Add Invoice Received'
   route_name: entity.invoice_received_entity.add_form
-  description: 'Add a new Customer Invoice Received Entity.'
+  description: 'Add a new Invoice Received Entity.'
   parent: entity.invoice_received_entity.content
   weight: 100
 
 entity.invoice_received_entity.collection:
   title: 'Management'
   route_name: entity.invoice_received_entity.collection
-  description: 'List Invoice received entity entities'
+  description: 'List Invoice received entities'
   parent: entity.invoice_received_entity.content
   weight: 100
 
 invoice_received_entity.admin.structure.settings:
   title: 'Invoice Received Entity'
-  description: 'Configure Invoice received entity entities'
+  description: 'Configure Invoice received entities'
   route_name: invoice_received_entity.settings
   parent: e_envoice_cr.manage
   weight: 101

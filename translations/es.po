@@ -11,6 +11,9 @@ msgstr "Configuración Global"
 msgid "Invoice Settings"
 msgstr "Configuración de Facturación"
 
+msgid "Invoice CR settings"
+msgstr "Configuración de Facturación CR"
+
 msgid "This module does the API login through the Oauth 2.0 token."
 msgstr "Este módulo se conecta al API por medio de un token generado bajo el estandar Oauth 2.0."
 
@@ -40,6 +43,9 @@ msgstr "Tipo de identificación."
 
 msgid "Id number:"
 msgstr "Número de identificación."
+
+msgid "Company id"
+msgstr "Cedula jurídica"
 
 msgid "Name:"
 msgstr "Nombre:"
@@ -129,6 +135,9 @@ msgstr "Se ha ejecutado una validación."
 
 msgid "Management"
 msgstr "Administración"
+
+msgid "This module provides an invoice system according to the costa rican regulations."
+msgstr "Este módulo proporciona un sistema de facturación de acuerdo con las regulaciones costarricenses."
 
 # Mails
 

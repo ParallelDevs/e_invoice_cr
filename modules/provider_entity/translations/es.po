@@ -3,25 +3,42 @@ msgid ""
 msgstr ""
 
 msgid "Provider Entity"
-msgstr "Entidad Proveedor"
+msgstr "Entidad proveedor"
 
-msgid "provider"
-msgstr "proveedor"
-
-msgid "Provider"
-msgstr "proveedor"
+msgid "Provider entities"
+msgstr "Entidades proveedor"
 
 msgid "Provider entity"
-msgstr "Entity proveedor"
-
-msgid "provider entity"
-msgstr "entidad proveedor"
+msgstr "Entidad proveedor"
 
 msgid "Add Provider"
-msgstr "Añadir Proveedor"
+msgstr "Añadir proveedor"
 
 msgid "Add provider"
-msgstr "Agregar proveedor"
+msgstr "Añadir proveedor"
 
-msgid "PROVIDER ID"
-msgstr "ID PROVEEDOR"
+msgid "Province"
+msgstr "Provincia"
+
+msgid "Canton"
+msgstr "Cantón"
+
+msgid "District"
+msgstr "Distrito"
+
+msgid "Additional Information"
+msgstr "Información Adicional"
+
+msgid "ZIP Code"
+msgstr "Código postal"
+
+# General
+
+msgid "This module provides the provider entity for e-invoice."
+msgstr "Este módulo proporciona la entidad de proveedor para la factura electrónica."
+
+msgid "Add a new Provider entity."
+msgstr "Añadir una nueva entidad de proveedor."
+
+msgid "List Provider entities"
+msgstr "Lista de entidades de proveedor"

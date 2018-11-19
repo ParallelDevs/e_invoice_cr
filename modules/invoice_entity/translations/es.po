@@ -3,22 +3,16 @@ msgid ""
 msgstr ""
 
 msgid "Invoice Entity"
-msgstr "Entidad Factura"
+msgstr "Entidad factura"
+
+msgid "Invoice entities"
+msgstr "Entidades factura"
 
 msgid "invoice"
 msgstr "factura"
 
-msgid "Invoice"
-msgstr "Factura"
-
-msgid "invoice entity"
-msgstr "entidad factura"
-
-msgid "Invoice entity"
-msgstr "Entidad factura"
-
 msgid "Add Invoice"
-msgstr "Añadir Factura"
+msgstr "Añadir factura"
 
 msgid "Add invoice"
 msgstr "Añadir factura"
@@ -27,16 +21,16 @@ msgid "Type of document"
 msgstr "Tipo de documento"
 
 msgid "Electronic Bill"
-msgstr "Factura Electrónica"
+msgstr "Factura electrónica"
 
 msgid "Electronic Ticket"
-msgstr "Tiquete Electrónico"
+msgstr "Tiquete electrónico"
 
 msgid "Credit Note"
-msgstr "Nota de Crédito"
+msgstr "Nota de crédito"
 
 msgid "Debit Note"
-msgstr "Nota de Débito"
+msgstr "Nota de débito"
 
 msgid "Document Number"
 msgstr "Número de documento"
@@ -48,7 +42,7 @@ msgid "Reason"
 msgstr "Razón"
 
 msgid "Cancel Reference Document"
-msgstr "Anula Documento de Referencia"
+msgstr "Anula documento de referencia"
 
 msgid "Corrects text reference document"
 msgstr "Corrige texto documento de referencia"
@@ -63,45 +57,33 @@ msgid "Replaces provisional voucher for contingency"
 msgstr "Sustituye comprobante provisional por contingencia"
 
 msgid "Reference Information"
-msgstr "Información de Referencia"
+msgstr "Información de referencia"
 
 msgid "Payment"
 msgstr "Pago"
 
 msgid "Customer's information:"
-msgstr "Información del Cliente:"
+msgstr "Información del cliente:"
 
-msgid "HEADER INFORMATION"
-msgstr "INFORMACIÓN DEL ENCABEZADO"
-
-msgid "PRODUCT/SERVICE"
-msgstr "PRODUCTO/SERVICIO"
-
-msgid "QUANTITY/DETAILS"
-msgstr "CANTIDAD/DETALLES"
-
-msgid "TAXES/DISCOUNTS"
-msgstr "IMPUESTOS/DESCUENTOS"
-
-msgid "TOTALS"
-msgstr "TOTALES"
-
-msgid "Row"
-msgstr "Fila"
-
-msgid "Date"
-msgstr "Fecha"
+msgid "Validate"
+msgstr "Validar"
 
 msgid "In validation"
 msgstr "En validación"
 
-msgid "Accepted"
-msgstr "Aceptado"
+# General
 
-msgid "Rejected"
-msgstr "Rechazado"
+msgid "This module provides the invoice entity for e-invoice."
+msgstr "Este módulo proporciona la entidad de facturación para la factura electrónica."
+
+msgid "Add a new Invoice entity."
+msgstr "Añadir una nueva entidad de factura"
+
+msgid "List Invoice entities"
+msgstr "Lista de entidades de factura"
 
 # Messages
+
 msgid "Settings form for Invoice entities. Manage field settings here."
 msgstr "Configuraciones para las entidades de tipo factura. Administre los campos aquí."
 
@@ -130,6 +112,7 @@ msgid "Created the Invoice."
 msgstr "Factura creada."
 
 # Configuration
+
 msgid "The number of the next invoice."
 msgstr "El número de la siguiente factura."
 

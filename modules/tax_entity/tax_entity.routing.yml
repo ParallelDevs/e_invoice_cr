@@ -2,6 +2,6 @@ tax_entity.options:
   path: '/admin/structure/tax_entity/options'
   defaults:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'Customer Entity'
+    _title: 'Tax Entity'
   requirements:
     _permission: 'access administration pages'

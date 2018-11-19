@@ -15,7 +15,7 @@ entity.invoice_entity.content:
 entity.invoice_entity.addnew:
   title: Add Invoice
   route_name: entity.invoice_entity.add_form
-  description: 'List Invoice entities'
+  description: 'Add a new Invoice entity.'
   parent: entity.invoice_entity.content
   weight: 100
 

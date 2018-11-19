@@ -3,25 +3,45 @@ msgid ""
 msgstr ""
 
 msgid "Tax Entity"
-msgstr "Entidad Impuesto"
-
-msgid "tax entity"
-msgstr "entidad impuesto"
-
-msgid "Tax entity"
 msgstr "Entidad impuesto"
 
-msgid "Add Tax entity"
-msgstr "Añadir Impuesto"
+msgid "Tax entity entities"
+msgstr "Entidades impuesto"
 
-msgid "Add tax entity"
-msgstr "Añadir impuesto"
+msgid "Tax entity"
+msgstr "impuesto"
+
+msgid "tax entity"
+msgstr "impuesto"
 
 msgid "Add Tax"
 msgstr "Añadir impuesto"
 
-msgid "Add tax"
+msgid "Add Tax entity"
 msgstr "Añadir impuesto"
 
-msgid "Add exoneration"
-msgstr "Añadir exoneración"
+msgid "Add tax entity"
+msgstr "Añadir impuesto"
+
+msgid "Document type"
+msgstr "Tipo de documento"
+
+msgid "Document number"
+msgstr "Número de documento"
+
+msgid "Institution"
+msgstr "Institución"
+
+msgid "Exoneration percentage (%)"
+msgstr "Porcentaje de exoneración (%)"
+
+# General
+
+msgid "This module provides the tax entity for e-invoice."
+msgstr "Este módulo proporciona la entidad de impuesto para la factura electrónica."
+
+msgid "Add a new Tax Entity."
+msgstr "Añadir una nueva entidad de impuesto."
+
+msgid "Tax management"
+msgstr "Administración de entidades de impuesto"
