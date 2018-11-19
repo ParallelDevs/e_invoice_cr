@@ -45,7 +45,7 @@ msgid "Id number:"
 msgstr "Número de identificación."
 
 msgid "Company id"
-msgstr "Cedula jurídica"
+msgstr "Cédula jurídica"
 
 msgid "Name:"
 msgstr "Nombre:"
