@@ -8,3 +8,4 @@ interface translation server pattern: modules/custom/e_invoice_cr/modules/invoic
 dependencies:
   - e_invoice_cr
   - invoice_entity
+  - provider_entity

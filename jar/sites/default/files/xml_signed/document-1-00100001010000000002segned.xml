@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?><FacturaElectronica xmlns="https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+	<Clave>50619111800310157306800100001010000000002125402054</Clave>
+	<NumeroConsecutivo>00100001010000000002</NumeroConsecutivo>
+	<FechaEmision>2018-11-19T17:44:11-06:00</FechaEmision>
+	<Emisor>
+		<Nombre>Alarez Media SA</Nombre>
+		<Identificacion>
+			<Tipo>02</Tipo>
+			<Numero>3101573068</Numero>
+		</Identificacion>
+		<NombreComercial>Alarez Media SA</NombreComercial>
+		<Ubicacion>
+			<Provincia>1</Provincia>
+			<Canton>13</Canton>
+			<Distrito>03</Distrito>
+			<Barrio>01</Barrio>
+			<OtrasSenas>400m Sur de la POPs de Curridabat, Frente a AMPM, Portón Blanco, Casa blanca.</OtrasSenas>
+		</Ubicacion>
+		<Telefono>
+			<CodigoPais>506</CodigoPais>
+			<NumTelefono>85464046</NumTelefono>
+		</Telefono>
+		<CorreoElectronico>k.vargas@paralleldevs.com</CorreoElectronico>
+	</Emisor>
+	<Receptor>
+		<Nombre>Kevin Vargas Pereira</Nombre>
+		<Identificacion>
+			<Tipo>01</Tipo>
+			<Numero>304890464</Numero>
+		</Identificacion>
+		<IdentificacionExtranjero/>
+		<NombreComercial/>
+		<Ubicacion>
+			<Provincia>3</Provincia>
+			<Canton>05</Canton>
+			<Distrito>01</Distrito>
+			<Barrio>01</Barrio>
+			<OtrasSenas>Residencial El Coyol, Casa 1-G.</OtrasSenas>
+		</Ubicacion>
+		<Telefono>
+			<CodigoPais>506</CodigoPais>
+			<NumTelefono>88053558</NumTelefono>
+		</Telefono>
+			</Receptor>
+	<CondicionVenta>01</CondicionVenta>
+	<PlazoCredito/>
+	<MedioPago>01</MedioPago>
+	<DetalleServicio>
+		<LineaDetalle>
+			<NumeroLinea>1</NumeroLinea>
+			<Codigo>
+				<Tipo>01</Tipo>
+				<Codigo>AR-02</Codigo>
+			</Codigo>
+			<Cantidad>4</Cantidad>
+			<UnidadMedida>kg</UnidadMedida>
+			<UnidadMedidaComercial/>
+			<Detalle>Alimento para perro Dog Show Adulto</Detalle>
+			<PrecioUnitario>1850</PrecioUnitario>
+			<MontoTotal>7400</MontoTotal>
+			<SubTotal>7400</SubTotal>
+			<Impuesto>
+				<Codigo>01</Codigo>
+				<Tarifa>13.00</Tarifa>
+				<Monto>962</Monto>
+				<Exoneracion>
+					<TipoDocumento>01</TipoDocumento>
+					<NumeroDocumento>0123456789</NumeroDocumento>
+					<NombreInstitucion>Nombre de la institución</NombreInstitucion>
+					<FechaEmision>2018-11-19T23:20:22-06:00</FechaEmision>
+					<MontoImpuesto>240.5</MontoImpuesto>
+					<PorcentajeCompra>25</PorcentajeCompra>
+				</Exoneracion>
+			</Impuesto>
+			<MontoTotalLinea>8362</MontoTotalLinea>
+		</LineaDetalle>
+		<LineaDetalle>
+			<NumeroLinea>2</NumeroLinea>
+			<Codigo>
+				<Tipo>01</Tipo>
+				<Codigo>RC-01</Codigo>
+			</Codigo>
+			<Cantidad>3</Cantidad>
+			<UnidadMedida>Unid</UnidadMedida>
+			<UnidadMedidaComercial/>
+			<Detalle>Arroz Tio Pelon 1KG</Detalle>
+			<PrecioUnitario>1720</PrecioUnitario>
+			<MontoTotal>5160</MontoTotal>
+			<SubTotal>5160</SubTotal>
+			<Impuesto>
+				<Codigo>01</Codigo>
+				<Tarifa>13.00</Tarifa>
+				<Monto>670.8</Monto>
+				<Exoneracion>
+					<TipoDocumento>01</TipoDocumento>
+					<NumeroDocumento>0123456789</NumeroDocumento>
+					<NombreInstitucion>Nombre de la institución</NombreInstitucion>
+					<FechaEmision>2018-11-19T23:20:22-06:00</FechaEmision>
+					<MontoImpuesto>167.7</MontoImpuesto>
+					<PorcentajeCompra>25</PorcentajeCompra>
+				</Exoneracion>
+			</Impuesto>
+			<MontoTotalLinea>5830.8</MontoTotalLinea>
+		</LineaDetalle>
+		<LineaDetalle>
+			<NumeroLinea>3</NumeroLinea>
+			<Cantidad>4</Cantidad>
+			<UnidadMedida>m</UnidadMedida>
+			<UnidadMedidaComercial/>
+			<Detalle>Cable</Detalle>
+			<PrecioUnitario>400</PrecioUnitario>
+			<MontoTotal>1600</MontoTotal>
+			<SubTotal>1600</SubTotal>
+			<Impuesto>
+				<Codigo>01</Codigo>
+				<Tarifa>13.00</Tarifa>
+				<Monto>208</Monto>
+				<Exoneracion>
+					<TipoDocumento>01</TipoDocumento>
+					<NumeroDocumento>0123456789</NumeroDocumento>
+					<NombreInstitucion>Nombre de la institución</NombreInstitucion>
+					<FechaEmision>2018-11-19T23:20:22-06:00</FechaEmision>
+					<MontoImpuesto>52</MontoImpuesto>
+					<PorcentajeCompra>25</PorcentajeCompra>
+				</Exoneracion>
+			</Impuesto>
+			<MontoTotalLinea>1808</MontoTotalLinea>
+		</LineaDetalle>
+	</DetalleServicio>
+	<ResumenFactura>
+		<CodigoMoneda>CRC</CodigoMoneda>
+		<TipoCambio>0</TipoCambio>
+		<TotalServGravados>0</TotalServGravados>
+		<TotalServExentos>0</TotalServExentos>
+		<TotalMercanciasGravadas>14160</TotalMercanciasGravadas>
+		<TotalMercanciasExentas>0</TotalMercanciasExentas>
+		<TotalGravado>14160</TotalGravado>
+		<TotalExento>0</TotalExento>
+		<TotalVenta>14160</TotalVenta>
+		<TotalDescuentos>0</TotalDescuentos>
+		<TotalVentaNeta>14160</TotalVentaNeta>
+		<TotalImpuesto>1840.8</TotalImpuesto>
+		<TotalComprobante>16000.8</TotalComprobante>
+	</ResumenFactura>
+	<Normativa>
+		<NumeroResolucion>DGT-R-48-2016</NumeroResolucion>
+		<FechaResolucion>12-12-2016 08:08:12</FechaResolucion>
+	</Normativa>
+	<Otros>
+		<OtroTexto/>
+	</Otros>
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="xmldsig-74e29165-38f7-45b8-b0dd-e1b759ae1b7c">
+<ds:SignedInfo>
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+<ds:Reference Id="xmldsig-74e29165-38f7-45b8-b0dd-e1b759ae1b7c-ref0" URI="">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+<ds:DigestValue>SFznq0HEE+pe33LAW88NoSD7bs5/WljCmXaYqnO3C/o=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#xmldsig-74e29165-38f7-45b8-b0dd-e1b759ae1b7c-signedprops">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+<ds:DigestValue>XlCFxWP2s9XJdUMin4GggsQUatPtK8qbVLmYRQ2XQo8=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue Id="xmldsig-74e29165-38f7-45b8-b0dd-e1b759ae1b7c-sigvalue">
+JEfq0jHQKEIMcPvVIwS0KjMfqeHD1/6HHA/Jhk2dltQXkrG4saTlHj7636G7JFRxdCTBpKlzTqDI&#13;
+7V3LjOVgtr1vemkEtG2ztLlmiFIcv9EDUxlwGwFxRprc8dPdA+/G9qwkx4hDwTpQ2cULqJ/MNftJ&#13;
+FUDg8xwiSaCtvXOe03daRGVZ+uoyVGlS1/DM2Ma+ICA9zV1ByZ/v6EhCATS417DFiLd5ajwCvgMo&#13;
+CYT8KyHxqSBjM7jZE/4dAnjSRJEeURHCURm+TOMkUDzl+vY1FgUnwZXP0cWkzJaKqrXNYHnXDCIa&#13;
+pMk83113XggRpOnPVKJA2RLAOkIKSQZmF6/4QQ==
+</ds:SignatureValue>
+<ds:KeyInfo>
+<ds:X509Data>
+<ds:X509Certificate>
+MIIFMjCCAxqgAwIBAgIGAWVigoDsMA0GCSqGSIb3DQEBCwUAMG4xCzAJBgNVBAYTAkNSMSkwJwYD&#13;
+VQQKDCBNSU5JU1RFUklPIERFIEhBQ0lFTkRBIC0gU0FOREJPWDEMMAoGA1UECwwDREdUMSYwJAYD&#13;
+VQQDDB1DQSBQRVJTT05BIEpVUklESUNBIC0gU0FOREJPWDAeFw0xODA4MjIxNjQwNDRaFw0yMDA4&#13;
+MjExNjQwNDRaMHkxGTAXBgNVBAUTEENQSi0zLTEwMS01NzMwNjgxCzAJBgNVBAYTAkNSMRkwFwYD&#13;
+VQQKDBBQRVJTT05BIEpVUklESUNBMQwwCgYDVQQLDANDUEoxJjAkBgNVBAMMHUFMQVJFWiBNRURJ&#13;
+QSBTT0NJRURBRCBBTk9OSU1BMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmaH+C70f&#13;
+VWhscJoJSHcjvZrTO3Xq5p6H5QMi0uSuaksYLcTnmu6WOYNk69e+glEQGzhTzSlBTKLx5fZo7f2J&#13;
+TvD39eVVFjpYYGkocKU+OjPB7doku39IDHklvdl4PW1OWqlmrvdEHqypK5eqBM/GKH/WbD06kUCG&#13;
+2hDZOA+JXmN+69L9qiAwC4Sa38C473faEiA06PnrRJaB6Wzk6Y799IhFL0uVs7vyB1+X2V0GlKvk&#13;
+0HFLWY60wbbccJk+VBpkYYcRjOntT9WadIA/p5Ck+Wp2kftbWqOaBd21WDctPtUUjq8HIfEMjtE2&#13;
+Wudq7KB5ejS8OMnvQVXpjhXkfFtFRwIDAQABo4HKMIHHMB8GA1UdIwQYMBaAFKwoRfgvnUhfLB8A&#13;
+kOsyxaMHU4DhMB0GA1UdDgQWBBRVQQPph9Gw6FeMya/b8GinEP+3FDALBgNVHQ8EBAMCBsAwEwYD&#13;
+VR0lBAwwCgYIKwYBBQUHAwQwYwYIKwYBBQUHAQEEVzBVMFMGCCsGAQUFBzAChkdodHRwczovL3Br&#13;
+aS5jb21wcm9iYW50ZXNlbGVjdHJvbmljb3MuZ28uY3Ivc3RhZy9pbnRlcm1lZGlhdGUtcGotcGVt&#13;
+LmNydDANBgkqhkiG9w0BAQsFAAOCAgEACQJQeaNJFwM7QY6QN/xXsUwW3Upf9GUNyBXU7DmC8xST&#13;
+NT8/SSNS5Knx1ndMC07n3719Mmmt265sqO9+wgBPhdEuBXJjHD0DXAsZYO2j84cO8HdYDQIPowjT&#13;
+widq/H3i26A8qvMHRISAwJ0YzP2colA2r0vLeRdhPHcstS9tSKcP1zwtQYJDXDDiCZgRsLBfCSeV&#13;
+KbPmTfIR7XS+Q1XJ9SdmsEc0Z9k2uauwGGKAcJzhzRiCERzJthRurK3dh/5v2RaML5iJbGWKaqkD&#13;
++XzfLiaAVozweBTPASsv0AzAVagQHYzFdwl0pmun/Lv50pgb8AvlSGHZ+CefEH0ynq3Wf9SKUV6f&#13;
+PdGbl0BBI/eGVz8KzYb3c32fMd918talCOFPmLRxWUnk59DNdVT5UeDczzJCs56dGrn/q6Nvu8Y5&#13;
+F9bGpML1JBQAA3r6Cy5KX7cQMA7LN7csAZJg6O25lFjNcP9URGtrAdNlkgh63PFBzjrupUqpGg1+&#13;
+ptA1/BjGpvB/dYdqI2LSwe2i90mZdc44KNSqWmVum+w9iK69D6XG+fvTzGHRMCdDlqPfQPA4IuPP&#13;
+i3C88bP0RZOBfDaqNTa6KVtVV22qpR1osfBZ8g3F8jeQfC1sufIi2MYwQTJ5M26FNlIRJ4E23OAw&#13;
+obnDoKxlMdyAs36glzDwPRI/UE5SutY=
+</ds:X509Certificate>
+<ds:X509SubjectName>CN=ALAREZ MEDIA SOCIEDAD ANONIMA,OU=CPJ,O=PERSONA JURIDICA,C=CR,2.5.4.5=#131043504a2d332d3130312d353733303638</ds:X509SubjectName>
+<ds:X509IssuerSerial>
+<ds:X509IssuerName>CN=CA PERSONA JURIDICA - SANDBOX,OU=DGT,O=MINISTERIO DE HACIENDA - SANDBOX,C=CR</ds:X509IssuerName>
+<ds:X509SerialNumber>1534956044524</ds:X509SerialNumber>
+</ds:X509IssuerSerial>
+</ds:X509Data>
+</ds:KeyInfo>
+<ds:Object><xades:QualifyingProperties xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" xmlns:xades141="http://uri.etsi.org/01903/v1.4.1#" Target="#xmldsig-74e29165-38f7-45b8-b0dd-e1b759ae1b7c"><xades:SignedProperties Id="xmldsig-74e29165-38f7-45b8-b0dd-e1b759ae1b7c-signedprops"><xades:SignedSignatureProperties><xades:SigningTime>2018-11-19T23:44:13.830Z</xades:SigningTime><xades:SigningCertificate><xades:Cert><xades:CertDigest><ns2:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ns2:DigestValue>4GMMSBnNIVfj+AKydJk7K97wWwnkFTG3aWdhbE4J9BE=</ns2:DigestValue></xades:CertDigest><xades:IssuerSerial><ns2:X509IssuerName>CN=CA PERSONA JURIDICA - SANDBOX,OU=DGT,O=MINISTERIO DE HACIENDA - SANDBOX,C=CR</ns2:X509IssuerName><ns2:X509SerialNumber>1534956044524</ns2:X509SerialNumber></xades:IssuerSerial></xades:Cert><xades:Cert><xades:CertDigest><ns2:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ns2:DigestValue>nybY7UACGzAA0vm1TaHGGLpZvDjMXSyu8i8MxoS4jfk=</ns2:DigestValue></xades:CertDigest><xades:IssuerSerial><ns2:X509IssuerName>CN=CA RAIZ MINISTERIO DE HACIENDA - SANDBOX,OU=DGT,O=MINISTERIO DE HACIENDA - SANDBOX,C=CR</ns2:X509IssuerName><ns2:X509SerialNumber>1487213568</ns2:X509SerialNumber></xades:IssuerSerial></xades:Cert><xades:Cert><xades:CertDigest><ns2:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ns2:DigestValue>WTahqh6Cibwomn6J8nQCWGteAU4pm/mul0vsuZcHDh8=</ns2:DigestValue></xades:CertDigest><xades:IssuerSerial><ns2:X509IssuerName>CN=CA RAIZ MINISTERIO DE HACIENDA - SANDBOX,OU=DGT,O=MINISTERIO DE HACIENDA - SANDBOX,C=CR</ns2:X509IssuerName><ns2:X509SerialNumber>1487212660</ns2:X509SerialNumber></xades:IssuerSerial></xades:Cert></xades:SigningCertificate><xades:SignaturePolicyIdentifier><xades:SignaturePolicyId><xades:SigPolicyId><xades:Identifier Qualifier="OIDAsURI">oid:/1.2.4.0.9.4.5</xades:Identifier><xades:Description>Policy description</xades:Description></xades:SigPolicyId><xades:SigPolicyHash><ns2:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ns2:DigestValue>QzhDo40uH97Xutu0t04cwM82OPdENTPbicmXZeH4/tc=</ns2:DigestValue></xades:SigPolicyHash></xades:SignaturePolicyId></xades:SignaturePolicyIdentifier></xades:SignedSignatureProperties></xades:SignedProperties></xades:QualifyingProperties></ds:Object>
+</ds:Signature></FacturaElectronica>
