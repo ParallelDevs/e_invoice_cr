@@ -1,6 +1,6 @@
 entity.invoice_received_entity.add_form:
   route_name: entity.invoice_received_entity.add_form
-  title: 'Add Invoice received entity'
+  title: 'Add Invoice received'
   appears_on:
     - entity.invoice_received_entity.collection
 

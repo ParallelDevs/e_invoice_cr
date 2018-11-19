@@ -10,7 +10,7 @@ e_invoice_cr.options:
   path: '/admin/e_invoice_cr/options'
   defaults:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'Invoice'
+    _title: 'Invoice CR'
   requirements:
     _permission: 'access invoice settings'
 

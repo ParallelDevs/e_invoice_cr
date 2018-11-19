@@ -46,3 +46,8 @@ msgstr "Contraseña:"
 
 msgid "A password required by the IMAP configuration."
 msgstr "Una contraseña requerida para la configuración del IMAP."
+
+# General
+
+msgid "This module provides IMAP settings of the email account for e-invoice."
+msgstr "Este módulo proporciona la configuración IMAP de la cuenta de correo electrónico para la factura electrónica."

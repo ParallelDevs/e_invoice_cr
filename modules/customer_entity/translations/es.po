@@ -1,39 +1,51 @@
 # Customer Entity
+
 msgid ""
 msgstr ""
 
 msgid "Customer Entity"
-msgstr "Entidad Cliente"
+msgstr "Entidad cliente"
 
-msgid "CUSTOMER"
-msgstr "CLIENTE"
-
-msgid "customer"
-msgstr "cliente"
-
-msgid "Customer"
-msgstr "Cliente"
+msgid "Customer entities"
+msgstr "Entidades cliente"
 
 msgid "Customer entity"
 msgstr "Entidad cliente"
 
-msgid "customer entity"
-msgstr "entidad cliente"
+msgid "Customer"
+msgstr "Cliente"
+
+msgid "customer"
+msgstr "cliente"
 
 msgid "Add Customer"
-msgstr "Añadir Cliente"
+msgstr "Añadir cliente"
 
 msgid "Add customer"
 msgstr "Añadir cliente"
 
-msgid "CUSTOMER ID"
-msgstr "ID CLIENTE"
-
 msgid "Province"
 msgstr "Provincia"
+
+msgid "Canton"
+msgstr "Cantón"
 
 msgid "District"
 msgstr "Distrito"
 
 msgid "Additional Information"
 msgstr "Información Adicional"
+
+msgid "ZIP Code"
+msgstr "Código postal"
+
+# General
+
+msgid "This module provides the customer entity for e-invoice."
+msgstr "Este módulo proporciona la entidad del cliente para la factura electrónica."
+
+msgid "Add a new Customer entity."
+msgstr "Añadir una nueva entidad de cliente."
+
+msgid "List Customer entities"
+msgstr "Lista de entidades cliente"

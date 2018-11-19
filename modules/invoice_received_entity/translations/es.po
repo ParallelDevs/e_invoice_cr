@@ -1,18 +1,25 @@
 # Invoice Received entity
+
 msgid ""
 msgstr ""
 
 msgid "Invoice Received Entity"
-msgstr "Entidad Facturas Recibidas"
+msgstr "Entidad factura recibida"
 
-msgid "invoice received entity"
-msgstr "entidad factura recibida"
+msgid "Invoice received entity"
+msgstr "factura recibida"
+
+msgid "Invoice received"
+msgstr "Factura recibida"
 
 msgid "Add Invoice Received"
 msgstr "Añadir factura recibida"
 
+msgid "Add Invoice received"
+msgstr "Añadir factura recibida"
+
 msgid "Add Invoice received entity"
-msgstr "Añadir entidad factura recibida"
+msgstr "Añadir factura recibida"
 
 msgid "Import XML from email"
 msgstr "Importar XML desde correo electrónico"
@@ -25,6 +32,9 @@ msgstr "Clave del documento"
 
 msgid "The document you are trying to upload have been already uploaded."
 msgstr "El documento que esta intentando subir, ya se ha sido subido antes."
+
+msgid "Accept or Reject"
+msgstr "Aceptar o Rechazar"
 
 msgid "Accepted"
 msgstr "Aceptado"
@@ -41,10 +51,21 @@ msgstr "Respuesta de Hacienda"
 msgid "Sent it"
 msgstr "Enviado"
 
-msgid "SENDER"
-msgstr "CONTRIBUYENTE"
+msgid "Unassigned"
+msgstr "Sin asignar"
 
-msgid "DATE"
-msgstr "FECHA"
+msgid "Waiting for user response"
+msgstr "Esperando por respuesta del usuario"
+
+# General
+
+msgid "This module provides the invoice received entity for e-invoice."
+msgstr "Este módulo proporciona la factura recibida entidad para factura electrónica."
+
+msgid "Add a new Invoice Received Entity."
+msgstr "Añadir una nueva entidad de factura recibida."
+
+msgid "List Invoice received entities"
+msgstr "Lista de entidades de factura recibida"
 
 

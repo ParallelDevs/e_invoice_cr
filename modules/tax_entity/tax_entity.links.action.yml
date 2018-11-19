@@ -1,5 +1,5 @@
 entity.tax_entity.add_form:
   route_name: entity.tax_entity.add_form
-  title: 'Add Tax entity'
+  title: 'Add Tax'
   appears_on:
     - entity.tax_entity.collection
