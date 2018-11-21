@@ -70,7 +70,7 @@ class CustomerEntity extends RevisionableContentEntityBase implements CustomerEn
   use EntityChangedTrait;
 
   /**
-   * Changes the values of an entity before it is created.
+   * Changes the values of an customer entity before it is created.
    *
    * @param \Drupal\Core\Entity\EntityStorageInterface $storage_controller
    *   The entity storage object.
@@ -86,7 +86,7 @@ class CustomerEntity extends RevisionableContentEntityBase implements CustomerEn
   }
 
   /**
-   * Acts on an entity before the presave hook is invoked.
+   * Acts on an customer entity before the presave hook is invoked.
    *
    * @param \Drupal\Core\Entity\EntityStorageInterface $storage
    *   The entity storage object.

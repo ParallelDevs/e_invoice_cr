@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Route;
 class CustomerEntityHtmlRouteProvider extends AdminHtmlRouteProvider {
 
   /**
-   * Provides routes for entities.
+   * Provides routes for customer entities.
    *
    * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
    *   The entity type.

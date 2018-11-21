@@ -13,7 +13,15 @@ use Drupal\Core\Form\FormStateInterface;
 class CustomerEntityForm extends ContentEntityForm {
 
   /**
-   * {@inheritdoc}
+   * Form constructor.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @return array
+   *   The form structure.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     /* @var $entity \Drupal\customer_entity\Entity\CustomerEntity */
@@ -29,8 +37,6 @@ class CustomerEntityForm extends ContentEntityForm {
       ];
     }
 
-    $entity = $this->entity;
-
     return $form;
   }
 
@@ -43,7 +49,6 @@ class CustomerEntityForm extends ContentEntityForm {
     $foreign_id = 'field_customer_foreign_id';
     $phone = 'field_phone';
     $address = 'field_direccion_';
-    $type = $form_state->getValue('field_type_id');
 
     // Validating id field regarding the identification type.
     switch ($form_state->getValue('field_type_id')[0]['value']) {
@@ -117,7 +122,15 @@ class CustomerEntityForm extends ContentEntityForm {
   }
 
   /**
-   * {@inheritdoc}
+   * Form submission handler for the 'save' action.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @return int
+   *   Either saved_new or saved_updated, depending on the operation performed.
    */
   public function save(array $form, FormStateInterface $form_state) {
     $entity = &$this->entity;
