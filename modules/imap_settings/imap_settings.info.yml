@@ -4,6 +4,6 @@ description: This module provides IMAP settings of the email account for e-invoi
 core: 8.x
 package: other
 interface translation project: imap_settings
-interface translation server pattern: modules/custom/e_invoice_cr/modules/imap_settings/translations/%language.po
+interface translation server pattern: modules/contrib/e_invoice_cr/modules/imap_settings/translations/%language.po
 dependencies:
   - e_invoice_cr
