@@ -70,7 +70,13 @@ class CustomerEntity extends RevisionableContentEntityBase implements CustomerEn
   use EntityChangedTrait;
 
   /**
-   * {@inheritdoc}
+   * Changes the values of an entity before it is created.
+   *
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage_controller
+   *   The entity storage object.
+   * @param array $values
+   *   An array of values to set, keyed by property name. If the entity type
+   *   has bundles the bundle key has to be specified.
    */
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
@@ -80,7 +86,10 @@ class CustomerEntity extends RevisionableContentEntityBase implements CustomerEn
   }
 
   /**
-   * {@inheritdoc}
+   * Acts on an entity before the presave hook is invoked.
+   *
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage
+   *   The entity storage object.
    */
   public function preSave(EntityStorageInterface $storage) {
     parent::preSave($storage);
@@ -100,14 +109,23 @@ class CustomerEntity extends RevisionableContentEntityBase implements CustomerEn
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the Customer name.
+   *
+   * @return string
+   *   Name of the Customer.
    */
   public function getName() {
     return $this->get('name')->value;
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the Customer name.
+   *
+   * @param string $name
+   *   The Customer name.
+   *
+   * @return \Drupal\customer_entity\Entity\CustomerEntityInterface
+   *   The called Customer entity.
    */
   public function setName($name) {
     $this->set('name', $name);
@@ -115,14 +133,23 @@ class CustomerEntity extends RevisionableContentEntityBase implements CustomerEn
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the Customer creation timestamp.
+   *
+   * @return int
+   *   Creation timestamp of the Customer.
    */
   public function getCreatedTime() {
     return $this->get('created')->value;
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the Customer creation timestamp.
+   *
+   * @param int $timestamp
+   *   The Customer creation timestamp.
+   *
+   * @return \Drupal\customer_entity\Entity\CustomerEntityInterface
+   *   The called Customer entity.
    */
   public function setCreatedTime($timestamp) {
     $this->set('created', $timestamp);
@@ -160,14 +187,25 @@ class CustomerEntity extends RevisionableContentEntityBase implements CustomerEn
   }
 
   /**
-   * {@inheritdoc}
+   * Returns the Customer published status indicator.
+   *
+   * Unpublished Customer are only visible to restricted users.
+   *
+   * @return bool
+   *   TRUE if the Customer is published.
    */
   public function isPublished() {
     return (bool) $this->getEntityKey('status');
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the published status of a Customer.
+   *
+   * @param bool $published
+   *   TRUE to set this Customer to published, FALSE to set it to unpublished.
+   *
+   * @return \Drupal\customer_entity\Entity\CustomerEntityInterface
+   *   The called Customer entity.
    */
   public function setPublished($published) {
     $this->set('status', $published ? TRUE : FALSE);

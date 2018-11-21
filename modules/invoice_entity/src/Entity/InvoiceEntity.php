@@ -100,14 +100,23 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the Invoice name.
+   *
+   * @return string
+   *   Name of the Invoice.
    */
   public function getName() {
     return $this->get('name')->value;
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the Invoice name.
+   *
+   * @param string $name
+   *   The Invoice name.
+   *
+   * @return \Drupal\invoice_entity\Entity\InvoiceEntityInterface
+   *   The called Invoice entity.
    */
   public function setName($name) {
     $this->set('name', $name);
@@ -115,21 +124,33 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the Invoice type.
+   *
+   * @return string
+   *   Type of the Invoice.
    */
   public function getInvoiceType() {
     return $this->get('type_of')->value;
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the Invoice creation timestamp.
+   *
+   * @return int
+   *   Creation timestamp of the Invoice.
    */
   public function getCreatedTime() {
     return $this->get('created')->value;
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the Invoice creation timestamp.
+   *
+   * @param int $timestamp
+   *   The Invoice creation timestamp.
+   *
+   * @return \Drupal\invoice_entity\Entity\InvoiceEntityInterface
+   *   The called Invoice entity.
    */
   public function setCreatedTime($timestamp) {
     $this->set('created', $timestamp);
@@ -167,14 +188,25 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
   }
 
   /**
-   * {@inheritdoc}
+   * Returns the Invoice published status indicator.
+   *
+   * Unpublished Invoice are only visible to restricted users.
+   *
+   * @return bool
+   *   TRUE if the Invoice is published.
    */
   public function isPublished() {
     return (bool) $this->getEntityKey('status');
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the published status of a Invoice.
+   *
+   * @param bool $published
+   *   TRUE to set this Invoice to published, FALSE to set it to unpublished.
+   *
+   * @return \Drupal\invoice_entity\Entity\InvoiceEntityInterface
+   *   The called Invoice entity.
    */
   public function setPublished($published) {
     $this->set('status', $published ? TRUE : FALSE);

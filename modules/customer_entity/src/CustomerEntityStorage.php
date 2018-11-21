@@ -18,7 +18,13 @@ use Drupal\customer_entity\Entity\CustomerEntityInterface;
 class CustomerEntityStorage extends SqlContentEntityStorage implements CustomerEntityStorageInterface {
 
   /**
-   * {@inheritdoc}
+   * Gets a list of Customer revision IDs for a specific Customer.
+   *
+   * @param \Drupal\customer_entity\Entity\CustomerEntityInterface $entity
+   *   The Customer entity.
+   *
+   * @return int[]
+   *   Customer revision IDs (in ascending order).
    */
   public function revisionIds(CustomerEntityInterface $entity) {
     return $this->database->query(
