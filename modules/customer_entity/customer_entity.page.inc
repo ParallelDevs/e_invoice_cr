@@ -20,9 +20,6 @@ use Drupal\Core\Render\Element;
  *   - attributes: HTML attributes for the containing element.
  */
 function template_preprocess_customer_entity(array &$variables) {
-  // Fetch CustomerEntity Entity Object.
-  $customer_entity = $variables['elements']['#customer_entity'];
-
   // Helpful $content variable for templates.
   foreach (Element::children($variables['elements']) as $key) {
     $variables['content'][$key] = $variables['elements'][$key];
