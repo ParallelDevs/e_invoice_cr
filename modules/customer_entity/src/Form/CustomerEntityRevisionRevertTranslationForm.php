@@ -51,6 +51,7 @@ class CustomerEntityRevisionRevertTranslationForm extends CustomerEntityRevision
    *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
    *   The service container this instance should use.
+   *
    * @return \Drupal\Core\Form\ConfirmFormBase
    *   A new instance of this class.
    */
@@ -89,6 +90,10 @@ class CustomerEntityRevisionRevertTranslationForm extends CustomerEntityRevision
    *   An associative array containing the structure of the form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
+   * @param string $customer_entity_revision
+   *   All previous revisions of the customer entity.
+   * @param string $langcode
+   *   The form language.
    *
    * @return array
    *   The form structure.

@@ -56,6 +56,7 @@ class CustomerEntityRevisionDeleteForm extends ConfirmFormBase {
    *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
    *   The service container this instance should use.
+   *
    * @return \Drupal\Core\Form\ConfirmFormBase
    *   A new instance of this class.
    */
@@ -114,6 +115,8 @@ class CustomerEntityRevisionDeleteForm extends ConfirmFormBase {
    *   An associative array containing the structure of the form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
+   * @param string $customer_entity_revision
+   *   All previous revisions of the customer entity.
    *
    * @return array
    *   The form structure.
@@ -132,7 +135,6 @@ class CustomerEntityRevisionDeleteForm extends ConfirmFormBase {
    *   An associative array containing the structure of the form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
-   *
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->CustomerEntityStorage->deleteRevision($this->revision->getRevisionId());
