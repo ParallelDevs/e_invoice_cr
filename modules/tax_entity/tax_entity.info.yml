@@ -4,6 +4,6 @@ description: This module provides the tax entity for e-invoice.
 core: 8.x
 package: other
 interface translation project: tax_entity
-interface translation server pattern: modules/custom/e_invoice_cr/modules/tax_entity/translations/%language.po
+interface translation server pattern: modules/contrib/e_invoice_cr/modules/tax_entity/translations/%language.po
 dependencies:
   - e_invoice_cr
