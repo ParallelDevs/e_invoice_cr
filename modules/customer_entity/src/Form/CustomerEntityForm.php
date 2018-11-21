@@ -128,9 +128,6 @@ class CustomerEntityForm extends ContentEntityForm {
    *   An associative array containing the structure of the form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
-   *
-   * @return int
-   *   Either saved_new or saved_updated, depending on the operation performed.
    */
   public function save(array $form, FormStateInterface $form_state) {
     $entity = &$this->entity;
