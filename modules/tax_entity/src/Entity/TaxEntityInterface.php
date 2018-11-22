@@ -29,7 +29,7 @@ interface TaxEntityInterface extends ContentEntityInterface, RevisionLogInterfac
    *   The Tax entity name.
    *
    * @return \Drupal\tax_entity\Entity\TaxEntityInterface
-   *   The called Tax entity entity.
+   *   The called Tax entity.
    */
   public function setName($name);
 
@@ -48,7 +48,7 @@ interface TaxEntityInterface extends ContentEntityInterface, RevisionLogInterfac
    *   The Tax entity creation timestamp.
    *
    * @return \Drupal\tax_entity\Entity\TaxEntityInterface
-   *   The called Tax entity entity.
+   *   The called Tax entity.
    */
   public function setCreatedTime($timestamp);
 
@@ -69,7 +69,7 @@ interface TaxEntityInterface extends ContentEntityInterface, RevisionLogInterfac
    *   TRUE to set this Tax entity to published, FALSE to set it to unpublished.
    *
    * @return \Drupal\tax_entity\Entity\TaxEntityInterface
-   *   The called Tax entity entity.
+   *   The called Tax entity.
    */
   public function setPublished($published);
 
@@ -88,7 +88,7 @@ interface TaxEntityInterface extends ContentEntityInterface, RevisionLogInterfac
    *   The UNIX timestamp of when this revision was created.
    *
    * @return \Drupal\tax_entity\Entity\TaxEntityInterface
-   *   The called Tax entity entity.
+   *   The called Tax entity.
    */
   public function setRevisionCreationTime($timestamp);
 
@@ -107,7 +107,7 @@ interface TaxEntityInterface extends ContentEntityInterface, RevisionLogInterfac
    *   The user ID of the revision author.
    *
    * @return \Drupal\tax_entity\Entity\TaxEntityInterface
-   *   The called Tax entity entity.
+   *   The called Tax entity.
    */
   public function setRevisionUserId($uid);
 

@@ -10,7 +10,10 @@ use Drupal\views\EntityViewsData;
 class TaxEntityViewsData extends EntityViewsData {
 
   /**
-   * {@inheritdoc}
+   * Returns views data for the customer entity.
+   *
+   * @return array
+   *   Views data in the format of hook_views_data().
    */
   public function getViewsData() {
     $data = parent::getViewsData();
