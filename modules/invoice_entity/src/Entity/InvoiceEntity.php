@@ -398,7 +398,7 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
   }
 
   /**
-   * Gets an array of placeholders for this entity.
+   * Gets an array of placeholders for invoice entity.
    *
    * Individual entity classes may override this method to add additional
    * placeholders if desired. If so, they should be sure to replicate the

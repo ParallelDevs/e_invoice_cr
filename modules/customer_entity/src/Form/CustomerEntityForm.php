@@ -104,6 +104,7 @@ class CustomerEntityForm extends ContentEntityForm {
     }
 
     $count = 0;
+    // Validating address field.
     if (isset($form_state->getValue($address)[0])) {
       $filled_fields = array_filter($form_state->getValue($address)[0], function ($value) {
         return !empty($value);
@@ -111,7 +112,6 @@ class CustomerEntityForm extends ContentEntityForm {
       $count = count($filled_fields);
     }
 
-    // Validating address field.
     if ($count > 0 && $count < 5) {
       $form_state->setErrorByName($address, $this->t('If you are going to add the address information, please fill all the fields relate it.'));
     }
