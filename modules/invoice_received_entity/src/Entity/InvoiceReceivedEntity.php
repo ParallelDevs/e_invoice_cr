@@ -73,7 +73,13 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
   use EntityChangedTrait;
 
   /**
-   * {@inheritdoc}
+   * Changes the values of an invoice received entity before it is created.
+   *
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage_controller
+   *   The entity storage object.
+   * @param array $values
+   *   An array of values to set, keyed by property name. If the invoice
+   *   received entity has bundles the bundle key has to be specified.
    */
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
@@ -83,7 +89,17 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
   }
 
   /**
-   * {@inheritdoc}
+   * Gets an array of placeholders for customer entity.
+   *
+   * Individual entity classes may override this method to add additional
+   * placeholders if desired. If so, they should be sure to replicate the
+   * property caching logic.
+   *
+   * @param string $rel
+   *   The link relationship type, for example: canonical or edit-form.
+   *
+   * @return array
+   *   An array of URI placeholders.
    */
   protected function urlRouteParameters($rel) {
     $uri_route_parameters = parent::urlRouteParameters($rel);
@@ -99,7 +115,10 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
   }
 
   /**
-   * {@inheritdoc}
+   * Acts on an invoice received entity before the presave hook is invoked.
+   *
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage
+   *   The entity storage object.
    */
   public function preSave(EntityStorageInterface $storage) {
     parent::preSave($storage);
@@ -121,14 +140,23 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the Invoice received entity name.
+   *
+   * @return string
+   *   Name of the Invoice received entity.
    */
   public function getName() {
     return $this->get('document_key')->value;
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the Invoice received entity name.
+   *
+   * @param string $name
+   *   The Invoice received entity name.
+   *
+   * @return \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface
+   *   The called Invoice received entity entity.
    */
   public function setName($name) {
     $this->set('document_key', $name);
@@ -136,14 +164,23 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the Invoice received entity creation timestamp.
+   *
+   * @return int
+   *   Creation timestamp of the Invoice received entity.
    */
   public function getCreatedTime() {
     return $this->get('created')->value;
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the Invoice received entity creation timestamp.
+   *
+   * @param int $timestamp
+   *   The Invoice received entity creation timestamp.
+   *
+   * @return \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface
+   *   The called Invoice received entity entity.
    */
   public function setCreatedTime($timestamp) {
     $this->set('created', $timestamp);
@@ -181,14 +218,26 @@ class InvoiceReceivedEntity extends RevisionableContentEntityBase implements Inv
   }
 
   /**
-   * {@inheritdoc}
+   * Returns the Invoice received entity published status indicator.
+   *
+   * Unpublished Invoice received entity are only visible to restricted users.
+   *
+   * @return bool
+   *   TRUE if the Invoice received entity is published.
    */
   public function isPublished() {
     return (bool) $this->getEntityKey('status');
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the published status of a Invoice received entity.
+   *
+   * @param bool $published
+   *   TRUE to set this Invoice received entity to published, FALSE to set it
+   *   to unpublished.
+   *
+   * @return \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface
+   *   The called Invoice received entity entity.
    */
   public function setPublished($published) {
     $this->set('status', $published ? TRUE : FALSE);

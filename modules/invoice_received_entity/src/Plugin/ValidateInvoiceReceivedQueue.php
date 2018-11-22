@@ -17,7 +17,13 @@ use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity;
 class ValidateInvoiceReceivedQueue extends QueueWorkerBase {
 
   /**
-   * {@inheritdoc}
+   * Performs create access checks.
+   *
+   * @param array $data
+   *   The user for which to check access.
+   *
+   * @return \Drupal\Core\Access\AccessResultInterface
+   *   The data that was passed to when the item was queued.
    */
   public function processItem($data) {
     /* @var \Drupal\invoice_entity\InvoiceService  $invoice_service */
