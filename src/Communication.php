@@ -10,7 +10,17 @@ use GuzzleHttp\Exception\ClientException;
 class Communication implements CommunicationInterface {
 
   /**
-   * {@inheritdoc}
+   * Send documents.
+   *
+   * @param string $doc
+   *   Contains the xml data.
+   * @param array $body
+   *   An array with the invoice document data.
+   * @param string $token
+   *   Authentication token for the API.
+   *
+   * @return object
+   *   The response object.
    */
   public function sentDocument($doc = NULL, $body = NULL, $token = NULL) {
     // Get the config info.
@@ -54,7 +64,13 @@ class Communication implements CommunicationInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * Consult a document status.
+   *
+   * @param string $key
+   *   The invoice document numeric key.
+   *
+   * @return string
+   *   The status.
    */
   public function validateDocument($key = NULL) {
     if ($key != NULL) {
@@ -132,7 +148,10 @@ class Communication implements CommunicationInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * Get the environment url.
+   *
+   * @return string
+   *   Environment url.
    */
   public function getEnvironment() {
     // Get the config info.
