@@ -75,8 +75,8 @@ class CustomerEntity extends RevisionableContentEntityBase implements CustomerEn
    * @param \Drupal\Core\Entity\EntityStorageInterface $storage_controller
    *   The entity storage object.
    * @param array $values
-   *   An array of values to set, keyed by property name. If the entity type
-   *   has bundles the bundle key has to be specified.
+   *   An array of values to set, keyed by property name. If the customer
+   *   entity has bundles the bundle key has to be specified.
    */
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
@@ -289,7 +289,7 @@ class CustomerEntity extends RevisionableContentEntityBase implements CustomerEn
   }
 
   /**
-   * Gets an array of placeholders for this entity.
+   * Gets an array of placeholders for customer entity.
    *
    * Individual entity classes may override this method to add additional
    * placeholders if desired. If so, they should be sure to replicate the

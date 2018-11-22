@@ -70,7 +70,13 @@ class ProviderEntity extends RevisionableContentEntityBase implements ProviderEn
   use EntityChangedTrait;
 
   /**
-   * {@inheritdoc}
+   * Changes the values of an provider entity before it is created.
+   *
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage_controller
+   *   The entity storage object.
+   * @param array $values
+   *   An array of values to set, keyed by property name. If the provider
+   *   entity has bundles the bundle key has to be specified.
    */
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
@@ -80,7 +86,10 @@ class ProviderEntity extends RevisionableContentEntityBase implements ProviderEn
   }
 
   /**
-   * {@inheritdoc}
+   * Acts on an provider entity before the presave hook is invoked.
+   *
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage
+   *   The entity storage object.
    */
   public function preSave(EntityStorageInterface $storage) {
     parent::preSave($storage);
@@ -100,14 +109,23 @@ class ProviderEntity extends RevisionableContentEntityBase implements ProviderEn
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the Provider name.
+   *
+   * @return string
+   *   Name of the Provider.
    */
   public function getName() {
     return $this->get('name')->value;
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the Customer name.
+   *
+   * @param string $name
+   *   The Customer name.
+   *
+   * @return \Drupal\provider_entity\Entity\ProviderEntityInterface
+   *   The called Customer entity.
    */
   public function setName($name) {
     $this->set('name', $name);
@@ -115,14 +133,23 @@ class ProviderEntity extends RevisionableContentEntityBase implements ProviderEn
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the Provider creation timestamp.
+   *
+   * @return int
+   *   Creation timestamp of the Provider.
    */
   public function getCreatedTime() {
     return $this->get('created')->value;
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the Provider creation timestamp.
+   *
+   * @param int $timestamp
+   *   The Provider creation timestamp.
+   *
+   * @return \Drupal\provider_entity\Entity\ProviderEntityInterface
+   *   The called Provider entity.
    */
   public function setCreatedTime($timestamp) {
     $this->set('created', $timestamp);
@@ -160,14 +187,25 @@ class ProviderEntity extends RevisionableContentEntityBase implements ProviderEn
   }
 
   /**
-   * {@inheritdoc}
+   * Returns the Provider published status indicator.
+   *
+   * Unpublished Provider are only visible to restricted users.
+   *
+   * @return bool
+   *   TRUE if the Provider is published.
    */
   public function isPublished() {
     return (bool) $this->getEntityKey('status');
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the published status of a Provider.
+   *
+   * @param bool $published
+   *   TRUE to set this Provider to published, FALSE to set it to unpublished.
+   *
+   * @return \Drupal\provider_entity\Entity\ProviderEntityInterface
+   *   The called Provider entity.
    */
   public function setPublished($published) {
     $this->set('status', $published ? TRUE : FALSE);
@@ -251,7 +289,7 @@ class ProviderEntity extends RevisionableContentEntityBase implements ProviderEn
   }
 
   /**
-   * Gets an array of placeholders for this entity.
+   * Gets an array of placeholders for provider entity.
    *
    * Individual entity classes may override this method to add additional
    * placeholders if desired. If so, they should be sure to replicate the
