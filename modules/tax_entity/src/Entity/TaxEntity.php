@@ -10,7 +10,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
 
 /**
- * Defines the Tax entity entity.
+ * Defines the Tax entity.
  *
  * @ingroup tax_entity
  *
@@ -40,7 +40,7 @@ use Drupal\user\UserInterface;
  *   revision_table = "tax_entity_revision",
  *   revision_data_table = "tax_entity_field_revision",
  *   translatable = TRUE,
- *   admin_permission = "administer tax entity entities",
+ *   admin_permission = "administer tax entities",
  *   entity_keys = {
  *     "id" = "id",
  *     "revision" = "vid",
@@ -70,7 +70,13 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
   use EntityChangedTrait;
 
   /**
-   * {@inheritdoc}
+   * Changes the values of an tax entity before it is created.
+   *
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage_controller
+   *   The entity storage object.
+   * @param array $values
+   *   An array of values to set, keyed by property name. If the customer
+   *   entity has bundles the bundle key has to be specified.
    */
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
@@ -80,7 +86,10 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
   }
 
   /**
-   * {@inheritdoc}
+   * Acts on an customer entity before the presave hook is invoked.
+   *
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage
+   *   The entity storage object.
    */
   public function preSave(EntityStorageInterface $storage) {
     parent::preSave($storage);
@@ -100,14 +109,23 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the Tax entity name.
+   *
+   * @return string
+   *   Name of the Tax entity.
    */
   public function getName() {
     return $this->get('name')->value;
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the Tax entity name.
+   *
+   * @param string $name
+   *   The Tax entity name.
+   *
+   * @return \Drupal\tax_entity\Entity\TaxEntityInterface
+   *   The called Tax entity.
    */
   public function setName($name) {
     $this->set('name', $name);
@@ -115,14 +133,23 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the Tax entity creation timestamp.
+   *
+   * @return int
+   *   Creation timestamp of the Tax entity.
    */
   public function getCreatedTime() {
     return $this->get('created')->value;
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the Tax entity creation timestamp.
+   *
+   * @param int $timestamp
+   *   The Tax entity creation timestamp.
+   *
+   * @return \Drupal\tax_entity\Entity\TaxEntityInterface
+   *   The called Tax entity.
    */
   public function setCreatedTime($timestamp) {
     $this->set('created', $timestamp);
@@ -160,14 +187,25 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
   }
 
   /**
-   * {@inheritdoc}
+   * Returns the Tax entity published status indicator.
+   *
+   * Unpublished Tax entity are only visible to restricted users.
+   *
+   * @return bool
+   *   TRUE if the Tax entity is published.
    */
   public function isPublished() {
     return (bool) $this->getEntityKey('status');
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the published status of a Tax entity.
+   *
+   * @param bool $published
+   *   TRUE to set this Tax entity to published, FALSE to set it to unpublished.
+   *
+   * @return \Drupal\tax_entity\Entity\TaxEntityInterface
+   *   The called Tax entity.
    */
   public function setPublished($published) {
     $this->set('status', $published ? TRUE : FALSE);
@@ -184,7 +222,7 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
 
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
-      ->setDescription(t('The user ID of author of the Tax entity entity.'))
+      ->setDescription(t('The user ID of author of the Tax entity.'))
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
@@ -209,7 +247,7 @@ class TaxEntity extends RevisionableContentEntityBase implements TaxEntityInterf
 
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
-      ->setDescription(t('The name of the Tax entity entity.'))
+      ->setDescription(t('The name of the Tax entity.'))
       ->setRevisionable(TRUE)
       ->setSettings([
         'max_length' => 50,
