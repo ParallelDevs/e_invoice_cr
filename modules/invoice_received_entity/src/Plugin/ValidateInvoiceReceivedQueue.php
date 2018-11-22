@@ -18,15 +18,9 @@ class ValidateInvoiceReceivedQueue extends QueueWorkerBase {
 
   /**
    * Performs create access checks.
-   *
-   * @param array $data
-   *   The user for which to check access.
-   *
-   * @return \Drupal\Core\Access\AccessResultInterface
-   *   The data that was passed to when the item was queued.
    */
   public function processItem($data) {
-    /* @var \Drupal\invoice_entity\InvoiceService  $invoice_service */
+    /* @var \Drupal\invoice_entity\InvoiceService $invoice_service */
     $invoice_service = \Drupal::service('invoice_entity.service');
 
     if (isset($data['number_key']) && !is_null($data['number_key'])) {

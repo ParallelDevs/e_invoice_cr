@@ -171,6 +171,7 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
    * Import XML from a inbox gmail account and mapping the entities in Drupal.
    */
   public function importXmlFromEmail() {
+    // All the data of the IMAP configuration is obtained.
     $settings = \Drupal::config('imap_settings.settings');
     $remote = $settings->get('remote');
     $port = $settings->get('port');
@@ -179,18 +180,30 @@ class InvoiceReceivedEntityController extends ControllerBase implements Containe
     $imap = '{' . $remote . ':' . $port . $flag . '}' . $mailbox;
     $username = $settings->get('username');
     $password = $settings->get('password');
+    // The data is passed (with its respective structure) per parameter to the
+    // function imap_open.
     $inbox = imap_open($imap, $username, $password);
+    // Check if the conection to the mailbox was successful.
     if (!is_null($inbox)) {
       $importXml = \Drupal::service('invoice_received.service');
+      // Filtered search to obtain the id of each mail.
       $emails = imap_search($inbox, 'ALL UNSEEN');
+      // Check if exists any unseed mail.
       if ($emails) {
+        // The routes of all the XML files that were attached to each mail
+        // are obtained.
         $paths = $importXml->getXMLFilesFromEmails($inbox, $emails);
         foreach ($paths as $path) {
+          // The content of the XML is obtained.
           $xml_content = file_get_contents($path);
           $simpleXml = simplexml_load_string($xml_content);
+          // Check if the file has the correct format and not exists the
+          // invoice key in the system.
           if (isset($simpleXml->Emisor->Identificacion->Numero) && !$importXml->alreadyExistInvoiceReceivedEntity($simpleXml->Clave)) {
             $importXml->createInvoiceReceivedEntityFromXML($simpleXml);
           }
+          // Check if the file has the correct format and not exists the
+          // provider ID in the system.
           if (isset($simpleXml->Emisor->Identificacion->Numero) && !$importXml->alreadyExistProviderEntity($simpleXml->Emisor->Identificacion->Numero)) {
             $importXml->createProviderEntityFromXML($simpleXml);
           }

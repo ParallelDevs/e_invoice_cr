@@ -12,13 +12,6 @@ class Communication implements CommunicationInterface {
   /**
    * Send documents.
    *
-   * @param string $doc
-   *   Contains the xml data.
-   * @param array $body
-   *   An array with the invoice document data.
-   * @param string $token
-   *   Authentication token for the API.
-   *
    * @return object
    *   The response object.
    */

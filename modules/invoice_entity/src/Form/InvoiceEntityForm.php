@@ -350,9 +350,6 @@ class InvoiceEntityForm extends ContentEntityForm {
   /**
    * Add the libraries.
    *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   *
    * @return array
    *   Return the form with the libraries added.
    */
@@ -376,9 +373,6 @@ class InvoiceEntityForm extends ContentEntityForm {
 
   /**
    * Search a custom library.
-   *
-   * @param array $libraries
-   *   The libraries needed for the form.
    *
    * @return string
    *   Returns the respective library.
