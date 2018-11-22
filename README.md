@@ -18,6 +18,8 @@ email module working properly.
 
 * Java Runtime Environment (JRE) installed on your server.
 
+* Java Development Kit (JDK) 
+
 * PHP 7
 
 ## THEMING

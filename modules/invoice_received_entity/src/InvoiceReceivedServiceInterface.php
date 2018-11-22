@@ -29,9 +29,6 @@ interface InvoiceReceivedServiceInterface {
   /**
    * Checks if the invoice was saved previously in the system.
    *
-   * @param string $number_key
-   *   The invoice number key.
-   *
    * @return bool
    *   If the invoice exists or not in the system.
    */
