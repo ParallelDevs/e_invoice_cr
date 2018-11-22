@@ -21,15 +21,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
   private $fileXml;
 
   /**
-   * Form constructor.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
-   *
-   * @return array
-   *   The form structure.
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     /* @var $entity \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity */
@@ -53,12 +45,7 @@ class InvoiceReceivedEntityForm extends ContentEntityForm {
   }
 
   /**
-   * Form submission handler for the 'save' action.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
+   * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
     $entity = $this->entity;

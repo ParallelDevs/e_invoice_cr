@@ -53,13 +53,7 @@ class TaxEntityRevisionRevertForm extends ConfirmFormBase {
   }
 
   /**
-   * Instantiates a new instance of this class.
-   *
-   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-   *   The service container this instance should use.
-   *
-   * @return \Drupal\Core\Form\ConfirmFormBase
-   *   A new instance of this class.
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static(
@@ -69,67 +63,42 @@ class TaxEntityRevisionRevertForm extends ConfirmFormBase {
   }
 
   /**
-   * Returns a unique string identifying the form.
-   *
-   * @return string
-   *   The unique string identifying the form.
+   * {@inheritdoc}
    */
   public function getFormId() {
     return 'tax_entity_revision_revert_confirm';
   }
 
   /**
-   * Returns the question to ask the user.
-   *
-   * @return string
-   *   The form question. The page title will be set to this value.
+   * {@inheritdoc}
    */
   public function getQuestion() {
     return t('Are you sure you want to revert to the revision from %revision-date?', ['%revision-date' => $this->dateFormatter->format($this->revision->getRevisionCreationTime())]);
   }
 
   /**
-   * Returns the route to go to if the user cancels the action.
-   *
-   * @return \Drupal\Core\Url
-   *   A URL object.
+   * {@inheritdoc}
    */
   public function getCancelUrl() {
     return new Url('entity.tax_entity.version_history', ['tax_entity' => $this->revision->id()]);
   }
 
   /**
-   * Returns a caption for the button that confirms the action.
-   *
-   * @return string
-   *   The form confirmation text.
+   * {@inheritdoc}
    */
   public function getConfirmText() {
     return t('Revert');
   }
 
   /**
-   * Returns additional text to display as a description.
-   *
-   * @return string
-   *   The form description.
+   * {@inheritdoc}
    */
   public function getDescription() {
     return '';
   }
 
   /**
-   * Returns a caption for the button that confirms the action.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
-   * @param string $tax_entity_revision
-   *   All previous revisions of the tax entity.
-   *
-   * @return array
-   *   The form structure.
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $tax_entity_revision = NULL) {
     $this->revision = $this->TaxEntityStorage->loadRevision($tax_entity_revision);
@@ -139,12 +108,7 @@ class TaxEntityRevisionRevertForm extends ConfirmFormBase {
   }
 
   /**
-   * Form submission handler.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
+   * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // The revision timestamp will be updated when the revision is saved. Keep

@@ -64,13 +64,7 @@ class InvoiceService implements InvoiceServiceInterface {
   }
 
   /**
-   * Check if the key is already used.
-   *
-   * @param string $key
-   *   The key to eval.
-   *
-   * @return bool
-   *   Return true if it found the key.
+   * {@inheritdoc}
    */
   public function checkInvoiceKey($key) {
     $result = $this->responseForKey($key);
@@ -92,13 +86,7 @@ class InvoiceService implements InvoiceServiceInterface {
   }
 
   /**
-   * Check the current state of the invoice.
-   *
-   * @param \Drupal\invoice_entity\Entity\InvoiceEntity $entity
-   *   Entity to eval.
-   *
-   * @return array
-   *   Return an array with the operation result information.
+   * {@inheritdoc}
    */
   public function validateInvoiceEntity(InvoiceEntity $entity) {
     $key = $entity->get('field_numeric_key')->value;
@@ -139,13 +127,7 @@ class InvoiceService implements InvoiceServiceInterface {
   }
 
   /**
-   * Check the current state of the InvoiceReceivedEntity.
-   *
-   * @param \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity $entity
-   *   Entity to eval.
-   *
-   * @return array
-   *   Return an array with the operation result information.
+   * {@inheritdoc}
    */
   public function validateInvoiceReceivedEntity(InvoiceReceivedEntity $entity) {
     $key = $entity->get('document_key')->value;
@@ -164,15 +146,7 @@ class InvoiceService implements InvoiceServiceInterface {
   }
 
   /**
-   * Generate the invoice key and return it.
-   *
-   * @param string $type
-   *   The type of the invoice.
-   * @param bool $received
-   *   If the document is a received invoice.
-   *
-   * @return string
-   *   Return the generated key.
+   * {@inheritdoc}
    */
   public function generateInvoiceKey($type, $received = FALSE) {
     // Get date information.
@@ -195,13 +169,7 @@ class InvoiceService implements InvoiceServiceInterface {
   }
 
   /**
-   * Generate the invoice consecutive number.
-   *
-   * @param string $type
-   *   Type of document.
-   *
-   * @return string
-   *   The consecutive number.
+   * {@inheritdoc}
    */
   public function generateConsecutive($type) {
     $document_code = isset(InvoiceEntityInterface::DOCUMENTATION_INFO[$type]) ?
@@ -211,13 +179,7 @@ class InvoiceService implements InvoiceServiceInterface {
   }
 
   /**
-   * Generate the message document's consecutive number.
-   *
-   * @param int $code
-   *   Message's code.
-   *
-   * @return string
-   *   The consecutive number.
+   * {@inheritdoc}
    */
   public function generateMessageConsecutive($code) {
     $document_code = InvoiceReceivedEntityInterface::IR_MESSAGES_STATES[$code]['code'];
@@ -226,28 +188,14 @@ class InvoiceService implements InvoiceServiceInterface {
   }
 
   /**
-   * Returns the invoiceNumber value.
-   *
-   * @param int $code
-   *   Message's code.
-   *
-   * @return string
-   *   The complete consecutive number.
+   * {@inheritdoc}
    */
   private function generateConsecutiveDoc($code) {
     return '00100001' . $code . self::$invoiceNumber;
   }
 
   /**
-   * Generate and check if the generated key is already used.
-   *
-   * @param string $type
-   *   The type of the invoice.
-   * @param bool $received
-   *   If the document is a received invoice.
-   *
-   * @return string
-   *   Return the new unique key.
+   * {@inheritdoc}
    */
   public function getUniqueInvoiceKey($type = 'FE', $received = FALSE) {
     $current_key = $this->generateInvoiceKey($type, $received);
@@ -268,12 +216,7 @@ class InvoiceService implements InvoiceServiceInterface {
   }
 
   /**
-   * Set variable value.
-   *
-   * @param string $variable_name
-   *   Variable machine name.
-   * @param string $value
-   *   New value for the variable.
+   * {@inheritdoc}
    */
   public static function setInvoiceVariable($variable_name, $value) {
     $config = \Drupal::service('config.factory')->getEditable('invoice_entity.settings');
@@ -281,10 +224,7 @@ class InvoiceService implements InvoiceServiceInterface {
   }
 
   /**
-   * Gets variables.
-   *
-   * @return string
-   *   Get value of the requested variable.
+   * {@inheritdoc}
    */
   public function getInvoiceVariable($variable_name) {
     $config = \Drupal::config('invoice_entity.settings');
@@ -293,20 +233,14 @@ class InvoiceService implements InvoiceServiceInterface {
   }
 
   /**
-   * Returns the invoiceNumber value.
-   *
-   * @return string
-   *   Invoice number.
+   * {@inheritdoc}
    */
   public function getDocumentNumber() {
     return self::$invoiceNumber;
   }
 
   /**
-   * Add the consecutive number, depending on the name of the type of document.
-   *
-   * @param string $documentType
-   *   The name of the document type selected in the invoice form.
+   * {@inheritdoc}
    */
   public function setConsecutiveNumber($documentType) {
 
@@ -346,16 +280,13 @@ class InvoiceService implements InvoiceServiceInterface {
 
     self::$invoiceNumber = $this->getInvoiceVariable(self::$consecutiveName);
     if (is_null(self::$invoiceNumber)) {
-      self::$invoiceNumber = '9000000001';
+      self::$invoiceNumber = '0000000001';
       $this->updateValues();
     }
   }
 
   /**
-   * Check if all the necessary information have been filled.
-   *
-   * @return bool
-   *   Return true if all the information is filled.
+   * {@inheritdoc}
    */
   public function checkSettingsData() {
     $settings = \Drupal::config('e_invoice_cr.settings');

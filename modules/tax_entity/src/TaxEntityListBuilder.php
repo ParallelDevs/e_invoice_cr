@@ -14,10 +14,7 @@ use Drupal\Core\Link;
 class TaxEntityListBuilder extends EntityListBuilder {
 
   /**
-   * Builds the header row for the tax entities.
-   *
-   * @return array
-   *   A render array structure of header strings.
+   * {@inheritdoc}
    */
   public function buildHeader() {
     $header['id'] = $this->t('Tax entity ID');
@@ -28,13 +25,7 @@ class TaxEntityListBuilder extends EntityListBuilder {
   }
 
   /**
-   * Builds a row for an entity in the tax entities.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The tax entity for this row of the list.
-   *
-   * @return array
-   *   A render array structure of header strings.
+   * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\tax_entity\Entity\TaxEntity */

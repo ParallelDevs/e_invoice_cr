@@ -19,10 +19,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Returns an array of event names this subscriber wants to listen to.
-   *
-   * @return array
-   *   The event names to listen to.
+   * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
     $events[InvoiceEmailEvent::SUBMIT][] = ['invoiceSendEmail', 800];
@@ -30,10 +27,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Attach the invoice documents and send the email.
-   *
-   * @param Drupal\invoice_email\InvoiceEmailEvent $event
-   *   The email event.
+   * Subscriber Callback for the event.
    */
   public function invoiceSendEmail(InvoiceEmailEvent $event) {
     // Build the email message.
@@ -140,10 +134,7 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Generates the invoice pdf file.
-   *
-   * @return Drupal\file\Entity\File
-   *   The file entity with the file data.
+   * Generates a pdf file.
    */
   public function generatePdfFile($path, $file_name, $entity) {
     $print_engine = \Drupal::service('plugin.manager.entity_print.print_engine')->createSelectedInstance('pdf');

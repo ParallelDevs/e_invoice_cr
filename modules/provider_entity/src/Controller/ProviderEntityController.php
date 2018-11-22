@@ -16,7 +16,7 @@ use Drupal\provider_entity\Entity\ProviderEntityInterface;
 class ProviderEntityController extends ControllerBase implements ContainerInjectionInterface {
 
   /**
-   * Displays a Provider revision.
+   * Displays a Provider  revision.
    *
    * @param int $provider_entity_revision
    *   The Provider  revision ID.

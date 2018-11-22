@@ -13,15 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
 class TaxEntityForm extends ContentEntityForm {
 
   /**
-   * Form constructor.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
-   *
-   * @return array
-   *   The form structure.
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     /* @var $entity \Drupal\tax_entity\Entity\TaxEntity */
@@ -35,6 +27,7 @@ class TaxEntityForm extends ContentEntityForm {
         '#weight' => 10,
       ];
     }
+    $entity = $this->entity;
 
     $states = [
       'visible' => [':input[id="edit-exoneration-value"]' => ['checked' => TRUE]],
@@ -61,12 +54,7 @@ class TaxEntityForm extends ContentEntityForm {
   }
 
   /**
-   * Form submission handler for the 'save' action.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
+   * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
     $entity = &$this->entity;

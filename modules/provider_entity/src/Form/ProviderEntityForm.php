@@ -13,15 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
 class ProviderEntityForm extends ContentEntityForm {
 
   /**
-   * Form constructor.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
-   *
-   * @return array
-   *   The form structure.
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     /* @var $entity \Drupal\provider_entity\Entity\ProviderEntity */
@@ -36,6 +28,8 @@ class ProviderEntityForm extends ContentEntityForm {
         '#weight' => 10,
       ];
     }
+
+    $entity = $this->entity;
 
     return $form;
   }
@@ -79,7 +73,6 @@ class ProviderEntityForm extends ContentEntityForm {
 
     }
 
-    // Validating id field only have numeric values.
     if (!is_numeric($form_state->getValue($id)[0]['value'])) {
       $form_state->setErrorByName($id, $this->t("The ID field should only have numbers. No spaces or special characters."));
     }
@@ -92,7 +85,6 @@ class ProviderEntityForm extends ContentEntityForm {
         );
       }
 
-      // Validating foreign id field only have numeric values.
       if (!is_numeric($form_state->getValue($foreign_id)[0]['value'])) {
         $form_state->setErrorByName($foreign_id, $this->t("The foreign ID should only have numbers. No spaces or special characters."));
       }
@@ -115,8 +107,7 @@ class ProviderEntityForm extends ContentEntityForm {
 
     $additionalInfo = $form_state->getValue($address);
 
-    // Validating additional information field have more of 40 characters.
-    if (strlen($additionalInfo[0]['additionalinfo']) > 40) {
+    if (strlen($additionalInfo[0]['additionalinfo']) > 160) {
       $form_state->setErrorByName('additionalinfo', $this->t('The additional information field need to have a maximum length of 160 characters.'));
     }
 
@@ -124,12 +115,7 @@ class ProviderEntityForm extends ContentEntityForm {
   }
 
   /**
-   * Form submission handler for the 'save' action.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
+   * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
     $entity = &$this->entity;

@@ -18,13 +18,7 @@ use Drupal\invoice_entity\Entity\InvoiceEntityInterface;
 class InvoiceEntityStorage extends SqlContentEntityStorage implements InvoiceEntityStorageInterface {
 
   /**
-   * Gets a list of Invoice revision IDs for a specific Invoice.
-   *
-   * @param \Drupal\invoice_entity\Entity\InvoiceEntityInterface $entity
-   *   The Invoice entity.
-   *
-   * @return int[]
-   *   Invoice revision IDs (in ascending order).
+   * {@inheritdoc}
    */
   public function revisionIds(InvoiceEntityInterface $entity) {
     return $this->database->query(

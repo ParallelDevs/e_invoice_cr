@@ -52,13 +52,7 @@ class InvoiceEntityRevisionDeleteForm extends ConfirmFormBase {
   }
 
   /**
-   * Instantiates a new instance of this class.
-   *
-   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-   *   The service container this instance should use.
-   *
-   * @return \Drupal\Core\Form\ConfirmFormBase
-   *   A new instance of this class.
+   * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     $entity_manager = $container->get('entity.manager');
@@ -69,57 +63,35 @@ class InvoiceEntityRevisionDeleteForm extends ConfirmFormBase {
   }
 
   /**
-   * Returns a unique string identifying the form.
-   *
-   * @return string
-   *   The unique string identifying the form.
+   * {@inheritdoc}
    */
   public function getFormId() {
     return 'invoice_entity_revision_delete_confirm';
   }
 
   /**
-   * Returns the question to ask the user.
-   *
-   * @return string
-   *   The form question. The page title will be set to this value.
+   * {@inheritdoc}
    */
   public function getQuestion() {
     return t('Are you sure you want to delete the revision from %revision-date?', ['%revision-date' => format_date($this->revision->getRevisionCreationTime())]);
   }
 
   /**
-   * Returns the route to go to if the user cancels the action.
-   *
-   * @return \Drupal\Core\Url
-   *   A URL object.
+   * {@inheritdoc}
    */
   public function getCancelUrl() {
     return new Url('entity.invoice_entity.version_history', ['invoice_entity' => $this->revision->id()]);
   }
 
   /**
-   * Returns a caption for the button that confirms the action.
-   *
-   * @return string
-   *   The form confirmation text.
+   * {@inheritdoc}
    */
   public function getConfirmText() {
     return t('Delete');
   }
 
   /**
-   * Returns a caption for the button that confirms the action.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
-   * @param string $invoice_entity_revision
-   *   All previous revisions of the invoice entity.
-   *
-   * @return array
-   *   The form structure.
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $invoice_entity_revision = NULL) {
     $this->revision = $this->InvoiceEntityStorage->loadRevision($invoice_entity_revision);
@@ -129,12 +101,7 @@ class InvoiceEntityRevisionDeleteForm extends ConfirmFormBase {
   }
 
   /**
-   * Form submission handler.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
+   * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->InvoiceEntityStorage->deleteRevision($this->revision->getRevisionId());
