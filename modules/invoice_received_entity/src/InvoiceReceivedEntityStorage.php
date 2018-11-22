@@ -18,7 +18,13 @@ use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface;
 class InvoiceReceivedEntityStorage extends SqlContentEntityStorage implements InvoiceReceivedEntityStorageInterface {
 
   /**
-   * {@inheritdoc}
+   * Gets a list of revision IDs for a specific Invoice received entity.
+   *
+   * @param \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface $entity
+   *   The Invoice received entity entity.
+   *
+   * @return int[]
+   *   Invoice received entity revision IDs (in ascending order).
    */
   public function revisionIds(InvoiceReceivedEntityInterface $entity) {
     return $this->database->query(
@@ -28,7 +34,13 @@ class InvoiceReceivedEntityStorage extends SqlContentEntityStorage implements In
   }
 
   /**
-   * {@inheritdoc}
+   * Gets a list of revision IDs having a given user as entity author.
+   *
+   * @param \Drupal\Core\Session\AccountInterface $account
+   *   The user entity.
+   *
+   * @return int[]
+   *   Invoice received entity revision IDs (in ascending order).
    */
   public function userRevisionIds(AccountInterface $account) {
     return $this->database->query(
@@ -38,7 +50,13 @@ class InvoiceReceivedEntityStorage extends SqlContentEntityStorage implements In
   }
 
   /**
-   * {@inheritdoc}
+   * Counts the number of revisions in the default language.
+   *
+   * @param \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface $entity
+   *   The Invoice received entity entity.
+   *
+   * @return int
+   *   The number of revisions in the default language.
    */
   public function countDefaultLanguageRevisions(InvoiceReceivedEntityInterface $entity) {
     return $this->database->query('SELECT COUNT(*) FROM {invoice_received_entity_field_revision} WHERE id = :id AND default_langcode = 1', [':id' => $entity->id()])
@@ -46,7 +64,10 @@ class InvoiceReceivedEntityStorage extends SqlContentEntityStorage implements In
   }
 
   /**
-   * {@inheritdoc}
+   * Unsets language for all Invoice received entity with the given language.
+   *
+   * @param \Drupal\Core\Language\LanguageInterface $language
+   *   The language object.
    */
   public function clearRevisionsLanguage(LanguageInterface $language) {
     return $this->database->update('invoice_received_entity_revision')

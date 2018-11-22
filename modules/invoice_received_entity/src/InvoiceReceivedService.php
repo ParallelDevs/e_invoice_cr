@@ -23,7 +23,13 @@ class InvoiceReceivedService implements InvoiceReceivedServiceInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * Instantiates a new instance of this class.
+   *
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The service container this instance should use.
+   *
+   * @return \Drupal\Core\Form\ConfirmFormBase
+   *   A new instance of this class.
    */
   public static function create(ContainerInterface $container) {
     return new static(
