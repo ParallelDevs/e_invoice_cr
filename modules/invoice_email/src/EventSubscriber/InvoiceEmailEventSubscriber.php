@@ -142,13 +142,6 @@ class InvoiceEmailEventSubscriber implements EventSubscriberInterface {
   /**
    * Generates the invoice pdf file.
    *
-   * @param string $path
-   *   The pdf file path.
-   * @param string $file_name
-   *   The pdf filename.
-   * @param Drupal\invoice_entity\Entity\InvoiceEntity $entity
-   *   The invoice entity to which it refers.
-   *
    * @return Drupal\file\Entity\File
    *   The file entity with the file data.
    */

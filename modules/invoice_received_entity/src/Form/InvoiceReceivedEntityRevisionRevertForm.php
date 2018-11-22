@@ -125,10 +125,8 @@ class InvoiceReceivedEntityRevisionRevertForm extends ConfirmFormBase {
    *   An associative array containing the structure of the form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
-   * @param string $customer_entity_revision
-   *   All previous revisions of the customer entity.
-   * @param string $langcode
-   *   The form language.
+   * @param string $invoice_received_entity_revision
+   *   All previous revisions of the invoice received entity.
    *
    * @return array
    *   The form structure.

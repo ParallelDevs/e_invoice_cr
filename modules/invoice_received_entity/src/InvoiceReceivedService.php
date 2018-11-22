@@ -47,10 +47,13 @@ class InvoiceReceivedService implements InvoiceReceivedServiceInterface {
   public function getXmlFilesFromEmails($inbox, $emails) {
     $count = 0;
     $paths = [];
+    // Sort the emails in the array by the identifier.
     rsort($emails);
     foreach ($emails as $email_number) {
+      // Fetches all the structured information for a given message.
       $structure = imap_fetchstructure($inbox, $email_number);
       $attachments = [];
+      // Go through all the emails and get the attachments in each one.
       if (isset($structure->parts) && count($structure->parts)) {
         for ($i = 0; $i < count($structure->parts); $i++) {
           $attachments[$i] = [
@@ -88,17 +91,21 @@ class InvoiceReceivedService implements InvoiceReceivedServiceInterface {
           }
         }
       }
+      // Go through all the files obtained.
       foreach ($attachments as $attachment) {
         if ($attachment['is_attachment'] == 1) {
+          // Verify if the file obtained is an XML.
           if (strpos($attachment['name'], '.xml') !== FALSE) {
             $filename = $attachment['name'];
             $folder = "attachment";
             if (!is_dir($folder)) {
               mkdir($folder);
             }
+            // Save the XML file.
             $fp = fopen("./" . $folder . "/" . $email_number . "-" . $filename, "w+");
             fwrite($fp, $attachment['attachment']);
             fclose($fp);
+            // Gets the path where the file was stored.
             $paths[$count] = "./" . $folder . "/" . $email_number . "-" . $filename;
             $count++;
           }
@@ -110,6 +117,9 @@ class InvoiceReceivedService implements InvoiceReceivedServiceInterface {
 
   /**
    * Gets the data from xml file, create a invoice received and save that.
+   *
+   * @param string $file_xml
+   *   The XML file data.
    *
    * @return bool
    *   Determinates if the entity saved successfully or not.
@@ -151,6 +161,27 @@ class InvoiceReceivedService implements InvoiceReceivedServiceInterface {
   }
 
   /**
+   * Checks if the invoice was saved previously in the system.
+   *
+   * @param string $number_key
+   *   The invoice number key.
+   *
+   * @return bool
+   *   If the invoice exists or not in the system.
+   */
+  public function alreadyExistInvoiceReceivedEntity($number_key) {
+    $connection = \Drupal::database();
+    $query = $connection->select('invoice_received_entity_field_data', 'ire');
+    $query->fields('ire', ['id']);
+    $query->leftJoin('invoice_received_entity__field_ir_numeric_key', 'ire_nk',
+      'ire.id = ire_nk.entity_id AND ire_nk.deleted = \'0\'');
+    $query->condition('ire_nk.field_ir_numeric_key_value', $number_key, '=');
+    $result = $query->execute();
+    $fetch = $result->fetchAll();
+    return !empty($fetch);
+  }
+
+  /**
    * Takes and sets the row data of the xml file in the invoice received entity.
    *
    * @return \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity
@@ -179,25 +210,10 @@ class InvoiceReceivedService implements InvoiceReceivedServiceInterface {
   }
 
   /**
-   * Checks if the invoice was saved previously in the system.
-   *
-   * @return bool
-   *   If the invoice exists or not in the system.
-   */
-  public function alreadyExistInvoiceReceivedEntity($number_key) {
-    $connection = \Drupal::database();
-    $query = $connection->select('invoice_received_entity_field_data', 'ire');
-    $query->fields('ire', ['id']);
-    $query->leftJoin('invoice_received_entity__field_ir_numeric_key', 'ire_nk',
-      'ire.id = ire_nk.entity_id AND ire_nk.deleted = \'0\'');
-    $query->condition('ire_nk.field_ir_numeric_key_value', $number_key, '=');
-    $result = $query->execute();
-    $fetch = $result->fetchAll();
-    return !empty($fetch);
-  }
-
-  /**
    * Gets the data from the xml file, create a provider entity and save that.
+   *
+   * @param string $file_xml
+   *   The XML file data.
    *
    * @return bool
    *   Determinates if the entity saved successfully or not.
@@ -230,6 +246,9 @@ class InvoiceReceivedService implements InvoiceReceivedServiceInterface {
 
   /**
    * Checks if the provider was saved previously in the system.
+   *
+   * @param string $id
+   *   The provider identifier.
    *
    * @return bool
    *   If the provider already exists or not in the system.
