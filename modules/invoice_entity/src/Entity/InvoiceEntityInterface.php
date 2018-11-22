@@ -19,25 +19,25 @@ interface InvoiceEntityInterface extends RevisionableInterface, RevisionLogInter
       'code' => '01',
       'label' => 'Electronic Bill',
       'xmltag' => 'FacturaElectronica',
-      'xmlns' => 'https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.2/FacturaElectronica_V.4.2.xsd',
+      'xmlns' => 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/facturaElectronica',
     ],
     'ND' => [
       'code' => '02',
       'label' => 'Debit Note',
       'xmltag' => 'NotaDebitoElectronica',
-      'xmlns' => 'https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.2/NotaDebitoElectronica.xsd',
+      'xmlns' => 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaDebitoElectronica',
     ],
     'NC' => [
       'code' => '03',
       'label' => 'Credit Note',
       'xmltag' => 'NotaCreditoElectronica',
-      'xmlns' => 'https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.2/NotaCreditoElectronica_V4.2.xsd',
+      'xmlns' => 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/notaCreditoElectronica',
     ],
     'TE' => [
       'code' => '04',
       'label' => 'Electronic Ticket',
       'xmltag' => 'TiqueteElectronico',
-      'xmlns' => 'https://www.hacienda.go.cr/ATV/ComprobanteElectronico/docs/esquemas/2016/v4.2/TiqueteElectronico_V4.2.xsd',
+      'xmlns' => 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/tiqueteElectronico',
     ],
   ];
 

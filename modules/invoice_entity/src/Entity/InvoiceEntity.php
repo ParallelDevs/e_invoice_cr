@@ -70,7 +70,13 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
   use EntityChangedTrait;
 
   /**
-   * {@inheritdoc}
+   * Changes the values of an invoice entity before it is created.
+   *
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage_controller
+   *   The entity storage object.
+   * @param array $values
+   *   An array of values to set, keyed by property name. If the entity type
+   *   has bundles the bundle key has to be specified.
    */
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
@@ -80,7 +86,10 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
   }
 
   /**
-   * {@inheritdoc}
+   * Acts on an invoice entity before the presave hook is invoked.
+   *
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage
+   *   The entity storage object.
    */
   public function preSave(EntityStorageInterface $storage) {
     parent::preSave($storage);

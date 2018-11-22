@@ -45,7 +45,15 @@ class InvoiceEntityForm extends ContentEntityForm {
   }
 
   /**
-   * {@inheritdoc}
+   * Form constructor.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @return array
+   *   The form structure.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     /* @var $entity \Drupal\invoice_entity\Entity\InvoiceEntity */
@@ -67,6 +75,11 @@ class InvoiceEntityForm extends ContentEntityForm {
 
   /**
    * Give to the invoice form the structure need it.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
    */
   private function invoiceFormStructure(array &$form, FormStateInterface $form_state) {
     /** @var \Drupal\invoice_entity\InvoiceService $invoice_service */
@@ -97,6 +110,8 @@ class InvoiceEntityForm extends ContentEntityForm {
       if (!empty($form_state->getUserInput()['type_of'])) {
         $type_of = $form_state->getUserInput()['type_of'];
         $invoice_service->setConsecutiveNumber($type_of);
+        // If the form have a document type selected, put the consecutive
+        // number in his respective input.
         $form['field_consecutive_number']['widget'][0]['value']['#default_value'] = $invoice_service->generateConsecutive($type_of);
       }
       $key = $type_of ? $invoice_service->getUniqueInvoiceKey($type_of) : $invoice_service->getUniqueInvoiceKey();
@@ -153,7 +168,12 @@ class InvoiceEntityForm extends ContentEntityForm {
   }
 
   /**
-   * {@inheritdoc}
+   * Form submission handler for the 'save' action.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
    */
   public function save(array $form, FormStateInterface $form_state) {
     $entity = &$this->entity;
@@ -200,6 +220,11 @@ class InvoiceEntityForm extends ContentEntityForm {
   /**
    * Generate the xml document, sign it and send it to it's validation.
    *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
    * @return bool
    *   Return true if did have no error.
    */
@@ -234,7 +259,6 @@ class InvoiceEntityForm extends ContentEntityForm {
     }
     else {
       // Add the key number to the invoice.
-      $type_of = $this->entity->get('type_of')->value;
       $this->entity->set('field_numeric_key', $invoice_service->generateInvoiceKey($type_of));
 
       $user_current = \Drupal::currentUser();
@@ -253,12 +277,13 @@ class InvoiceEntityForm extends ContentEntityForm {
       $xml = $xml_generator->generateXmlByEntity($this->entity);
       $xml->saveXML();
       // Create dir.
-      $path = "public://xml/";
+      $path = file_default_scheme() . "://xml/";
+      // Get all necessary data for invoice file name.
       $user_current = \Drupal::currentUser();
       $id_cons = $this->entity->get('field_consecutive_number')->value;
       $doc_name = "document-" . $user_current->id() . "-" . $id_cons;
       file_prepare_directory($path, FILE_CREATE_DIRECTORY);
-      $result = $xml->save('public://xml/' . $doc_name . ".xml", LIBXML_NOEMPTYTAG);
+      $result = $xml->save($path . $doc_name . ".xml", LIBXML_NOEMPTYTAG);
 
       // Sign document.
       $signature = new Signature();
@@ -308,7 +333,7 @@ class InvoiceEntityForm extends ContentEntityForm {
         }
         $invoice_service->updateValues();
 
-        $path = 'public://xml_signed/';
+        $path = file_default_scheme() . "://xml_signed/";
         file_prepare_directory($path, FILE_CREATE_DIRECTORY);
         $signed_file = file_save_data($document, $path . $doc_name . 'segned.xml', FILE_EXISTS_REPLACE);
         $signed_file->setPermanent();
@@ -324,6 +349,12 @@ class InvoiceEntityForm extends ContentEntityForm {
 
   /**
    * Add the libraries.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   *
+   * @return array
+   *   Return the form with the libraries added.
    */
   private function addLibraries($form) {
     // Get default theme libraries.
@@ -345,6 +376,12 @@ class InvoiceEntityForm extends ContentEntityForm {
 
   /**
    * Search a custom library.
+   *
+   * @param array $libraries
+   *   The libraries needed for the form.
+   *
+   * @return string
+   *   Returns the respective library.
    */
   private function searchCustomLibrary($libraries) {
     foreach ($libraries as $index => $item) {
@@ -357,6 +394,9 @@ class InvoiceEntityForm extends ContentEntityForm {
 
   /**
    * Validate if the fields inside of the reference information are need.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
    */
   private function checkReferenceInformationRequired(FormStateInterface $form_state) {
     $message = t("If you're going to add a Reference please, fill all the fields in it.");
@@ -378,6 +418,9 @@ class InvoiceEntityForm extends ContentEntityForm {
 
   /**
    * Function that checks all fields that are dependent on the document type.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
    */
   private function typeDocumentDependentFields(FormStateInterface &$form_state) {
     foreach (InvoiceEntityForm::DEPENDENT_FIELDS as $field => $dependencies) {
@@ -457,6 +500,14 @@ class InvoiceEntityForm extends ContentEntityForm {
 
   /**
    * Gets document type from AJAX function and return the consecutive number.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @return string
+   *   The document type consecutive number.
    */
   public function changeConsecutiveNumber(array &$form, FormStateInterface &$form_state) {
     $type_of = $form_state->getValue('type_of')[0]['value'];
