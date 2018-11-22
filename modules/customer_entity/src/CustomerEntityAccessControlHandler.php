@@ -15,17 +15,7 @@ use Drupal\Core\Access\AccessResult;
 class CustomerEntityAccessControlHandler extends EntityAccessControlHandler {
 
   /**
-   * Performs access checks.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The entity storage object.
-   * @param string $operation
-   *   The entity operation.
-   * @param \Drupal\Core\Session\AccountInterface $account
-   *   The user for which to check access.
-   *
-   * @return \Drupal\Core\Access\AccessResultInterface
-   *   The access result.
+   * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
     /** @var \Drupal\customer_entity\Entity\CustomerEntityInterface $entity */
@@ -48,17 +38,7 @@ class CustomerEntityAccessControlHandler extends EntityAccessControlHandler {
   }
 
   /**
-   * Performs create access checks.
-   *
-   * @param \Drupal\Core\Session\AccountInterface $account
-   *   The user for which to check access.
-   * @param array $context
-   *   An array of key-value pairs to pass additional context when needed.
-   * @param string $entity_bundle
-   *   The bundle of the entity.
-   *
-   * @return \Drupal\Core\Access\AccessResultInterface
-   *   The access result.
+   * {@inheritdoc}
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
     return AccessResult::allowedIfHasPermission($account, 'add customer entities');

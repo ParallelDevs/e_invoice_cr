@@ -15,14 +15,7 @@ use Symfony\Component\Routing\Route;
 class InvoiceEntityHtmlRouteProvider extends AdminHtmlRouteProvider {
 
   /**
-   * Provides routes for customer entities.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
-   *   The entity type.
-   *
-   * @return array
-   *   Returns a route collection or an array of routes keyed by name, like
-   *   route_callbacks inside 'routing.yml' files.
+   * {@inheritdoc}
    */
   public function getRoutes(EntityTypeInterface $entity_type) {
     $collection = parent::getRoutes($entity_type);

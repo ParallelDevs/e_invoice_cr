@@ -14,10 +14,7 @@ use Drupal\Core\Link;
 class CustomerEntityListBuilder extends EntityListBuilder {
 
   /**
-   * Builds the header row for the customer entities.
-   *
-   * @return array
-   *   A render array structure of header strings.
+   * {@inheritdoc}
    */
   public function buildHeader() {
     $header['id'] = $this->t('Customer ID');
@@ -26,13 +23,7 @@ class CustomerEntityListBuilder extends EntityListBuilder {
   }
 
   /**
-   * Builds a row for an entity in the customer entities.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The customer entity for this row of the list.
-   *
-   * @return array
-   *   A render array structure of header strings.
+   * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\customer_entity\Entity\CustomerEntity */

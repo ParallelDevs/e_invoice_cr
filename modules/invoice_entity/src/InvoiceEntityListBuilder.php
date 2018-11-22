@@ -15,10 +15,7 @@ use Drupal\customer_entity\Entity\CustomerEntity;
 class InvoiceEntityListBuilder extends EntityListBuilder {
 
   /**
-   * Builds the header row for the invoice entities.
-   *
-   * @return array
-   *   A render array structure of header strings.
+   * {@inheritdoc}
    */
   public function buildHeader() {
     $header['id'] = $this->t('Invoice ID');
@@ -34,13 +31,7 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
   }
 
   /**
-   * Builds a row for an entity in the invoice entities.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The invoice entity for this row of the list.
-   *
-   * @return array
-   *   A render array structure of header strings.
+   * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\invoice_entity\Entity\InvoiceEntity */
@@ -73,10 +64,7 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
     $total_invoice = $entity->get('field_total_invoice')->getValue()[0]['value'];
 
     $row['id'] = $entity->id();
-    // The date is obtained and formatted.
     $row['date'] = substr(str_replace('T', ' - ', $date), 0, -3);
-    // The client's id is obtained and a link is created to redirect it to
-    // its data.
     $row['client'] = Link::createFromRoute(
       $customer_entity->get('name')->getValue()[0]['value'],
       'entity.customer_entity.canonical',
@@ -86,7 +74,6 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
     $row['type_of'] = $options[$entity->getInvoiceType()];
     $row['status'] = $state_label;
 
-    // Validate if the invoice entity has or not a credit term.
     if (isset($entity->get('field_credit_term')->getValue()[0]['value'])) {
       $row['credit'] = $entity->get('field_credit_term')->getValue()[0]['value'];
     }
@@ -96,8 +83,6 @@ class InvoiceEntityListBuilder extends EntityListBuilder {
 
     $row['total'] = $currency . ' ' . $total_invoice;
 
-    // Verify if the invoice has already been validated, to enable the option
-    // to download the documents that reference it.
     if (strcmp($state, 'published') == 0) {
       $row['download'] = Link::createFromRoute(
         $this->t('Download'),

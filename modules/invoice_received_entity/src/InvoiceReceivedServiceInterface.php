@@ -18,10 +18,24 @@ interface InvoiceReceivedServiceInterface {
   /**
    * Gets the data from xml file, create a invoice received and save that.
    *
+   * @param string $file_xml
+   *   The XML file data.
+   *
    * @return bool
    *   Determinates if the entity saved successfully or not.
    */
   public function createInvoiceReceivedEntityFromXml($file_xml);
+
+  /**
+   * Checks if the invoice was saved previously in the system.
+   *
+   * @param string $number_key
+   *   The invoice number key.
+   *
+   * @return bool
+   *   If the invoice exists or not in the system.
+   */
+  public function addRowToEntity($row, $entity);
 
   /**
    * Takes and sets the row data of the xml file in the invoice received entity.
@@ -29,18 +43,13 @@ interface InvoiceReceivedServiceInterface {
    * @return \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity
    *   Return the invoice received entity with the row data.
    */
-  public function addRowToEntity($row, $entity);
-
-  /**
-   * Checks if the invoice was saved previously in the system.
-   *
-   * @return bool
-   *   If the invoice exists or not in the system.
-   */
   public function alreadyExistInvoiceReceivedEntity($number_key);
 
   /**
    * Gets the data from the xml file, create a provider entity and save that.
+   *
+   * @param string $file_xml
+   *   The XML file data.
    *
    * @return bool
    *   Determinates if the entity saved successfully or not.
@@ -49,6 +58,9 @@ interface InvoiceReceivedServiceInterface {
 
   /**
    * Checks if the provider was saved previously in the system.
+   *
+   * @param string $id
+   *   The provider identifier.
    *
    * @return bool
    *   If the provider already exists or not in the system.

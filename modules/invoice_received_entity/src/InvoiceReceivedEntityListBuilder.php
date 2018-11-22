@@ -14,10 +14,7 @@ use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntityInterface;
 class InvoiceReceivedEntityListBuilder extends EntityListBuilder {
 
   /**
-   * Builds the header row for the invoice received entities.
-   *
-   * @return array
-   *   A render array structure of header strings.
+   * {@inheritdoc}
    */
   public function buildHeader() {
     $header['id'] = $this->t('Invoice received entity ID');
@@ -29,13 +26,7 @@ class InvoiceReceivedEntityListBuilder extends EntityListBuilder {
   }
 
   /**
-   * Builds a row for an entity in the invoice received entities.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The invoice received entity for this row of the list.
-   *
-   * @return array
-   *   A render array structure of header strings.
+   * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity */

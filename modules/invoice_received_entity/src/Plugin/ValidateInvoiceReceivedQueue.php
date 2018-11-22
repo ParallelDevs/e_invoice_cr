@@ -17,10 +17,10 @@ use Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity;
 class ValidateInvoiceReceivedQueue extends QueueWorkerBase {
 
   /**
-   * Performs create access checks.
+   * {@inheritdoc}
    */
   public function processItem($data) {
-    /* @var \Drupal\invoice_entity\InvoiceService $invoice_service */
+    /* @var \Drupal\invoice_entity\InvoiceService  $invoice_service */
     $invoice_service = \Drupal::service('invoice_entity.service');
 
     if (isset($data['number_key']) && !is_null($data['number_key'])) {

@@ -70,13 +70,7 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
   use EntityChangedTrait;
 
   /**
-   * Changes the values of an invoice entity before it is created.
-   *
-   * @param \Drupal\Core\Entity\EntityStorageInterface $storage_controller
-   *   The entity storage object.
-   * @param array $values
-   *   An array of values to set, keyed by property name. If the entity type
-   *   has bundles the bundle key has to be specified.
+   * {@inheritdoc}
    */
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
@@ -86,10 +80,7 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
   }
 
   /**
-   * Acts on an invoice entity before the presave hook is invoked.
-   *
-   * @param \Drupal\Core\Entity\EntityStorageInterface $storage
-   *   The entity storage object.
+   * {@inheritdoc}
    */
   public function preSave(EntityStorageInterface $storage) {
     parent::preSave($storage);
@@ -109,23 +100,14 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
   }
 
   /**
-   * Gets the Invoice name.
-   *
-   * @return string
-   *   Name of the Invoice.
+   * {@inheritdoc}
    */
   public function getName() {
     return $this->get('name')->value;
   }
 
   /**
-   * Sets the Invoice name.
-   *
-   * @param string $name
-   *   The Invoice name.
-   *
-   * @return \Drupal\invoice_entity\Entity\InvoiceEntityInterface
-   *   The called Invoice entity.
+   * {@inheritdoc}
    */
   public function setName($name) {
     $this->set('name', $name);
@@ -133,33 +115,21 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
   }
 
   /**
-   * Gets the Invoice type.
-   *
-   * @return string
-   *   Type of the Invoice.
+   * {@inheritdoc}
    */
   public function getInvoiceType() {
     return $this->get('type_of')->value;
   }
 
   /**
-   * Gets the Invoice creation timestamp.
-   *
-   * @return int
-   *   Creation timestamp of the Invoice.
+   * {@inheritdoc}
    */
   public function getCreatedTime() {
     return $this->get('created')->value;
   }
 
   /**
-   * Sets the Invoice creation timestamp.
-   *
-   * @param int $timestamp
-   *   The Invoice creation timestamp.
-   *
-   * @return \Drupal\invoice_entity\Entity\InvoiceEntityInterface
-   *   The called Invoice entity.
+   * {@inheritdoc}
    */
   public function setCreatedTime($timestamp) {
     $this->set('created', $timestamp);
@@ -197,25 +167,14 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
   }
 
   /**
-   * Returns the Invoice published status indicator.
-   *
-   * Unpublished Invoice are only visible to restricted users.
-   *
-   * @return bool
-   *   TRUE if the Invoice is published.
+   * {@inheritdoc}
    */
   public function isPublished() {
     return (bool) $this->getEntityKey('status');
   }
 
   /**
-   * Sets the published status of a Invoice.
-   *
-   * @param bool $published
-   *   TRUE to set this Invoice to published, FALSE to set it to unpublished.
-   *
-   * @return \Drupal\invoice_entity\Entity\InvoiceEntityInterface
-   *   The called Invoice entity.
+   * {@inheritdoc}
    */
   public function setPublished($published) {
     $this->set('status', $published ? TRUE : FALSE);
@@ -398,7 +357,7 @@ class InvoiceEntity extends RevisionableContentEntityBase implements InvoiceEnti
   }
 
   /**
-   * Gets an array of placeholders for invoice entity.
+   * Gets an array of placeholders for this entity.
    *
    * Individual entity classes may override this method to add additional
    * placeholders if desired. If so, they should be sure to replicate the

@@ -13,15 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
 class CustomerEntityForm extends ContentEntityForm {
 
   /**
-   * Form constructor.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
-   *
-   * @return array
-   *   The form structure.
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     /* @var $entity \Drupal\customer_entity\Entity\CustomerEntity */
@@ -37,6 +29,8 @@ class CustomerEntityForm extends ContentEntityForm {
       ];
     }
 
+    $entity = $this->entity;
+
     return $form;
   }
 
@@ -49,6 +43,7 @@ class CustomerEntityForm extends ContentEntityForm {
     $foreign_id = 'field_customer_foreign_id';
     $phone = 'field_phone';
     $address = 'field_direccion_';
+    $type = $form_state->getValue('field_type_id');
 
     // Validating id field regarding the identification type.
     switch ($form_state->getValue('field_type_id')[0]['value']) {
@@ -78,7 +73,6 @@ class CustomerEntityForm extends ContentEntityForm {
 
     }
 
-    // Validating id field only have numeric values.
     if (!is_numeric($form_state->getValue($id)[0]['value'])) {
       $form_state->setErrorByName($id, $this->t("The ID field should only have numbers. No spaces or special characters."));
     }
@@ -91,7 +85,6 @@ class CustomerEntityForm extends ContentEntityForm {
         );
       }
 
-      // Validating foreign id field only have numeric values.
       if (!is_numeric($form_state->getValue($foreign_id)[0]['value'])) {
         $form_state->setErrorByName($foreign_id, $this->t("The foreign ID should only have numbers. No spaces or special characters."));
       }
@@ -104,7 +97,6 @@ class CustomerEntityForm extends ContentEntityForm {
     }
 
     $count = 0;
-    // Validating address field.
     if (isset($form_state->getValue($address)[0])) {
       $filled_fields = array_filter($form_state->getValue($address)[0], function ($value) {
         return !empty($value);
@@ -116,7 +108,6 @@ class CustomerEntityForm extends ContentEntityForm {
       $form_state->setErrorByName($address, $this->t('If you are going to add the address information, please fill all the fields relate it.'));
     }
 
-    // Validating additional information field have more of 40 characters.
     $additionalInfo = $form_state->getValue($address);
     if (strlen($additionalInfo[0]['additionalinfo']) > 40) {
       $form_state->setErrorByName('additionalinfo', $this->t('The additional information field need to have a maximum length of 40 characters.'));
@@ -126,12 +117,7 @@ class CustomerEntityForm extends ContentEntityForm {
   }
 
   /**
-   * Form submission handler for the 'save' action.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
+   * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
     $entity = &$this->entity;

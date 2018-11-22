@@ -10,10 +10,7 @@ use Drupal\views\EntityViewsData;
 class ProviderEntityViewsData extends EntityViewsData {
 
   /**
-   * Returns views data for the customer entity.
-   *
-   * @return array
-   *   Views data in the format of hook_views_data().
+   * {@inheritdoc}
    */
   public function getViewsData() {
     $data = parent::getViewsData();

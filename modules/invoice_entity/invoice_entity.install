@@ -11,9 +11,11 @@ use Drupal\invoice_entity\Entity\InvoiceEntity;
  * Implements hook_update_8001().
  */
 function invoice_entity_update_8001() {
+  // Get the data from the Drupal configuration.
   $config = \Drupal::service('config.factory')->getEditable('invoice_entity.settings');
   $consecutive = $config->get('invoice_number');
 
+  // The variables that will be stored in the schema of the module.
   $documentTypes = [
     'electronic_bill_consecutive',
     'debit_note_consecutive',
@@ -23,7 +25,7 @@ function invoice_entity_update_8001() {
     'invoice_partial_accepted_consecutive',
     'invoice_rejected_consecutive',
   ];
-
+  // One and the data is stored.
   foreach ($documentTypes as $documentType) {
     $config->set($documentType, $consecutive)->save();
   }
@@ -34,6 +36,8 @@ function invoice_entity_update_8001() {
  * Implements hook_update_8002().
  */
 function invoice_entity_update_8002() {
+  // Re-installation of module configuration, to add the changes made to the
+  // configuration files.
   $config_service = \Drupal::service('config.installer');
   $config_service->installDefaultConfig('module', 'invoice_entity');
 }

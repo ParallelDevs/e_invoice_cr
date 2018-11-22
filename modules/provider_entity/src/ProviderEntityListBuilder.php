@@ -14,10 +14,7 @@ use Drupal\Core\Link;
 class ProviderEntityListBuilder extends EntityListBuilder {
 
   /**
-   * Builds the header row for the provider entities.
-   *
-   * @return array
-   *   A render array structure of header strings.
+   * {@inheritdoc}
    */
   public function buildHeader() {
     $header['id'] = $this->t('Provider ID');
@@ -26,13 +23,7 @@ class ProviderEntityListBuilder extends EntityListBuilder {
   }
 
   /**
-   * Builds a row for an entity in the provider entities.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The provider entity for this row of the list.
-   *
-   * @return array
-   *   A render array structure of header strings.
+   * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\provider_entity\Entity\ProviderEntity */
