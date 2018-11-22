@@ -12,14 +12,21 @@ use Drupal\file\Entity\File;
 class InvoiceSettingsForm extends ConfigFormBase {
 
   /**
-   * {@inheritdoc}
+   * Returns a unique string identifying the form.
+   *
+   * @return string
+   *   The unique string identifying the form.
    */
   public function getFormId() {
     return 'e_invoice_cr_admin_settings';
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the configuration names that will be editable.
+   *
+   * @return array
+   *   An array of configuration object names that are editable if called in
+   *   conjunction with the trait's config() method.
    */
   protected function getEditableConfigNames() {
     return [
@@ -28,7 +35,10 @@ class InvoiceSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Form constructor.
+   *
+   * @return array
+   *   An associative array containing the structure of the form.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $base_url = $host = \Drupal::request()->getHost();
@@ -298,7 +308,12 @@ class InvoiceSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Form submission handler.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();

@@ -17,6 +17,9 @@ class XMLGenerator {
   /**
    * Function to generate the xml document.
    *
+   * @param Drupal\invoice_entity\Entity\InvoiceEntity $entity
+   *   The newly created invoice entity.
+   *
    * @return \DOMDocument
    *   The complete xml to send.
    */
@@ -44,12 +47,15 @@ class XMLGenerator {
   /**
    * Function to generate the receiver messager xml document.
    *
+   * @param Drupal\invoice_received_entity\Entity\InvoiceReceivedEntity $entity
+   *   The newly created invoice received entity.
+   * @param string $consecutive
+   *   The consecutive number of the new invoice.
+   *
    * @return \DOMDocument
    *   The complete xml to send.
    */
-  public function generateReceiverMessageXml(InvoiceReceivedEntity $entity, $number_key, $consecutive) {
-    $settings = \Drupal::config('e_invoice_cr.settings');
-
+  public function generateReceiverMessageXml(InvoiceReceivedEntity $entity, $consecutive) {
     $tagname = 'MensajeReceptor';
     $xmlns = 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.2/mensajeReceptor';
     $xml_text = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>";
@@ -73,6 +79,9 @@ class XMLGenerator {
 
   /**
    * Generate the header for the xml document like Hacienda ask for it.
+   *
+   * @param Drupal\invoice_entity\Entity\InvoiceEntity $entity
+   *   The newly created invoice entity.
    *
    * @return string
    *   Return the header xml as a text.
@@ -107,6 +116,9 @@ class XMLGenerator {
   /**
    * Generate the detail part for the xml document like Hacienda ask for it.
    *
+   * @param Drupal\invoice_entity\Entity\InvoiceEntity $entity
+   *   The newly created invoice entity.
+   *
    * @return string
    *   Return the detail xml as a text.
    */
@@ -126,6 +138,9 @@ class XMLGenerator {
 
   /**
    * Generate the summary the xml document like Hacienda ask for it.
+   *
+   * @param Drupal\invoice_entity\Entity\InvoiceEntity $entity
+   *   The newly created invoice entity.
    *
    * @return string
    *   Return the summary xml as a text.
@@ -198,6 +213,9 @@ class XMLGenerator {
 
   /**
    * Generate the reference part for the xml document like Hacienda ask for it.
+   *
+   * @param Drupal\invoice_entity\Entity\InvoiceEntity $entity
+   *   The newly created invoice entity.
    *
    * @return string
    *   Return the reference information xml section as a text.
@@ -331,6 +349,11 @@ class XMLGenerator {
 
   /**
    * Generate the xml structure for a invoice row.
+   *
+   * @param int $index
+   *   The row number of the invoice document.
+   * @param array $row
+   *   An array that includes the row data.
    *
    * @return string
    *   Return the xml text from a row line of the invoice.

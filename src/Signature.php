@@ -8,7 +8,13 @@ namespace Drupal\e_invoice_cr;
 class Signature implements SignatureInterface {
 
   /**
-   * {@inheritdoc}
+   * Sign a document.
+   *
+   * @param string $doc_name
+   *   The invoice document file name.
+   *
+   * @return bool
+   *   The status.
    */
   public function signDocument($doc_name = "") {
     // Locate where is the jar.
