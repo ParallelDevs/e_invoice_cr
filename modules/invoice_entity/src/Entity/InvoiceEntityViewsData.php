@@ -10,7 +10,7 @@ use Drupal\views\EntityViewsData;
 class InvoiceEntityViewsData extends EntityViewsData {
 
   /**
-   * Returns views data for the entity type.
+   * Returns views data for the invoice entity.
    *
    * @return array
    *   Views data in the format of hook_views_data().

@@ -19,7 +19,7 @@ use Drupal\invoice_entity\Entity\InvoiceEntity;
 class InvoiceEntityController extends ControllerBase implements ContainerInjectionInterface {
 
   /**
-   * Displays a Invoice  revision.
+   * Displays a Invoice revision.
    *
    * @param int $invoice_entity_revision
    *   The Invoice  revision ID.
@@ -182,6 +182,7 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
    *   An array as expected by drupal_render().
    */
   public function validateInvoice($key, $id) {
+    /** @var \Drupal\invoice_entity\Entity\InvoiceEntity $entity */
     $entity = \Drupal::entityManager()->getStorage('invoice_entity')->load($id);
     $type_of = $entity->get('type_of')->getValue()[0]['value'];
 
@@ -190,6 +191,7 @@ class InvoiceEntityController extends ControllerBase implements ContainerInjecti
     $invoice_service->setConsecutiveNumber($type_of);
     $result = $invoice_service->validateInvoiceEntity($entity);
 
+    // Verify the result of the invoice validation.
     if (is_null($result['response'])) {
       drupal_set_message(t("Status Unknown. The state couldn't be validated."), 'error');
     }

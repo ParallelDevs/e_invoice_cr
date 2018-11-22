@@ -78,6 +78,7 @@ class CustomerEntityForm extends ContentEntityForm {
 
     }
 
+    // Validating id field only have numeric values.
     if (!is_numeric($form_state->getValue($id)[0]['value'])) {
       $form_state->setErrorByName($id, $this->t("The ID field should only have numbers. No spaces or special characters."));
     }
@@ -90,6 +91,7 @@ class CustomerEntityForm extends ContentEntityForm {
         );
       }
 
+      // Validating foreign id field only have numeric values.
       if (!is_numeric($form_state->getValue($foreign_id)[0]['value'])) {
         $form_state->setErrorByName($foreign_id, $this->t("The foreign ID should only have numbers. No spaces or special characters."));
       }
@@ -109,10 +111,12 @@ class CustomerEntityForm extends ContentEntityForm {
       $count = count($filled_fields);
     }
 
+    // Validating address field.
     if ($count > 0 && $count < 5) {
       $form_state->setErrorByName($address, $this->t('If you are going to add the address information, please fill all the fields relate it.'));
     }
 
+    // Validating additional information field have more of 40 characters.
     $additionalInfo = $form_state->getValue($address);
     if (strlen($additionalInfo[0]['additionalinfo']) > 40) {
       $form_state->setErrorByName('additionalinfo', $this->t('The additional information field need to have a maximum length of 40 characters.'));
